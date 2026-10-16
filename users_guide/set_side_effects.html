@@ -1,0 +1,330 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Set Side Effects - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/users_guide/set_side_effects.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="set-side-effects"><a class="header" href="#set-side-effects">Set Side Effects</a></h1>
+<p><code>withSideEffect("a", Set.of(..))</code> declares a side effect as a set: <code>aggregate("a")</code> and <code>store("a")</code>
+keep each value once, and <code>cap("a")</code>/<code>select("a")</code> return it as a list without duplicates. It
+differs from Apache TinkerPop 3.8.2 in these details.</p>
+<h2 id="a-set-is-a-property-of-the-side-effect-not-a-value-type"><a class="header" href="#a-set-is-a-property-of-the-side-effect-not-a-value-type">A set is a property of the side effect, not a value type</a></h2>
+<ul>
+<li><strong>TinkerPop:</strong> a set is a first-class value (<code>{"alice"}</code> in Groovy, <code>toSet()</code>, <code>GType.SET</code>).</li>
+<li><strong>Graphersal:</strong> there is no set value. The set belongs to the side-effect bucket. <code>cap("a")</code>
+returns a plain array (insertion order, no duplicates); <code>toSet()</code>, <code>GType.SET</code> and set
+literals anywhere else are not implemented.</li>
+<li><strong>DSL spelling:</strong> <code>Set.of("a", "b")</code> (0 to 10 arguments), <code>Set.ofList(["a", "b"])</code> and the
+<code>Set::of(..)</code>/<code>Set::of_list([..])</code> forms. The Groovy literal <code>{..}</code> does not exist in Rhai. In Rust:
+<code>GraphTraversalSource::with_side_effect_set</code>.</li>
+<li><code>Set.of(..)</code> accepts only plain values (strings, numbers, booleans, UUIDs, null); a vertex, a
+traversal or a map is a script error.</li>
+</ul>
+<h2 id="order"><a class="header" href="#order">Order</a></h2>
+<ul>
+<li><strong>TinkerPop:</strong> the iteration order of a set is the one of its implementation (<code>HashSet</code>:
+unspecified).</li>
+<li><strong>Graphersal:</strong> first-seen order, seed values first.</li>
+</ul>
+<h2 id="equality-of-members"><a class="header" href="#equality-of-members">Equality of members</a></h2>
+<ul>
+<li>Members are compared by value. <code>1</code> and <code>1.0</code> are different members.</li>
+<li>A property value collected from <code>values()</code> is compared by its value, not by the element it came
+from, so two vertices named "x" contribute one member. A property element collected from
+<code>properties()</code> is compared by its element and key (TinkerPop's property id), so those two
+vertices contribute two members (an edge property is also kept by identity, unlike TinkerPop; see
+<a href="property_elements.html">Property Elements</a>). Elements (vertices, edges) keep their identity.</li>
+<li>Bulk is invisible: a traverser of bulk <code>n</code> inserts its value once, with merging on or off.</li>
+</ul>
+<pre><code class="language-rhai graph=modern">g.withSideEffect("a", Set.of()).V().both().values("name").aggregate("a").cap("a").next()
+// ["josh", "lop", "vadas", "marko", "peter", "ripple"]
+g.withSideEffect("a", []).V().both().values("name").aggregate("a").cap("a").next()
+// a list seed keeps duplicates
+</code></pre>
+<h2 id="empty-side-effects"><a class="header" href="#empty-side-effects">Empty side effects</a></h2>
+<p><code>aggregate("a")</code>, <code>store("a")</code> and <code>subgraph("a")</code> declare their key when they run, even if they
+collect nothing (an empty upstream, or a <code>by()</code> that resolves no value). <code>cap("a")</code> then returns
+the empty collection, as in TinkerPop, and <code>where(P.within("a"))</code> is false and
+<code>where(P.without("a"))</code> true for it. Only a key that no step declares (a typo) is an error.</p>
+<ul>
+<li><code>cap("sg")</code> of a <code>subgraph("sg")</code> that collected nothing is an empty graph (see
+<a href="#subgraphs">Subgraphs</a>).</li>
+</ul>
+<h2 id="subgraphs"><a class="header" href="#subgraphs">Subgraphs</a></h2>
+<p><code>subgraph("sg")</code> collects the edges that pass through it, and <code>cap("sg")</code> returns them as a <strong>graph
+value</strong>, as in TinkerPop:</p>
+<pre><code class="language-rhai">let sub = g.e(0).subgraph("sg").cap("sg").next();
+sub.v().to_json()     // the two endpoint vertices of edge 0, with all their properties
+sub.e().count().next()   // 1
+</code></pre>
+<p>The graph value is a traversal source: <code>sub.v()</code>, <code>sub.e()</code>, <code>sub.addV(..)</code> work as on <code>g</code>.</p>
+<p>What the graph holds:</p>
+<ul>
+<li>the selected edges and <strong>both endpoint vertices</strong> of each (a vertex shared by several edges is
+copied once; a vertex without a selected edge is not included),</li>
+<li>ids, the whole <strong>label set</strong> of every vertex (not only the first label) and <strong>all properties at
+full depth</strong> (nested objects and arrays),</li>
+<li>the schema the source graph stores (mode and declarations, copied; clear it with
+<code>set_schema</code> on the copy if you do not want it). A source with no stored schema gives a copy
+that keeps inferring from its own data.</li>
+</ul>
+<p><code>subgraph()</code> needs the label: <code>subgraph()</code> alone is an error that names <code>subgraph("sg")</code> + <code>cap("sg")</code> and the
+short <code>to_graph()</code> terminal. The stream must be made of <strong>edges</strong>: a vertex (or any other value) reaching
+<code>subgraph("sg")</code> is an error whose help points at <code>outE()</code>/<code>inE()</code>/<code>bothE()</code>
+(<code>g.v(1).bothE().subgraph("sg").cap("sg")</code>). The kind is checked when each traverser arrives, so this
+also holds inside a nested traversal (<code>local(__.out().subgraph("sg"))</code> fails, <code>local(__.outE().subgraph("sg"))</code>
+works); an empty stream is fine and gives the empty graph.</p>
+<p>It is a <strong>snapshot</strong>: a copy, never a view. Changing the subgraph does not touch the source, and
+later changes of the source do not reach the subgraph. Ids are preserved (so the same vertex has
+the same id in both graphs) and stay unique. Bulk is invisible: an edge that reaches <code>subgraph()</code>
+once or a thousand times is collected once. While the stream runs only edge handles are
+collected; the copy is built when <code>cap()</code> runs.</p>
+<p><code>to_graph()</code> is the short form (a Graphersal extension, TinkerPop has no such step): a terminal
+that builds the same graph from a stream of edges, without a label.</p>
+<pre><code class="language-rhai graph=modern">g.e(0).to_graph()                 // one edge and its two vertices
+g.v(1).bothE().to_graph()         // all edges of vertex 1, with their vertices
+g.v(1).to_graph()                 // error: to_graph() needs edges
+</code></pre>
+<p>A stream of anything else than edges (vertices, values) is an error that names the edge forms; a
+stream with no results is an empty graph. In the Rust API <code>to_graph()</code> returns the shared graph
+handle (<code>Arc&lt;Graph&gt;</code>), and <code>cap("sg").next()</code> lists the graph as
+<code>{"vertices": [..], "edges": [..]}</code>. A script that ends on a graph value (<code>g.e(0).to_graph()</code>,
+<code>cap("sg").next()</code>) shows that same listing in <code>graphersal</code> and the playground, cut to the display
+limits (see <a href="displaying_results.html#graph-values">Graph values</a>); in the script the value stays a
+graph you traverse.</p>
+<h3 id="writing-into-your-own-graph"><a class="header" href="#writing-into-your-own-graph">Writing into your own graph</a></h3>
+<p>By default <code>cap("sg")</code> builds a new in-memory <code>TraversalGraph</code>. To write into a graph you own,
+declare it as the side effect, as in TinkerPop:</p>
+<pre><code class="language-rhai">let target = g.e(0).to_graph();                        // or GraphSource::empty()
+g.withSideEffect("sg", target).v(1).outE("created").subgraph("sg").toList();
+target.e().count().next()                              // 2: the edge copied before, plus one
+</code></pre>
+<p>The step writes through the graph mutation API when it has run, and <code>cap("sg")</code> returns the target
+itself. A vertex id the target already holds is reused and an edge id it already holds is skipped,
+so writing the same edges twice changes nothing. The target's own stored schema is kept (the
+source schema is copied only into a target that stores none). The target must not be the graph
+being traversed (<code>g</code> itself): that fails with an error instead of deadlocking.</p>
+<p>The target must also be a <code>TraversalGraph</code>. Every graph a script builds is one (<code>GraphSource::*</code>,
+<code>to_graph()</code>, <code>cap("sg")</code>, <code>_g</code>), but a host may serve its own <code>g</code> from another <code>GraphStorage</code>.
+<code>withSideEffect("sg", g)</code> with such a graph fails when the step is built, with
+<code>GraphError::Unsupported</code> naming the target's storage type. To get a subgraph of a foreign graph,
+let it land in a graph of the script (<code>g.E().hasLabel("knows").to_graph()</code>) and copy what you
+need from there.</p>
+<ul>
+<li><strong>Deviations from TinkerPop:</strong> the default graph is a Graphersal <code>TraversalGraph</code>, not a
+TinkerGraph, and an explicit target must be a graph value of this kind. <code>to_graph()</code> and the
+schema copy are extensions. In the Rust API a graph value is shown by <code>next()</code>/<code>to_list()</code> as
+its <code>{"vertices", "edges"}</code> listing; use <code>to_graph()</code> for the graph itself. See
+<a href="../for_developers/tinkerpop_deviations.html">TinkerPop deviations</a>.</li>
+</ul>
+<h2 id="reduced-values"><a class="header" href="#reduced-values">Reduced values</a></h2>
+<p><code>withSideEffect("a", 0, Operator.sum)</code> declares a side effect that <code>aggregate("a")</code> and <code>store("a")</code> combine with
+an <code>Operator</code> instead of collecting a list: <code>g.withSideEffect("a", 1, Operator.sum).V().aggregate("a").by("age").cap("a")</code>
+is <code>124</code>. See <a href="sack_and_operators.html#reducer-operators">Sack and Operators</a> for the rule and the deviations.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../users_guide/by_modulator_single.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../users_guide/tree_side_effect.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../users_guide/by_modulator_single.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../users_guide/tree_side_effect.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

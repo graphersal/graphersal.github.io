@@ -1,0 +1,444 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Upserts: mergeV and mergeE - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/users_guide/upserts.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="upserts-mergev-and-mergee"><a class="header" href="#upserts-mergev-and-mergee">Upserts: mergeV and mergeE</a></h1>
+<p>An <em>upsert</em> finds an element and creates it only when it does not exist yet. Graphersal follows
+TinkerPop's <code>mergeV()</code> / <code>mergeE()</code> steps: one map describes the element to look for, and
+<code>option(Merge.onCreate, ..)</code> / <code>option(Merge.onMatch, ..)</code> say what to write in either case.</p>
+<p>Every example on this page was run with <code>graphersal</code> (<code>--graph empty</code> where noted, otherwise the
+default modern graph); the line after <code>//</code> is its real output.</p>
+<h2 id="quick-reference"><a class="header" href="#quick-reference">Quick reference</a></h2>
+<pre><code>// --graph empty: the first call creates, the second one matches and updates
+g.mergeV(#{"T.label": "person", "name": "marko"}).option(Merge.onCreate, #{"age": 29}).elementMap().toList()
+// #{"age": 29, "id": "1", "label": "person", "name": "marko"}
+g.mergeV(#{"T.label": "person", "name": "marko"}).option(Merge.onCreate, #{"age": 29}).option(Merge.onMatch, #{"age": 30}).elementMap().toList()
+// #{"age": 30, "id": "1", "label": "person", "name": "marko"}
+
+// modern graph
+g.mergeV(#{"T.id": "1"}).values("name").toList()                       // "marko"
+g.mergeE(#{"T.label": "knows", "Direction.OUT": "1", "Direction.IN": "2"}).elementMap().toList()
+// #{"IN": #{"id": "2", "label": "person"}, "OUT": #{"id": "1", "label": "person"}, "id": "0", "label": "knows", "weight": 0.5}: the existing edge
+g.mergeE(#{"T.label": "knows", "Direction.OUT": "2", "Direction.IN": "1"}).option(Merge.onCreate, #{"weight": 0.1}).elementMap().toList()
+// #{"IN": #{"id": "1", "label": "person"}, "OUT": #{"id": "2", "label": "person"}, "id": "6", "label": "knows", "weight": 0.1}: created
+</code></pre>
+<p>In Rust the steps are <code>merge_v(map)</code>, <code>merge_v_by(traversal)</code>, <code>merge_e(map)</code>, <code>merge_e_by(traversal)</code>
+and <code>option_merge(Merge::OnCreate, map)</code>, <code>option_merge_by(Merge::OnMatch, traversal)</code>,
+<code>option_merge_with(Merge::OnCreate, map, Cardinality::Single)</code> on <code>GraphTraversalSource</code>,
+<code>AnonymousTraversal</code> and <code>__</code>. A map is an <code>ElementProperty::Object</code> with the same string keys as
+in the DSL.</p>
+<h2 id="map-keys-properties-and-reserved-token-keys"><a class="header" href="#map-keys-properties-and-reserved-token-keys">Map keys: properties and reserved token keys</a></h2>
+<p>Rhai map keys are strings, so a Gremlin token such as <code>T.label</code> cannot be a key. Graphersal
+reserves four string keys spelled exactly like the token:</p>
+<div class="table-wrapper"><table><thead><tr><th>Gremlin key</th><th>DSL key</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>T.id</code></td><td><code>"T.id"</code></td><td>the element id</td></tr>
+<tr><td><code>T.label</code></td><td><code>"T.label"</code></td><td>the label</td></tr>
+<tr><td><code>Direction.OUT</code> (<code>Direction.from</code>)</td><td><code>"Direction.OUT"</code></td><td>the out-vertex (<code>mergeE()</code> only)</td></tr>
+<tr><td><code>Direction.IN</code> (<code>Direction.to</code>)</td><td><code>"Direction.IN"</code></td><td>the in-vertex (<code>mergeE()</code> only)</td></tr>
+</tbody></table>
+</div>
+<p>Every other key is a property name. The engine reads these keys in every map a merge step
+receives, whether it is written as a literal, injected, taken from <code>select()</code> or built by
+<code>project()</code>, so a map keeps its meaning when it travels through a traversal:</p>
+<pre><code class="language-rhai graph=empty">// --graph empty
+g.inject(#{"T.label": "person", "name": "marko"}, #{"T.label": "person", "name": "stephen"}).mergeV().elementMap().toList()
+// #{"id": "1", "label": "person", "name": "marko"}
+// #{"id": "2", "label": "person", "name": "stephen"}
+</code></pre>
+<p><strong>Why not <code>"id"</code> and <code>"label"</code>?</strong> Those are ordinary property names: <code>elementMap()</code> uses them for
+the id and label entries, but a vertex may also carry a property called <code>id</code>, which then shadows
+the entry, and <code>[id: 1]</code> in Gremlin is the property <code>id</code> as well:</p>
+<pre><code class="language-rhai graph=empty">// --graph empty
+g.addV("person").property("id", 5).property("label", "x").elementMap().toList()
+// #{"id": 5, "label": "x"}
+</code></pre>
+<p>So <code>#{"id": "1"}</code> in a merge map searches for a <em>property</em> named <code>id</code>. Note the consequence for
+round trips: <code>elementMap()</code> returns <code>"id"</code>/<code>"label"</code>, so its result cannot be passed to <code>mergeV()</code>
+unchanged (TinkerPop's <code>elementMap()</code> returns <code>T.id</code>/<code>T.label</code> keys; see the backlog).</p>
+<p><strong>Reserved prefixes.</strong> In a merge map and in <code>property(map)</code>, a key that starts with <code>T.</code> or
+<code>Direction.</code> but is not one of the four keys above, or a key that starts with <code>~</code>, is an error,
+never a silent property name:</p>
+<pre><code>// --graph empty
+g.mergeV(#{"~id": 1}).toList()
+// Error: Property key can not be a hidden key: ~id (in the merge() map of mergeV())
+// Help: Write the id with the reserved key "T.id" instead of "~id", for example g.merge_v(#{"T.id": "1"}). ...
+g.mergeV(#{"T.key": 1}).toList()
+// Error: unsupported token key "T.key": a merge map takes only the token keys "T.id", "T.label", "Direction.OUT" and "Direction.IN" (in the merge() map of mergeV())
+</code></pre>
+<p>A property literally named <code>"T.label"</code> can still be written one key at a time:</p>
+<pre><code class="language-rhai graph=empty">// --graph empty
+g.addV("person").property("T.label", "x").valueMap().toList()     // #{"T.label": ["x"]}
+</code></pre>
+<h2 id="mergev"><a class="header" href="#mergev">mergeV</a></h2>
+<p><code>mergeV(map)</code> searches for vertices whose id equals <code>"T.id"</code> (if given), whose label set contains
+<code>"T.label"</code> (if given) and whose every other entry equals the stored property, with the same
+equality as <code>has(key, value)</code>. Every match is emitted. <code>null</code> (<code>()</code> in Rhai) and <code>#{}</code> match every
+vertex. <code>mergeV(traversal)</code> takes the map from the first result of the traversal, and <code>mergeV()</code>
+with no argument uses the incoming traverser itself as the map (the <code>inject()</code> example above).</p>
+<ul>
+<li><strong>onMatch</strong> runs on each match. Its map is written with <code>property()</code> semantics; <code>null</code> / <code>#{}</code>
+change nothing. An onMatch traversal receives the <em>matched</em> vertex and must yield a map.
+<code>"T.id"</code>/<code>"T.label"</code> are not allowed in onMatch.</li>
+<li><strong>onCreate</strong> runs only when nothing matched. The new vertex gets the merge map <strong>plus</strong> the
+onCreate map (inheritance). An onCreate traversal receives the incoming traverser.</li>
+<li><strong>Override rule.</strong> A key present in both maps must have the same value; onCreate can only add
+keys. With two constant maps the check runs before execution, even when a match exists:</li>
+</ul>
+<pre><code>// --graph empty
+g.mergeV(#{"T.label": "person", "name": "marko"}).option(Merge.onCreate, #{"T.label": "dog"}).toList()
+// Error: option(onCreate) cannot override values from merge() argument: T.label is "person" in mergeV() but "dog" in option(onCreate)
+// Help: option(Merge.onCreate, ..) can only add keys to the merge() map: a key present in both must have the same value there. ...
+</code></pre>
+<pre><code class="language-rhai graph=empty">// --graph empty: inheritance, the label comes from onCreate
+g.mergeV(#{"name": "marko"}).option(Merge.onCreate, #{"T.label": "person", "age": 29}).elementMap().toList()
+// #{"age": 29, "id": "1", "label": "person", "name": "marko"}
+g.mergeV(()).option(Merge.onCreate, #{"T.label": "person", "name": "marko"}).elementMap().toList()
+// #{"id": "1", "label": "person", "name": "marko"}
+
+// modern graph: an onMatch traversal
+g.mergeV(#{"name": "marko"}).option(Merge.onMatch, __.project("visits").by(__.constant(1))).valueMap("name", "visits").toList()
+// #{"name": ["marko"], "visits": [1]}
+</code></pre>
+<p><strong>Start step or mid-traversal.</strong> As the first step, <code>mergeV()</code> runs once. In the middle of a
+traversal it runs once per incoming traverser and emits every match each time; an empty stream
+merges nothing:</p>
+<pre><code class="language-rhai graph=modern">g.mergeV(#{}).count().next()                                         // 6
+g.V().hasLabel("software").mergeV(#{}).count().next()                // 12: 2 traversers × 6 vertices
+g.V().hasLabel("software").mergeV(#{"T.label": "person", "name": "vadas"}).values("name").toList()
+// "vadas"
+// "vadas"
+</code></pre>
+<p>Graphersal keeps its own defaults where they differ from TinkerPop: a vertex created without
+<code>"T.label"</code> is unlabeled (as with <code>addV()</code>), ids are strings, and a <code>null</code> property value is
+stored.</p>
+<h2 id="mergee"><a class="header" href="#mergee">mergeE</a></h2>
+<p><code>mergeE()</code> takes the same forms and options, plus the keys <code>"Direction.OUT"</code> and <code>"Direction.IN"</code>.
+Their value is an existing vertex id, a vertex, or the placeholder <code>Merge.outV</code> / <code>Merge.inV</code>,
+which <code>option(Merge.outV, ..)</code> / <code>option(Merge.inV, ..)</code> resolve <strong>before</strong> the search:</p>
+<pre><code class="language-rhai graph=modern">g.V("1").as("a").V("3").as("b").mergeE(#{"T.label": "likes", "Direction.OUT": Merge.outV, "Direction.IN": Merge.inV}).option(Merge.outV, __.select("a")).option(Merge.inV, __.select("b")).project("label", "out", "in").by(T.label).by(__.outV().values("name")).by(__.inV().values("name")).toList()
+// #{"in": "lop", "label": "likes", "out": "marko"}
+g.mergeE(#{"T.label": "knows", "Direction.OUT": "2", "Direction.IN": Merge.inV}).option(Merge.inV, #{"T.label": "person", "name": "josh"}).elementMap().toList()
+// #{"id": "6", "label": "knows"}
+</code></pre>
+<p>An <code>option(Merge.outV|inV, map)</code> map is a vertex search (<code>"T.id"</code>, <code>"T.label"</code>, properties) that
+must find exactly one vertex; an option traversal receives the incoming traverser and must yield a
+vertex or a vertex id.</p>
+<ul>
+<li><strong>Search.</strong> Edges with the given id, label, out-vertex, in-vertex and properties. The incoming
+vertex is <em>not</em> an implicit endpoint: <code>g.V().hasLabel("person").mergeE(#{"T.label": "knows"}).count().next()</code>
+returns <code>8</code> (4 traversers × 2 <code>knows</code> edges).</li>
+<li><strong>Create.</strong> Needs both vertices after onCreate inheritance:</li>
+</ul>
+<pre><code>// --graph empty
+g.mergeE(#{"T.label": "knows"}).toList()
+// Caused by: Out Vertex not specified
+// Help: An edge merge_e() creates needs both vertices: give "Direction.OUT" and "Direction.IN" an existing vertex id, ...
+
+// modern graph
+g.mergeE(#{"T.label": "knows", "Direction.OUT": "1", "Direction.IN": "100"}).toList()
+// Caused by: Vertex id could not be resolved from mergeE: 100
+</code></pre>
+<ul>
+<li>The override rule covers <code>"Direction.OUT"</code>/<code>"Direction.IN"</code> too. <code>"Direction.BOTH"</code> is rejected
+(an edge has two named ends), and so is every <code>Cardinality</code>: edge properties have none.
+<code>"T.id"</code> sets the id of a created edge.</li>
+</ul>
+<h2 id="cardinality"><a class="header" href="#cardinality">Cardinality</a></h2>
+<p>Graphersal stores <strong>one value per property key</strong>. Of TinkerPop's three cardinalities only
+<code>Cardinality.single</code> (replace the current value) is supported:</p>
+<pre><code>g.V("1").property(Cardinality.single, "age", 30).values("age").toList()   // 30
+g.V("1").property(Cardinality.list, "age", 30).toList()
+// Caused by: Cardinality.list is not supported: Graphersal stores one value per property key (property() would write a second value)
+// Help: ... To keep several values, store them as one array value: g.v("1").property("tags", ["a", "b"]).
+g.V("1").property("tags", ["a", "b"]).values("tags").toList()             // ["a", "b"]
+</code></pre>
+<p><code>Cardinality.list</code> and <code>Cardinality.set</code> are accepted as tokens and fail with
+<code>TraverserError::UnsupportedCardinality</code> only <strong>when a value would be written</strong>, because that is
+where a second value would silently replace the first. A call that writes nothing succeeds, as in
+TinkerPop:</p>
+<pre><code class="language-rhai graph=empty">// --graph empty
+g.addV("person").property(Cardinality.set, #{}).count().next()           // 1
+</code></pre>
+<p>The token works everywhere TinkerPop takes it: as the first argument of <code>property()</code>, as the
+default of a map (<code>property(Cardinality.single, map)</code>,
+<code>option(Merge.onCreate, map, Cardinality.single)</code>) and per value with <code>Cardinality.single(v)</code>:</p>
+<pre><code class="language-rhai graph=modern">g.mergeV(#{"name": "marko"}).option(Merge.onCreate, #{"age": Cardinality.single(29)}, Cardinality.single).values("age").toList()
+// 29
+</code></pre>
+<p>On an edge any cardinality is an error ("Property cardinality can only be set for a Vertex").</p>
+<h3 id="propertymap-propertytid-propertytlabel"><a class="header" href="#propertymap-propertytid-propertytlabel">property(map), property(T.id), property(T.label)</a></h3>
+<p><code>property(map)</code> writes one property per entry; <code>null</code> / <code>#{}</code> write nothing. Its keys are plain
+property names (the reserved prefixes above are errors). The id and label of a vertex that
+<code>addV()</code> is creating are set with <code>property(T.id, v)</code> / <code>property(T.label, v)</code>, anywhere among the
+<code>property()</code> calls that follow it:</p>
+<pre><code>// --graph empty
+g.addV("person").property(#{"name": "marko", "age": 29}).valueMap().toList()
+// #{"age": [29], "name": ["marko"]}
+g.addV("person").property(T.id, "p1").property("name", "marko").elementMap().toList()
+// #{"id": "p1", "label": "person", "name": "marko"}
+g.addV("person").property(T.label, "animal").label().toList()             // "animal"
+
+// modern graph: the id of an existing element cannot change
+g.V("1").property(T.id, "p1").toList()
+// Caused by: property(T.id, ..) can only set the id of an element addV()/addE() is creating
+</code></pre>
+<h2 id="direction-totoetov-and-haslabel-key-value"><a class="header" href="#direction-totoetov-and-haslabel-key-value">Direction, to/toE/toV and has(label, key, value)</a></h2>
+<p><code>Direction.OUT</code>, <code>Direction.IN</code> and <code>Direction.BOTH</code> (aliases <code>Direction.from</code> = <code>OUT</code>,
+<code>Direction.to</code> = <code>IN</code>) are the merge-map keys above and the argument of the generic navigation
+steps: <code>to(Direction, labels..)</code> is <code>out/in/both(labels..)</code>, <code>toE(Direction, labels..)</code> is
+<code>outE/inE/bothE</code>, and <code>toV(Direction)</code> is <code>outV/inV/bothV</code>. In Rust: <code>to_direction</code>, <code>to_e</code>,
+<code>to_v</code>.</p>
+<pre><code class="language-rhai graph=modern">g.V("1").to(Direction.OUT, "knows").values("name").toList()              // "josh", "vadas"
+g.V("1").toE(Direction.OUT, "created").toV(Direction.IN).values("name").toList()   // "lop"
+g.V("4").to(Direction.BOTH).values("name").toList()                      // "ripple", "lop", "marko"
+</code></pre>
+<p>The three-argument <code>has(label, key, value)</code> (and <code>has(label, key, P)</code>) combines <code>hasLabel()</code> and
+<code>has()</code>; in Rust <code>has_labeled</code> / <code>has_labeled_p</code>:</p>
+<pre><code class="language-rhai graph=modern">g.V().has("person", "name", "marko").values("age").toList()              // 29
+g.V().has("person", "age", P.gt(30)).values("name").toList()             // "josh", "peter"
+</code></pre>
+<h2 id="confirming-the-lookup-with-profile"><a class="header" href="#confirming-the-lookup-with-profile">Confirming the lookup with profile()</a></h2>
+<p>A merge step looks elements up through the storage indexes, not through a nested traversal.
+<code>.profile()</code> names the strategy after the step: <code>id</code> (<code>"T.id"</code>), <code>label</code> (<code>"T.label"</code>),
+<code>out-edges</code> / <code>in-edges</code> (<code>mergeE()</code> with a known vertex), <code>scan</code> (only property keys) or
+<code>dynamic</code> (the map comes from a traversal). Add the missing key to turn a <code>scan</code> into an index
+lookup.</p>
+<pre><code class="language-rhai graph=modern">g.mergeV(#{"T.id": "1"}).profile()
+// merge_v(#{"T.id": "1"}) [lookup: id]                            1       0       1  360.416µs    40.60
+g.mergeV(#{"T.label": "person"}).profile()
+// merge_v(#{"T.label": "person"}) [lookup: label]                 1       0       4    1.375µs    20.75
+g.mergeV(#{"name": "marko"}).profile()
+// merge_v(#{name: "marko"}) [lookup: scan]                        1       0       1    1.125µs    27.83
+g.mergeE(#{"Direction.OUT": "1"}).profile()
+// merge_e(#{"Direction.OUT": "1"}) [lookup: out-edges]            1       0       3   12.250µs    73.13
+</code></pre>
+<p>The three-argument <code>has()</code> folds its label into the source step:</p>
+<pre><code class="language-rhai graph=modern">g.V().has("person", "name", "marko").profile()
+// v(labels: ["person"])                                           1       0       4    3.833µs    12.92
+// has("name", "marko")                                            1       4       1   11.166µs    37.64
+// Optimizer rules applied: source_filter_pushdown
+</code></pre>
+<p>Two limits of the profile output: a long step name is cut, so the <code>[lookup: ..]</code> suffix of a large
+map may not be visible, and the option traversals of one merge step share one nested row.</p>
+<h2 id="not-supported-yet"><a class="header" href="#not-supported-yet">Not supported yet</a></h2>
+<ul>
+<li><code>Cardinality.list</code> / <code>Cardinality.set</code> writes and meta-properties
+(<code>property(key, value, metaKey, metaValue)</code>): Graphersal has one value per key.</li>
+<li>Removing a property by writing <code>null</code> (TinkerPop's <code>@DisallowNullPropertyValues</code> mode):
+Graphersal stores the <code>null</code>. This is deliberate: <code>null</code> is a real value of the property model, and
+the four <code>@AllowNullPropertyValues</code> scenarios, which expect it to be stored, pass; removing on <code>null</code>
+would trade them for the three <code>@DisallowNullPropertyValues</code> ones. Settling it would need a
+graph-level null mode (not scheduled). Remove a property explicitly with
+<code>remove_property()</code> instead, see <a href="removing_properties.html">Removing Properties</a>.</li>
+<li><code>PartitionStrategy</code> and the other traversal strategies.</li>
+<li>Multi-label merge (<code>"T.label"</code> as a list).</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../users_guide/transactions.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../users_guide/add_edge_endpoints.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../users_guide/transactions.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../users_guide/add_edge_endpoints.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

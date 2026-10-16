@@ -1,0 +1,319 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>UUID Values - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/users_guide/uuid_values.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="uuid-values"><a class="header" href="#uuid-values">UUID Values</a></h1>
+<p>A UUID is a value type of its own in Graphersal, not a string that happens to look like one. This
+page covers how UUIDs are stored, how a query writes one, and how they compare.</p>
+<h2 id="storage-model"><a class="header" href="#storage-model">Storage model</a></h2>
+<p>At runtime a UUID is <code>ElementProperty::Uuid(u128)</code>: 16 bytes stored inline, with no heap
+allocation. A 36-character string would not fit <code>CompactString</code>'s inline buffer. Equality and
+ordering are single integer comparisons.</p>
+<p>A UUID stays a UUID end to end, including in the Rhai DSL. A value that <code>next()</code> or <code>to_list()</code>
+returns to a script has the Rhai type <code>Uuid</code> (<code>type_of(x) == "Uuid"</code>), so you can pass it back
+into a filter and it still matches:</p>
+<pre><code>let x = g.v().values("uid").next();   // a Uuid, not a string
+g.v().has("uid", x).count()            // 1
+</code></pre>
+<p>It prints as its canonical string (<code>print(x)</code>, <code>`${x}`</code>, <code>x.to_string()</code>, <code>x.as_string()</code>).</p>
+<p>Graphersal never infers a type from a string's content. A string that looks like a UUID stays a
+string until a query or a schema declaration converts it explicitly (see below).</p>
+<h2 id="literals"><a class="header" href="#literals">Literals</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Notation</th><th>Literal</th></tr></thead><tbody>
+<tr><td>Java Gremlin</td><td><code>UUID.fromString("550e8400-e29b-41d4-a716-446655440000")</code></td></tr>
+<tr><td>snake_case (Rhai, dot)</td><td><code>UUID.from_string("550e8400-e29b-41d4-a716-446655440000")</code></td></tr>
+<tr><td>Rhai static module</td><td><code>UUID::fromString("…")</code>, <code>UUID::from_string("…")</code></td></tr>
+<tr><td>Rust API</td><td><code>ElementProperty::uuid_from_string("…")?</code></td></tr>
+</tbody></table>
+</div>
+<p>Only the canonical form parses: 8-4-4-4-12 <strong>lowercase</strong> hex digits, no braces. An uppercase or
+malformed literal is a cast error, and the error's help shows the canonical form:</p>
+<pre><code>UUID.fromString("550E8400-E29B-41D4-A716-446655440000")   // Cast exception: expected type [uuid]
+</code></pre>
+<p><code>UUID()</code> with no argument is a random UUID (version 4), the Gremlin grammar's <code>UUID()</code> and Java's
+<code>UUID.randomUUID()</code>: <code>g.inject(UUID())</code>. It draws from the operating system's entropy; the
+<code>random.seed</code> option does not apply to it.</p>
+<p><code>UUID</code> is a reserved name in the script scope, so a script parameter cannot be called <code>UUID</code>.</p>
+<p>To convert a stream of canonical strings, use <code>cast(GType::UUID)</code>. To go the other way, use
+<code>as_string()</code>:</p>
+<pre><code>g.inject("550e8400-e29b-41d4-a716-446655440000").cast(GType::UUID)
+g.v().values("uid").as_string()
+</code></pre>
+<h2 id="strict-equality"><a class="header" href="#strict-equality">Strict equality</a></h2>
+<p>A <code>Uuid</code> never equals a <code>String</code>. This is the same as TinkerGraph, where <code>UUID.equals(String)</code> is
+false. A filter never raises an error on a type difference; it just does not match:</p>
+<pre><code>g.v().has("uid", "550e8400-e29b-41d4-a716-446655440000")                   // finds nothing
+g.v().has("uid", UUID.fromString("550e8400-e29b-41d4-a716-446655440000"))  // finds the vertex
+</code></pre>
+<p>The same holds for <code>P.eq</code>, <code>P.neq</code>, <code>P.within</code>, <code>P.without</code> and <code>is(..)</code>. Each of them accepts a
+UUID literal. In the Rust API the predicate value is <code>PValue::Uuid(bits)</code>.</p>
+<p>Reads never coerce, even when a schema declares the field <code>uuid</code>. If a <code>has(..)</code> on a UUID field
+finds nothing, check whether the query passes a plain string where it should pass
+<code>UUID.fromString(..)</code>.</p>
+<p><code>order()</code> sorts UUIDs by their <code>u128</code> value. That order is the same as the lexicographic order of
+their canonical strings. <code>dedup()</code> and <code>group_count()</code> key by the UUID value. A <code>group_count()</code>
+result is a map whose keys keep their type: <code>m[UUID.fromString(..)]</code> reads an entry, and the table
+prints a UUID key in its canonical form (see <a href="value_keyed_maps.html">Maps With Non-String Keys</a>).</p>
+<h2 id="coercion-on-write"><a class="header" href="#coercion-on-write">Coercion on write</a></h2>
+<p>JSON has no UUID type. <code>property_json(#{uid: UUID.fromString(..)})</code> therefore writes the canonical
+string. What gets stored depends on the schema mode:</p>
+<ul>
+<li>In <code>None</code> mode (no schema), the string is stored as a <code>String</code>.</li>
+<li>In <code>Open</code> or <code>Closed</code> mode, a field declared <code>uuid</code> converts a canonical string to a <code>Uuid</code>
+before validation. This applies to <code>property_json</code> and to <code>property(..)</code> alike. A non-canonical
+string is rejected.</li>
+</ul>
+<h2 id="graphson-import-and-export"><a class="header" href="#graphson-import-and-export">GraphSON import and export</a></h2>
+<p><a href="graphson.html">GraphSON</a> has a UUID type: export writes a <code>Uuid</code> as <code>{"@type": "g:UUID", "@value": "&lt;canonical text&gt;"}</code> and import reads it back as a <code>Uuid</code> without any schema (an upper-case payload
+is accepted). A plain string stays a string unless the target graph's <code>open</code>/<code>closed</code> schema
+declares the property <code>uuid</code>, which coerces it on write like any other write.</p>
+<h2 id="graphml-import-and-export"><a class="header" href="#graphml-import-and-export">GraphML import and export</a></h2>
+<p>GraphML has no UUID type either. Export writes a <code>Uuid</code> as its canonical string under a key with
+<code>attr.type="string"</code>. Import restores a <code>Uuid</code> only from a declaration: load the schema into the
+graph before importing the file (<code>set_schema(..)</code>), and every <code>&lt;data&gt;</code> value of a property that the
+schema declares <code>uuid</code> is converted, whatever the schema mode. For a vertex with several labels the
+first label that declares the property decides. Without a declaration the value stays a <code>String</code>;
+the importer never guesses a type from the text. A declared <code>uuid</code> whose text is not canonical
+fails the import with an <code>InvalidAttributeValue</code> error that names <code>uuid</code> as the expected type.</p>
+<p>GraphML is an exchange format and carries <strong>no schema</strong>: export writes the elements only, and
+import never reads a schema from the file (graph-level <code>&lt;data&gt;</code> values are ignored). The schema
+travels separately as its own JSON text (<a href="schema_enforcement.html#the-format">the schema format</a>): save it next to the GraphML file
+and set it on the target graph <em>before</em> importing, then the declared types come back:</p>
+<pre><code class="language-rust ignore">let mut target = GraphSource::empty();
+target.write().set_schema(GraphSchema::from_json(&amp;schema_json)?)?;   // 1. the schema
+target.import_graphml_reader(std::io::Cursor::new(graphml_text))?;       // 2. the graph</code></pre>
+<p>In Python the schema is a keyword of the load (a mapping or JSON text; <code>mode</code> replaces its own mode), or
+set it on a live graph and import into it:</p>
+<pre><code class="language-python">typed = graphersal.Graph.from_graphml("items.graphml", schema=json.load(open("items.schema.json")))
+# or: graph.set_schema(schema); graph.import_graphml("items.graphml")   # one unit, all or nothing
+</code></pre>
+<p>The command line does the same with <code>graphersal --graph items.graphml --schema items.schema.json</code>.
+The browser playground's Save menu downloads these two files (Data as GraphML, Schema), and its "Load from
+file" dialog takes both: the schema file is set on the new graph before the GraphML file is imported.</p>
+<p>The other value types are written as their own text: dates and times as their canonical text
+(restored like a <code>uuid</code>, from a declared format; see <a href="../dates/storage.html#graphml">Dates and Times</a>), <code>true</code>/<code>false</code>, integers as <code>long</code> keys
+(GraphML's <code>int</code> is 32-bit), floats as <code>double</code> keys, and arrays and objects as JSON text under a
+<code>string</code> key. A property whose type differs between labels is written under a <code>string</code> key, so an
+integer there comes back as the string of its digits. A property the target's schema declares
+<code>array</code> or <code>object</code> (also as a member of a union) is read back from that JSON text and must
+conform to the declared type (<code>IOError::InvalidJsonValue</code> names the property when the text is not
+JSON); without a declaration the JSON text stays a string. A union of a container and a text type
+(<code>string</code>/<code>uuid</code>/a date or time type, e.g. <code>union&lt;string|array&lt;int64&gt;&gt;</code>) cannot be imported, because its GraphML text
+could be either (<code>IOError::AmbiguousContainerImport</code>): declare one of the two. <code>NaN</code> and infinite
+floats cannot be exported.</p>
+<h2 id="string-operations-do-not-apply"><a class="header" href="#string-operations-do-not-apply">String operations do not apply</a></h2>
+<p>The string steps <code>to_lower()</code>, <code>to_upper()</code>, <code>trim()</code>, <code>l_trim()</code>, <code>r_trim()</code>, <code>substring()</code>,
+<code>replace()</code> and <code>length()</code> raise a cast exception on a UUID (<code>got type 'uuid'</code>). Convert with
+<code>as_string()</code> first if you really want string operations.</p>
+<p>The text predicates (<code>TextP.containing</code>, <code>starting_with</code>, <code>ending_with</code> and their negations)
+evaluate to <code>false</code> on a UUID and do not raise an error. TinkerPop behaves the same way, because a
+text predicate never matches a non-string value.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../users_guide/jpath_keys.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../users_guide/multi_label_vertices.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../users_guide/jpath_keys.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../users_guide/multi_label_vertices.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

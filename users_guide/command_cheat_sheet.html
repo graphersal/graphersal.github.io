@@ -1,0 +1,427 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Command Cheat Sheet - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/users_guide/command_cheat_sheet.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="command-cheat-sheet"><a class="header" href="#command-cheat-sheet">Command Cheat Sheet</a></h1>
+<p>Every command you need to build, run and operate Graphersal, ready to copy, each with one line of
+explanation. Run them from the root of a checkout of the repository. Every command on this page
+was run against the built binary; when the binary says something else, the binary is right and
+this page is wrong.</p>
+<p>The examples write <code>graphersal</code> for the binary. After a debug build it is
+<code>target/debug/graphersal</code>, after a release build <code>target/release/graphersal</code>; put one of them on
+your <code>PATH</code> or type the path.</p>
+<h2 id="build"><a class="header" href="#build">Build</a></h2>
+<pre><code class="language-bash">cargo build -p graphersal-cli                 # debug build: target/debug/graphersal
+cargo build -p graphersal-cli --release       # optimized build: target/release/graphersal
+target/debug/graphersal --version             # check what you built
+playground/build.sh                           # the WebAssembly playground into playground/pkg/
+</code></pre>
+<p><code>playground/build.sh</code> needs two one-time installs: <code>rustup target add wasm32-unknown-unknown</code>
+and <code>cargo install --locked wasm-bindgen-cli --version 0.2.129</code> (it must equal the
+<code>wasm-bindgen</code> crate version). <code>wasm-opt</code> (binaryen) is optional and makes the module smaller.</p>
+<h2 id="the-web-playground-webassembly-in-the-browser"><a class="header" href="#the-web-playground-webassembly-in-the-browser">The web playground (WebAssembly, in the browser)</a></h2>
+<pre><code class="language-bash">python3 playground/serve.py 8000              # open http://localhost:8000/
+</code></pre>
+<p><code>serve.py</code> is a static file server that sends <code>Cache-Control: no-store</code>. Plain
+<code>python3 -m http.server</code> sends no cache headers, so after a rebuild the browser keeps running the
+old JavaScript modules and the old engine worker. If the page hangs after a reload, open
+<code>http://localhost:8000/reset/</code> (it clears the playground's saved state). See
+<a href="web_playground.html">WEB Playground</a>.</p>
+<h2 id="one-shot-queries-and-the-repl"><a class="header" href="#one-shot-queries-and-the-repl">One-shot queries and the REPL</a></h2>
+<pre><code class="language-bash">graphersal                                                       # the REPL on the modern graph
+graphersal --graph empty                                         # the REPL on an empty graph
+graphersal -e 'g.v().has_label("person").values("name").to_list()'   # run, print, exit
+graphersal -e 'let xs = g.v().to_list()' -e 'xs.len()'           # -e repeats and shares one scope
+echo 'g.v().values("age").max().next()' | graphersal --in --graph modern   # the script from stdin
+printf '/help has_label\n' | graphersal --repl                   # the REPL on a piped stdin (scripted sessions)
+</code></pre>
+<p>In the REPL a script runs when its input ends with <code>;</code>. Commands start with <code>/</code> (an input starting
+with <code>:</code> gets a pointer to its <code>/</code> form); Tab completes steps, token values (<code>P.</code>, <code>Order.</code>, <code>T.</code>,
+...), commands and their arguments, in the session spelling. Completion and help read the same
+catalogue as the <a href="web_playground.html">playground</a>'s query editor: the engine's own function docs.</p>
+<div class="table-wrapper"><table><thead><tr><th>Command</th><th>What it does</th></tr></thead><tbody>
+<tr><td><code>/help</code></td><td>the commands, grouped</td></tr>
+<tr><td><code>/help &lt;name&gt;</code></td><td>the doc of a step, function, token class or command in either spelling, with its overloads and an example with its result (<code>/help has_label</code>, <code>/help hasLabel</code>, <code>/help P.eq</code>, <code>/help Order</code>)</td></tr>
+<tr><td><code>/help steps</code>, <code>/help tokens</code></td><td>every step and terminal; the token classes with their values</td></tr>
+<tr><td><code>/set format &lt;fmt&gt;</code></td><td>the default visualizer</td></tr>
+<tr><td><code>/set max-rows &lt;n&gt;</code>, <code>/set max-items &lt;n&gt;</code>, <code>/set no-limit</code></td><td>the <a href="displaying_results.html">display limits</a></td></tr>
+<tr><td><code>/set spelling &lt;snake|camel&gt;</code></td><td>the spelling of completion, help, <code>.profile()</code> and errors</td></tr>
+<tr><td><code>/set max-operations &lt;n&gt;</code>, ..., <code>/set safe-limits</code></td><td>the <a href="resource_limits.html">script limits</a> (<code>/help set</code> lists them)</td></tr>
+<tr><td><code>/exit</code> (or Ctrl-D)</td><td>close the graph and leave</td></tr>
+</tbody></table>
+</div>
+<p><code>--graph</code> takes:</p>
+<div class="table-wrapper"><table><thead><tr><th>Source</th><th>What it is</th></tr></thead><tbody>
+<tr><td><code>modern</code></td><td>TinkerPop's "modern" sample graph (the default)</td></tr>
+<tr><td><code>empty</code></td><td>an empty graph</td></tr>
+<tr><td><code>large</code></td><td>a generated graph of about 110k vertices and 110k edges</td></tr>
+<tr><td><code>tree</code></td><td>a file-tree sample (37 vertices) for <code>glob_path</code></td></tr>
+<tr><td><code>g.json</code>, <code>g.jsonl</code>, <code>g.graphson</code></td><td>a GraphSON file (<a href="graphson.html">GraphSON</a>)</td></tr>
+<tr><td><code>g.xml</code>, <code>g.graphml</code></td><td>a GraphML file</td></tr>
+<tr><td><code>g.gsnap</code></td><td>a <a href="../persistence/packed_snapshots.html">packed snapshot</a></td></tr>
+<tr><td><code>data/</code>, <code>g.gstore</code></td><td>a <a href="../persistence/store.html">Store</a>: opened read-write, every commit is durable</td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-bash">graphersal -e 'g.export_snapshot("m.gsnap")'                    # save the graph as a packed snapshot
+graphersal --graph m.gsnap -e 'g.v().count().next()'             # and load it
+graphersal -e 'g.export_graphson("m.json")'                      # GraphSON (TinkerPop's g.io() format)
+</code></pre>
+<p>A graph file carries no schema; <code>--schema</code> brings one (the <a href="schema_enforcement.html">schema format</a>):</p>
+<pre><code class="language-bash">graphersal --graph g.graphml --schema schema.json -e 'g.v().count().next()'   # schema first, then the file imported against it
+graphersal --graph g.json --schema schema.json --schema-mode closed           # --schema-mode overrides the file's "mode"
+graphersal --graph modern --schema schema.json                                # a sample graph: the schema is applied (validated)
+</code></pre>
+<p>The schema is set on the new empty graph first and the file is imported as one unit, so declared
+logical types (<code>uuid</code>, <code>array</code>, <code>object</code>) come back and an <code>open</code>/<code>closed</code> mode is enforced. Data
+that violates the schema stops the start with exit code <code>1</code> and the violation report; an
+unreadable or invalid schema file, an unknown <code>--schema-mode</code>, and <code>--schema</code> with a Store or a
+<code>.gsnap</code> (both carry their own schema) are exit code <code>2</code>.</p>
+<p>Saved queries (stored in the database, called by name, read-only; see <a href="saved_queries.html">Saved Queries</a>):</p>
+<pre><code class="language-bash">graphersal -e 'g.define_query(#{name: "people", body: "fn people() { g.v().has_label(\"person\") }"})' \
+           -e 'g.query("people").values("name").to_list()'    # define, then call and continue
+graphersal -e 'g.queries()'                                       # list (also g.queries("folder"), g.get_query(name))
+</code></pre>
+<p>Display (a result without a data terminal is rendered; <code>to_list()</code>/<code>next()</code> are never cut; <code>iterate()</code> runs
+for the side effects and shows nothing):</p>
+<pre><code class="language-bash">graphersal -e 'g.v().has_label("person").values("name")' --format json   # auto, table, markdown, json, jsonschema, mermaid, plantuml, tree
+graphersal -e 'g.v()' --max-rows 2            # at most 2 rows (default 100); --max-items N for nested items
+graphersal -e 'g.v().values("name")' --no-limit
+graphersal --spelling camel -e 'g.v().has_label("person").count().profile()'   # Gremlin spelling in profiles and errors
+</code></pre>
+<p>Limits (scripts run without limits by default; see <a href="resource_limits.html">Resource Limits</a>):</p>
+<pre><code class="language-bash">graphersal --graph large --timeout 50 -e 'g.v().out().out().out().out().count().next()'  # 50 ms per traversal and script
+graphersal --memory-limit auto -e 'g.v().count().next()'         # memory budget: the cgroup limit minus a headroom
+graphersal --memory-limit 2000000000 -e 'g.v().count().next()'  # an explicit budget in bytes
+graphersal --safe-limits -e 'g.v().count().next()'               # the library's SAFE script limits
+graphersal --max-operations 1000 -e 'let n = 0; loop { n += 1; }' # stops with "Resource limit 'script.max_operations'"
+graphersal --max-traversers 1000000 --max-value-depth 64 -e 'g.v().count().next()'  # also --max-string-size, --max-array-size, --max-map-size
+</code></pre>
+<p>Exit codes: <code>0</code> ok, <code>1</code> the script failed (diagnostic on stderr), the <code>--graph</code> data violates
+the <code>--schema</code>, or a <code>--graph &lt;store&gt;</code> cannot be opened (in use by another writer, ...), <code>2</code> invalid invocation (unknown option, a graph or schema file that cannot be
+loaded), <code>141</code> stdout was closed before every result was written (<code>graphersal -e '..' | head -1</code>:
+the run stops quietly; a failing script keeps its own code; the same for <code>graphersal store</code>).
+A closed stdout or stderr is never a crash: the dev server keeps serving when its log reader
+goes away. <code>graphersal --help</code> lists every option.</p>
+<h2 id="the-dev-server"><a class="header" href="#the-dev-server">The dev server</a></h2>
+<p>DEV mode, unstable, local only (127.0.0.1, no authentication). It serves the playground UI with
+this process as the engine. Details: <a href="../persistence/dev_server.html">Dev Server and MCP</a>.</p>
+<pre><code class="language-bash">graphersal --graph modern --server                       # http://127.0.0.1:8080/
+graphersal --graph ./mygraph.json --server --port 9000   # any --graph source; "Save to file" writes it back
+graphersal --graph large --server --port 0               # 0 picks a free port (the address is printed on stdout)
+graphersal --graph data/ --server                        # a Store: every commit is durable, the Store menu appears
+graphersal --graph new/ --create-store --server          # create the store when it does not exist
+graphersal --graph g.graphml --schema schema.json --server   # a graph file loaded against its schema
+graphersal --graph large --server --timeout 5000 --memory-limit auto   # limits apply to every query
+graphersal --graph modern --server --ui-dir ~/src/graphersal/playground # its files win over the embedded UI
+</code></pre>
+<p>Stop it with <strong>Ctrl+C</strong>: a running query is cancelled and an open store is closed cleanly. A
+second Ctrl+C exits at once. The display options (<code>--format</code>, <code>--max-rows</code>, ...) and <code>-e</code>/<code>--in</code>
+are refused with <code>--server</code> (exit 2).</p>
+<h2 id="mcp-an-ai-agent-on-the-same-graph"><a class="header" href="#mcp-an-ai-agent-on-the-same-graph">MCP: an AI agent on the same graph</a></h2>
+<pre><code class="language-bash">graphersal --graph modern --server --port 9000 --mcp                    # MCP endpoint http://127.0.0.1:9000/mcp
+graphersal --graph modern --server --port 9000 --mcp --mcp-read-only    # the agent may only read
+graphersal --graph modern --server --port 9000 --mcp --mcp-token my-secret-token   # the agent must send the token
+graphersal --graph data/ --server --port 9000 --mcp --mcp-query-tools  # also every saved query as a tool of its own
+</code></pre>
+<p>Connect Claude Code (the server must be running; then start a NEW <code>claude</code> session):</p>
+<pre><code class="language-bash">claude mcp add --transport http graphersal http://127.0.0.1:9000/mcp
+claude mcp add --transport http graphersal http://127.0.0.1:9000/mcp --header "Authorization: Bearer my-secret-token"
+claude mcp list                    # graphersal: http://127.0.0.1:9000/mcp (HTTP) - Connected
+claude mcp remove graphersal       # when you are done, or before adding it again on another port
+</code></pre>
+<h2 id="ai-chat-in-the-playground-experimental"><a class="header" href="#ai-chat-in-the-playground-experimental">AI Chat in the playground (EXPERIMENTAL)</a></h2>
+<pre><code class="language-bash">export ANTHROPIC_API_KEY=...                                   # the variable the file names; the key stays in the server
+graphersal --graph modern --server --ai ai.json                # "+" in the Query panel -&gt; AI Chat
+graphersal --graph modern --server --ai crates/graphersal-cli/examples/ai-ollama.json   # a local model: no data leaves the machine
+GEMINI_API_KEY=... graphersal --graph modern --server --ai crates/graphersal-cli/examples/ai-google.json   # Google Gemini (OpenAI-compatible endpoint)
+</code></pre>
+<p><code>ai.json</code>: <code>{"provider": "anthropic"|"openai", "model": "&lt;id&gt;", "api_key_env": "&lt;VARIABLE&gt;", "base_url": null, "read_only": false, "max_tool_calls_per_turn": 20, "max_tokens": 4096}</code>.
+Details: <a href="../persistence/dev_server.html#ai-chat">AI Chat</a>.</p>
+<h2 id="the-store"><a class="header" href="#the-store">The Store</a></h2>
+<p>A Store is one directory (or one <code>.gstore</code> file) that keeps one graph durable. Reference:
+<a href="../persistence/store_cli.html">The <code>graphersal store</code> Command</a>. <code>TARGET</code> below is one of
+<code>--at-commit N</code>, <code>--at-time 2026-10-08T02:43:00Z</code> (RFC 3339 with a zone, or microseconds since
+the epoch) or <code>--at-mark NAME</code>.</p>
+<pre><code class="language-bash">graphersal store create data/ --from modern          # a new store (or: --from empty|large|tree|FILE|FILE.gsnap)
+graphersal store create graph.gstore --from modern   # a single-file store (or: --single-file)
+graphersal store create data/ --on-damage continue   # keep committing when damage is found while open (fixed at creation)
+graphersal --graph data/ -e 'g.add_v("person").property("name", "zoe").to_list()'   # a durable commit
+graphersal --graph data/                             # the REPL on the store (--server: the dev server)
+graphersal store mark data/ before-import            # name the current position
+graphersal --graph data/ -e 'g.add_v("person").property("name", "ada").to_list()'
+graphersal store info data/                          # identity, position, snapshots, marks, WAL size
+graphersal store list data/                          # the snapshots
+graphersal store marks data/                         # the marks
+graphersal store checkpoint data/ --name nightly     # write a snapshot now
+graphersal store verify data/                        # scrub every checksum (exit 1 on damage)
+graphersal store fork data/ branch/ --at-mark before-import          # a past state as a new store
+graphersal store fork data/ branch2/ --at-time 2026-10-08T02:43:00Z  # or --at-commit N
+graphersal store backup data/ /mnt/backup/data       # full the first time, incremental afterwards
+graphersal store backup data/ weekly/ --full         # always full (the directory must be empty)
+graphersal store backup data/ data.zip --zip         # a full backup as one ZIP archive
+# every backup checks every checksum in the store and in the copy; damage stops it (repair the STORE)
+# a damaged store open in the dev server: Store menu &gt; Back up from memory (POST /api/store/backup {"from_memory": true})
+graphersal store export data/ data.gsnap             # the latest snapshot as a .gsnap (--commit N: another)
+graphersal store rollback data/ --at-mark before-import   # back IN PLACE; the rest goes to the attic
+graphersal store attic data/                         # the attic entries (rolled-back history), with their &lt;ID&gt;
+graphersal store attic data/ changes &lt;ID&gt;            # the commits of an entry
+graphersal store attic data/ fork &lt;ID&gt; rolled-back/  # keep the rolled-back history as a new store
+graphersal store attic data/ restore &lt;ID&gt;            # undo the rollback
+graphersal store attic data/ remove &lt;ID&gt;             # or: delete an entry for good
+graphersal store rollback data/ --at-commit 0 --delete    # back in place, deleting the rest (no undo)
+graphersal store restore /mnt/backup/data            # make a backup the live store (same graph id)
+graphersal store restore data.zip restored/          # unpack a ZIP backup as the live store
+graphersal store prune data/ --up-to 1200            # remove history only needed before commit 1200
+graphersal store compact-advice data/                # is compact worth it now? (cheap)
+graphersal store compact data/                       # prune to now; a single file gives its free space back
+graphersal store compact data/ --drop-marks          # ... also when marks become unreachable (refused without)
+graphersal store convert data/ data.gstore           # a closed store into one file (or back)
+graphersal store upgrade old/ new/                   # a store of Graphersal 0.1.x into the current format (or: old/ --in-place)
+graphersal store repair damaged/ --to repaired/      # a damaged store, repaired into a new directory
+graphersal store rollback --help                     # the usage of one command (or: store help rollback)
+</code></pre>
+<h3 id="migrate-a-store-from-an-older-format"><a class="header" href="#migrate-a-store-from-an-older-format">Migrate a store from an older format</a></h3>
+<p>A store written by an older Graphersal is refused with <code>The store ... has the older format version N</code> (nothing is changed); the error's help names the command. A store of a released
+version (2: Graphersal 0.1.x) is upgraded by THIS binary, no older one needed, with everything
+carried (graph, schema, catalog, history, marks, attic, identity):</p>
+<pre><code class="language-bash">cp -R old_store/ old_store.bak/                       # optional: keep the older store as it is
+graphersal store upgrade old_store/ new_store/       # into a new store (old_store/ unchanged), verified
+graphersal store upgrade old_store/ --in-place       # or the store itself
+graphersal store upgrade old_backup/ new_backup/     # a backup directory stays a backup
+graphersal store restore old_backup.zip new_store/   # a ZIP backup is upgraded as it is restored
+graphersal store repair damaged_old/ --to new_store/ # a DAMAGED older store: repaired into the current format
+</code></pre>
+<p>A store of store format version 1 (a pre-release, before the store id) moves through a packed
+snapshot instead: export it with the OLD binary (the store closed), create a new store from the
+file with the new one:</p>
+<pre><code class="language-bash">old/graphersal --graph old_store/ -e 'g.export_snapshot("graph.gsnap")'   # the OLD binary: the current state
+graphersal store create new_store/ --from graph.gsnap                     # this binary (or new.gstore: one file)
+graphersal store verify new_store/                                        # then back it up
+</code></pre>
+<p>The new store has the graph, its schema and its catalog (saved queries, compression rules), with
+the same element ids and commit position, but it is a new store: the marks, the attic (rolled-back
+history) and the backups of the old store are not carried. <code>old/graphersal store export old_store/ graph.gsnap</code> exports the latest stored SNAPSHOT only (run <code>old/graphersal store checkpoint old_store/</code> first to include the WAL). Keep the old store until the new one is
+verified and backed up. A <code>.gsnap</code> written by 0.1.x loads in this build as it is.</p>
+<h2 id="python"><a class="header" href="#python">Python</a></h2>
+<pre><code class="language-python">import graphersal
+graph = graphersal.Graph.tinkerpop_modern()
+graph.save("g.gsnap")                                   # a packed snapshot
+graph = graphersal.Graph.load("g.gsnap")
+with graphersal.Store.create("data") as store:          # or Store.open("data"); "g.gstore": one file
+    store.graph.execute('g.addV("person").property("name", "ann").next()')   # durable
+    store.mark("after-ann"); store.checkpoint("nightly"); store.backup("bk")
+</code></pre>
+<p>More: <a href="../persistence/python.html">Python</a> and <code>bindings/py-graphersal/README.md</code>.</p>
+<h2 id="tests-and-checks-contributors"><a class="header" href="#tests-and-checks-contributors">Tests and checks (contributors)</a></h2>
+<p>The full list of build, test, lint, coverage, fuzzing and wasm commands, with the acceptance
+feature set, is in <code>CLAUDE.md</code> (section "Commands") at the root of the repository; the Python
+binding's in <code>bindings/py-graphersal/README.md</code>, the playground's in <code>playground/README.md</code>.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../users_guide/installation.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../concepts/why_graphs.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../users_guide/installation.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../concepts/why_graphs.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,331 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Bulk and Barriers - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/users_guide/bulk_and_barriers.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="bulk-and-barriers"><a class="header" href="#bulk-and-barriers">Bulk and Barriers</a></h1>
+<p>Every traverser carries a <strong>bulk</strong>: how many identical traversers it stands for. When two
+traversers are equal (the same vertex, reached by different routes), the engine can keep one of
+them with bulk 2 instead of processing both. A step that expands the survivor does the work once,
+and a <code>count()</code> adds up the bulks. This is the same idea as TinkerPop's traverser bulk.</p>
+<p>Without it, <code>repeat(out()).times(8).count()</code> on the grateful-dead graph would have to walk about
+2.5 * 10^15 paths. With it, the loop never holds more than one traverser per distinct vertex:</p>
+<pre><code>g.V().repeat(__.out()).times(8).count().next()    // grateful graph: 2505037961767380 in milliseconds
+</code></pre>
+<h2 id="bulk-is-invisible"><a class="header" href="#bulk-is-invisible">Bulk is invisible</a></h2>
+<p>A query returns the <strong>same multiset of results with and without merging</strong>. Merging is an
+optimization, never a semantic change. Only the <em>order of duplicates</em> can change: equal traversers
+are emitted together, at the position of their first occurrence.</p>
+<pre><code class="language-rhai graph=modern">g.V().both().both().values("name").groupCount().next()                   // josh 7, lop 7, marko 7, ...
+g.V().both().both().barrier().values("name").groupCount().next()         // the same counts
+</code></pre>
+<p>Steps that need every value as its own item (<code>fold()</code>, <code>aggregate()</code>, <code>store()</code>, a terminal
+<code>toList()</code>, <code>group()</code> value lists) expand a merged traverser back into one value per unit of bulk.
+Steps that can work on the multiplicity directly (<code>count()</code>, <code>sum()</code>, <code>mean()</code>, <code>groupCount()</code>,
+<code>limit()</code>, ...) never expand it.</p>
+<h2 id="where-traversers-are-merged"><a class="header" href="#where-traversers-are-merged">Where traversers are merged</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Merge point</th><th>What it is</th></tr></thead><tbody>
+<tr><td><code>barrier()</code> / <code>barrier(n)</code></td><td>An explicit merge point you write yourself.</td></tr>
+<tr><td>the <code>repeat()</code> frontier</td><td>(off with a sack merge operator or <code>withBulk(false)</code>) In breadth-first order, the starting traversers and the output of every iteration are merged before <code>until()</code>/<code>emit()</code> are checked. Depth-first <code>repeat()</code> never merges.</td></tr>
+<tr><td><code>lazy_barrier()</code></td><td>(off with a sack merge operator or <code>withBulk(false)</code>) Inserted by the <a href="../optimizer/lazy_barrier.html"><code>lazy_barrier</code> optimizer rule</a> between adjacent steps such as <code>out().out()</code>.</td></tr>
+</tbody></table>
+</div>
+<p><code>.profile()</code> shows a <code>Bulk</code> column next to <code>Out</code> when some step's bulk differs from its traverser
+count, and names the inserted steps:</p>
+<pre><code class="language-rhai graph=modern">g.V().both().both().barrier().profile()
+</code></pre>
+<p><code>dedup()</code> is not a merge: every survivor gets bulk 1.</p>
+<h2 id="what-prevents-merging"><a class="header" href="#what-prevents-merging">What prevents merging</a></h2>
+<p>Two traversers merge only if nothing later in the query can tell them apart.</p>
+<ul>
+<li><strong>Full paths.</strong> <code>path()</code>, <code>simplePath()</code> or an <code>as()</code> label that is read later
+make every traverser carry its own history, so none are equal. The merge pass is skipped. See
+<a href="../optimizer/path_analysis.html">Path Requirement Analysis</a>.
+<code>g.V().out().out().path()</code> does not merge.</li>
+<li><strong>Containers.</strong> Arrays, maps, records, entries, paths and schemas are never merged (hashing them
+costs per item and they are not where explosions happen). Vertices, edges, properties and scalar
+values merge.</li>
+<li><strong>Mutating traversals.</strong> If the plan contains <code>addV()</code>, <code>addE()</code>, <code>property()</code>, <code>drop()</code>,
+<code>mergeV()</code> or another mutation, nothing merges, so every logical traverser runs its mutation.</li>
+</ul>
+<h2 id="barrier-and-barriern"><a class="header" href="#barrier-and-barriern">barrier() and barrier(n)</a></h2>
+<pre><code class="language-rhai graph=modern">g.V().out().barrier().out().values("name").toList()
+</code></pre>
+<p><code>barrier()</code> merges the whole stream at that point. <code>barrier(n)</code> is accepted for TinkerPop
+compatibility; <code>n</code> must be an integer of at least 1, and it is shown in <code>.profile()</code>, but it does
+<strong>not</strong> cut the stream into chunks of <code>n</code>: the whole stream is merged at once. Because our engine
+already materializes each step's stream, the size only affects TinkerPop's unspecified order of
+grouped duplicates, so it is not implemented. <code>barrier(0)</code> fails with
+<code>barrier(0): the size must be an integer from 1 to 4294967295</code>.</p>
+<h2 id="options"><a class="header" href="#options">Options</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Option</th><th>Default</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>bulk.merge</code></td><td><code>true</code></td><td><code>false</code> turns every merge point into a pass-through. The result is the same, only slower on dense graphs. Use it to diagnose or to compare.</td></tr>
+<tr><td><code>bulk.one</code></td><td><code>false</code></td><td><code>true</code> (<code>g.withBulk(false)</code>) makes a merge keep bulk 1 (duplicates collapse and are emitted once), stops sacked traversers from merging, and switches the automatic merge points off. A strict boolean. See <a href="sack_and_operators.html#withbulkfalse">Sack and Operators</a>.</td></tr>
+<tr><td><code>bulk.max_expansion</code></td><td><code>10 000 000</code></td><td>The most values a step may produce when it expands a merged traverser into single items. Larger expansions fail with <code>BulkExpansionLimit</code>.</td></tr>
+<tr><td><code>traversal.max_materialized_bytes</code></td><td><code>1 GiB</code> (256 MiB on wasm32)</td><td>The largest estimated size of one expansion (and of a value a <code>repeat()</code> body builds up). Larger ones fail with <code>ResourceLimitExceeded</code> before anything is allocated. See <a href="resource_limits.html#memory-materialized-bytes-and-expansions">Resource Limits</a>.</td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-rhai graph=modern">g.with("bulk.merge", false).V().both().both().count().next()                 // same 30, no merging
+g.with("bulk.max_expansion", 5).V().both().both().barrier().toList()         // fails: 30 values &gt; 5
+</code></pre>
+<p>The second query fails with:
+<code>Step 'to_list' would have to materialize 30 values, more than the limit of 5 (bulk.max_expansion)</code>.
+The limit exists because a merged traverser is cheap but its expansion is not: one record with
+bulk 10^12 would otherwise try to build 10^12 values and exhaust memory. The error message
+suggests <code>count()</code>, <code>groupCount()</code>, <code>dedup()</code> or <code>limit(n)</code> before the step, or raising the limit
+with <code>g.with("bulk.max_expansion", n)</code> when you really need every value and have the memory.</p>
+<p>Both options are listed in the <a href="execution_options_reference.html">Execution Options Reference</a>.</p>
+<h2 id="rust-callbacks-side_effectsideeffectfn"><a class="header" href="#rust-callbacks-side_effectsideeffectfn">Rust callbacks: <code>side_effect(SideEffectFn)</code></a></h2>
+<p>The Rust API's <code>side_effect(func)</code> (no DSL form: a Rhai script uses <code>sideEffect(traversal)</code>) calls
+<code>func(&amp;value, bulk)</code> once per traverser, as TinkerPop's <code>sideEffect(Consumer)</code> does: after a merge
+point a traverser with bulk 3 is one call with <code>bulk == 3</code>. A callback that counts adds <code>bulk</code>, and
+its total is then the same with and without merging. A failure later in the traversal rolls back
+the writes of the unit; what the callback itself did outside the graph stays.</p>
+<h2 id="overflow"><a class="header" href="#overflow">Overflow</a></h2>
+<p>Bulks are <code>u64</code> and all arithmetic is checked. A bulk or total that does not fit fails with
+<code>BulkOverflow</code> instead of wrapping. A <code>count()</code> above <code>i64::MAX</code> fails the same way.</p>
+<h2 id="differences-from-tinkerpop"><a class="header" href="#differences-from-tinkerpop">Differences from TinkerPop</a></h2>
+<ul>
+<li><strong>Mutations never merge.</strong> In TinkerPop, <code>addV()</code> after a barrier creates one vertex per merged
+traverser. Graphersal creates one vertex per logical traverser.</li>
+<li><strong>Side-effect children run once per logical traverser.</strong> A child traversal that writes a side
+effect (for example <code>local(__.aggregate("x"))</code>) runs <code>bulk</code> times for a traverser with bulk
+<code>bulk</code>, so the side effect has the same content with and without merging. This holds for the
+child of <code>sideEffect(traversal)</code> too: <code>sideEffect(__.aggregate("x"))</code> after a bulk-3 traverser
+aggregates three times (TinkerPop runs it once per merged traverser object); the incoming
+traverser itself continues unchanged, with its bulk.</li>
+<li><strong><code>barrier(n)</code> does not chunk</strong> (see above).</li>
+<li><strong><code>withBulk(false)</code> is the option <code>bulk.one</code></strong>: merging still happens at an explicit
+<code>barrier()</code>, the merged traverser keeps bulk 1, and the automatic merge points are off. A sack
+merge operator (<code>withSack(initial, Operator)</code>) also switches the automatic points off and makes
+merging part of the result; a loop body then writes <code>repeat(__.out().barrier())</code>. See
+<a href="sack_and_operators.html#automatic-merging-and-sacks">Sack and Operators</a>.</li>
+<li><strong>Merge equality is by identity.</strong> A vertex merges with the same vertex only. Paths are
+compared by handle, not by content, so traversers with equal but separately recorded paths do
+not merge.</li>
+</ul>
+<h2 id="a-heuristic-and-its-limit"><a class="header" href="#a-heuristic-and-its-limit">A heuristic and its limit</a></h2>
+<p>Merging a stream in which nothing is equal is wasted work. The <code>repeat()</code> frontier and
+<code>lazy_barrier()</code> therefore probe: after the first 4096 traversers, if fewer than one in sixteen
+merged, the pass gives up and passes the stream through unchanged (and a <code>repeat()</code> stops merging
+for its remaining iterations). Before that, <code>lazy_barrier()</code> also skips a merge whose duplicates
+would save the following step less than one output per two traversers (their fan-out on that step,
+estimated on the same first 4096; see <a href="../optimizer/lazy_barrier.html">Lazy Barrier Rule</a>). The
+probes only change speed, never results. Its limit is that it
+judges the <em>start</em> of a stream. A stream whose first 4096 traversers are all distinct but whose
+tail contains many duplicates is not merged, and a loop whose early iterations are sparse but
+later ones dense stops merging early. Use an explicit <code>barrier()</code> (never adaptive) to force a
+full merge at a chosen point.</p>
+<h2 id="operators-sacks-and-bulk"><a class="header" href="#operators-sacks-and-bulk">Operators, sacks and bulk</a></h2>
+<p><code>fold(seed, Operator)</code> and a side effect declared with <code>withSideEffect(key, init, Operator)</code> apply their operator
+once per unit of bulk, so merging never changes their result. A sack merge operator and <code>withBulk(false)</code> are the
+two places where merging is visible on purpose: see <a href="sack_and_operators.html#reducer-operators">Sack and Operators</a>
+and <a href="sack_and_operators.html#merge-operator">Merge operator</a>.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../users_guide/recursive_traversals.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../users_guide/where_scope.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../users_guide/recursive_traversals.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../users_guide/where_scope.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

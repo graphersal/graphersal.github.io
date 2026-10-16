@@ -1,0 +1,437 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>TinkerPop Compliance - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/for_developers/tinkerpop_compliance.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="tinkerpop-compliance"><a class="header" href="#tinkerpop-compliance">TinkerPop Compliance</a></h1>
+<p>Graphersal measures its Gremlin compliance against the reference semantics that Apache TinkerPop
+ships as executable Gherkin scenarios. Each scenario names a graph, a traversal and the exact
+expected result, so the suite works as a ready-made differential test against real Gremlin. It
+serves three purposes:</p>
+<ol>
+<li><strong>Compliance measure:</strong> what passes, what does not, and why, grouped by root cause.</li>
+<li><strong>Regression gate:</strong> a scenario that passed must keep passing; <code>cargo test</code> fails otherwise.</li>
+<li><strong>Backlog generator:</strong> the failure report ranks the fix tasks.</li>
+</ol>
+<h2 id="the-suite"><a class="header" href="#the-suite">The suite</a></h2>
+<ul>
+<li><strong>Pinned version:</strong> Apache TinkerPop <strong>3.8.2</strong> (commit
+<code>952d8d8e4c3cd37ed8e192ecb97348e6e82594a9</code>), vendored under
+<code>crates/graphersal/tests/tinkerpop/features/</code>. Only the scenarios in the compatibility scope count
+(see <a href="#out-of-scope">Out of scope</a> and <a href="#deliberate-incompatibilities">Deliberate incompatibilities</a>);
+their number is in the generated <a href="#headline-numbers">headline numbers</a>. The vendored
+directory's <code>README.md</code> records the upgrade procedure.</li>
+<li><strong>Runner:</strong> the integration test target <code>crates/graphersal/tests/tinkerpop_features.rs</code>, with its
+harness in <code>crates/graphersal/tests/tinkerpop/harness/</code>. Every scenario is translated to the Rhai
+DSL and runs through the script engine, the same path users take, so the suite also tests DSL
+parity.</li>
+<li><strong>Gate:</strong> <code>crates/graphersal/tests/tinkerpop/baseline.toml</code> lists every scenario that does not
+pass yet, with its class and a one-line reason.</li>
+</ul>
+<h2 id="headline-numbers"><a class="header" href="#headline-numbers">Headline numbers</a></h2>
+<p>The numbers below are the suite's result on the current code, with the strategy scenarios and the deliberate
+incompatibilities excluded from the compatibility scope. All totals and percentages count in-scope scenarios only. The scope, the tables and the
+counts between the <code>tinkerpop:begin</code>/<code>tinkerpop:end</code> markers on this page are <strong>generated</strong> by the suite and
+checked by every test run (see <a href="#running-and-regenerating">Running and regenerating</a>); never edit them by hand.</p>
+<p>Scope of this run:</p>
+<!-- tinkerpop:begin scope -->
+<p>1675 in-scope scenarios; 215 excluded (strategies), 182 excluded (deliberate incompatibilities).</p>
+<!-- tinkerpop:end scope -->
+<!-- tinkerpop:begin headline -->
+<div class="table-wrapper"><table><thead><tr><th></th><th style="text-align: right">Scenarios</th><th style="text-align: right">Share</th></tr></thead><tbody>
+<tr><td><strong>Passed</strong></td><td style="text-align: right"><strong>1631</strong> / 1675</td><td style="text-align: right"><strong>97.4 %</strong></td></tr>
+<tr><td>Skipped</td><td style="text-align: right">5 / 1675</td><td style="text-align: right">0.3 %</td></tr>
+<tr><td>Unsupported (not implemented)</td><td style="text-align: right">39 / 1675</td><td style="text-align: right">2.3 %</td></tr>
+<tr><td><strong>Wrong behaviour of supported steps</strong></td><td style="text-align: right"><strong>0</strong> / 1675</td><td style="text-align: right"><strong>0.0 %</strong></td></tr>
+<tr><td>Passed of executed (non-skipped)</td><td style="text-align: right">1631 / 1670</td><td style="text-align: right">97.7 %</td></tr>
+</tbody></table>
+</div>
+<p>Unsupported = translate 32, missing 7. Wrong behaviour = runtime 0, wrong_result 0, wrong_error 0, timeout 0, panic 0.</p>
+<!-- tinkerpop:end headline -->
+<p>Every remaining non-pass is a missing step, overload or token, or a literal type the translator cannot
+express (see <a href="#classes">Classes</a>); the scenarios that ran but differed on purpose are the
+<a href="#deliberate-incompatibilities">deliberate incompatibilities</a>. The per-class counts are in the line below the table.</p>
+<!-- tinkerpop:begin categories -->
+<div class="table-wrapper"><table><thead><tr><th>Category</th><th style="text-align: right">Pass %</th><th style="text-align: right">Passed</th><th style="text-align: right">Total</th><th style="text-align: right">Skipped</th><th style="text-align: right">Unsupported</th><th style="text-align: right">Wrong</th></tr></thead><tbody>
+<tr><td><code>branch</code></td><td style="text-align: right">100.0 %</td><td style="text-align: right">142</td><td style="text-align: right">142</td><td style="text-align: right">·</td><td style="text-align: right">·</td><td style="text-align: right">·</td></tr>
+<tr><td><code>data</code></td><td style="text-align: right">88.0 %</td><td style="text-align: right">73</td><td style="text-align: right">83</td><td style="text-align: right">·</td><td style="text-align: right">10</td><td style="text-align: right">·</td></tr>
+<tr><td><code>filter</code></td><td style="text-align: right">98.9 %</td><td style="text-align: right">358</td><td style="text-align: right">362</td><td style="text-align: right">·</td><td style="text-align: right">4</td><td style="text-align: right">·</td></tr>
+<tr><td><code>integrated</code></td><td style="text-align: right">100.0 %</td><td style="text-align: right">4</td><td style="text-align: right">4</td><td style="text-align: right">·</td><td style="text-align: right">·</td><td style="text-align: right">·</td></tr>
+<tr><td><code>map</code></td><td style="text-align: right">97.1 %</td><td style="text-align: right">759</td><td style="text-align: right">782</td><td style="text-align: right">3</td><td style="text-align: right">20</td><td style="text-align: right">·</td></tr>
+<tr><td><code>semantics</code></td><td style="text-align: right">97.2 %</td><td style="text-align: right">103</td><td style="text-align: right">106</td><td style="text-align: right">·</td><td style="text-align: right">3</td><td style="text-align: right">·</td></tr>
+<tr><td><code>sideEffect</code></td><td style="text-align: right">98.0 %</td><td style="text-align: right">192</td><td style="text-align: right">196</td><td style="text-align: right">2</td><td style="text-align: right">2</td><td style="text-align: right">·</td></tr>
+<tr><td><strong>all</strong></td><td style="text-align: right"><strong>97.4 %</strong></td><td style="text-align: right"><strong>1631</strong></td><td style="text-align: right"><strong>1675</strong></td><td style="text-align: right">5</td><td style="text-align: right">39</td><td style="text-align: right">·</td></tr>
+</tbody></table>
+</div><!-- tinkerpop:end categories -->
+<!-- tinkerpop:begin inventory -->
+<p><code>API inventory (TinkerPop 3.8.2): 19 of 151 methods, 5 of 21 token classes, 37 of 131 members of registered token classes not registered</code></p>
+<!-- tinkerpop:end inventory -->
+<p>The largest remaining blockers are the <code>call()</code> step (its name is a Rhai built-in function), the
+set literals and <code>GType.SET</code>/<code>TREE</code>/<code>VPROPERTY</code> (no such value types), ranked with their scenario
+counts in the report and in the API inventory section of it. The date and time steps and literals
+(<code>asDate</code>, <code>datetime</code>, <code>dateAdd</code>, <code>dateDiff</code>) pass since 0.2.0.
+The full ranking is in the report. The open gaps are listed in
+<a href="tinkerpop_deviations.html#known-gaps-not-fixed-yet">TinkerPop Deviations</a>.</p>
+<h2 id="out-of-scope"><a class="header" href="#out-of-scope">Out of scope</a></h2>
+<p>Graphersal will provide subgraph views, partitions, read-only mode and row-level security through
+its own, more flexible access-control mechanism, and execution settings through its own unified,
+hierarchical execution-metadata mechanism (replacing <code>with()</code>/<code>withStrategies()</code>/parameters) — not
+through TinkerPop <code>TraversalStrategy</code>s. GraphComputer/OLAP strategies do not apply to an in-memory
+OLTP engine. Therefore every scenario whose traversal, graph initializer or graph-count traversal
+calls <code>withStrategies(...)</code> or <code>withoutStrategies(...)</code> is <strong>excluded from the compatibility
+scope</strong>: it is not run, gets the class <code>excluded</code>, has no baseline entry, and is left out of every
+total and percentage. Scenarios that only use <code>withSideEffect</code>, <code>withSack</code> or <code>with(key, value)</code>
+stay in scope. The rule matches the strategy call wherever the scenario lives, not the feature file
+name; the table is <code>crates/graphersal/tests/tinkerpop/harness/scope.rs</code>.</p>
+<div class="table-wrapper"><table><thead><tr><th>Reason</th><th>Strategies</th></tr></thead><tbody>
+<tr><td>Views, partitions, read-only, row-level security: Graphersal's own access-control mechanism</td><td><code>SubgraphStrategy</code>, <code>PartitionStrategy</code>, <code>ReadOnlyStrategy</code></td></tr>
+<tr><td>GraphComputer/OLAP, not applicable</td><td><code>VertexProgramStrategy</code>, <code>HaltedTraverserStrategy</code>, <code>VertexProgramRestrictionStrategy</code>, <code>ComputerVerificationStrategy</code>, <code>ComputerFinalizationStrategy</code>, <code>MessagePassingReductionStrategy</code>, <code>GraphFilterStrategy</code></td></tr>
+<tr><td>Strategy configuration not supported: Graphersal's own execution-metadata mechanism</td><td>every other strategy (catch-all), e.g. <code>ProductiveByStrategy</code>, <code>RepeatUnrollStrategy</code>, <code>SeedStrategy</code>, <code>CountStrategy</code>, <code>EarlyLimitStrategy</code>, <code>OptionsStrategy</code>, the verification strategies</td></tr>
+</tbody></table>
+</div>
+<p>The counts per reason and strategy (generated):</p>
+<!-- tinkerpop:begin excluded -->
+<p>Excluded from compatibility scope: 215 scenarios [views/partitions/read-only/row-level security are provided by Graphersal's own access-control mechanism, not by TinkerPop strategies: 93 (SubgraphStrategy 62, PartitionStrategy 24, ReadOnlyStrategy 7); GraphComputer/OLAP — not applicable to Graphersal: 16 (VertexProgramStrategy 3, VertexProgramRestrictionStrategy 2, ComputerVerificationStrategy 2, ComputerFinalizationStrategy 2, HaltedTraverserStrategy 3, MessagePassingReductionStrategy 2, GraphFilterStrategy 2); TinkerPop strategy configuration is not supported — Graphersal will provide its own unified, hierarchical execution-metadata mechanism (replacing with()/withStrategies()/parameters): 106 (AdjacentToIncidentStrategy 4, ByModulatorOptimizationStrategy 2, ConnectiveStrategy 2, CountStrategy 2, EarlyLimitStrategy 3, EdgeLabelVerificationStrategy 3, ElementIdStrategy 2, FilterRankingStrategy 2, IdentityRemovalStrategy 2, IncidentToAdjacentStrategy 2, InlineFilterStrategy 2, LambdaRestrictionStrategy 2, LazyBarrierStrategy 2, MatchAlgorithmStrategy 3, MatchPredicateStrategy 2, OptionsStrategy 3, OrderLimitStrategy 2, PathProcessorStrategy 2, PathRetractionStrategy 2, ProductiveByStrategy 29, ProfileStrategy 2, ReferenceElementStrategy 2, RepeatUnrollStrategy 18, ReservedKeysVerificationStrategy 3, SeedStrategy 6, StandardVerificationStrategy 2)]</p>
+<!-- tinkerpop:end excluded -->
+<p>Most of them are in <code>integrated/</code> (all its strategy feature files); the rest live in a few other
+files (<code>map/Max</code>, <code>Mean</code>, <code>Min</code>, <code>Sum</code>, <code>filter/Sample</code>, <code>sideEffect/Aggregate</code> and single scenarios elsewhere).
+A feature file whose scenarios are all excluded is not listed in the report's per-file table. The
+report's "Excluded from compatibility scope" section lists the counts per reason and strategy and every
+excluded id.</p>
+<h2 id="deliberate-incompatibilities"><a class="header" href="#deliberate-incompatibilities">Deliberate incompatibilities</a></h2>
+<p>Some scenarios cannot pass because Graphersal chose a different behaviour, or does not plan the feature at all.
+Each reason is a design decision, is documented on the page linked in the table and as a row of
+<a href="tinkerpop_deviations.html">TinkerPop Deviations</a>, and is listed explicitly by scenario id in
+<code>INCOMPATIBILITIES</code> in <code>crates/graphersal/tests/tinkerpop/harness/scope.rs</code> (ids, never tags, so a scenario a
+suite upgrade adds is never excluded silently). These scenarios are not run, have no baseline entry and are
+in no total or percentage; a guard test fails when one of them starts to pass, and another when an id does
+not exist. To move one back into scope, remove its id from the table and run the suite.</p>
+<!-- tinkerpop:begin incompat -->
+<div class="table-wrapper"><table><thead><tr><th>Code</th><th>Where (feature files)</th><th>Why</th><th>Docs</th><th style="text-align: right">Scenarios</th></tr></thead><tbody>
+<tr><td><code>select-undeclared-label</code></td><td>Select</td><td>select("a"), select("a", "b") and select(Pop.x, ..) on a step label that no as() or side-effect key of the query declares raise Graphersal's own detailed diagnostic, which names the label and shows how to declare it, before execution; TinkerPop silently filters the traverser out. A silent filter hides typos.</td><td><a href="../for_developers/tinkerpop_deviations.html#deliberate-differences">for_developers/tinkerpop_deviations.md#deliberate-differences</a></td><td style="text-align: right">9</td></tr>
+<tr><td><code>property-element-order</code></td><td>Orderability</td><td>order() over properties() elements: TinkerPop orders Property elements by their own total order (key, then value, with cross-type rules) and by property id; properties() here yields value-bearing handles that are ordered by value only, and Graphersal has no property ids. Property elements are handles, not values.</td><td><a href="../users_guide/property_elements.html#deviations">users_guide/property_elements.md#deviations</a></td><td style="text-align: right">5</td></tr>
+<tr><td><code>multi-meta-properties</code></td><td>AddVertex, Combine, Conjoin, Dedup, Difference, Disjunct, Drop, Element, Has, HasLabel, Intersect, Local, Merge, MergeVertex, Product, Repeat, Select, ValueMap</td><td>The storage model is one value per property key, by design, with no properties on properties: Cardinality.list and Cardinality.set fail with UnsupportedCardinality and meta-property arguments are not stored. Every non-passing scenario tagged @MultiProperties or @MetaProperties that runs here (the executable part of the reason) is listed. The scenarios that need the crew dataset (the multi-/meta-property dataset, which the GraphSON import loads with one value per key: several entries fold into an array and meta-properties into _meta) are listed too.</td><td><a href="../users_guide/upserts.html#not-supported-yet">users_guide/upserts.md#not-supported-yet</a></td><td style="text-align: right">41</td></tr>
+<tr><td><code>null-property-removal</code></td><td>AddEdge, AddVertex, MergeEdge</td><td>Scenarios tagged @DisallowNullPropertyValues: TinkerPop removes the property on property(k, null); Graphersal stores a real null, and removal is the explicit remove_property() step. By design: no hidden deletes.</td><td><a href="../users_guide/removing_properties.html">users_guide/removing_properties.md</a></td><td style="text-align: right">3</td></tr>
+<tr><td><code>map-to-string</code></td><td>AsString</td><td>valueMap().asString() yields Java Map.toString text ({name=[marko]}) in TinkerPop; Graphersal never produces Java formats as data text (the physical codec is the only text form), so a map is a cast error.</td><td><a href="../users_guide/property_elements.html#deviations">users_guide/property_elements.md#deviations</a></td><td style="text-align: right">2</td></tr>
+<tr><td><code>path-retraction-artefact</code></td><td>Paths</td><td>expected result depends on TinkerPop's PathRetractionStrategy dropping repeat-loop labels; Graphersal returns the full shortest-path set (verified on TinkerPop: 24 with the strategy, 30 without)</td><td><a href="../for_developers/tinkerpop_deviations.html#deliberate-differences">for_developers/tinkerpop_deviations.md#deliberate-differences</a></td><td style="text-align: right">1</td></tr>
+<tr><td><code>match-step</code></td><td>Local, Match</td><td>The declarative match() step is not planned: declarative pattern matching will come through a Cypher/GQL front end on top of the same engine instead. match is also a reserved Rhai word.</td><td><a href="../for_developers/tinkerpop_deviations.html#excluded-for-good">for_developers/tinkerpop_deviations.md#excluded-for-good</a></td><td style="text-align: right">36</td></tr>
+<tr><td><code>extra-number-types</code></td><td>AsNumber, BigDecimal, BigInt, Byte, Sack, Short, TypeOf</td><td>The number model is int64 and float64 by design: GType.BYTE, SHORT, BIGINT, BIGDECIMAL, CHAR and BINARY and BigInteger literals have no Graphersal value type and are not planned; the width literals 1b/1s/1n/1m collapse to int64/float64 in the harness.</td><td><a href="../for_developers/tinkerpop_deviations.html#excluded-for-good">for_developers/tinkerpop_deviations.md#excluded-for-good</a></td><td style="text-align: right">42</td></tr>
+<tr><td><code>io-step</code></td><td>Read, Write</td><td>The io() source step with read()/write() and the IO tokens is not planned: GraphML import and export is Graphersal's own API (GraphSource::from_graphml, import_graphml, the CLI --graph), not a traversal step.</td><td><a href="../for_developers/tinkerpop_deviations.html#excluded-for-good">for_developers/tinkerpop_deviations.md#excluded-for-good</a></td><td style="text-align: right">12</td></tr>
+<tr><td><code>graph-algorithms</code></td><td>ConnectedComponent, PageRank, PeerPressure, ShortestPath</td><td>The GraphComputer vertex-program steps pageRank(), shortestPath(), connectedComponent() and peerPressure() (and their token classes) are not planned for the traversal language; these scenarios are also @GraphComputerOnly.</td><td><a href="../for_developers/tinkerpop_deviations.html#excluded-for-good">for_developers/tinkerpop_deviations.md#excluded-for-good</a></td><td style="text-align: right">31</td></tr>
+<tr><td><strong>all</strong></td><td></td><td></td><td></td><td style="text-align: right"><strong>182</strong></td></tr>
+</tbody></table>
+</div><!-- tinkerpop:end incompat -->
+<p>The report's "Deliberate incompatibilities" section has the same table, with the full id list per code.</p>
+<h2 id="running-and-regenerating"><a class="header" href="#running-and-regenerating">Running and regenerating</a></h2>
+<pre><code class="language-bash"># Run the suite (also part of the plain `cargo test --package graphersal --features script,io,display,serde,persist`)
+cargo test --package graphersal --features script,io,display,serde,persist --test tinkerpop_features
+
+# Rewrite the baseline AND the generated blocks of this page after intended changes; review the diff like code
+TINKERPOP_UPDATE_BASELINE=1 cargo test --package graphersal --features script,io,display,serde,persist --test tinkerpop_features
+</code></pre>
+<p>Every run prints the summary to stderr and writes the full report to <code>target/tinkerpop-report.md</code>:
+headline, per-category and per-file tables, failures grouped by class (within <code>missing</code> ranked by
+the missing name, within <code>runtime</code>/<code>wrong_result</code> by the exercised step), baseline class changes,
+order-relaxed passes and the API inventory. <code>TINKERPOP_DETAILS=1</code> prints one line per non-passing
+scenario; <code>TINKERPOP_LANES=&lt;n&gt;</code> sets the number of parallel worker lanes (default: one per core).</p>
+<p>The test fails when:</p>
+<ul>
+<li>
+<p>a scenario that is not in the baseline fails (a regression);</p>
+</li>
+<li>
+<p>a scenario in the baseline passes now, no longer exists or is excluded from the scope (the entry
+is stale; remove it in the same change);</p>
+</li>
+<li>
+<p>an id of the deliberate-incompatibility table does not exist, is also excluded by a strategy, has no
+existing doc page, or names a scenario that passes now (<code>deliberate_table_is_consistent</code>,
+<code>deliberate_scenarios_do_not_pass_silently</code>).</p>
+</li>
+<li>
+<p>a generated block of this page (between <code>&lt;!-- tinkerpop:begin NAME --&gt;</code> and <code>&lt;!-- tinkerpop:end NAME --&gt;</code>:
+<code>scope</code>, <code>headline</code>, <code>categories</code>, <code>inventory</code>, <code>excluded</code>, <code>incompat</code>) differs from what the run
+computes. The message shows the differing lines and the command above. Only trailing whitespace is
+ignored. A missing, duplicated or unclosed marker fails with a clear error too.</p>
+</li>
+</ul>
+<p>A normal run never writes a file (apart from the report under <code>target/</code>). With <code>TINKERPOP_UPDATE_BASELINE=1</code> the
+run rewrites <code>baseline.toml</code> and the text between the markers of this page, nothing else: the prose and the
+step tables are hand-written. The blocks render the same Markdown as
+<code>target/tinkerpop-report.md</code>, so the page and the report cannot disagree. The page path resolves through
+<code>CARGO_MANIFEST_DIR</code>, so the suite works from the repository root and from the crate directory. Commit the
+regenerated page together with the change that moved the numbers.</p>
+<p>A baseline scenario that keeps failing under a different class is reported, not failed.</p>
+<p><code>GRAPHERSAL_TEST_STORAGE=forwarding</code> runs the whole suite on a storage that is not <code>TraversalGraph</code> (the
+<code>Forwarding</code> wrapper of <code>graphersal-storage-tests</code>, with its own element handle types) to prove the front ends
+are storage-independent: it is gated against the same baseline and generated blocks, additionally fails when a
+scenario changes class, never rewrites either (<code>TINKERPOP_UPDATE_BASELINE</code> is refused with it) and writes its
+report to <code>target/tinkerpop-report-forwarding.md</code>.</p>
+<h2 id="classes"><a class="header" href="#classes">Classes</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Class</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>skipped</code></td><td><code>@GraphComputerOnly</code> (OLAP) or an upstream "unsupported test"; counted in the scope, not executed (the <code>crew</code> scenarios are not skipped: they are the <a href="#deliberate-incompatibilities">deliberate incompatibility</a> <code>multi-meta-properties</code>, since Graphersal stores one value per key and its <a href="../users_guide/graphson.html">GraphSON import</a> maps multi- and meta-properties to arrays and <code>_meta</code>)</td></tr>
+<tr><td><code>translate</code></td><td>the translator cannot express it, e.g. a literal type Graphersal lacks (BigDecimal, BigInteger, byte, short, set, a map with a non-string key)</td></tr>
+<tr><td><code>missing</code></td><td>Rhai "Function/Variable not found": a missing step, overload or token; the name is extracted</td></tr>
+<tr><td><code>runtime</code></td><td>an error while executing: the step exists but rejects this input</td></tr>
+<tr><td><code>wrong_result</code></td><td>executed, but the result differs from the expected one</td></tr>
+<tr><td><code>wrong_error</code></td><td>expected an error but got a result (an expected error matches by type: any non-<code>missing</code> runtime error, whatever its text; a deliberate deviation of the harness, Graphersal's error texts differ from TinkerPop's)</td></tr>
+<tr><td><code>timeout</code></td><td>exceeded the per-scenario budget</td></tr>
+<tr><td><code>panic</code></td><td>a panic was caught (a rule-1 violation, top priority)</td></tr>
+<tr><td><code>excluded</code></td><td>out of the compatibility scope (a <code>withStrategies</code>/<code>withoutStrategies</code> scenario, or a <a href="#deliberate-incompatibilities">deliberate incompatibility</a>): not run, in no total</td></tr>
+</tbody></table>
+</div>
+<p>The headline splits the non-passing, non-skipped scenarios into two groups, because they mean different
+things. Graphersal does not plan to support 100 % of Gremlin's steps, but every step it does support must
+behave as the specification says:</p>
+<ul>
+<li><strong>Unsupported</strong> (classes <code>missing</code> and <code>translate</code>): the step, overload, token or literal type does not
+exist in Graphersal. An open feature gap, not a defect.</li>
+<li><strong>Wrong behaviour of supported steps</strong> (classes <code>runtime</code>, <code>wrong_result</code>, <code>wrong_error</code>, <code>timeout</code>,
+<code>panic</code>): the step exists and runs, but differs from the specification or fails. This is the number to
+keep at 0, and any entry in it is a bug.</li>
+</ul>
+<p>The report, the console summary and the per-category and per-file tables use the same two groups; the
+per-class counts stay in a line below the headline table and in the "Failures by class" section.</p>
+<h2 id="documented-normalizations"><a class="header" href="#documented-normalizations">Documented normalizations</a></h2>
+<p>The runner applies a small, fixed set of normalizations. None of them hides a semantic gap.</p>
+<ul>
+<li><strong>Tolerant id comparison.</strong> Graphersal's element ids are strings, TinkerPop's stock datasets use
+small integers with the same values. An expected <code>d[N].i</code>/<code>d[N].l</code> that stands for an id is
+stringified and compared with the string id. This applies to ids only.</li>
+<li><strong>Number-class comparison.</strong> Graphersal has <code>int64</code> and <code>float64</code> only, so numbers compare by class
+(integer vs. floating point), ignoring the declared width: <code>d[1].i</code> and <code>d[1].l</code> both match an
+<code>int64</code>, <code>d[1].f</code> and <code>d[1].d</code> both match a <code>float64</code>.</li>
+<li><strong>1 ulp float tolerance.</strong> Two <code>float64</code> result values compare equal when they are equal or differ
+by at most 1 ulp (<code>NaN</code> equals <code>NaN</code>, infinities exact, <code>+0</code> equals <code>-0</code>, other signs must agree).
+This absorbs last-digit differences between Rust's libm and Java (<code>sin(4.0)</code>), not an arithmetic
+deviation of Graphersal (see <a href="tinkerpop_deviations.html#1-ulp-float-tolerance-in-the-test-surface">Deviations</a>).
+It applies to float vs. float result values only, never to integers, ids, orderings or error cases.</li>
+<li><strong>Order relaxation.</strong> When a scenario expects an <code>ordered</code> result, the sequence differs but the
+multiset matches, and the translated traversal has no explicit ordering step (<code>order()</code>/<code>by()</code>),
+the scenario passes as an "order-relaxed pass", listed separately in the report. Graphersal does
+not guarantee TinkerGraph's insertion order across <code>GraphStorage</code> implementations. With an
+explicit ordering step the exact sequence is required.</li>
+<li><strong>Tree assertions.</strong> <code>the result should be a tree with a structure of</code> compares the single
+result as a map of key to nested map (a leaf is an empty map). Keys are compared by value
+(vertices by id, numbers by class, strings) and the siblings of a node match as a set, because
+TinkerPop's <code>Tree</code> is an unordered map.</li>
+<li><strong>Subgraph assertions.</strong> <code>the result should be a subgraph with the following</code> compares the
+graph value's <code>{"vertices": [..], "edges": [..]}</code> listing with the edge and the vertex table, each
+as a multiset (vertices and edges by id).</li>
+<li><strong>Lexical-only translation.</strong> The translator from canonical Gremlin to the Rhai DSL rewrites only
+lexical differences between Groovy and Rhai: numeric suffixes (<code>1L</code>, <code>1d</code>), list and map
+literals, string quoting, parameter and side-effect bindings, and Groovy's static imports (a bare
+<code>out()</code> becomes <code>__.out()</code>, a bare <code>desc</code> becomes <code>Order.desc</code>). Token map keys (<code>T.label:</code>,
+<code>(T.id):</code>, <code>Direction.OUT:</code>, and the <code>t[..]</code>/<code>D[..]</code> keys of parameter maps) become the DSL's
+reserved string keys <code>"T.label"</code>, <code>"T.id"</code>, <code>"Direction.OUT"</code>, <code>"Direction.IN"</code>. A missing
+step, overload or token is never emulated: it reaches the engine and fails there, counted
+against that step.</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../persistence/format.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../for_developers/test_coverage.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../persistence/format.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../for_developers/test_coverage.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

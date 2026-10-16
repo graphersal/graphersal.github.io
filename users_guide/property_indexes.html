@@ -1,0 +1,430 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Property Indexes - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/users_guide/property_indexes.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="property-indexes"><a class="header" href="#property-indexes">Property Indexes</a></h1>
+<p><code>g.v().has_label("person").has("title", "CEO")</code> reads every <code>person</code> vertex and compares its
+<code>title</code>. On a large graph that dominates the query time even when only a few vertices match. A
+<strong>property index</strong> orders the elements of one label by the value of one property, so the same
+query reads only the matching vertices.</p>
+<pre><code class="language-rhai graph=modern script">// Declare: the `person` vertices, ordered by `age`.
+g.create_index(#{label: "person", key: "age"});
+
+// Served: equality, P.within and ranges on `age` after has_label("person").
+g.v().has_label("person").has("age", 29).values("name").to_list();
+g.v().has_label("person").has("age", P.between(30, 40)).values("name").to_list();
+
+g.indexes()                                  // the indexes and what they hold
+</code></pre>
+<p>Indexes are <strong>declared, never automatic</strong>: nothing is indexed until you ask for it, and an index
+costs memory and a little time on every write of its key (below).</p>
+<h2 id="declare-list-drop"><a class="header" href="#declare-list-drop">Declare, list, drop</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>DSL</th><th>Rust (<code>GraphTraversalSource</code>)</th><th>Python (<code>Graph</code>)</th></tr></thead><tbody>
+<tr><td><code>g.create_index(#{label, key, element?, name?, type?})</code> / <code>g.createIndex(..)</code></td><td><code>create_index(name, PropertyIndexDefinition::new(kind, label, key))</code>, <code>.with_type(PropertyIndexType::MemoryOrdered)</code></td><td><code>graph.create_index(label, key, element="vertex", name=None, type="memory-ordered")</code></td></tr>
+<tr><td><code>g.indexes()</code></td><td><code>list_indexes()</code></td><td><code>graph.indexes()</code></td></tr>
+<tr><td><code>g.drop_index(name)</code> / <code>g.dropIndex(name)</code></td><td><code>drop_index(name)</code></td><td><code>graph.drop_index(name)</code></td></tr>
+</tbody></table>
+</div>
+<ul>
+<li><code>element</code> is <code>"vertex"</code> (the default) or <code>"edge"</code>; <code>label</code> is one vertex or edge label (it need
+not exist yet); <code>key</code> is one <strong>top-level</strong> property name (a plain name, not a jpath: nested
+values are not indexed).</li>
+<li><code>name</code> defaults to <code>&lt;label&gt;_&lt;key&gt;</code> (<code>&lt;label&gt;_&lt;key&gt;_edge</code> for an edge index), with every
+character that is not a letter, a digit or <code>_</code> replaced by <code>_</code>. It is an identifier like a
+saved query's name.</li>
+<li><code>type</code> is the <a href="#index-types">index type</a>, <code>"memory-ordered"</code> by default (the only type this
+version knows).</li>
+<li>One index per <code>(element, label, key, type)</code>: a second one under another name fails with a
+<em>Conflicting property index</em> error that names the first. Declaring the same name again replaces
+the index.</li>
+<li><code>g.indexes()</code> lists each index with its <code>type</code>, <code>served</code> (whether it is served, with a
+<code>reason</code> when it is not: see <a href="#an-index-type-from-a-newer-version">unknown types</a> and
+<a href="#other-storages">other storages</a>) and its current <code>entries</code> (indexed elements),
+<code>distinct_values</code> and <code>bytes</code> (an estimate of its memory).</li>
+</ul>
+<pre><code class="language-rhai graph=modern script">g.create_index(#{element: "edge", label: "knows", key: "weight"});
+g.e().has_label("knows").has("weight", P.gt(0.6)).count().next()
+</code></pre>
+<h2 id="index-types"><a class="header" href="#index-types">Index types</a></h2>
+<p>Every index has a <strong>type</strong> (the key <code>type</code>): how it keeps its entries, which values it holds and
+which conditions it serves. This version knows one type, and it is the default:</p>
+<div class="table-wrapper"><table><thead><tr><th>Type</th><th>What it is</th><th>Serves</th></tr></thead><tbody>
+<tr><td><code>memory-ordered</code></td><td>an ordered index kept in memory; its entries are derived from the data and rebuilt whenever the graph is loaded (<a href="#persistence">below</a>)</td><td>equality, <code>P.within</code> and the ranges (<a href="#what-is-served">below</a>)</td></tr>
+</tbody></table>
+</div>
+<p>Which value types an index type holds (Rust: <code>PropertyIndexType::holds</code>, the one place the engine
+and the front ends take it from):</p>
+<div class="table-wrapper"><table><thead><tr><th>Value type</th><th><code>memory-ordered</code></th></tr></thead><tbody>
+<tr><td><code>null</code>, <code>boolean</code></td><td>yes</td></tr>
+<tr><td><code>int64</code>, <code>float64</code></td><td>yes (ranged by their value as <code>float64</code>)</td></tr>
+<tr><td><code>string</code> (also a <a href="compressed_properties.html">compressed</a> one, by its text)</td><td>yes</td></tr>
+<tr><td><code>uuid</code></td><td>yes</td></tr>
+<tr><td><code>date</code>, <code>localdatetime</code>, <code>datetime</code>, <code>time</code>, <code>duration</code></td><td>yes</td></tr>
+<tr><td><code>array</code> (a list), <code>object</code> (a map)</td><td>no</td></tr>
+<tr><td><code>vector</code></td><td>no (<a href="vectors.html">vectors</a> are searched with <code>nearest()</code> and <code>similarity()</code>)</td></tr>
+</tbody></table>
+</div>
+<p>A value the index does not hold is skipped: the element is not in the index, and a condition on
+such a value is answered by a scan, so results never change.</p>
+<pre><code class="language-rhai graph=modern">g.create_index(#{label: "person", key: "age", type: "memory-ordered"})   // the default, spelled out
+g.create_index(#{label: "person", key: "age", type: "hash"})   // refused: not a type this version knows
+</code></pre>
+<h3 id="checked-against-the-schema-when-created"><a class="header" href="#checked-against-the-schema-when-created">Checked against the schema when created</a></h3>
+<p>When the graph's stored <a href="schema_enforcement.html">schema</a> declares the key at the top level of the
+index's label (a vertex label for a vertex index, an edge label for an edge index) and <strong>none</strong> of
+the declared types, <code>null</code> aside, can be held by the index type (a vector, a list, a map, or an
+<code>anyOf</code> of only such), creating the index is refused, with a message that names the label, the
+key, the declared type and the index type:</p>
+<pre><code class="language-rhai graph=empty">// refused: the schema declares `embedding` as a vector
+{
+  g.set_schema(#{mode: "open", vertices: #{doc: #{schema: #{type: "object", properties: #{
+    embedding: #{type: "array", format: "vector", element: "f32"}}}}}});
+  g.create_index(#{label: "doc", key: "embedding"})
+}
+</code></pre>
+<pre><code class="language-text">Error: Cannot create a property index on vertex 'doc' key 'embedding': the schema declares
+'embedding' as vector&lt;f32&gt;, and an index of type 'memory-ordered' holds none of its values
+Help: Vectors are not index keys: search them with nearest() or similarity() (an exact search,
+book page "Vectors"), for example g.v().has_label("doc").nearest("embedding", query, 10) for the
+10 closest; a vector index type is planned. ...
+</code></pre>
+<p>For a list or a map the help suggests indexing a scalar top-level property instead (an index key
+is one top-level name; nested fields are not indexed). A declaration with at least one type the
+index holds (<code>anyOf</code> of a list and a string, <code>["string", "null"]</code>), a key the schema does not
+declare, a label it does not declare, and a graph without a schema are all accepted. The schema's
+mode does not matter (a declaration in mode <code>none</code> counts too). The playground's form shows the
+refusal under its <strong>Key</strong> field.</p>
+<p>The check runs when an index is <strong>created</strong> (the DSL, <code>GraphTraversalSource::create_index</code>,
+Python, the playground, the dev server and MCP), never when a definition is stored as it is:
+<code>set_definition</code>, <code>apply_change_set</code>, a replay or recovery, a catalog file or a snapshot load
+keep what they carry. A <strong>later schema change never drops an index</strong>: an index whose key the
+schema later declares as a vector stays and simply holds nothing of it.</p>
+<h3 id="an-index-type-from-a-newer-version"><a class="header" href="#an-index-type-from-a-newer-version">An index type from a newer version</a></h3>
+<p>A store (or a catalog file, a change set) written by a newer Graphersal may hold an index of a
+type this version does not know. Such a definition is <strong>never damage</strong>: it is kept in the catalog
+exactly as read and written back unchanged (its payload byte for byte through the journal,
+checkpoints, backups, forks and snapshots), but it is <strong>not served</strong>: no entries are built, the
+optimizer never reads it, and <code>g.indexes()</code> (and the playground, the dev server and MCP's
+<code>list_indexes</code>) shows it with <code>served: false</code> and a <code>reason</code> such as <em>index type 'x' is not
+known to this version</em>. It can be dropped like any index. Creating or redefining an index of an
+unknown type is refused with an error whose help lists the known types. Indexes of different
+types may cover the same <code>(element, label, key)</code>.</p>
+<h2 id="what-is-served"><a class="header" href="#what-is-served">What is served</a></h2>
+<p>A <code>v()</code>/<code>e()</code> start step reads an index when</p>
+<ul>
+<li>it is the <strong>start</strong> of the traversal (or of a child traversal), the optimizer folded a
+<code>has_label(..)</code> into it, and <strong>every</strong> folded label has an index on the key: the index of
+<code>has_label("person")</code>, or of <code>has_label("person", "employee")</code> when both labels have one;</li>
+<li>and a <code>has()</code> on the indexed key follows directly (only <code>has()</code>, <code>has_label()</code>, <code>has_id()</code>,
+<code>has_key()</code>, <code>has_not()</code> in between):</li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Condition</th><th>Served</th></tr></thead><tbody>
+<tr><td><code>has(key, value)</code></td><td>equality</td></tr>
+<tr><td><code>has(key, P.eq(v))</code>, <code>has(key, P.within(a, b, ..))</code></td><td>one slice per value</td></tr>
+<tr><td><code>has(key, P.gt/gte/lt/lte(v))</code></td><td>one range</td></tr>
+<tr><td><code>has(key, P.between(a, b))</code>, <code>P.inside(a, b)</code></td><td>one range</td></tr>
+<tr><td><code>has(key, P.outside(a, b))</code></td><td>two ranges</td></tr>
+<tr><td><code>P.neq</code>, <code>P.without</code>, text predicates, <code>P.typeOf</code>, <code>and</code>/<code>or</code>/<code>not</code> composites</td><td>not served (scan)</td></tr>
+<tr><td>a value that is a list or a map (<code>has("tags", ["a"])</code>)</td><td>not served (scan)</td></tr>
+<tr><td><code>v().has("title", "CEO")</code> without a label, a jpath key</td><td>not served (scan)</td></tr>
+</tbody></table>
+</div>
+<p>With several served conditions the optimizer picks the <strong>most selective</strong> index from the index
+statistics (an equality reads about <code>entries / distinct_values</code> elements of each label, a range
+about half the entries).</p>
+<p><strong>Results are the same as without the index</strong>, always: the index returns a superset of the
+matching elements (numbers are ranged by their value as <code>float64</code>, so <code>29</code> and <code>29.0</code> are both
+read), and the start step and the <code>has()</code> step still check every condition on each candidate. The
+comparison is exactly that of <code>has()</code>: <code>has("age", 29)</code> matches an <code>int64</code> 29 only,
+<code>has("age", P.eq(29.0))</code> and the ranges compare numbers across <code>int64</code> and <code>float64</code>, a string never
+equals a uuid, <code>null</code> equals only <code>null</code>. Dates and times are index keys with the same rules
+(<a href="../dates/comparing.html">Comparing and Sorting</a>): each of <code>date</code>, <code>localdatetime</code>, <code>datetime</code>,
+<code>time</code> and <code>duration</code> is its own kind (a <code>date</code> never equals a <code>datetime</code> or a string, and a range
+reads only values of its bounds' type), a <code>datetime</code> is keyed by its instant (<code>12:00Z</code> and
+<code>14:00+02:00</code> are one key), and a <code>duration</code> is keyed by all its fields (<code>P1M</code> and <code>P30D</code> are two
+keys) and ranged by its length, a month as 30 days, ties broken by the fields: equality,
+<code>P.within</code> and every range on durations are served. Only the <strong>order</strong> of the elements may differ (the index
+reads them by value): use <code>order()</code> when the order matters.</p>
+<p>A <code>P.eq("a")</code> with a string inside a child traversal is not served: there a string first names a
+path label (<code>where(P.eq("a"))</code>), which an index cannot know.</p>
+<h2 id="see-it-in-profile"><a class="header" href="#see-it-in-profile">See it in <code>.profile()</code></a></h2>
+<p>The start step names the index it reads, and the rule <code>property_index</code> is listed:</p>
+<pre><code>$ graphersal -e 'g.create_index(#{label: "person", key: "age"})' \
+             -e 'g.v().has_label("person").has("age", P.gt(30)).values("name").profile()'
+Traversal Metrics
+Step                                                         Call      In     Out       Time    % Dur
+=====================================================================================================
+v(labels: ["person"]) [index: vertex person.age]                1       0       2   55.666µs     7.53
+has("age", P.gt(30))                                            1       2       2   42.625µs     5.77
+values("name")                                                  1       2       2    1.834µs     0.25
+                                                      TOTAL:             execute:  738.958µs    13.55
+=====================================================================================================
+Optimizer rules applied: source_filter_pushdown, property_index
+</code></pre>
+<p>An equality folded into the start step shows as
+<code>v(labels: ["person"]).has("title", "CEO") [index: vertex person.title]</code>. To compare with the scan,
+turn the rule off for one query: <code>g.with("optimizer.disabled", ["property_index"])</code> (see
+<a href="../optimizer/property_index.html">Property Index Rule</a>).</p>
+<h2 id="kept-exact"><a class="header" href="#kept-exact">Kept exact</a></h2>
+<p>An index is maintained on every write: adding and dropping elements (a vertex drop takes its edges
+out of the edge indexes), writing and removing the key (also through a jpath write that changes
+it), adding and removing a vertex label (a vertex with several labels is in the index of each of
+them), changing an edge label. A rolled-back unit restores the index with the data; <code>replay</code>,
+<code>apply_change_set</code> and a store's recovery rebuild it exactly. A string kept
+<a href="compressed_properties.html">compressed</a> is indexed by its text (the index holds the plain text, so
+indexing a long compressed field costs the memory compression saved).</p>
+<h2 id="persistence"><a class="header" href="#persistence">Persistence</a></h2>
+<p>An index is a catalog definition (kind <code>property_index</code>, like <a href="saved_queries.html">saved queries</a>
+and compression rules), so its <strong>declaration</strong> travels with the graph: the journal (WAL), snapshots,
+backups, forks, rollbacks and the catalog file. Its <strong>entries are never stored</strong>: they are rebuilt
+from the data whenever a graph is loaded, by a store open, a read-only view (also of a past state),
+a backup open, a recovery, a snapshot load. A read-only view is therefore always consistent with
+the data it shows. GraphML and GraphSON files carry no catalog, so no index.</p>
+<h2 id="memory"><a class="header" href="#memory">Memory</a></h2>
+<p>Each indexed element costs one entry: its value (strings longer than 24 bytes on the heap) plus
+about 50 bytes of ordered-set bookkeeping. <code>g.memory_usage()</code> reports the indexes as
+<code>property_index_bytes</code> (part of <code>total_bytes</code>, so the <a href="resource_limits.html">memory budget</a> sees
+them), <code>g.indexes()</code> per index. Building an index reads every element of its label once.</p>
+<h2 id="other-storages"><a class="header" href="#other-storages">Other storages</a></h2>
+<p>Indexes are a capability of the storage (<code>StorageCapabilities::property_indexes</code>); the built-in
+graph has it. On a <a href="../for_developers/custom_storage.html">custom storage</a> without it,
+<code>create_index</code> fails with <em>unsupported: property indexes</em>; an index definition can still be stored
+in its catalog (a catalog file loaded into it, say) and is listed with <code>served: false</code>, but no
+query reads it. A storage that serves indexes implements <code>GraphStorage::property_indexes</code> and the
+lookups <code>vertices_by_property_index</code>/<code>edges_by_property_index</code>.</p>
+<h2 id="in-the-playground-the-dev-server-and-mcp"><a class="header" href="#in-the-playground-the-dev-server-and-mcp">In the playground, the dev server and MCP</a></h2>
+<ul>
+<li><strong>Playground</strong> (WebAssembly and over the dev server): <strong>Catalog ▾ ▸ Property indexes</strong> lists the
+indexes with their type, entries, distinct values, elements per value (what an equality reads)
+and memory (an index that is not served says why), creates one from a form (element, label,
+key, type, optional name; the default name is shown as you type; an engine refusal shows under
+its field) and drops one after a confirmation. The <strong>Statistics</strong> tab of the Profile panel
+shows <em>Property indexes</em> with their memory when the graph has some. Indexes travel with the
+catalog file (<strong>Catalog ▾ ▸ Save catalog</strong>).</li>
+<li><strong>Dev server</strong>: <code>GET /api/indexes</code>, <code>POST /api/indexes/create</code> <code>{label, key, element?, name?, type?}</code>,
+<code>POST /api/indexes/drop</code> <code>{name}</code> (see <a href="../persistence/dev_server.html">the dev server</a>); a
+create or drop is a commit recorded in the change feed, so open browsers reload. The start
+block on stderr names the index memory.</li>
+<li><strong>MCP</strong>: the tools <code>list_indexes</code> (also with <code>--mcp-read-only</code>), <code>create_index</code> (with an
+optional <code>type</code>, an enum of the known types) and <code>drop_index</code> (not offered read-only, where
+<code>query</code> refuses <code>g.create_index</code> too).</li>
+</ul>
+<h2 id="limits"><a class="header" href="#limits">Limits</a></h2>
+<ul>
+<li>Not indexed: nested values (jpath keys), lists, maps and vectors as values (see
+<a href="#index-types">index types</a>), labels other than the one declared (an index on <code>person</code> does not
+serve <code>v().has("title", ..)</code> without <code>has_label</code>).</li>
+<li>One index type (<code>memory-ordered</code>): persisted, hash, vector (approximate nearest neighbour) and
+full-text types are planned and will be additional values of <code>type</code>.</li>
+<li>No unique indexes (constraints) in this version.</li>
+<li><code>order().by(key)</code> does not read the index.</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../users_guide/saved_queries.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../users_guide/profiling_and_execute.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../users_guide/saved_queries.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../users_guide/profiling_and_execute.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

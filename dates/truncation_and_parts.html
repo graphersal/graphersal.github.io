@@ -1,0 +1,270 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Truncation and Parts - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/dates/truncation_and_parts.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="truncation-and-parts"><a class="header" href="#truncation-and-parts">Truncation and Parts</a></h1>
+<p><a href="../traversal/steps/date_trunc.html"><code>date_trunc(DT.unit)</code></a> is PostgreSQL's <code>date_trunc</code>, and
+<a href="../traversal/steps/date_part.html"><code>date_part(DT.unit)</code></a> is its <code>extract</code>. Both are Graphersal
+extensions; TinkerPop has neither. A <code>datetime</code> is read on its own wall clock, or on the wall
+clock of a zone given as the last argument (<a href="time_zones.html">Time Zones</a>).</p>
+<h2 id="date_trunc"><a class="header" href="#date_trunc"><code>date_trunc()</code></a></h2>
+<p>The fields below the unit become their first value: the start of the hour, the day, the month.
+A truncated <code>datetime</code> keeps its offset (or, with a zone, takes the zone's offset at the new
+instant).</p>
+<pre><code class="language-rhai graph=empty">g.inject(datetime("2023-08-17T15:47:12.5+02:00")).date_trunc(DT.hour).next()   // datetime("2023-08-17T15:00:00+02:00")
+g.inject(datetime("2023-08-17T15:47:12.5+02:00")).date_trunc(DT.week).next()   // datetime("2023-08-14T00:00:00+02:00")
+g.inject(datetime("2023-08-17T15:47:12.5+02:00")).date_trunc(DT.day, "UTC").next()   // datetime("2023-08-17T00:00:00Z")
+g.inject(date("2023-08-17")).date_trunc(DT.quarter).next()   // date("2023-07-01")
+g.inject(duration("P1Y2M3DT4H5M")).date_trunc(DT.day).next()   // duration("P1Y2M3D")
+</code></pre>
+<div class="table-wrapper"><table><thead><tr><th>Unit</th><th>Truncates to</th></tr></thead><tbody>
+<tr><td><code>microsecond</code> ... <code>hour</code></td><td>the start of that unit of the clock</td></tr>
+<tr><td><code>day</code></td><td>midnight</td></tr>
+<tr><td><code>week</code></td><td>Monday, midnight (ISO 8601 weeks)</td></tr>
+<tr><td><code>month</code>, <code>quarter</code>, <code>year</code></td><td>the first day of the month, of the quarter (January, April, July, October), of the year</td></tr>
+<tr><td><code>decade</code></td><td>the first day of a year divisible by 10 (2020-01-01)</td></tr>
+<tr><td><code>century</code>, <code>millennium</code></td><td>the first day of a year ending in <code>01</code>/<code>001</code>: centuries and millennia start at year 1, as PostgreSQL counts them (2001-01-01 starts the 21st century)</td></tr>
+</tbody></table>
+</div>
+<p>A <code>date</code> takes <code>day</code> and larger, a <code>time</code> <code>hour</code> and smaller, a <code>duration</code> keeps the fields at
+and above the unit (<code>month</code> and larger keep whole multiples of the unit's months and drop the days
+and the time part).</p>
+<h2 id="date_part"><a class="header" href="#date_part"><code>date_part()</code></a></h2>
+<p>One field as a number: an <code>int64</code>, except <code>DT.epoch</code>, a <code>float64</code> of seconds.</p>
+<div class="table-wrapper"><table><thead><tr><th>Part</th><th>Value</th></tr></thead><tbody>
+<tr><td><code>DT.year</code>, <code>DT.month</code> (1-12), <code>DT.day</code> (1-31), <code>DT.hour</code>, <code>DT.minute</code>, <code>DT.second</code> (0-59)</td><td>the field</td></tr>
+<tr><td><code>DT.millisecond</code> (0-999), <code>DT.microsecond</code> (0-999999)</td><td>the fraction of the second; unlike PostgreSQL, not the seconds with the fraction</td></tr>
+<tr><td><code>DT.quarter</code> (1-4)</td><td>the quarter</td></tr>
+<tr><td><code>DT.week</code> (1-53)</td><td>the ISO 8601 week number</td></tr>
+<tr><td><code>DT.iso_year</code></td><td>the ISO 8601 week-numbering year (2023-01-01 is in week 52 of 2022)</td></tr>
+<tr><td><code>DT.day_of_week</code></td><td>0 = Sunday to 6 = Saturday (PostgreSQL <code>dow</code>)</td></tr>
+<tr><td><code>DT.iso_day_of_week</code></td><td>1 = Monday to 7 = Sunday (PostgreSQL <code>isodow</code>)</td></tr>
+<tr><td><code>DT.day_of_year</code> (1-366)</td><td>the day of the year</td></tr>
+<tr><td><code>DT.decade</code>, <code>DT.century</code>, <code>DT.millennium</code></td><td>as PostgreSQL counts them (the 21st century is 2001-2100)</td></tr>
+<tr><td><code>DT.epoch</code></td><td>seconds since 1970-01-01T00:00:00Z (a <code>localdatetime</code> read as UTC); for a <code>duration</code> its length with a year of 365.25 days and a month of 30 days</td></tr>
+<tr><td><code>DT.offset</code></td><td>the UTC offset of a <code>datetime</code> in seconds</td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-rhai graph=empty">g.inject(date("2023-08-17")).date_part(DT.day_of_week).next()   // 4
+g.inject(datetime("2023-01-01T15:47:12.5+02:00")).date_part(DT.week).next()   // 52
+g.inject(datetime("2023-01-01T15:47:12.5+02:00")).date_part(DT.iso_year).next()   // 2022
+g.inject(datetime("2023-08-17T15:47:12.5+02:00")).date_part(DT.epoch).next()   // 1692280032.5
+g.inject(datetime("2023-08-17T15:47:12.5+02:00")).date_part(DT.offset).next()   // 7200
+g.inject(datetime("2023-08-02T02:00Z")).date_part(DT.day, "America/New_York").next()   // 1
+</code></pre>
+<p>A <code>date</code> has no clock parts (<code>hour</code> and smaller), a <code>time</code> only those (and <code>epoch</code>, the seconds
+since midnight). A <code>duration</code> gives PostgreSQL's <code>interval</code> fields: <code>year</code> and <code>month</code> from its
+months (14 months are 1 year and 2 months), <code>day</code> its days, <code>hour</code> and smaller from its time part;
+it has no <code>week</code>, day-of parts, <code>iso_year</code> or <code>offset</code>:</p>
+<pre><code class="language-rhai graph=empty">g.inject(duration("P1Y2M3DT4H5M6.5S")).date_part(DT.month).next()   // 2
+g.inject(date("2023-08-17")).date_part(DT.hour).next()   // error: the part hour is not defined for a date
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../dates/arithmetic.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../dates/conversions.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../dates/arithmetic.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../dates/conversions.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

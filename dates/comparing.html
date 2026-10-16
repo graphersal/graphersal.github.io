@@ -1,0 +1,265 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Comparing and Sorting - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/dates/comparing.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="comparing-and-sorting"><a class="header" href="#comparing-and-sorting">Comparing and Sorting</a></h1>
+<p>Every comparison of dates goes through one set of rules: <code>==</code> in a script, the predicates
+(<code>P.eq</code>, <code>P.gt</code>, <code>P.between</code>, <code>P.within</code>, ...), <code>dedup()</code>, <code>group()</code> and <code>group_count()</code> keys,
+<code>order()</code>, <code>min()</code>/<code>max()</code> and the <a href="schema.html">schema bounds</a>.</p>
+<h2 id="datetime-by-its-instant"><a class="header" href="#datetime-by-its-instant"><code>datetime</code>: by its instant</a></h2>
+<p>Two <code>datetime</code>s are equal when they are the same instant, whatever their offsets
+(<code>12:00Z</code> equals <code>14:00+02:00</code>). This is PostgreSQL's equality and TinkerPop's ("dates are
+evaluated based on the numerical comparison of Unix Epoch time"). The offset is kept and shown,
+but never compared:</p>
+<pre><code class="language-rhai graph=empty">datetime("2023-08-02T12:00Z") == datetime("2023-08-02T14:00+02:00")   // true
+g.inject(datetime("2023-08-02T12:00Z"), datetime("2023-08-02T14:00+02:00")).dedup().count().next()   // 1
+g.inject(datetime("2023-08-02T14:00+02:00")).is(P.gt(datetime("2023-08-02T11:00Z"))).count().next()   // 1
+</code></pre>
+<p>Of two values with the same instant and different offsets the first one met is kept (<code>dedup()</code>,
+a <code>group()</code> key); their order in a sort is unspecified. To compare the wall clocks instead, convert
+first: <code>as_local()</code> gives the wall-clock <code>localdatetime</code> (<a href="time_zones.html">Time Zones</a>).</p>
+<h2 id="duration-field-wise-equal-ordered-by-length"><a class="header" href="#duration-field-wise-equal-ordered-by-length"><code>duration</code>: field-wise equal, ordered by length</a></h2>
+<p>Two <code>duration</code>s are equal when their months, days and microseconds are equal: <code>P1M</code> is not
+<code>P30D</code>, and <code>P1D</code> is not <code>PT24H</code> (a day in a time zone may have 23 or 25 hours). Sorting
+compares their length as PostgreSQL does for an <code>interval</code>, counting a month as 30 days and a day
+as 24 hours; equal lengths are ordered by months, then days, then microseconds:</p>
+<pre><code class="language-rhai graph=empty">duration("P1M") == duration("P30D")   // false
+g.inject(duration("P1M"), duration("P30D"), duration("PT719H")).order().to_list()   // [PT719H, P30D, P1M]
+</code></pre>
+<h2 id="the-other-types-by-calendar-and-clock"><a class="header" href="#the-other-types-by-calendar-and-clock">The other types: by calendar and clock</a></h2>
+<p>A <code>date</code>, a <code>localdatetime</code> and a <code>time</code> compare by their calendar or clock value.</p>
+<pre><code class="language-rhai graph=empty">g.inject(time("10:00")).is(P.between(time("09:00"), time("17:00"))).count().next()   // 1
+g.inject(date("2023-08-02")).is(P.within(date("2023-08-02"), date("2023-08-03"))).count().next()   // 1
+</code></pre>
+<h2 id="different-types"><a class="header" href="#different-types">Different types</a></h2>
+<p>Values of different types are never equal, and an ordering predicate between them does not match
+(no error): a <code>date</code> is not a <code>datetime</code>, and a date is never equal to a string, as a UUID is not.
+Convert one side first (<a href="conversions.html">Conversions</a>).</p>
+<pre><code class="language-rhai graph=empty">g.inject(date("2023-08-02")).is(P.eq("2023-08-02")).count().next()   // 0
+g.inject(date("2023-08-02")).is(P.lt(datetime("2024-01-01T00:00Z"))).count().next()   // 0
+g.inject(date("2023-08-02")).as_date().is(P.lt(datetime("2024-01-01T00:00Z"))).count().next()   // 1
+</code></pre>
+<p><code>order()</code> of a mixed stream puts the dates after the numbers and before the strings (TinkerPop's
+orderability places its date type there), in the order <code>date</code>, <code>localdatetime</code>, <code>datetime</code>,
+<code>time</code>, <code>duration</code>:</p>
+<pre><code class="language-rhai graph=empty">g.inject("x", 1, duration("P1D"), time("01:00"), datetime("2023-08-02T00:00Z"), date("2023-08-02")).order().to_list()
+</code></pre>
+<h2 id="property-indexes"><a class="header" href="#property-indexes">Property indexes</a></h2>
+<p>A <a href="../users_guide/property_indexes.html">property index</a> on a key holding dates and times serves
+<code>has()</code> with these same rules: an equality or <code>P.within</code> reads the values equal to the operand
+(a <code>datetime</code> by its instant, a <code>duration</code> field by field), a range (<code>P.gt</code>, <code>P.between</code>, ...)
+reads the values of the operand's type in that range. The results are always the same as without
+the index.</p>
+<pre><code class="language-rhai graph=modern script">g.create_index(#{label: "person", key: "joined"});
+g.v().has("name", "marko").property("joined", datetime("2023-08-02T12:00Z")).iterate();
+g.v().has_label("person").has("joined", datetime("2023-08-02T14:00+02:00")).count().next()   // 1
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../dates/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../dates/text_formats.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../dates/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../dates/text_formats.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

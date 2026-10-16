@@ -1,0 +1,307 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Generating Test Data - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/users_guide/generating_test_data.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="generating-test-data"><a class="header" href="#generating-test-data">Generating Test Data</a></h1>
+<p><code>Fake(seed)</code> is a generator of test data for scripts: English names, e-mail addresses, job
+titles, addresses, companies and words, plus the random numbers a script needs to build a graph's
+shape (how many reports a manager has, who knows whom). It is part of the Rhai DSL (feature
+<code>script</code>), so it works in the CLI, the playground, the dev server and Python alike.</p>
+<pre><code>let f = Fake(42);
+f.full_name()             // "Lawrence Young"
+f.int(1, 6)               // 2: a die roll
+f.email("Ada Lovelace")   // "ada.lovelace35@example.com"
+</code></pre>
+<h2 id="reproducible-by-design"><a class="header" href="#reproducible-by-design">Reproducible by design</a></h2>
+<p>The same seed and the same sequence of calls give the same values, on every platform (native and
+WebAssembly) and in every run. A graph generated from a seed can be rebuilt exactly, to reproduce
+a bug, to compare two versions of a query, or to benchmark on the same data.</p>
+<ul>
+<li><code>Fake()</code> without a seed picks a random one; <code>f.seed()</code> tells which, so a run you liked can be
+repeated with <code>Fake(that_seed)</code>.</li>
+<li>The generator is Graphersal's own (SplitMix64), not the <code>rand</code> crate's, whose algorithms may
+change between versions. The word lists and the way each method draws are part of the contract
+as well: a change to them changes what every seed produces, so it is treated as a breaking
+change (a test pins the values of seed 42).</li>
+<li><code>random.seed</code> (<code>g.with("random.seed", n)</code>) seeds the random steps of one traversal (<code>coin()</code>,
+<code>sample()</code>, <code>order().by(Order.shuffle)</code>); <code>Fake</code> is independent of it.</li>
+</ul>
+<h2 id="copies-share-one-stream"><a class="header" href="#copies-share-one-stream">Copies share one stream</a></h2>
+<p>A <code>Fake</code> value is a handle. A copy (<code>let b = a;</code>, a function argument) draws from the same
+stream, so a helper function advances the caller's generator and every call gets new values:</p>
+<pre><code>fn person(f) { #{ name: f.full_name(), age: f.int(18, 90) } }
+let f = Fake(1);
+[person(f), person(f)]   // two different people
+</code></pre>
+<h2 id="forks-independent-streams"><a class="header" href="#forks-independent-streams">Forks: independent streams</a></h2>
+<p><code>f.fork(name)</code> returns a generator for the stream <code>name</code> of the same seed. A fork depends only on
+the seed and its name (and the names of the forks above it), never on what was drawn before. Give
+each part of a generator its own fork, and drawing one more value in one part does not shift the
+values of all the others:</p>
+<pre><code>let f = Fake(42);
+let people = f.fork("people");
+let social = f.fork("social");   // unchanged when the people part draws more values
+</code></pre>
+<h2 id="methods"><a class="header" href="#methods">Methods</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Method</th><th>Result</th></tr></thead><tbody>
+<tr><td><code>seed()</code></td><td>The seed (of the root, for a fork)</td></tr>
+<tr><td><code>fork(name)</code></td><td>An independent generator for the named stream</td></tr>
+<tr><td><code>int(lo, hi)</code></td><td>An integer from <code>lo</code> to <code>hi</code>, both included</td></tr>
+<tr><td><code>float()</code>, <code>float(lo, hi)</code></td><td>A float in <code>[0, 1)</code> or <code>[lo, hi)</code></td></tr>
+<tr><td><code>chance(p)</code></td><td><code>true</code> with probability <code>p</code> (0.0 to 1.0)</td></tr>
+<tr><td><code>pick(array)</code></td><td>A random element of a non-empty array</td></tr>
+<tr><td><code>shuffle(array)</code></td><td>A copy of the array in random order</td></tr>
+<tr><td><code>sample(array, n)</code></td><td><code>n</code> distinct elements of the array, in random order</td></tr>
+<tr><td><code>uuid()</code></td><td>A version 4 UUID value (the <code>Uuid</code> type, see <a href="uuid_values.html">UUID Values</a>)</td></tr>
+<tr><td><code>first_name()</code>, <code>last_name()</code>, <code>full_name()</code></td><td>Common US given names and surnames</td></tr>
+<tr><td><code>username()</code></td><td><code>victoriav971</code></td></tr>
+<tr><td><code>email()</code>, <code>email(name)</code></td><td>An address at <code>example.com</code>/<code>.org</code>/<code>.net</code> (RFC 2606); with a name, made from it</td></tr>
+<tr><td><code>phone()</code></td><td>A US number in the fictional <code>555-01xx</code> range</td></tr>
+<tr><td><code>job_title()</code></td><td><code>Senior Data Analyst</code></td></tr>
+<tr><td><code>street_name()</code>, <code>street_address()</code></td><td><code>Lakeview Circle</code>, <code>5666 Broad Trail</code></td></tr>
+<tr><td><code>city()</code>, <code>state()</code>, <code>state_abbr()</code>, <code>zip_code()</code>, <code>country()</code></td><td>Real US cities and states, countries</td></tr>
+<tr><td><code>address()</code></td><td>One line; its city and state belong together</td></tr>
+<tr><td><code>company()</code>, <code>domain_name()</code></td><td><code>Vargas &amp; Ryan</code>, <code>vasquezsalt.info</code></td></tr>
+<tr><td><code>word()</code>, <code>sentence()</code></td><td>English words; a sentence of 4 to 12 of them</td></tr>
+<tr><td><code>lorem(lo, hi)</code></td><td>Lorem ipsum text of a random length from <code>lo</code> to <code>hi</code> bytes (both included, at most 16 MiB): paragraphs separated by an empty line, starting with "Lorem ipsum dolor sit amet", ending with a period; for large text fields, e.g. to try <a href="compressed_properties.html">compressed properties</a></td></tr>
+<tr><td><code>lorem_sentence()</code>, <code>lorem_paragraph()</code></td><td>a Lorem ipsum sentence of 6 to 14 words; a paragraph of 3 to 7 sentences</td></tr>
+</tbody></table>
+</div>
+<p>Methods of two words have both spellings (<code>full_name</code>/<code>fullName</code>, <code>zip_code</code>/<code>zipCode</code>, ...).
+A wrong argument (<code>int(5, 1)</code>, <code>chance(1.5)</code>, <code>pick([])</code>, <code>sample([1], 2)</code>) is a script error that
+names the method.</p>
+<p>Only English data exists for now. <code>Fake</code> has no date method; build a random date from a number:
+<code>date("2024-01-01") + duration("P" + f.int(0, 365) + "D")</code> (<a href="../dates/index.html">Dates and Times</a>).</p>
+<h2 id="building-a-graph"><a class="header" href="#building-a-graph">Building a graph</a></h2>
+<p>The playground's Examples menu has a complete generator under <em>Generated test data (Fake)</em>: its
+parameters (seed, number of companies, depth and fan-out of the management trees, number of
+<code>knows</code> edges, number of cities) are Rhai variables at the top of the script. Its core:</p>
+<pre><code>let f = Fake(42);
+let people = f.fork("people");
+let ids = [];
+for i in 0..100 {
+    let name = people.full_name();
+    ids.push(g.add_v("person").property("name", name)
+        .property("email", people.email(name)).property("age", people.int(21, 67))
+        .id().next());
+}
+let social = f.fork("social");
+for k in 0..300 {
+    let a = ids[social.int(0, ids.len() - 1)];
+    let b = ids[social.int(0, ids.len() - 1)];
+    if a != b { g.v(a).add_e("knows").to(g.v(b)).to_list(); }
+}
+</code></pre>
+<p>Pick from a large array by index, as above: <code>pick()</code>, <code>shuffle()</code> and <code>sample()</code> receive a copy of
+the array they are given, which costs one copy per call. The example's largest setting (3
+companies, depth 6, fan-out 4: 16 383 people, 50 000 <code>knows</code> edges) takes about a second in a
+native release build.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../users_guide/graphson.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../library/safety.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../users_guide/graphson.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../library/safety.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

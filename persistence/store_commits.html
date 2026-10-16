@@ -1,0 +1,304 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Commits and Durability - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/persistence/store_commits.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="commits-and-durability"><a class="header" href="#commits-and-durability">Commits and Durability</a></h1>
+<p>Every commit of <code>store.graph()</code> (every traversal, every <code>transaction(..)</code>, every import; see
+<a href="../users_guide/transactions.html">Transactions</a>) is written to the store's write-ahead log as one
+record and made durable <strong>before</strong> it returns. A commit that changes nothing writes nothing.</p>
+<pre><pre class="playground"><code class="language-rust no_run"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::time::Duration;
+use graphersal::persist::{Durability, Store, StoreOptions};
+
+let store = Store::open("data", StoreOptions::new())?;                    // fsync per commit
+let fast = Store::open(
+    "other",
+    StoreOptions::new().with_durability(Durability::Interval(Duration::from_millis(200))),
+)?;
+store.graph().write().traversal_mut().add_v("person").to_list()?;          // on disk when it returns
+<span class="boring">Ok::&lt;(), Box&lt;dyn std::error::Error&gt;&gt;(())
+</span><span class="boring">}</span></code></pre></pre>
+<h2 id="durability"><a class="header" href="#durability">Durability</a></h2>
+<div class="table-wrapper"><table><thead><tr><th><code>Durability</code></th><th>A commit returns after</th><th>A crash of the process</th><th>A crash of the machine (power)</th></tr></thead><tbody>
+<tr><td><code>EveryCommit</code> (default)</td><td>the record is written and <code>fsync</code>ed</td><td>loses nothing</td><td>loses nothing</td></tr>
+<tr><td><code>Interval(d)</code></td><td>the record is written; <code>fsync</code> at most every <code>d</code></td><td>loses nothing</td><td>may lose the commits of the last interval, never one in the middle</td></tr>
+<tr><td><code>Os</code></td><td>the record is handed to the operating system</td><td>loses nothing</td><td>may lose what the OS had not written yet</td></tr>
+</tbody></table>
+</div>
+<h2 id="the-write-ahead-guarantees"><a class="header" href="#the-write-ahead-guarantees">The write-ahead guarantees</a></h2>
+<ul>
+<li><strong>The journal runs last.</strong> The store's journal is a commit hook in its own slot after every
+other hook (your own hooks, schema checks, a veto), and the commit's sequence number is assigned
+before it writes. Once the record is written nothing can veto the commit any more: the WAL
+never holds a commit that did not happen.</li>
+<li><strong>A failed write or fsync vetoes the commit</strong>: it rolls back and the caller gets
+<code>GraphError::CommitRejected</code> with the reason. Memory and disk never diverge, and nobody gets
+"ok" for a commit that is not on disk.</li>
+<li><strong>Refused records are cut off.</strong> Before the store gives up, the refused record is cut off the
+WAL again (and synced), so a commit the caller was told failed is never replayed. If even that
+cut fails, its position is recorded in <code>GRAPH</code>, and the next open cuts there (every reader stops
+there meanwhile).</li>
+<li><strong>A panicking hook rolls back.</strong> A commit hook of your own that panics in <code>before_commit</code>
+rolls the unit back (the panic then continues to the caller); the journal runs after it and
+never writes that unit (<a href="../users_guide/transactions.html#panics">Transactions</a>). A panic inside
+the journal itself (a bug, or a store backend that panics while the WAL is written) cuts the
+record off again, poisons the journal and rolls the unit back too. Every case, with what a
+reopen gives, is in the table
+<a href="journal_and_recovery.html#failures-while-committing">Failures while committing</a>.</li>
+<li><strong>Poisoning.</strong> After a failed fsync the state of the file is unknown, so the store refuses
+every later commit and mark (<code>PersistError::Poisoned</code>) until it is reopened. Reopening runs the
+recovery and continues from the last durable commit.</li>
+<li><strong>After <code>close()</code></strong> the graph refuses commits.</li>
+</ul>
+<h2 id="the-durable-end"><a class="header" href="#the-durable-end">The durable end</a></h2>
+<p><code>store.durable_end()</code> is the position after the last record whose sync completed (its WAL
+segment, byte offset and commit). It is readable without any lock: a backup copies the WAL only
+up to it, because a record after it may still be vetoed.</p>
+<h2 id="wal-segments"><a class="header" href="#wal-segments">WAL segments</a></h2>
+<p>The WAL is a sequence of segment files <code>wal/&lt;first commit&gt;.wal</code>, 16 MiB each by default
+(<code>StoreOptions::with_wal_segment_bytes</code>; a record is never split, a segment closes after the
+record that passes the size). A segment is closed with an <code>fsync</code> before the next one starts, so
+only the last segment can end in an interrupted write. Starting a segment is recorded in <code>GRAPH</code>,
+so a lost, emptied or replaced newest segment is reported as damage instead of opening the store
+at an earlier commit (<a href="store_damage.html">Damage</a>).</p>
+<p>Large records (from 4 KiB) are compressed (<code>StoreOptions::with_codec</code>).</p>
+<h2 id="the-size-of-one-commit"><a class="header" href="#the-size-of-one-commit">The size of one commit</a></h2>
+<p>Every commit is one WAL record, and its body is at most <strong>1 GiB before compression</strong> (format
+spec 9.3). The body holds every change of the unit with its before and after values, a dropped
+element with its full properties included, so a unit that drops and re-creates a few hundred
+thousand elements with long texts can reach it. Such a commit is refused
+(<code>GraphError::CommitRejected</code> from the hook <code>journal</code>, its source
+<code>PersistError::CommitTooLarge</code>): the unit rolls back, nothing is written, the store keeps
+working. Split the work into smaller units: in the playground and the dev server a whole script
+is one unit, so drop in a run of its own and create the data over several runs; in the CLI,
+Python and Rust every traversal is its own unit already. See
+<a href="../users_guide/resource_limits.html#the-size-of-one-commit-journal">Resource Limits</a>.</p>
+<h2 id="reading-the-committed-changes-cdc"><a class="header" href="#reading-the-committed-changes-cdc">Reading the committed changes (CDC)</a></h2>
+<pre><pre class="playground"><code class="language-rust no_run"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">use graphersal::persist::{Store, StoreOptions};
+</span><span class="boring">let store = Store::open("data", StoreOptions::new())?;
+</span>for change in store.changes_since(10)? {        // every commit after commit 10, in order
+    let change = change?;
+    println!("commit {} at {}: {} mutation(s)", change.commit_seq(), change.committed_at(),
+             change.mutations().len());
+}
+<span class="boring">Ok::&lt;(), Box&lt;dyn std::error::Error&gt;&gt;(())
+</span><span class="boring">}</span></code></pre></pre>
+<p><code>changes_since(commit)</code> streams the committed <code>ChangeSet</code>s from the WAL, up to the durable end:
+every mutation with its before and after values, the commit time and metadata. It is the basis
+for change data capture, replication and audit. It fails when the WAL it needs was
+<a href="store_prune.html">pruned</a>. For a live process, a <a href="../users_guide/transactions.html">commit hook</a>
+gets every <code>ChangeSet</code> as it commits; the WAL's byte format is public
+(<a href="format.html#9-the-write-ahead-log">format specification, section 9</a>) for readers in other
+processes and languages.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../persistence/store_open_close.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../persistence/store_checkpoints.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../persistence/store_open_close.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../persistence/store_checkpoints.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>
