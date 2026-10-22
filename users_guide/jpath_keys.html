@@ -1,0 +1,461 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Path Keys (jpath) - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/users_guide/jpath_keys.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="path-keys-jpath"><a class="header" href="#path-keys-jpath">Path keys (jpath)</a></h1>
+<p>Wherever a read step takes a property name, it also accepts <code>jpath("...")</code>: a path into a nested
+property value (an object or an array). A plain string is always a literal property name:
+<code>"a.b"</code> names a property called <code>a.b</code>, <code>jpath("a.b")</code> reads key <code>b</code> inside the property <code>a</code>.
+Strings are never sniffed.</p>
+<pre><code class="language-rhai">g.v().values(jpath("meta.tags[0]"))
+g.v().has(jpath("meta.k"), P.gt(1))
+g.v().order().by(jpath("meta.k"))
+g.v().valueMap(jpath("meta.k"), "name")      // key of the entry: "$.meta.k"
+g.v().properties(jpath("meta.k")).key()      // "$.meta.k"
+</code></pre>
+<h2 id="grammar"><a class="header" href="#grammar">Grammar</a></h2>
+<p>RFC 9535 <em>singular queries</em> only: member names and integer indices, so a path always reaches at
+most one value. <code>$</code> is optional (<code>a.b[1].c</code> and <code>$.a.b[1].c</code> are the same). Bracket names
+<code>['a.b']</code> / <code>["a.b"]</code> hold a name that contains a dot, a quote or a bracket, with the escapes <code>\'</code>,
+<code>\"</code>, <code>\\</code> (and the RFC control escapes and <code>\uXXXX</code>). Negative indices count from the end: <code>[-1]</code>
+is the last element. Not supported (a parse error naming the position): <code>..</code> recursive descent,
+wildcards <code>*</code>, filters <code>[?(..)]</code>, slices <code>[a:b]</code>, unions <code>[a,b]</code>. A path needs at least one
+segment: <code>$</code> alone and the empty string are errors. A path has at most 256 segments, and an index is at most
+9007199254740991 (2^53 - 1, the interoperable JSON integer range) from either end; beyond that it
+is a parse error naming the position.</p>
+<p>Deliberate leniencies compared to the RFC, kept so that old <code>json_path("meta.tags[0]")</code> strings
+keep working: the dot notation accepts any non-structural character in a name (<code>user-name</code>; the
+canonical form then renders it as <code>['user-name']</code>), a leading <code>.</code> and a leading <code>[</code> without <code>$</code> are
+accepted, and whitespace inside brackets is allowed. Empty segments (<code>a..b</code>, <code>a.</code>, <code>a.[0]</code>) are
+rejected. The canonical text (<code>$.a.b[1].c</code>, bracket form only for names that need it) is what shows
+up as a result key and in <code>.profile()</code>; parsing the canonical text gives the same path back.</p>
+<p>A plain string is never parsed: <code>values("a.b")</code> reads the property named <code>a.b</code>. Write
+<code>jpath("a.b")</code> for the path. In the Rust API, any <code>&amp;str</code>/<code>String</code> converts to a name key
+(<code>PropKey::Name</code>) and a <code>JsonPath</code> to a path key (<code>PropKey::Path</code>).</p>
+<h2 id="missing-paths"><a class="header" href="#missing-paths">Missing paths</a></h2>
+<p>A path that does not exist (missing key, index out of range, a scalar on the way) is an absent
+property, never an error: <code>values</code> yields nothing, <code>has</code> is false, <code>hasNot</code> is true, <code>by()</code> is
+unproductive.</p>
+<h2 id="propertiesjpath"><a class="header" href="#propertiesjpath"><code>properties(jpath(...))</code></a></h2>
+<p>A path has no stored property to point at, so <code>properties(jpath(..))</code> yields a <em>path property
+element</em>: a materialized pair of the canonical path text and the value the path ends on. It
+behaves like a property element otherwise:</p>
+<div class="table-wrapper"><table><thead><tr><th>Step</th><th>Result</th></tr></thead><tbody>
+<tr><td><code>key()</code></td><td>canonical path text, e.g. <code>$.meta.k</code></td></tr>
+<tr><td><code>value()</code></td><td>the leaf value</td></tr>
+<tr><td><code>label()</code>, <code>hasLabel(..)</code>, <code>hasKey(..)</code></td><td>the path text (like a property's key)</td></tr>
+<tr><td><code>hasValue(..)</code>, <code>is(P)</code>, <code>where(P)</code></td><td>compare the leaf</td></tr>
+<tr><td><code>id()</code></td><td>error: property elements have no id in Graphersal</td></tr>
+<tr><td><code>as_string()</code></td><td><code>p[$.meta.k-&gt;1]</code></td></tr>
+<tr><td><code>dedup()</code></td><td>compares path text and leaf</td></tr>
+<tr><td>terminal (<code>toList()</code>, display, JSON)</td><td>the leaf value</td></tr>
+<tr><td><code>out()</code>, <code>has(..)</code>, <code>drop()</code>, ...</td><td>error (not a vertex or an edge)</td></tr>
+</tbody></table>
+</div>
+<p>Only a vertex or an edge is a valid input. This is a Graphersal extension: a plain name never
+produces this element and behaves exactly as in TinkerPop.</p>
+<h2 id="name-taking-steps-and-what-they-accept"><a class="header" href="#name-taking-steps-and-what-they-accept">Name-taking steps and what they accept</a></h2>
+<p>Converted (accept a path): <code>values</code>, <code>properties</code>, <code>has</code> (all forms with a key), <code>hasNot</code>,
+<code>valueMap</code>, <code>elementMap</code>, and <code>by(jpath(..))</code> everywhere a property <code>by()</code> is read (order, group,
+groupCount, dedup, path, tree, select, project, where, math, aggregate, store, sack).</p>
+<p>Not applicable, on purpose:</p>
+<ul>
+<li><code>hasKey</code> / <code>hasKey(P)</code> filter the <em>key</em> of a property element or the keys of a map; there is
+nothing nested to descend into. Pass names; to filter a path property element use its path text
+(<code>properties(jpath("a.b")).hasKey("$.a.b")</code>).</li>
+<li><code>glob_path().by(..)</code>: the match key is the stored value of one property, a <code>jpath</code> there is
+rejected with a message that names <code>by("name")</code>.</li>
+<li><code>project(names)</code>, <code>select(labels)</code>, <code>as(..)</code>, <code>dedup("label")</code>, <code>math("a + b")</code>, <code>cap</code>,
+<code>aggregate("x")</code>, <code>store("x")</code>, <code>loops(name)</code>: these take step labels or result names, not
+property names (only their <code>by()</code> was relevant).</li>
+<li><code>has_label</code>, <code>has_id</code>, <code>hasValue</code>, <code>out(..)</code>, <code>in(..)</code>, ...: labels, ids, values.</li>
+<li><code>merge_v</code> / <code>merge_e</code> match maps: literal property names.</li>
+<li><code>property(map)</code>, <code>property(T.id|T.label, v)</code>, <code>property_json(..)</code>, <code>mergeV</code>/<code>mergeE</code> maps: the
+keys of a map are literal property names (a map key <code>"a.b"</code> is the property <code>a.b</code>), <code>property_json</code>
+merges whole top-level properties. Use <code>property(jpath(..), v)</code> for nested writes.</li>
+<li><code>remove_property(jpath(..))</code> is covered below; <code>drop()</code> on a path property element is an error (see below).</li>
+</ul>
+<h2 id="writing-propertyjpath-value"><a class="header" href="#writing-propertyjpath-value">Writing: <code>property(jpath(..), value)</code></a></h2>
+<p>The first segment is the property name on the vertex or edge, the rest descends into its value.
+<code>value</code> is anything a plain <code>property(name, value)</code> accepts (a constant, a nested map or list, or a
+traversal whose first result is used; an empty traversal result writes nothing). Vertices and edges
+are still rejected as values.</p>
+<div class="table-wrapper"><table><thead><tr><th>Situation</th><th>Result</th></tr></thead><tbody>
+<tr><td>a key segment, the key is missing (also the whole top-level property)</td><td>created as an object</td></tr>
+<tr><td>a key segment, the key exists</td><td>replaced (leaf or whole subtree)</td></tr>
+<tr><td><code>[n]</code>, <code>0 &lt;= n &lt; len</code></td><td>replaces the element</td></tr>
+<tr><td><code>[len]</code> as the <strong>last</strong> segment</td><td>appends</td></tr>
+<tr><td><code>[n]</code>, <code>n &gt; len</code>, or <code>[len]</code> followed by more segments</td><td>error, arrays are never padded with <code>null</code></td></tr>
+<tr><td><code>[-k]</code>, <code>1 &lt;= k &lt;= len</code></td><td>replaces counting from the end; error when out of range or the array is empty</td></tr>
+<tr><td>an index segment where the array does not exist</td><td>error: only key segments create missing containers</td></tr>
+<tr><td>key on an array / scalar / <code>null</code> / non-string-keyed map</td><td>error, never an overwrite</td></tr>
+<tr><td>index on an object / scalar / <code>null</code></td><td>error</td></tr>
+<tr><td>first segment is an index (<code>jpath("[0]")</code>)</td><td>error: the first segment names the property</td></tr>
+<tr><td><code>property(Cardinality.x, jpath(..), v)</code></td><td>error in v1 (Graphersal stores one value per property)</td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-rhai">g.V("a").property(jpath("meta.k.z"), 1)          // creates meta, k, z as objects
+g.V("a").property(jpath("meta.tags[0]"), "x")    // replace; error when meta.tags does not exist
+g.V("a").property(jpath("meta.tags[-1]"), "z")   // replace the last element
+</code></pre>
+<p>All faults surface as <code>GraphError::InvalidPropertyPath</code> with a help text, and every fault is
+detected before anything changes, so a refused write leaves the property as it was. The failing
+traversal is then rolled back as a whole, so writes made by earlier steps (or earlier traversers) of
+the same traversal are undone too, exactly as for a plain <code>property</code> (see
+<a href="transactions.html">Transactions</a>). A single-segment path is the plain property. The write mutates the stored
+value in place (no clone of the top-level property) when the graph has no schema; with a schema
+the leaf is coerced at its declared nested type and the whole resulting top-level property is
+validated (see <a href="#schemas-and-nested-paths">Schemas and nested paths</a>). A
+<a href="property_indexes.html">property index</a> on the top-level property is updated with it (an index holds
+top-level scalar values only).</p>
+<p>A write counts one nesting level per path segment below the property, plus the depth of the
+written value: <code>property(jpath("a.b.c"), [1])</code> leaves a value three levels deep. The result must
+stay within the execution option <code>traversal.max_value_depth</code> (default 128), so a stored value is
+never too deep to read back (see <a href="resource_limits.html#value-depth">Resource Limits</a>).</p>
+<h2 id="removing-remove_propertyjpath"><a class="header" href="#removing-remove_propertyjpath">Removing: <code>remove_property(jpath(..))</code></a></h2>
+<p><code>remove_property(key)</code> / <code>removeProperty(key)</code> (and the array form <code>remove_property([k1, k2])</code>,
+which may mix names and paths) removes the value at a path and lets the element continue, so
+<code>values(..)</code> can follow. The first segment is the property name, the rest descends into its value.</p>
+<div class="table-wrapper"><table><thead><tr><th>Situation</th><th>Result</th></tr></thead><tbody>
+<tr><td>the last segment is an object key that exists</td><td>the key is removed (the parent object stays, even when it becomes empty)</td></tr>
+<tr><td>the last segment is <code>[n]</code> / <code>[-k]</code> in range</td><td>the element is removed <strong>with shift</strong> (<code>Vec::remove</code>); <code>[-1]</code> is the last one</td></tr>
+<tr><td>a missing key, a missing top-level property, an out-of-range index</td><td><strong>no-op</strong>, not an error</td></tr>
+<tr><td>a type mismatch on the way (key step on an array, index step on an object, descent through a scalar or <code>null</code>, a non-string-keyed map)</td><td><strong>no-op</strong>: for removal a mismatch means "the path does not exist"</td></tr>
+<tr><td>first segment is an index (<code>jpath("[0]")</code>)</td><td>no-op (it names no property)</td></tr>
+<tr><td>a one-segment path (<code>jpath("age")</code>)</td><td>the same as plain <code>remove_property("age")</code></td></tr>
+<tr><td>a plain string, <code>remove_property("a.b")</code></td><td>still a literal key: removes the property named <code>a.b</code></td></tr>
+</tbody></table>
+</div>
+<p>Removal is deliberately more lenient than writing (where a mismatch is an error): removing
+something that is not there reaches the desired end state, whereas writing through a wrong
+container type would have to overwrite data. <code>property(k, null)</code> still stores a <code>null</code>;
+<code>remove_property</code> is the explicit removal.</p>
+<pre><code class="language-rhai">g.V("a").remove_property(jpath("meta.k"))          // removes the key k below meta
+g.V("a").remove_property(jpath("meta.tags[0]"))    // removes the first element, the rest shifts down
+g.V("a").remove_property([jpath("meta.k"), "age"]) // paths and names mix
+</code></pre>
+<p>With no schema the removal mutates the stored value in place (no clone of the top-level property).
+With a schema active the whole resulting top-level property is validated as described in
+<a href="#schemas-and-nested-paths">Schemas and nested paths</a>: a removal that would violate the declaration
+(a required nested key, <code>min_items</code>, ...) is refused and leaves the property as it was; a path that
+does not exist never reaches the schema layer. A removal of a whole property (a name or a
+one-segment path) is the plain removal and is not checked against the schema, like <code>drop()</code>.
+A property index on the top-level property is updated with it.</p>
+<p><code>properties(jpath(..)).drop()</code> stays an error: a path property element is a materialized leaf and
+holds no reference to the vertex or edge it was read from, so <code>drop()</code> cannot know what to remove
+(its help text names <code>remove_property(jpath(..))</code>). Use <code>remove_property</code> on the element instead.</p>
+<h2 id="schemas-and-nested-paths"><a class="header" href="#schemas-and-nested-paths">Schemas and nested paths</a></h2>
+<p>A schema describes nested content (<code>properties</code> of objects, <code>items</code> of arrays, <code>anyOf</code>
+members), and every write and removal below a stored property honours it. The three modes:</p>
+<div class="table-wrapper"><table><thead><tr><th>Mode</th><th>Declared nested field</th><th>Undeclared nested key</th></tr></thead><tbody>
+<tr><td><code>none</code></td><td>unchecked, nothing is coerced</td><td>allowed</td></tr>
+<tr><td><code>open</code></td><td>coerced and type/constraint checked</td><td>allowed (unless the object says <code>"additionalProperties": false</code>)</td></tr>
+<tr><td><code>closed</code></td><td>coerced and type/constraint checked</td><td><strong>rejected</strong> (unless the object says <code>"additionalProperties": true</code>), the error names the full path (<code>$.meta.extra</code>)</td></tr>
+</tbody></table>
+</div>
+<ul>
+<li><strong>Leaf coercion.</strong> <code>property(jpath("meta.w"), 3)</code> coerces the written leaf at the type the schema
+declares at that location (walking <code>properties</code> by key segments and <code>items</code> by index segments):
+an <code>int64</code> becomes a <code>float64</code> where <code>"number"</code> is declared, a canonical UUID string becomes a
+<code>uuid</code> where <code>"format": "uuid"</code> is declared. Nothing else converts, no type is guessed from content, and
+reads never coerce. An undeclared location is not coerced.</li>
+<li><strong>Validation of the result.</strong> The complete resulting top-level property is then validated:
+nested types, nested constraints (<code>minimum</code>, <code>maximum</code>, <code>minLength</code>, <code>maxLength</code>, <code>pattern</code>,
+<code>minItems</code>, <code>maxItems</code>, <code>enum</code>, <code>const</code>), and the nested <code>required</code> keys (they must be present
+in every present object, in <code>open</code> and <code>closed</code> alike, because an object missing a required key
+does not conform to its declared type). Siblings that were already stored are validated but not
+re-coerced.</li>
+<li><strong>Unions.</strong> A value is valid when one <code>anyOf</code> member (or one type of a type array) accepts it.
+When a write path runs through members that declare the location with different types, the
+member the written value already conforms to exactly wins; with none exact the write is refused
+with a type mismatch listing the candidates (<code>union&lt;int64|string&gt;</code>). Ambiguity is never resolved
+by guessing a coercion.</li>
+<li><strong>Whole objects.</strong> <code>property("meta", #{..})</code> and <code>property_json(..)</code> run the same nested
+validation (a plain object value is checked at any depth). Without a schema nothing changes.</li>
+<li><strong>Removal.</strong> <code>remove_property(jpath(..))</code> that leaves the property violating the schema (a
+required nested key removed, an array below <code>min_items</code>) is refused with the schema error; a
+removal of something that is not there is a no-op and never errors.</li>
+<li><strong>Errors.</strong> The schema errors keep their variants (<code>TypeMismatch</code>, <code>UndeclaredProperty</code>,
+<code>MissingRequiredProperty</code>, <code>CoercionFailed</code>, <code>ConstraintViolation</code>) and carry the canonical path
+(<code>$.a.b[1].c</code>) as the property name; their help texts read the location with <code>jpath(..)</code>.</li>
+<li><strong>Inference and patches.</strong> An inferred schema (<code>infer_schema</code>) and a schema changed with
+<code>patch_schema</code> describe nested types the same way (<code>properties</code>/<code>items</code> at any depth), so nested
+writes are enforced against them.</li>
+</ul>
+<pre><code class="language-rhai">// schema: P.meta = {"type": "object", "properties": {"k": {"type": "integer"},
+//                     "w": {"type": "number"}}, "required": ["k"]}
+g.V("a").property(jpath("meta.w"), 3)          // stored as 3.0
+g.V("a").property(jpath("meta.k"), "x")        // error: Type mismatch on vertex 'P.$.meta.k'
+g.V("a").property(jpath("meta.extra"), 1)      // Closed: error, Open: stored
+g.V("a").remove_property(jpath("meta.k"))      // error: Missing required property '$.meta.k'
+</code></pre>
+<h2 id="json_path-vs-jpath"><a class="header" href="#json_path-vs-jpath"><code>json_path()</code> vs <code>jpath</code></a></h2>
+<p><code>json_path("a.b[1]")</code> is a standalone step: the path is a string argument and it navigates
+whatever the stream carries (a vertex or edge property, or a materialized map). A <code>jpath</code> key is
+the same grammar used as the name of the property inside the step that reads it (<code>values</code>, <code>has</code>,
+<code>by</code>, ...). Both resolve a single target, share one parser, and a missing target produces
+nothing. <code>json_path()</code> is unchanged and does not take a <code>jpath(..)</code> object.</p>
+<h2 id="errors"><a class="header" href="#errors">Errors</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Error</th><th>When</th><th>Fix</th></tr></thead><tbody>
+<tr><td><code>InvalidJsonPath</code> (script error at <code>jpath(..)</code>)</td><td>the text is not a singular query: <code>a..b</code>, <code>a[*]</code>, <code>$..x</code>, an unclosed bracket, <code>$</code>, <code>""</code></td><td>the help lists the grammar</td></tr>
+<tr><td><code>InvalidPropertyPath</code> + <code>FirstSegmentNotName</code></td><td>write path starts with an index, <code>jpath("[0]")</code></td><td>start with the property name</td></tr>
+<tr><td><code>InvalidPropertyPath</code> + <code>KeyOnNonObject</code> / <code>IndexOnNonArray</code></td><td>a write meets a value of the wrong kind</td><td>write a whole value at a shorter path first</td></tr>
+<tr><td><code>InvalidPropertyPath</code> + <code>IndexOutOfRange</code> / <code>MissingArray</code></td><td><code>[n]</code> beyond <code>[len]</code>, or an index where the array does not exist</td><td><code>[len]</code> appends, create the array first</td></tr>
+<tr><td><code>InvalidPropertyPath</code> + <code>CardinalityWithPath</code></td><td><code>property(Cardinality.x, jpath(..), v)</code></td><td>drop the cardinality</td></tr>
+<tr><td><code>ArgumentMismatch</code></td><td>a key that is neither a string nor a <code>jpath(..)</code> (<code>property(5, 1)</code>)</td><td>pass a string or <code>jpath(..)</code></td></tr>
+<tr><td><code>InvalidModulator</code></td><td><code>glob_path().by(jpath(..))</code></td><td><code>by("name")</code></td></tr>
+<tr><td>schema errors (<code>TypeMismatch</code>, <code>UndeclaredProperty</code>, <code>MissingRequiredProperty</code>, <code>CoercionFailed</code>, <code>ConstraintViolation</code>)</td><td>a nested write or removal violates the declared schema</td><td>the property name in the error is the canonical path</td></tr>
+<tr><td>cast error <code>got type 'pathProperty'</code></td><td><code>drop()</code> / navigation on <code>properties(jpath(..))</code></td><td><code>remove_property(jpath(..))</code></td></tr>
+</tbody></table>
+</div>
+<p>Reads never fail on a bad path target (see <a href="#missing-paths">Missing paths</a>); only the text of the
+path itself can be invalid. Every error above carries a <code>help()</code> with a runnable example.</p>
+<h2 id="for-storage-implementers"><a class="header" href="#for-storage-implementers">For storage implementers</a></h2>
+<p>A <code>GraphStorage</code> outside the crate sees a parsed path as <code>JsonPath::segments()</code>: a slice of
+<code>JsonPathSegment</code>s (<code>Key(name)</code> for a dot or bracket name, <code>Index(i)</code> for an index, negative
+counting from the end; the leading <code>$</code> is not a segment; the enum is <code>#[non_exhaustive]</code>). It
+does not need to walk them itself: <code>graphersal::storage</code> has the helpers the trait defaults and
+<code>TraversalGraph</code> use, <code>path_property_name</code>, <code>write_path</code> (on a copy of the top-level property)
+and <code>write_path_in</code> (in place), <code>remove_path</code> / <code>remove_path_in</code>, with exactly the
+<code>InvalidPropertyPath</code> faults of the table above, and <code>check_property_value</code> for the written
+value. A path is built with <code>"meta.tags[-1]".parse::&lt;JsonPath&gt;()</code>.</p>
+<h2 id="performance"><a class="header" href="#performance">Performance</a></h2>
+<ul>
+<li>A plain name builds exactly the step it always built (identical <code>.profile()</code> text, same
+optimizer behaviour). A path key builds a separate step with the same name (<code>has</code>, <code>values</code>, ...)
+and is never fused or pushed into an index: <code>has(jpath(..)).count()</code> shows <code>has(jpath("$.a.b"), v)</code>
+then <code>count()</code>, with no <code>count_only</code>. A <a href="property_indexes.html">property index</a> orders
+top-level values only, so it never serves a jpath key.</li>
+<li>Reads descend into the stored property by reference and clone only the leaf, never the whole
+top-level object or array, per traverser. A one-segment path on a vertex keeps the lazy property
+handle.</li>
+<li>Writes and removals mutate the stored value in place when the graph has no schema. With a schema
+active they work on a copy of the top-level property so the complete result can be validated.</li>
+<li><code>.profile()</code> shows the optimized plan with the canonical path text, <code>[path: ..]</code> annotations are
+unrelated (those are traverser paths).</li>
+</ul>
+<h2 id="groovy-to-rhai"><a class="header" href="#groovy-to-rhai">Groovy to Rhai</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Gremlin / earlier Graphersal</th><th>Rhai DSL</th></tr></thead><tbody>
+<tr><td><code>values('a.b')</code> (a literal key)</td><td><code>values("a.b")</code> is still the literal name; a path is <code>values(jpath("a.b"))</code></td></tr>
+<tr><td><code>has('k', 1)</code></td><td><code>has("k", 1)</code>; nested: <code>has(jpath("meta.k"), 1)</code></td></tr>
+<tr><td><code>valueMap('a')</code></td><td><code>valueMap("a")</code> / <code>valueMap(jpath("meta.k"))</code> (key <code>$.meta.k</code>)</td></tr>
+<tr><td><code>by('age')</code></td><td><code>by("age")</code> / <code>by(jpath("meta.k"))</code></td></tr>
+<tr><td><code>property('a', v)</code></td><td><code>property("a", v)</code> / <code>property(jpath("meta.tags[0]"), v)</code></td></tr>
+<tr><td><code>properties('a').drop()</code></td><td><code>remove_property("a")</code> / <code>remove_property(jpath("meta.k"))</code></td></tr>
+<tr><td><code>.json_path("$.a.b")</code></td><td>unchanged, a string argument, no <code>jpath(..)</code> object</td></tr>
+</tbody></table>
+</div>
+<p>The camelCase spellings (<code>hasNot</code>, <code>valueMap</code>, <code>elementMap</code>, <code>removeProperty</code>) and their snake_case
+twins (<code>has_not</code>, <code>value_map</code>, <code>element_map</code>, <code>remove_property</code>) both take a <code>jpath(..)</code>. Rust:
+<code>g.values(jpath)</code>/<code>g.has(key, v)</code>/<code>g.property(key, v)</code> take <code>impl Into&lt;PropKey&gt;</code> (so <code>"a"</code>,
+<code>String</code> and a parsed <code>JsonPath</code> all work).</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../users_guide/local_scope.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../users_guide/uuid_values.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../users_guide/local_scope.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../users_guide/uuid_values.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

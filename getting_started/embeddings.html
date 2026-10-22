@@ -1,0 +1,721 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Embeddings and Vector Search - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/getting_started/embeddings.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="embeddings-and-vector-search"><a class="header" href="#embeddings-and-vector-search">Embeddings and Vector Search</a></h1>
+<p>An <strong>embedding</strong> is a list of numbers that a machine-learning model computes for a piece of data:
+a sentence, a document, an image, a product. The model places similar things close together, so
+"how do I feed my cat?" and "Feeding your cat" get vectors that point in almost the same
+direction, while "Rust for beginners" points elsewhere. Searching by embedding finds what is
+<em>meant</em>, not only what is spelled the same. Graphersal stores embeddings as a
+<a href="../users_guide/vectors.html">vector</a> value, searches them exactly with <code>nearest()</code> and
+<code>similarity()</code>, and combines the hits with everything a graph does well: filters, edges, paths.</p>
+<p><strong>Graphersal never calls a model on its own.</strong> A semantic model runs in your host program (Python,
+a server, an MCP tool), which writes the result as an ordinary property value, or registers the
+model as an <em>embedder</em> that the <code>embed</code> step calls. Built in is one small embedder,
+<code>hash-ngram/1</code>: no model, lexical similarity only (typos and word forms, not meaning), enough for
+fuzzy lookup and for trying the steps; the <a href="../users_guide/vectors.html#embeddings">reference page</a>
+has the details and the reasoning. The <code>graphersal</code> command line registers a real semantic model
+for you: a downloaded <a href="#real-models-model2vec">Model2Vec</a> model, run locally.</p>
+<p>This page is the practical tour. Every detail (element kinds, metrics, schema rules, formats) is
+on the reference page <a href="../users_guide/vectors.html">Vectors</a>.</p>
+<h2 id="try-it-in-the-playground-without-a-model"><a class="header" href="#try-it-in-the-playground-without-a-model">Try it in the playground, without a model</a></h2>
+<p>Real embeddings have hundreds of dimensions. To see how the steps behave you can make up
+<strong>toy embeddings</strong> with three dimensions whose meaning you pick yourself:</p>
+<div class="table-wrapper"><table><thead><tr><th>Axis</th><th>Meaning</th></tr></thead><tbody>
+<tr><td>1</td><td>animals</td></tr>
+<tr><td>2</td><td>food</td></tr>
+<tr><td>3</td><td>technology</td></tr>
+</tbody></table>
+</div>
+<p>"Training a puppy" is mostly animals: <code>[0.8, 0.1, 0.2]</code>. "Robot chefs" is food and technology:
+<code>[0.1, 0.6, 0.8]</code>. A question about pets becomes <code>[1.0, 0.0, 0.0]</code>.</p>
+<p>Every block below is a complete script that starts on the empty graph, so each one runs on its
+own: the button in the margin opens it in the playground and runs it. The first lines are the
+same in most blocks: a schema that declares <code>emb</code> as a 3-dimensional f32 vector, and seven
+documents.</p>
+<h3 id="the-document-graph-and-a-first-search"><a class="header" href="#the-document-graph-and-a-first-search">The document graph and a first search</a></h3>
+<p>The schema declares the property <code>emb</code> with the format <code>vector</code>. In mode <code>open</code> a <strong>list of
+numbers written to it becomes a vector</strong>, so the host can send plain lists (or JSON arrays).
+<code>nearest(key, q, k)</code> then keeps the <code>k</code> documents closest to the query vector <code>q</code>, best first:</p>
+<pre><code class="language-rhai graph=empty script">// Toy embeddings with three axes: [animals, food, technology].
+g.set_schema(#{mode: "open", vertices: #{doc: #{schema: #{type: "object", properties: #{
+  emb: #{type: "array", format: "vector", element: "f32", dimension: 3}}}}}});
+for d in [
+  ["Cats and dogs",        2024, [0.9, 0.1, 0.0]],
+  ["Training a puppy",     2026, [0.8, 0.1, 0.2]],
+  ["Feeding your cat",     2025, [0.6, 0.7, 0.0]],
+  ["Pasta at home",        2025, [0.0, 0.9, 0.1]],
+  ["Robot chefs",          2026, [0.1, 0.6, 0.8]],
+  ["Rust for beginners",   2024, [0.0, 0.0, 1.0]],
+  ["GPS collars for dogs", 2026, [0.7, 0.0, 0.6]],
+] {
+  g.add_v("doc").property("title", d[0]).property("year", d[1]).property("emb", d[2]).iterate();
+}
+
+// The list was stored as a vector: vector([0.9, 0.1, 0.0])
+g.v().has("title", "Cats and dogs").values("emb").next();
+
+// The three documents closest to "animals":
+// ["Cats and dogs", "Training a puppy", "GPS collars for dogs"]
+g.v().has_label("doc").nearest("emb", [1.0, 0.0, 0.0], 3).values("title").to_list()
+</code></pre>
+<p><code>nearest()</code> is an exact search: it scores every document it receives (cosine similarity unless a
+metric is named or the schema declares one) and keeps the best <code>k</code>. The dimension is checked: a
+query with 2 or 4 numbers against these 3-dimensional vectors is an error, never truncated.</p>
+<h3 id="ranking-with-scores"><a class="header" href="#ranking-with-scores">Ranking with scores</a></h3>
+<p>To see <em>how</em> close each document is, score it with <code>similarity()</code> and order by the score.
+<code>project()</code> builds one row per document; anonymous steps take the <code>__.</code> prefix and the order
+token is written out (<code>Order.desc</code>):</p>
+<pre><code class="language-rhai graph=empty script">g.set_schema(#{mode: "open", vertices: #{doc: #{schema: #{type: "object", properties: #{
+  emb: #{type: "array", format: "vector", element: "f32", dimension: 3}}}}}});
+for d in [
+  ["Cats and dogs",        [0.9, 0.1, 0.0]],
+  ["Training a puppy",     [0.8, 0.1, 0.2]],
+  ["Feeding your cat",     [0.6, 0.7, 0.0]],
+  ["Pasta at home",        [0.0, 0.9, 0.1]],
+  ["Robot chefs",          [0.1, 0.6, 0.8]],
+  ["Rust for beginners",   [0.0, 0.0, 1.0]],
+  ["GPS collars for dogs", [0.7, 0.0, 0.6]],
+] {
+  g.add_v("doc").property("title", d[0]).property("emb", d[1]).iterate();
+}
+
+// A question about "animals and technology":
+let q = vector([0.5, 0.0, 0.5]);
+g.v().has_label("doc")
+ .project("title", "score")
+   .by("title")
+   .by(__.similarity("emb", q))
+ .order().by(__.select("score"), Order.desc)
+ .limit(4)
+ .to_list()
+// GPS collars for dogs 0.997, Training a puppy 0.851,
+// Rust for beginners 0.707, Cats and dogs 0.703
+</code></pre>
+<p><code>nearest("emb", q, 4)</code> gives the same four documents in the same order without the scores; to
+have both, search first and project after it:
+<code>nearest("emb", q, 4).project("title", "score").by("title").by(__.similarity("emb", q))</code>.</p>
+<h3 id="filtered-search"><a class="header" href="#filtered-search">Filtered search</a></h3>
+<p>Put ordinary filters before <code>nearest()</code>: it then ranks only what passes them. Here only the
+documents from 2025 on:</p>
+<pre><code class="language-rhai graph=empty script">g.set_schema(#{mode: "open", vertices: #{doc: #{schema: #{type: "object", properties: #{
+  emb: #{type: "array", format: "vector", element: "f32", dimension: 3}}}}}});
+for d in [
+  ["Cats and dogs",        2024, [0.9, 0.1, 0.0]],
+  ["Training a puppy",     2026, [0.8, 0.1, 0.2]],
+  ["Feeding your cat",     2025, [0.6, 0.7, 0.0]],
+  ["Pasta at home",        2025, [0.0, 0.9, 0.1]],
+  ["Robot chefs",          2026, [0.1, 0.6, 0.8]],
+  ["Rust for beginners",   2024, [0.0, 0.0, 1.0]],
+  ["GPS collars for dogs", 2026, [0.7, 0.0, 0.6]],
+] {
+  g.add_v("doc").property("title", d[0]).property("year", d[1]).property("emb", d[2]).iterate();
+}
+
+// "Cats and dogs" (2024) is left out:
+// ["Training a puppy", "GPS collars for dogs", "Feeding your cat"]
+g.v().has_label("doc")
+ .has("year", P.gte(2025))
+ .nearest("emb", [1.0, 0.0, 0.0], 3)
+ .values("title").to_list()
+</code></pre>
+<p>A filter is exact: unlike an approximate vector index, a filtered search never returns fewer
+than <code>k</code> hits when <code>k</code> documents pass the filter. A <code>where(__.out(..)...)</code> filters by the graph
+around each document the same way.</p>
+<h3 id="graphrag-a-vector-hit-then-the-graph"><a class="header" href="#graphrag-a-vector-hit-then-the-graph">GraphRAG: a vector hit, then the graph</a></h3>
+<p>Retrieval-augmented generation (RAG) gives a language model the passages that answer a question.
+<strong>GraphRAG</strong> starts the same way, with the documents nearest to the question, and then follows
+the edges: who wrote them, what they are about, which other documents share the topic. Here each
+document has an author (<code>wrote</code>) and a topic (<code>about</code>). This block has no schema, so the lists
+are wrapped in <code>vector(..)</code>:</p>
+<pre><code class="language-rhai graph=empty script">// Documents with toy embeddings [animals, food, technology], their authors and topics.
+for d in [
+  ["Cats and dogs",      "Ada",  "pets",        [0.9, 0.1, 0.0]],
+  ["Feeding your cat",   "Ada",  "pets",        [0.6, 0.7, 0.0]],
+  ["Pasta at home",      "Ben",  "cooking",     [0.0, 0.9, 0.1]],
+  ["Robot chefs",        "Cleo", "cooking",     [0.1, 0.6, 0.8]],
+  ["Rust for beginners", "Cleo", "programming", [0.0, 0.0, 1.0]],
+] {
+  g.merge_v(#{"T.label": "person", name: d[1]}).as("a")
+   .merge_v(#{"T.label": "topic", name: d[2]}).as("t")
+   .add_v("doc").property("title", d[0]).property("emb", vector(d[3])).as("d")
+   .add_e("about").to("t")
+   .add_e("wrote").from("a").to("d")
+   .iterate();
+}
+
+// "What should I cook for my cat?" ~ [0.5, 0.8, 0.0]: the two best hits with their context.
+// [#{"author": "Ada", "title": "Feeding your cat", "topic": "pets"},
+//  #{"author": "Ben", "title": "Pasta at home", "topic": "cooking"}]
+g.v().has_label("doc").nearest("emb", [0.5, 0.8, 0.0], 2)
+ .project("title", "author", "topic")
+   .by("title")
+   .by(__.in("wrote").values("name"))
+   .by(__.out("about").values("name"))
+ .to_list()
+</code></pre>
+<p>One more hop finds documents that a vector search alone would rank low, but that share the best
+hit's topic:</p>
+<pre><code class="language-rhai graph=empty script">for d in [
+  ["Cats and dogs",      "pets",        [0.9, 0.1, 0.0]],
+  ["Feeding your cat",   "pets",        [0.6, 0.7, 0.0]],
+  ["Pasta at home",      "cooking",     [0.0, 0.9, 0.1]],
+  ["Rust for beginners", "programming", [0.0, 0.0, 1.0]],
+] {
+  g.merge_v(#{"T.label": "topic", name: d[1]}).as("t")
+   .add_v("doc").property("title", d[0]).property("emb", vector(d[2]))
+   .add_e("about").to("t")
+   .iterate();
+}
+
+// The best hit for [0.5, 0.8, 0.0] is "Feeding your cat"; its topic "pets" brings in:
+// ["Cats and dogs"]
+g.v().has_label("doc").nearest("emb", [0.5, 0.8, 0.0], 1).as("hit")
+ .out("about").in("about").where(P.neq("hit"))
+ .values("title").to_list()
+</code></pre>
+<p>The host then turns the rows into the prompt for its language model. In Python this is a few
+lines (<a href="#graphrag-from-python">below</a>).</p>
+<h3 id="graphrag-with-text-embed_property-and-a-text-query"><a class="header" href="#graphrag-with-text-embed_property-and-a-text-query">GraphRAG with text: <code>embed_property()</code> and a text query</a></h3>
+<p>The same flow without making up any vector: <code>embed_property()</code> embeds every document's title
+with an embedder (here the built-in <code>hash-ngram/1</code>, which compares spelling, not meaning; a host
+registers a semantic model the same way) and records in the schema which model produced the
+vectors. A query then passes the question as <strong>text</strong>: <code>nearest()</code> embeds it once, with that
+same model, so the question and the documents are always comparable. Both need a schema
+attached (mode <code>open</code> or <code>closed</code>):</p>
+<pre><code class="language-rhai graph=empty script">g.set_schema(#{mode: "open"});
+for d in [
+  ["Cats and dogs",      "Ada",  "pets"],
+  ["Feeding your cat",   "Ada",  "pets"],
+  ["Pasta at home",      "Ben",  "cooking"],
+  ["Cooking for robots", "Cleo", "cooking"],
+  ["Rust for beginners", "Cleo", "programming"],
+] {
+  g.merge_v(#{"T.label": "person", name: d[1]}).as("a")
+   .merge_v(#{"T.label": "topic", name: d[2]}).as("t")
+   .add_v("doc").property("title", d[0]).as("d")
+   .add_e("about").to("t")
+   .add_e("wrote").from("a").to("d")
+   .iterate();
+}
+// Embeds the 5 titles into "emb" and declares {"format": "vector", "embedder": "hash-ngram/1", ..}.
+g.embed_property(#{label: "doc", from: "title", to: "emb"});
+
+// [#{"author": "Ada", "title": "Feeding your cat", "topic": "pets"},
+//  #{"author": "Ada", "title": "Cats and dogs", "topic": "pets"}]
+g.v().has_label("doc").nearest("emb", "feeding cats", 2)
+ .project("title", "author", "topic")
+   .by("title")
+   .by(__.in("wrote").values("name"))
+   .by(__.out("about").values("name"))
+ .to_list()
+</code></pre>
+<p>The job works page by page and never holds the graph's lock while the embedder runs, so a slow
+model does not block other queries; a second run embeds only documents added since
+(<a href="../users_guide/vectors.html#embedding-a-property-embed_property">Embedding a property</a>). One more
+hop works as before:</p>
+<pre><code class="language-rhai graph=empty script">g.set_schema(#{mode: "open"});
+for d in [["Pasta at home", "cooking"], ["Cooking for robots", "cooking"], ["Cats and dogs", "pets"]] {
+  g.merge_v(#{"T.label": "topic", name: d[1]}).as("t")
+   .add_v("doc").property("title", d[0])
+   .add_e("about").to("t")
+   .iterate();
+}
+g.embed_property(#{label: "doc", from: "title", to: "emb"});
+// The best hit for "cooking pasta" shares its topic with: ["Pasta at home"]
+g.v().has_label("doc").nearest("emb", "cooking pasta", 1).as("hit")
+ .out("about").in("about").where(P.neq("hit"))
+ .values("title").to_list()
+</code></pre>
+<h3 id="more-like-this"><a class="header" href="#more-like-this">More like this</a></h3>
+<p>The query vector can come from the graph: take a document's own embedding, label it with
+<code>as("q")</code> and search with <code>__.select("q")</code>, leaving the document itself out:</p>
+<pre><code class="language-rhai graph=empty script">g.set_schema(#{mode: "open", vertices: #{doc: #{schema: #{type: "object", properties: #{
+  emb: #{type: "array", format: "vector", element: "f32", dimension: 3}}}}}});
+for d in [
+  ["Cats and dogs",        [0.9, 0.1, 0.0]],
+  ["Training a puppy",     [0.8, 0.1, 0.2]],
+  ["Feeding your cat",     [0.6, 0.7, 0.0]],
+  ["Pasta at home",        [0.0, 0.9, 0.1]],
+  ["Robot chefs",          [0.1, 0.6, 0.8]],
+  ["Rust for beginners",   [0.0, 0.0, 1.0]],
+  ["GPS collars for dogs", [0.7, 0.0, 0.6]],
+] {
+  g.add_v("doc").property("title", d[0]).property("emb", d[1]).iterate();
+}
+
+// Like "Feeding your cat" (animals and food): ["Pasta at home", "Cats and dogs"]
+g.v().has("title", "Feeding your cat").as("me").values("emb").as("q")
+ .v().has_label("doc").where(P.neq("me"))
+ .nearest("emb", __.select("q"), 2)
+ .values("title").to_list()
+</code></pre>
+<h3 id="recommendations-with-vector_mean"><a class="header" href="#recommendations-with-vector_mean">Recommendations with vector_mean()</a></h3>
+<p><code>vector_mean()</code> averages vectors, component by component. The mean of the documents a user
+liked is a "taste" vector; search with it among the documents the user has not liked yet:</p>
+<pre><code class="language-rhai graph=empty script">g.set_schema(#{mode: "open", vertices: #{doc: #{schema: #{type: "object", properties: #{
+  emb: #{type: "array", format: "vector", element: "f32", dimension: 3}}}}}});
+for d in [
+  ["Cats and dogs",        [0.9, 0.1, 0.0]],
+  ["Training a puppy",     [0.8, 0.1, 0.2]],
+  ["Feeding your cat",     [0.6, 0.7, 0.0]],
+  ["Pasta at home",        [0.0, 0.9, 0.1]],
+  ["Robot chefs",          [0.1, 0.6, 0.8]],
+  ["Rust for beginners",   [0.0, 0.0, 1.0]],
+  ["GPS collars for dogs", [0.7, 0.0, 0.6]],
+] {
+  g.add_v("doc").property("title", d[0]).property("emb", d[1]).iterate();
+}
+g.add_v("user").property("name", "sam").iterate();
+for title in ["Cats and dogs", "Training a puppy"] {
+  g.v().has("user", "name", "sam").as("u")
+   .v().has("doc", "title", title).add_e("liked").from("u").iterate();
+}
+
+// Sam's taste: vector([0.85, 0.1, 0.1])
+g.v().has("name", "sam").out("liked").values("emb").vector_mean().next();
+
+// Recommended: ["GPS collars for dogs", "Feeding your cat"]
+g.v().has("name", "sam").out("liked").values("emb").vector_mean().as("taste")
+ .v().has_label("doc")
+ .where(__.in("liked").has("name", "sam").count().is(0))
+ .nearest("emb", __.select("taste"), 2)
+ .values("title").to_list()
+</code></pre>
+<h3 id="quantization-smaller-vectors"><a class="header" href="#quantization-smaller-vectors">Quantization: smaller vectors</a></h3>
+<p>An f32 vector takes 4 bytes per component: 1.5 KiB for a 384-dimensional embedding. Declared with
+<code>element: "i8"</code> it takes 1 byte per component (plus 4 bytes for a scale), with almost the same
+search results (measured on the <a href="../users_guide/vectors.html#quantization-memory-against-accuracy">reference page</a>).
+<strong>The schema's element wins on write</strong>: a list or an f32 vector written to an <code>i8</code> property is
+quantized as it is stored, so the host keeps sending what its model gives it:</p>
+<pre><code class="language-rhai graph=empty script">g.set_schema(#{mode: "open", vertices: #{doc: #{schema: #{type: "object", properties: #{
+  emb: #{type: "array", format: "vector", element: "i8", dimension: 3}}}}}});
+for d in [
+  ["Cats and dogs",      [0.9, 0.1, 0.0]],
+  ["Pasta at home",      [0.0, 0.9, 0.1]],
+  ["Rust for beginners", [0.0, 0.0, 1.0]],
+] {
+  g.add_v("doc").property("title", d[0]).property("emb", d[1]).iterate();
+}
+
+// Stored as i8: vector([0.9, 0.0992126, 0.0], "i8"); an f32 query searches it.
+g.v().has("title", "Cats and dogs").values("emb").next();
+g.v().has_label("doc").nearest("emb", [1.0, 0.2, 0.0], 1).values("title").next()   // "Cats and dogs"
+</code></pre>
+<p>The same rule works against you when you <strong>quantize a property that is already declared as
+f32</strong>: <code>set_schema</code>/<code>patch_schema</code> to <code>element: "i8"</code> is refused while the stored vectors are
+still f32 (the schema would not fit the data), and a rewrite with <code>quantize("i8")</code> under the f32
+declaration is turned straight back into an f32 vector. Switch the checks off for the migration,
+rewrite the values, then declare the new element:</p>
+<pre><code class="language-rhai graph=empty script">g.set_schema(#{mode: "open", vertices: #{doc: #{schema: #{type: "object", properties: #{
+  emb: #{type: "array", format: "vector", element: "f32", dimension: 3}}}}}});
+g.add_v("doc").property("title", "Cats and dogs").property("emb", [0.9, 0.1, 0.0]).iterate();
+g.add_v("doc").property("title", "Pasta at home").property("emb", [0.0, 0.9, 0.1]).iterate();
+
+// 1. Mode "none": no checks, no conversion on write.
+g.patch_schema(#{mode: "none"});
+// 2. Rewrite every vector quantized.
+g.v().has_label("doc").property("emb", __.values("emb").quantize("i8")).iterate();
+// 3. Declare i8 and switch the checks on again: the data fits now.
+g.patch_schema(#{mode: "open", vertices: #{doc: #{schema: #{properties: #{emb: #{element: "i8"}}}}}});
+
+g.v().has_label("doc").values("emb").to_list().map(|v| v.element)   // ["i8", "i8"]
+</code></pre>
+<p>The playground runs a whole script as one unit, so a failure on the way leaves the graph as it
+was; from Python pass <code>atomic=True</code> to <code>execute()</code> for the same.</p>
+<h2 id="real-models-model2vec"><a class="header" href="#real-models-model2vec">Real models: Model2Vec</a></h2>
+<p>The <code>graphersal</code> command line (and the dev server it starts) can run a real, semantic text model
+itself: a <a href="https://github.com/MinishLab/model2vec">Model2Vec</a> <em>static</em> embedding model. Such a
+model keeps one vector per token and averages them for a text, so it needs no GPU and no neural
+network at run time: a small model like <code>minishlab/potion-base-8M</code> (256 dimensions, about 30 MB)
+embeds thousands of sentences per second on a laptop CPU, and it captures meaning, not only
+spelling ("car" and "automobile" come out close). It is less precise than a large transformer
+model, and much faster.</p>
+<p><strong>1. Download a model once.</strong> This is the only step that uses the network:</p>
+<pre><code class="language-bash">graphersal embed-model download minishlab/potion-base-8M
+</code></pre>
+<p>It fetches <code>config.json</code>, <code>tokenizer.json</code> and <code>model.safetensors</code> from Hugging Face into the
+models directory (<code>$GRAPHERSAL_EMBED_MODELS</code>, else <code>~/.cache/graphersal/embed-models</code>, on
+Windows <code>%LOCALAPPDATA%\graphersal\embed-models</code>; <code>--dir</code> overrides it), checks the SHA-256
+Hugging Face states for the large file and the git blob id of the small ones, and writes a
+manifest <code>graphersal-embed-model.json</code> (repository, revision, the commit it resolved to, the
+files with their sizes and SHA-256). A failed or interrupted download leaves no model behind.
+<code>--revision &lt;branch|tag|commit&gt;</code> pins a version; <code>HF_TOKEN</code> is sent for gated or private
+repositories. <code>graphersal embed-model list</code> shows what is there:</p>
+<pre><code class="language-text">REPO                           SIZE  IDENTITY
+minishlab/potion-base-8M   29.5 MiB  model2vec/minishlab/potion-base-8M@fac4fa854e68
+</code></pre>
+<p><strong>2. Register it under a name.</strong> <code>--embedder NAME=REPO</code> (a downloaded repository) or
+<code>--embedder NAME=PATH</code> (any directory holding a Model2Vec model) works with every mode: a
+one-shot query, the REPL, <code>--server</code> and its MCP tools, a Store. <code>--default-embedder NAME</code> makes
+it the embedder <code>embed()</code> uses without <code>#{embedder: ..}</code>:</p>
+<pre><code class="language-bash">graphersal --embedder potion=minishlab/potion-base-8M \
+  -e 'g.add_v("doc").property("text", "a graph database stores vertices and edges")
+        .add_v("doc").property("text", "banana bread recipe with walnuts")
+        .add_v("doc").property("text", "traversal queries over a network of nodes").iterate();
+      g.set_schema(g.infer_schema(), SchemaMode.open);
+      g.embed_property(#{label: "doc", from: "text", to: "emb", embedder: "potion"});
+      g.v().has_label("doc").nearest("emb", "how do I query connected data?", 2)
+        .values("text").to_list()'
+</code></pre>
+<p><code>embedder: "potion"</code> names the embedder registered by <code>--embedder potion=..</code>; without it the
+default runs (<code>--default-embedder NAME</code>, else <code>hash-ngram/1</code>). The text query needs no embedder:
+it uses the model the schema recorded for <code>doc.emb</code>.</p>
+<pre><code class="language-text">"traversal queries over a network of nodes"
+"a graph database stores vertices and edges"
+</code></pre>
+<p>The model loads once when the command starts (a model that does not load stops it with exit
+code 2 and the reason); the built-in <code>hash-ngram/1</code> stays registered beside it. <code>g.embedders()</code>
+lists both, <code>GET /api/info</code> of the dev server too.</p>
+<p><strong>What leaves the machine.</strong> Only the explicit <code>embed-model download</code>: it connects to
+<code>https://huggingface.co</code> (or the mirror in <code>$GRAPHERSAL_HF_ENDPOINT</code>). Loading and running a
+model is local: no text is sent anywhere.</p>
+<p><strong>Model identity.</strong> Each embedder reports a model identity (<code>g.embedders()</code>, field <code>model</code>):
+<code>model2vec/&lt;repo&gt;@&lt;12 hex digits&gt;</code>, the start of a SHA-256 over the model's three files (without
+a manifest <code>model2vec@&lt;12 hex digits&gt;</code>). It names the model, never a path: a copied or moved
+model directory keeps it, a changed file gets another one. Vectors are comparable only between
+embedders of the same identity, so embed documents and questions with the same model.
+<code>embed_property()</code> writes the identity into the schema itself. To declare a vector property by
+hand, copy the full identity, hash included, from <code>graphersal embed-model list</code> or
+<code>g.embedders()</code>: a schema naming a model without its hash matches no embedder (the error shows
+the full identity of the one you tried), so a changed model file can never quietly mix its
+vectors with the old ones.</p>
+<p><strong>Licences.</strong> A model's licence is the model's own, set by whoever published it (see its
+Hugging Face page); Graphersal downloads and runs it but does not license it. <code>potion-base-8M</code>
+is MIT licensed.</p>
+<p>The Rust library has the same embedder as <code>graphersal::vector::Model2Vec</code> (feature
+<code>model2vec</code>, native targets; it loads from a local directory only), see
+<a href="../users_guide/vectors.html#embeddings">Vectors</a>.</p>
+<h2 id="with-real-embeddings-python"><a class="header" href="#with-real-embeddings-python">With real embeddings (Python)</a></h2>
+<p>With a real model the steps stay the same; only the vectors get longer. This example uses
+<a href="https://www.sbert.net/">sentence-transformers</a> and the small model <code>all-MiniLM-L6-v2</code>, which
+gives 384 numbers per text and runs on a laptop CPU (<code>pip install graphersal sentence-transformers</code>):</p>
+<pre><code class="language-python">import graphersal
+from sentence_transformers import SentenceTransformer
+
+model = SentenceTransformer("all-MiniLM-L6-v2")      # 384 dimensions
+
+graph = graphersal.Graph()
+graph.set_schema({
+    "mode": "open",
+    "vertices": {
+        "chunk": {"schema": {"type": "object", "properties": {
+            "text": {"type": "string"},
+            "emb": {"type": "array", "format": "vector", "element": "f32",
+                    "dimension": 384, "metric": "cosine"},
+        }}},
+    },
+})
+
+# The host's data: documents cut into chunks, plus the topics each document mentions.
+docs = [
+    {"title": "Cat care", "topics": ["pets", "health"], "chunks": [
+        "Cats need fresh water every day.",
+        "Most adult cats do well on two meals a day.",
+    ]},
+    {"title": "Weeknight pasta", "topics": ["cooking"], "chunks": [
+        "Salt the pasta water generously.",
+    ]},
+]
+
+for doc in docs:
+    graph.execute('g.add_v("doc").property("title", title).iterate()', params={"title": doc["title"]})
+    for topic in doc["topics"]:
+        graph.execute(
+            'g.merge_v(#{"T.label": "topic", name: topic}).as("t")'
+            '.v().has("doc", "title", title).add_e("mentions").to("t").iterate()',
+            params={"title": doc["title"], "topic": topic},
+        )
+    embs = model.encode(doc["chunks"])               # numpy float32, shape (n, 384)
+    for text, emb in zip(doc["chunks"], embs):
+        graph.execute(
+            'g.v().has("doc", "title", title).as("d")'
+            '.add_v("chunk").property("text", text).property("emb", emb)'
+            '.add_e("part_of").to("d").iterate()',
+            params={"title": doc["title"], "text": text, "emb": emb},
+        )
+</code></pre>
+<p>A one-dimensional <code>float32</code> numpy array passed in <code>params</code> arrives in the script as an f32
+vector (so does a <code>graphersal.Vector(values)</code>, built from a list or a buffer); the extension
+reads it through <code>memoryview</code> and does not depend on numpy. A <code>list</code> in <code>params</code> is not
+supported: wrap it in <code>graphersal.Vector(..)</code>.</p>
+<p>The search embeds the question with the <strong>same model</strong> and passes it as a parameter:</p>
+<pre><code class="language-python">question = "How often should I feed my cat?"
+q = model.encode(question)
+
+hits = graph.query("""
+    g.v().has_label("chunk").nearest("emb", q, 3)
+     .project("text", "score")
+       .by("text")
+       .by(__.similarity("emb", q))
+     .to_list()
+""", params={"q": q})
+# a list of dicts, best first: [{'text': '...', 'score': ...}, ...]
+</code></pre>
+<h3 id="graphrag-from-python"><a class="header" href="#graphrag-from-python">GraphRAG from Python</a></h3>
+<p>The context for the language model is the hits plus what the graph knows about them, in one
+query:</p>
+<pre><code class="language-python">rows = graph.query("""
+    g.v().has_label("chunk").nearest("emb", q, 3)
+     .project("text", "doc", "topics")
+       .by("text")
+       .by(__.out("part_of").values("title"))
+       .by(__.out("part_of").out("mentions").values("name").fold())
+     .to_list()
+""", params={"q": q})
+
+context = "\n".join(f"[{r['doc']}; topics: {', '.join(r['topics'])}] {r['text']}" for r in rows)
+prompt = f"Answer from this context only.\n\n{context}\n\nQuestion: {question}"
+# send `prompt` to the language model of your choice
+</code></pre>
+<p>To let an AI agent (an MCP client or the playground's AI Chat on the
+<a href="server_mcp_ai.html">dev server</a>) run the search itself, store it as a saved query whose parameter
+is the vector; the agent still needs the question's embedding from a tool of the host:</p>
+<pre><code class="language-python">graph.define_query({
+    "name": "semantic_search",
+    "params": {
+        "q": {"schema": {"type": "array", "format": "vector", "dimension": 384}},
+        "k": {"schema": {"type": "integer"}, "default": 5},
+    },
+    "body": 'fn semantic_search(q, k) { g.v().has_label("chunk").nearest("emb", q, k).values("text") }',
+})
+graph.call_query("semantic_search", {"q": graphersal.Vector(q), "k": 2})
+</code></pre>
+<p>When the host registers its model as an embedder and the documents were embedded with
+<code>embed_property()</code>, the schema knows the model, and the parameter can be the question itself:
+<code>nearest("emb", question, k)</code> with <code>params: {"question": "string"}</code> embeds it with that model, so
+the agent needs no embedding tool at all. From Python that is
+<code>graphersal.Embedder("minilm", model.encode, dimension=384, model="sentence-transformers/all-MiniLM-L6-v2")</code>
+in <code>Graph(embedders=[..])</code>, then <code>graph.embed_property(label="chunk", source="text", target="emb")</code> (<a href="../library/python.html#embedders">Python Quick Start: Embedders</a>).</p>
+<p><strong>Any model works.</strong> OpenAI, Cohere, Ollama or a model of your own: an embedding is just a list
+of numbers. Keep the schema's <code>dimension</code> equal to the model's, embed documents and questions
+with the same model, and pick the metric the model is meant for (most text models: <code>cosine</code>).</p>
+<h3 id="sizing-and-performance"><a class="header" href="#sizing-and-performance">Sizing and performance</a></h3>
+<p><code>nearest()</code> scores every element it receives, with no index to build or keep up to date, so its
+time grows with the number of vectors times the dimension. The
+<a href="../users_guide/vectors.html#performance">measured numbers</a> (10 000 vectors of 384 dimensions)
+show that this is fast enough for most in-memory graphs; a filter before the search scores
+fewer, and an <code>i8</code> property takes a quarter of the memory. There is no approximate (ANN) index
+yet (<a href="../users_guide/current_limitations.html">Current Limitations</a>).</p>
+<h2 id="where-to-go-next"><a class="header" href="#where-to-go-next">Where to go next</a></h2>
+<ul>
+<li><a href="../users_guide/vectors.html">Vectors</a>: the reference: element kinds, metrics, <code>similarity()</code>,
+<code>nearest()</code>, <code>vector_mean()</code>, quantization, formats.</li>
+<li><a href="../users_guide/schema_enforcement.html">Schema Enforcement</a>: declaring properties, modes and
+migrations.</li>
+<li><a href="../library/python.html">Python Quick Start</a>: the Python API.</li>
+<li><a href="../users_guide/saved_queries.html">Saved Queries</a>: searches that hosts, MCP clients and the AI
+Chat call by name.</li>
+<li>The playground's <strong>Examples ▾</strong> menu has a group "Embeddings (vectors)" with these queries.</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../getting_started/server_mcp_ai.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../users_guide/installation.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../getting_started/server_mcp_ai.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../users_guide/installation.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

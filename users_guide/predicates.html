@@ -1,0 +1,380 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Predicates: Comparison and Resolution - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/users_guide/predicates.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="predicates-comparison-and-resolution"><a class="header" href="#predicates-comparison-and-resolution">Predicates: Comparison and Resolution</a></h1>
+<p>This page lists where Graphersal's predicates (<code>P.eq</code>, <code>P.neq</code>, <code>P.lt</code>, <code>P.lte</code>, <code>P.gt</code>, <code>P.gte</code>,
+<code>P.within</code>, <code>P.without</code>, <code>P.inside</code>, <code>P.outside</code>, <code>P.between</code>), their composition (<code>and</code>, <code>or</code>,
+<code>not</code>, <code>negate</code>) and the id order of elements differ from Apache TinkerPop 3.8.2 or settle what
+TinkerPop leaves open. The <a href="#deviations">Deviations</a> table at the end collects them.</p>
+<h2 id="one-comparison-core"><a class="header" href="#one-comparison-core">One comparison core</a></h2>
+<p>All of these predicates compare through one rule set (TinkerPop's <code>semantics/Comparability</code>).</p>
+<ul>
+<li>Numbers compare by value across <code>int64</code> and <code>float64</code>; <code>NaN</code> is incomparable with everything,
+itself included.</li>
+<li>Strings compare with strings, booleans with booleans (<code>false &lt; true</code>), UUIDs with UUIDs,
+<code>null</code> only with <code>null</code>.</li>
+<li>A string is never read as a number, a date or a UUID.</li>
+<li><strong>Incomparable means false, never an error.</strong> Every test except <code>neq</code> is false for an
+incomparable pair. A vertex, edge, path or collection on the stream against a number is false
+as well; for example <code>g.V().where(P.eq(111))</code> is an empty result, not a cast error.</li>
+</ul>
+<pre><code class="language-rhai">g.V().where(P.eq(111)).count().next()          // 0, no error
+g.V().has("age", P.gt("x")).count().next()     // 0, a number never compares with a string
+</code></pre>
+<h2 id="text-predicates-match-strings-only"><a class="header" href="#text-predicates-match-strings-only">Text predicates match strings only</a></h2>
+<p><code>TextP.startingWith</code>, <code>endingWith</code>, <code>containing</code> and their negations (also spelled
+<code>P.startingWith(..)</code>) test a string. Any other value on the stream (a number, a UUID, a list from
+<code>fold()</code>, a map, a path, a vertex or an edge) is not one, so the predicate is false and its
+negation true. This is never an error, matching TinkerPop, where <code>TextP</code> only matches a <code>String</code>:</p>
+<pre><code class="language-rhai graph=modern">g.V().values("age").is(TextP.startingWith("2")).count().next()   // 0
+g.V().fold().is(TextP.startingWith("a")).count().next()           // 0
+g.V().fold().is(TextP.notStartingWith("a")).count().next()        // 1
+</code></pre>
+<p>A property handle (<code>values("name")</code>) and a property element (<code>properties("name")</code>) are tested by
+their stored value.</p>
+<h2 id="regular-expressions"><a class="header" href="#regular-expressions">Regular expressions</a></h2>
+<p><code>TextP.regex(pattern)</code> holds for a string in which <code>pattern</code> matches somewhere; <code>TextP.notRegex(pattern)</code>
+is its complement (also spelled <code>not_regex</code>, and bare <code>regex(..)</code>/<code>notRegex(..)</code>). Like the other text
+predicates, a value that is not a string makes <code>regex</code> false and <code>notRegex</code> true. The match is
+unanchored, as Java's <code>Matcher.find()</code> is; write <code>^...$</code> to match the whole string.</p>
+<pre><code class="language-rhai graph=modern">g.V().has("name", TextP.regex("^[jp]")).values("name").to_list()   // josh, peter
+g.V().has("name", TextP.regex("(?i)^MAR")).values("name").to_list() // marko
+</code></pre>
+<p><strong>Deviation from TinkerPop:</strong> Graphersal compiles the expression with the Rust
+<a href="https://docs.rs/regex/latest/regex/#syntax"><code>regex</code></a> crate and uses that crate's dialect, not
+Java's <code>java.util.regex</code>. Look at the crate's syntax page for what an expression may contain.
+Matching takes linear time in the input. The expression is compiled once, when the predicate is
+built: an invalid one is a script error (<code>ValueError::InvalidRegex</code>) before the traversal runs. In
+Rust the predicate is <code>P::regex("^mar")?</code> / <code>P::not_regex(..)?</code>.</p>
+<h2 id="resolution-of-a-string-operand"><a class="header" href="#resolution-of-a-string-operand">Resolution of a string operand</a></h2>
+<ul>
+<li><strong><code>where(P)</code>:</strong> a bare string operand of <code>eq/neq/lt/lte/gt/gte/within/without</code> is resolved in
+this order: a <strong>path label</strong> (<code>as("a")</code>), then a <strong>side effect</strong> (<code>aggregate</code>, <code>store</code>,
+<code>withSideEffect</code>), then the <strong>literal</strong> string. A side effect holding a collection compares as
+a whole value for <code>eq</code>/<code>neq</code> and is false for the ordering predicates. An unknown name stays a
+literal.</li>
+<li><strong><code>has(key, P)</code>, <code>is(P)</code>, <code>hasValue(P)</code>, <code>all(P)</code>, <code>any(P)</code>, <code>none(P)</code>:</strong> operands are always
+literal values, as in TinkerPop; they never resolve to a label or side effect, so a name that
+exists as a step label or side-effect key cannot change the meaning of a property filter:
+<code>g.V().as("vadas").out("knows").has("name", P.eq("vadas"))</code> finds vadas.</li>
+<li><strong><code>eq</code>/<code>neq</code> with a string on a vertex</strong> compares the vertex's id (<code>is(P.eq("1"))</code>, kept from
+the original implementation); under <code>where(P)</code> a step label of that name comes first.</li>
+<li><strong>Changed in 0.2.2:</strong> before, a value filter compared a string naming a step label with the
+labelled element (so the first query below returned nothing). TinkerPop compares the literal;
+only <code>where(P)</code> resolves labels.</li>
+</ul>
+<pre><code class="language-rhai graph=modern">g.v(1).as("vadas").out("knows").has("name", P.eq("vadas")).values("name").to_list()   // ["vadas"]: a value filter compares the string
+g.v(1).as("a").out("created").in("created").where(P.eq("a")).values("name").to_list()   // ["marko"]: where() reads the label a
+</code></pre>
+<h2 id="hasidp-haslabelp-haskeyp"><a class="header" href="#hasidp-haslabelp-haskeyp">hasId(P), hasLabel(P), hasKey(P)</a></h2>
+<p><code>hasId(P.neq("1"))</code> and its siblings evaluate the predicate instead of stringifying it. A lone
+<code>P.eq(x)</code>/<code>P.within(xs)</code> is rewritten to the literal step so source-filter pushdown still applies.</p>
+<ul>
+<li><strong>Operands are always literal.</strong> No step label or side effect is consulted, so a label named
+like an id cannot shadow it.</li>
+<li><strong>Label and key sets.</strong> A vertex carries a set of labels, a map a set of keys. A <em>positive</em>
+predicate (<code>eq</code>, <code>within</code>, <code>lt</code>, ...) holds if <strong>any</strong> label or key satisfies it; a <em>negated</em>
+one (<code>neq</code>, <code>without</code>, <code>notStartingWith</code>, ...) holds only if <strong>all</strong> do. For a single-label
+vertex this is TinkerPop's behaviour.</li>
+<li>A predicate mixed with other arguments (<code>hasId(P.eq("1"), "2")</code>) is an <code>ArgumentMismatch</code>.</li>
+<li><strong>Ids are strings.</strong> An order predicate (<code>P.gt</code>, <code>P.gte</code>, <code>P.lt</code>, <code>P.lte</code>, <code>P.between</code>,
+<code>P.inside</code>, <code>P.outside</code>) with a number operand in <code>hasId(P)</code> / <code>has(T.id, P)</code> is an error
+before the query runs, not a filter that silently matches nothing; the help shows the string
+form. Compare with a string instead, <code>hasId(P.gt("3"))</code>, and mind the string order: <code>"10"</code>
+sorts before <code>"9"</code>. Equality forms (<code>hasId(3)</code>, <code>hasId(P.eq(3))</code>, <code>hasId(P.neq(3))</code>,
+<code>hasId(P.within(1, 2))</code>, <code>hasId(P.without(1, 2))</code>, also nested as in
+<code>hasId(P.eq(1).or(P.eq(2)))</code>) take numbers and compare their literal text, in the DSL and the
+Rust API (<code>has_id_p(P::Neq(3))</code>): <code>3</code> matches the id <code>"3"</code>, a float <code>3.0</code> the id <code>"3.0"</code>.</li>
+</ul>
+<pre><code class="language-rhai graph=modern">g.V().hasId(P.neq("1")).count().next()                     // 5
+g.V().hasId(P.gt("3")).count().next()                      // 3 ("4", "5", "6")
+g.V().hasId(P.without(1, 2)).count().next()                // 4
+g.V().hasLabel(P.within("person", "x")).count().next()     // 4
+</code></pre>
+<h2 id="element-order"><a class="header" href="#element-order">Element order</a></h2>
+<ul>
+<li><strong>TinkerPop:</strong> vertices and edges order by id; its ids are typically numbers, so <code>9</code> sorts
+before <code>10</code>.</li>
+<li><strong>Graphersal:</strong> ids are stored as strings and compared as strings (a string is never parsed
+into a number), so <code>"10"</code> sorts before <code>"9"</code>. Elements with equal or missing ids fall back to a
+structural comparison.</li>
+</ul>
+<pre><code class="language-rhai graph=modern">g.V().order().by(T.id).id().toList()   // "1", "2", ... ; with ids up to 10: "1", "10", "2", ...
+</code></pre>
+<h2 id="composing-predicates-and-or-not-negate"><a class="header" href="#composing-predicates-and-or-not-negate">Composing predicates: and, or, not, negate</a></h2>
+<pre><code class="language-rhai graph=modern">g.V().has("age", P.gt(18).and(P.lt(30)).or(P.gt(35))).values("name").toList()   // marko, vadas
+g.V().has("name", TextP.containing("o").and(P.lt("m"))).values("name").toList() // lop, josh
+g.V().hasLabel(P.not(P.eq("person"))).count().next()                            // 2
+g.V("1").out().aggregate("a").out().where(P.not(P.within("a"))).values("name").toList()
+</code></pre>
+<ul>
+<li><code>p.and(q)</code> and <code>p.or(q)</code> are binary and left-associative: <code>a.and(b).or(c)</code> means
+<code>(a and b) or c</code>, <code>a.or(b).and(c)</code> means <code>(a or b) and c</code>. Evaluation is left to right and
+<strong>short-circuits</strong>, as TinkerPop's <code>AndP</code>/<code>OrP</code> do: <code>P.eq(1).or(q)</code> never evaluates <code>q</code> for a
+value equal to 1, so a runtime error on the right is not raised when the left side decides.</li>
+<li><code>P.not(p)</code> (also <code>P::not(p)</code> and a bare <code>not(p)</code>) and <code>p.negate()</code> are the complement of the
+result for the same stream value. <code>TextP</code> predicates compose with <code>P</code> ones.</li>
+<li>The logic is <strong>two-valued</strong>. An incomparable pair is plain <code>false</code> (see above), so
+<code>P.lt(NaN)</code> is the "error" column of the <code>Comparability</code> scenarios and reduces to <code>false</code>;
+there is no third value.</li>
+<li>Over a label or key set (<code>hasLabel(P)</code>, <code>hasKey(P)</code>) a leaf keeps the rule above (positive:
+any, negated: all); a composite combines the <strong>set results</strong>: <code>and</code> is <code>&amp;&amp;</code>, <code>or</code> is <code>||</code>,
+<code>not</code> is <code>!</code> of the child's set result.</li>
+<li>In <code>where(P)</code> each child resolves a string operand on its own (step label, then side effect,
+then literal), and the path analysis records the union of the labels of the children
+(<code>P.eq("a").or(P.eq("d"))</code> records <code>a</code> and <code>d</code>).</li>
+<li>A composite is never pushed into an index or a source filter (<code>.profile()</code> shows
+<code>has("age", P.gt(27).and(P.lt(33)))</code> with no optimizer rule named); the results are identical with
+<code>g.with("optimizer.disabled", [...])</code>.</li>
+<li>A non-predicate operand (<code>P.gt(1).and(__.out())</code>, <code>P.not("x")</code>) is an <code>ArgumentMismatch</code>
+whose help names the predicate and the traversal combinators (<code>__.and(..)</code>, <code>__.or(..)</code>).</li>
+<li>Not part of this feature: the infix steps <code>g.V().has(..).and().has(..)</code> (TinkerPop's
+<code>ConnectiveStrategy</code>) and the two-argument <code>where("a", P)</code> with <code>by()</code> modulators.</li>
+</ul>
+<h2 id="type-predicates"><a class="header" href="#type-predicates">Type predicates</a></h2>
+<p><code>P.typeOf(GType.X)</code> keeps a value of the given type (<code>GType.STRING</code>, <code>GType.LONG</code>, <code>GType.NUMBER</code>,
+<code>GType.LIST</code>, <code>GType.VERTEX</code>, ...). TinkerPop 3.8 also accepts a type <em>name</em>, and so does
+Graphersal, for a fixed list of names:</p>
+<pre><code class="language-rhai graph=modern">g.V().values("name").is(P.typeOf("String")).count().next()   // 6
+g.V().values("age").is(typeOf("Long")).count().next()         // 4
+g.V().values("age").is(P.typeOf("Byte"))                      // script error: unknown type name
+</code></pre>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Token</th></tr></thead><tbody>
+<tr><td><code>String</code></td><td><code>GType.STRING</code></td></tr>
+<tr><td><code>Integer</code>, <code>Long</code></td><td><code>GType.LONG</code> (every integer is an <code>int64</code>)</td></tr>
+<tr><td><code>Double</code>, <code>Float</code></td><td><code>GType.DOUBLE</code> (every float is a <code>float64</code>)</td></tr>
+<tr><td><code>OffsetDateTime</code></td><td><code>GType.DATETIME</code> (TinkerPop's date type; see <a href="../dates/index.html">Dates and Times</a>)</td></tr>
+<tr><td><code>Duration</code></td><td><code>GType.DURATION</code></td></tr>
+<tr><td><code>LocalDate</code>, <code>LocalDateTime</code>, <code>LocalTime</code></td><td><code>GType.DATE</code>, <code>GType.LOCALDATETIME</code>, <code>GType.TIME</code> (Graphersal's other date and time types, by their <code>java.time</code> names)</td></tr>
+<tr><td><code>Boolean</code>, <code>UUID</code>, <code>Number</code>, <code>List</code>, <code>Map</code>, <code>Vertex</code>, <code>Edge</code>, <code>Path</code>, <code>Graph</code></td><td>the token of the same name</td></tr>
+</tbody></table>
+</div>
+<p>Both forms take the same values in both spellings (<code>P.typeOf(GType.LONG)</code>, <code>P::typeOf(GType::LONG)</code>,
+<code>typeOf("Long")</code> select the same ages). The names are Java's simple class names, as TinkerPop
+registers them, not the token names: <code>"LONG"</code> is not a type name, in TinkerPop either.
+The names are case-sensitive. Any other name is a script error (<code>ArgumentMismatch</code> listing the
+accepted names), as TinkerPop rejects a name it has not registered. In Rust, the same lookup is
+<code>GType::from_type_name</code>.</p>
+<h2 id="deviations"><a class="header" href="#deviations">Deviations</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Area</th><th>TinkerPop behaviour</th><th>Graphersal behaviour</th><th>Why</th><th>Scenarios affected</th></tr></thead><tbody>
+<tr><td><code>P.typeOf(name)</code></td><td>any name in TinkerPop's registered-type cache, custom types included</td><td>a fixed list of names (above)</td><td>Graphersal has no type registry; one width per number kind</td><td>none (the suite uses <code>"String"</code> and an unregistered name)</td></tr>
+<tr><td><code>negate()</code> / <code>P.not(p)</code></td><td><code>Compare.negate()</code> flips the operator (<code>gt</code> becomes <code>lte</code>), so the result differs from the complement for incomparable operands</td><td>The plain complement of the result: <code>P.not(P.gt(1))</code> is <code>true</code> for <code>"foo"</code> and <code>NaN</code></td><td>One rule for every predicate (text, <code>typeOf</code>, composites); operator flipping would need a per-variant inverse</td><td>None (every vendored scenario negates a comparable number)</td></tr>
+<tr><td>Error value in <code>and</code>/<code>or</code></td><td>Comparability scenarios call a <code>NaN</code> comparison an "error" column</td><td>There is no error value: incomparable is <code>false</code>, the logic is two-valued</td><td>The expected results reduce to boolean <code>and</code>/<code>or</code></td><td>18 <code>Comparability</code></td></tr>
+<tr><td>Numeric widths in the test surface</td><td>byte, short, BigInteger, BigDecimal are distinct types</td><td>Only <code>int64</code>/<code>float64</code> exist; the harness maps <code>1b</code>/<code>1s</code>/<code>1n</code> to an integer and <code>1m</code> to a float (documented in <code>tests/tinkerpop/README.md</code>)</td><td>Widths cannot be told apart; equality is by value</td><td>8 <code>Equality</code>, <code>Sum</code>, <code>AsNumber</code>, <code>Inject</code> with width literals</td></tr>
+<tr><td>Composites and indexes</td><td>n/a</td><td>A composite predicate is not index-pushable</td><td>Only a single comparison can be folded into a range</td><td>none</td></tr>
+<tr><td>Incomparable pairs</td><td>Some comparisons raise</td><td><code>false</code> for every test but <code>neq</code>, never an error</td><td>See "One comparison core"</td><td><code>Comparability</code>, <code>where(111)</code> on a vertex</td></tr>
+<tr><td>Element id order</td><td>Numeric ids order numerically</td><td>Ids compare as strings, <code>"10"</code> sorts before <code>"9"</code>; an order predicate on a number in <code>hasId(P)</code>/<code>has(T.id, P)</code> (<code>P.gt(3)</code>) is an error naming the string form <code>P.gt("3")</code></td><td>A string is never parsed into a number; a number comparison against a string id could never hold</td><td><code>order().by(T.id)</code> on ids with different digit counts</td></tr>
+<tr><td><code>null</code></td><td>Property <code>null</code> handling depends on the <code>@AllowNullPropertyValues</code> flavour</td><td><code>null</code> is a real stored value</td><td>Graphersal has a <code>null</code> type</td><td><code>AddVertex</code>/<code>AddEdge</code>/<code>MergeEdge</code> null-property scenarios</td></tr>
+<tr><td>Property cardinality</td><td><code>list</code>/<code>set</code> properties</td><td>One value per property key</td><td>By design</td><td><code>@MultiProperties</code> scenarios</td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../users_guide/displaying_results.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../users_guide/id_arguments.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../users_guide/displaying_results.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../users_guide/id_arguments.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

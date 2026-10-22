@@ -1,0 +1,737 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Transactions - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/users_guide/transactions.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="transactions"><a class="header" href="#transactions">Transactions</a></h1>
+<p>Every traversal is <strong>atomic</strong>: it runs as one unit of work (implicit auto-commit). When it succeeds,
+all its changes stay. When it fails, every change it made is rolled back before the error is
+returned, so a failing traversal leaves nothing behind.</p>
+<pre><code class="language-groovy">g.V().property("checked", true).values("name").asNumber(GType.LONG).toList()
+// fails in asNumber("marko") -&gt; no vertex has "checked" afterwards
+
+g.inject(1).sideEffect(__.V("1").drop()).constant("x").asNumber(GType.LONG).next()
+// fails -&gt; vertex 1 and its three edges are still there
+</code></pre>
+<p>Any error counts: a failing step, a schema violation, a resource limit
+(<code>traversal.max_traversers</code>, see <a href="resource_limits.html">Resource Limits</a>), an expired
+<code>evaluationTimeout</code> (see <a href="query_limits.html">Query Limits</a>), and an error while the terminal
+materializes the results (for example returning a vertex the same traversal dropped, see
+<a href="dropping_elements.html">Dropping Elements</a>).</p>
+<h2 id="what-one-unit-is"><a class="header" href="#what-one-unit-is">What one unit is</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Entry point</th><th>Unit</th></tr></thead><tbody>
+<tr><td>Rust API and Rhai: <code>to_list()</code>, <code>next()</code>, <code>iterate()</code>, <code>to_table()</code> and the other visualizers, <code>profile()</code>, <code>execute()</code>, <code>to_graph()</code></td><td>one traversal, including the materialization of its results</td></tr>
+<tr><td>Rhai (CLI, Python, <code>eval_*</code> entries): every executed traversal of a script</td><td>one traversal; statements before a failing one stay applied</td></tr>
+<tr><td>Rhai through <code>eval_value_atomic</code> (host option), the playground, Python <code>execute(.., atomic=True)</code></td><td>the whole script (<a href="#a-whole-script-as-one-unit-rhai">below</a>)</td></tr>
+<tr><td>Rhai through <code>eval_value_dry_run</code> (host option), Python <code>Graph.dry_run</code></td><td>the whole script, always rolled back (<a href="#dry-run-of-a-script-rhai">below</a>)</td></tr>
+<tr><td>Rust API: <code>Transactional::transaction(|g| ..)</code> (every storage)</td><td>the closure; every traversal inside is a savepoint (<a href="#explicit-transactions-rust">below</a>)</td></tr>
+<tr><td>Rust API: <code>Transactional::dry_run(|g| ..)</code> (storages with change capture)</td><td>the closure, always rolled back (<a href="#dry-run">below</a>)</td></tr>
+<tr><td><code>GraphStorage</code> methods called directly (<code>add_vertex</code>, <code>insert_vertex</code>, <code>set_vertex_property</code>, ...)</td><td>one call: it either succeeds or changes nothing; outside a unit it is not recorded, so no hook sees it (use it for loading, see <a href="#loading-versus-importing">below</a>)</td></tr>
+<tr><td><code>set_schema()</code> / <code>patch_schema()</code> outside a unit</td><td>one unit of its own</td></tr>
+<tr><td>a catalog change (<code>set_definition()</code>, <code>remove_definition()</code>, <code>define_query()</code>, <code>move_query()</code>, <code>describe_query()</code>) outside a unit</td><td>one unit of its own</td></tr>
+<tr><td><code>import_graphml()</code> / <code>import_graphson()</code> into an existing graph</td><td>the whole import</td></tr>
+<tr><td><code>apply_change_set()</code></td><td>the whole change set</td></tr>
+</tbody></table>
+</div>
+<p>In a script, the unit is the traversal, not the whole script:</p>
+<pre><code class="language-rhai graph=modern">g.V("1").property("checked", true).toList();                               // applied
+g.V("2").property("checked", true).values("name").asNumber(GType.LONG).toList(); // fails, rolled back
+// vertex 1 has "checked", vertex 2 has not
+</code></pre>
+<p>A host can make the whole script one unit instead (see below); the script itself cannot.</p>
+<p>A <a href="../gql/writes.html">GQL</a> query is one traversal, so one unit too: when its last row fails, the
+elements its earlier rows created are rolled back with it.</p>
+<pre><code class="language-rhai graph=modern script">let run = g.gql("FOR x IN [1, 0] INSERT (:n {v: 1 / x})").execute();   // fails on the second row
+g.v().has_label("n").count().next()   // 0: the node of the first row is gone too
+</code></pre>
+<p><code>execute()</code> never throws: on failure its <code>error</code> and the partial <code>profile</code> are kept, its <code>results</code>
+are empty, and none of the traversal's changes are applied.</p>
+<h2 id="explicit-transactions-rust"><a class="header" href="#explicit-transactions-rust">Explicit transactions (Rust)</a></h2>
+<p><code>graph.transaction(|g| -&gt; Result&lt;T, E&gt; { .. }) -&gt; Result&lt;T, E&gt;</code> runs a closure as one unit. There
+is no transaction object to finish or forget, and nothing is rolled back in a <code>Drop</code>: the closure's
+result decides.</p>
+<p>The API is the extension trait <code>Transactional</code> (<code>transaction</code>, <code>transaction_with</code>, <code>dry_run</code>; in
+<code>graphersal::prelude</code> and <code>graphersal::storage</code>). It has a blanket implementation for every
+<code>GraphStorage</code>: <code>TraversalGraph</code>, its <code>&amp;mut</code>/<code>Box</code>/solely owned <code>Arc</code> wrappers and a storage of your
+own, built only on the trait's unit methods (<code>begin_unit</code>, <code>set_unit_metadata</code>, <code>commit_unit</code>,
+<code>rollback_unit</code>, <code>discard_unit</code>). What <code>Err</code> undoes is the storage's business: an atomic storage
+(<code>capabilities().atomic</code>, like <code>TraversalGraph</code>) rolls everything back, a non-atomic one keeps
+what was changed before the error.</p>
+<pre><code class="language-rust">use graphersal::prelude::*;
+
+let mut graph = TraversalGraph::tinkerpop_modern();
+let result: TraverserResult&lt;()&gt; = graph.transaction(|g| {
+    g.traversal_mut().add_v("person").property("name", "ann").to_list()?;
+    // A failing traversal is a savepoint: only its own changes are rolled back, and the
+    // closure gets the error and decides (here: go on).
+    let failed = g.traversal_mut().v("1").property("age", 30).constant("x")
+        .as_number(GType::LONG).to_list();
+    assert!(failed.is_err());
+    g.traversal_mut().v("2").property("age", 28).to_list()?;
+    Ok(())
+});
+assert!(result.is_ok());</code></pre>
+<ul>
+<li><strong>Savepoints.</strong> Every traversal inside the closure is a nested unit. When it fails, only its own
+changes are rolled back and the error is returned to the closure, which gives up with <code>?</code> or goes
+on (TinkerPop / SQL behaviour).</li>
+<li><strong><code>Err</code> from the closure</strong> rolls back everything the transaction changed. The commit hooks get
+<code>after_rollback</code> (<code>RollbackReason::Failed</code>) when it had changed something.</li>
+<li><strong><code>Ok</code> commits once:</strong> one commit sequence number and one <code>ChangeSet</code> for the whole transaction.</li>
+<li><strong>A veto.</strong> When a hook's <code>before_commit</code> refuses the change set, everything is rolled back and
+the call returns <code>E::from(GraphError::CommitRejected { hook, source })</code>; <code>source</code> is the hook's
+own error. This is why the closure's error type needs <code>E: From&lt;GraphError&gt;</code>. The usual types all
+qualify: <code>TraverserResult</code> / <code>BoxedTraverserError</code> (what <code>?</code> on a terminal gives),
+<code>TraverserError</code>, <code>GraphError</code>, <code>Box&lt;dyn Error&gt;</code>, or an application error with a <code>From</code> impl.</li>
+<li><strong>Nesting.</strong> A <code>transaction</code> inside another one is a savepoint of the enclosing transaction: its
+<code>Err</code> rolls back only its own changes, its <code>Ok</code> keeps them in the enclosing unit, which alone
+commits and can still roll them back.</li>
+<li><strong>Commit metadata.</strong> <code>transaction_with(CommitMetadata::new().with_principal("migrator"), |g| ..)</code>
+gives the commit's <code>ChangeSet</code> a principal and free attributes. A nested <code>transaction_with</code> that
+succeeds adds its metadata to the enclosing one's (a principal only when none is set yet,
+attributes only for keys not set yet); a nested one that fails adds nothing. Plain traversals
+commit with empty metadata.</li>
+<li><strong>No isolation needed.</strong> <code>&amp;mut</code> excludes every other reader and writer for the duration; a
+shared <code>Graph</code> is used through its write lock (<code>graph.write().transaction(..)</code>).</li>
+<li>A rolled-back transaction leaves gaps in the automatic ids (they are never reused).</li>
+</ul>
+<p><code>Execution::mutated()</code> (Rhai: <code>r.mutated</code>) of a traversal inside a transaction says whether it
+changed something that is now part of the enclosing unit; whether that becomes final is decided by
+the transaction. Outside a transaction it says whether the run committed a change.</p>
+<h2 id="dry-run"><a class="header" href="#dry-run">Dry run</a></h2>
+<p><code>graph.dry_run(|g| ..)</code> runs the closure like a transaction and then <strong>always</strong> rolls it back. It returns the closure's result together with the <code>ChangeSet</code> of what the closure changed
+(and what was undone), exactly as a commit hook would have received it; <code>compact()</code> gives the net
+effect. A preview of a migration:</p>
+<pre><code class="language-rust">use graphersal::prelude::*;
+
+let mut graph = TraversalGraph::tinkerpop_modern();
+let (_, changes) = graph
+    .dry_run(|g| g.traversal_mut().v(None).has_label("software").drop().to_list())
+    .unwrap();
+assert_eq!(changes.len(), 6); // 2 vertices and their 4 edges
+assert_eq!(graph.vertex_count(), 6); // untouched</code></pre>
+<ul>
+<li>The graph is left exactly as it was, schema included. Only the automatic id sequences keep
+their progress.</li>
+<li>No commit hook is called: nothing is committed, attempted or vetoed. The change set is built
+whether or not hooks are registered; its <code>commit_seq()</code> and <code>committed_at()</code> are <code>0</code> (never
+committed), its metadata is empty, and <code>last_commit_seq()</code> / <code>last_committed_at()</code> do not move.
+Its <code>node_sequence()</code> / <code>edge_sequence()</code> are the id sequences after the dry run.</li>
+<li>A failing traversal inside the dry run is a savepoint as in a transaction and is not in the
+change set. <code>Err</code> from the closure comes back unchanged (no change set).</li>
+<li>Inside a transaction a dry run is a savepoint that is always rolled back; its change set holds
+only its own changes.</li>
+<li>A dry run needs a storage with change capture (<code>capabilities().change_capture</code>, like
+<code>TraversalGraph</code>): it ends with <code>GraphStorage::discard_unit</code> ("roll back without hooks, tell me
+what it changed"). On any other storage the unit is closed with an ordinary rollback and the call
+returns <code>E::from(GraphError::Unsupported { .. })</code>; that is why <code>dry_run</code> also needs
+<code>E: From&lt;GraphError&gt;</code>.</li>
+</ul>
+<h2 id="a-whole-script-as-one-unit-rhai"><a class="header" href="#a-whole-script-as-one-unit-rhai">A whole script as one unit (Rhai)</a></h2>
+<p>The default unit of a script is one traversal. A host that wants all-or-nothing for the whole
+script (a migration script, an import, a playground run) calls
+<code>graphersal::script::eval_value_atomic(graph, script, params, &amp;limits, authorizer)</code> instead of
+<code>eval_value_with_limits</code>. The script cannot choose this itself (there is no <code>g.tx()</code>).</p>
+<pre><code class="language-rhai graph=modern">g.addV("person").property("name", "ann").next();          // part of the unit
+g.V("1").property("age", 99).next();                      // part of the unit
+g.V().values("name").asNumber(GType.LONG).toList();       // fails: the whole script is rolled back
+</code></pre>
+<ul>
+<li>Every traversal of the script is a savepoint. A failure the script handles (<code>execute()</code> never
+throws; <code>try</code>/<code>catch</code>) rolls back only that statement, and the script goes on.</li>
+<li>An uncaught error (or a resource limit) rolls back everything the script changed and is
+returned.</li>
+<li>A script that ends normally commits once (one <code>ChangeSet</code>); a commit hook's veto rolls it back
+and is returned as the script's error.</li>
+<li>The graph's write lock is held for the whole script: no other reader or writer of the same
+graph runs between its statements.</li>
+<li>A traversal the script returns without a terminal is not part of the unit: it runs when the
+host renders it, after the commit, as a unit of its own.</li>
+<li>The script must not return a closure or function pointer (also inside an array or a map): a
+closure that captured <code>g</code> would point at the empty private graph once the script ends. It fails
+with <code>ScriptError::ReturnedClosure</code> and everything is rolled back; return data or a traversal.</li>
+<li>The authorizer is asked per traversal as everywhere else (<a href="permissions.html">Permissions</a>).</li>
+</ul>
+<p>Front ends: the <strong>playground</strong> runs every script as one unit (it also counts the implicit
+execution of a trailing traversal, and commits only when the run reports no error, so a run that
+shows an error leaves nothing behind). The <strong>CLI</strong> keeps the default (each traversal is a unit),
+so a scripted <code>-e</code> session behaves like TinkerPop's Gremlin console. The <strong>Python binding</strong> keeps
+the default too and offers the whole-script unit per call: <code>graph.execute(script, atomic=True)</code>
+(a returned closure raises <code>ReturnedClosureError</code>; a traversal returned without a terminal is run
+like <code>to_list()</code> after the commit).</p>
+<h2 id="dry-run-of-a-script-rhai"><a class="header" href="#dry-run-of-a-script-rhai">Dry run of a script (Rhai)</a></h2>
+<p><code>graphersal::script::eval_value_dry_run(graph, script, params, &amp;limits, authorizer)</code> is the
+script-side counterpart of <code>Transactional::dry_run</code>: it runs the script like <code>eval_value_atomic</code>
+and then <strong>always</strong> rolls everything back, returning <code>(value, ChangeSet)</code>.</p>
+<pre><code class="language-rust">use std::sync::Arc;
+use graphersal::prelude::*;
+use graphersal::auth::AllowAll;
+use graphersal::script::{ScriptLimits, eval_value_dry_run};
+
+let graph = Arc::new(GraphSource::tinkerpop_modern());
+let (count, changes) = eval_value_dry_run(
+    graph.clone(),
+    r#"g.V().hasLabel("software").drop().toList(); g.V().count().next()"#,
+    Default::default(),
+    &amp;ScriptLimits::default(),
+    Arc::new(AllowAll),
+)
+.unwrap();
+assert_eq!(count.as_int().unwrap(), 4);
+assert_eq!(changes.len(), 6); // 2 vertices and their 4 edges
+assert_eq!(graph.read().vertex_count(), 6); // untouched</code></pre>
+<ul>
+<li>The rules of <a href="#dry-run">Dry run</a> apply: the graph is left as it was, no commit hook is called,
+<code>commit_seq()</code> is <code>0</code>, a failing traversal the script handles is a savepoint and is not in the
+change set, and a failing script returns its error and no change set.</li>
+<li>As in a whole-script unit, the write lock is held for the whole script, and a returned closure
+fails with <code>ScriptError::ReturnedClosure</code>.</li>
+<li>A traversal the script returns without a terminal (also inside an array or a map) runs
+<strong>inside</strong> the dry run, as if it ended in <code>toList()</code>, so its result reflects the previewed
+changes (<code>graphersal::script::materialize_traversals</code>).</li>
+</ul>
+<p>The Python binding exposes it as <code>graph.dry_run(script, params=None, *, policy=None)</code>, which
+returns a <code>DryRunResult</code> with <code>.result</code> and <code>.changes</code> (the change set's serde form as plain
+Python data).</p>
+<h2 id="what-a-rollback-restores"><a class="header" href="#what-a-rollback-restores">What a rollback restores</a></h2>
+<p>Everything the traversal changed: vertices and edges (a dropped vertex comes back with all its
+edges), labels, properties (at their old position in the property order), ids and the lookups by id
+(<code>g.V(id)</code>, <code>g.E(id)</code>), the label index and the label counts, the stored schema and the catalog of definitions (saved
+queries).</p>
+<p>Not restored:</p>
+<ul>
+<li><strong>Iteration order.</strong> A restored element can come back in another place: <code>g.V()</code> / <code>g.E()</code> order,
+the order of a neighbour's <code>out()</code>/<code>in()</code>, the order within a label. Iteration order is
+unspecified, as in TinkerGraph.</li>
+<li><strong>Element handles</strong> (Rust API). A handle taken inside the failed traversal, or a handle to an
+element the traversal dropped, stays <em>stale</em>: a restored element is a new element with the same
+id. Look elements up again by id.</li>
+</ul>
+<h2 id="cost"><a class="header" href="#cost">Cost</a></h2>
+<p>The reference storage <code>TraversalGraph</code> keeps an internal undo log while a unit is open. A read
+costs nothing. A mutation costs one log entry holding the old value (a property write, a label
+change, a schema change) or the removed element (a drop); on success the log is cleared.</p>
+<p>A rollback does <strong>not</strong> give back automatically assigned ids: an id handed out to an element that
+was rolled back is never handed out again, exactly like a database sequence. Auto ids can therefore
+have gaps; they are unique, not dense.</p>
+<p>The counters never wrap around. The commit sequence number and both automatic id sequences are
+<code>u64</code>; an increment past <code>u64::MAX</code> fails with <code>GraphError::SequenceOverflow</code> instead (a reused
+commit number or id would corrupt a journal or a replica). For the commit sequence number the
+failing unit is rolled back like any failed unit (the hooks get <code>after_rollback</code>); for an id
+sequence the step that needed the id fails, and with it the query. In practice only a renumbered
+graph (<code>with_last_commit_seq(u64::MAX)</code>) or an explicit numeric id at the end of the range
+(<code>property(T.id, "18446744073709551615")</code>, which raises the vertex id sequence to it) gets there;
+explicit ids keep working.</p>
+<h2 id="change-capture-changeset"><a class="header" href="#change-capture-changeset">Change capture: <code>ChangeSet</code></a></h2>
+<p>What a committed unit changed is described as a <code>ChangeSet</code> (Rust API,
+<code>graphersal::changes</code>): the basis for persistence, replication, change data capture and
+audit on top of the library. It is handed to the <strong>commit hooks</strong> (next section).</p>
+<p>A <code>ChangeSet</code> carries:</p>
+<ul>
+<li><code>commit_seq()</code>: the commit sequence number, monotonic per graph. Only a unit that changed
+something advances it (<code>last_commit_seq()</code>); a read-only, rolled-back or vetoed unit does not.</li>
+<li><code>committed_at()</code>: the commit time, <code>i64</code> microseconds since the Unix epoch (UTC), taken from the
+system clock at the outermost commit (<code>web_time</code>, so also on wasm32). It is <strong>monotonic per
+graph</strong>: <code>max(now, time of the previous commit)</code>, so a clock that steps back repeats the previous
+time instead of going back. Every commit of a unit that changed something takes a time, also
+without hooks (<code>last_committed_at()</code>); point-in-time recovery compares against it.</li>
+<li><code>node_sequence()</code> / <code>edge_sequence()</code>: the automatic id sequences of vertices and edges <strong>after</strong>
+the unit (the last auto id handed out, or the highest numeric explicit id seen). They are on every
+change set because an id of a rolled-back unit or of a dropped element leaves no other trace in a
+journal: <code>replay</code> and <code>apply_change_set</code> raise the graph's sequences to them, so no automatic id
+is ever handed out twice, also not after recovery or on a replica.</li>
+<li><code>metadata()</code>: an optional principal and free attributes, passed through, never interpreted.</li>
+<li><code>mutations()</code>: the changes <strong>in execution order</strong>, each with its before and after values:</li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th><code>Mutation</code></th><th>Fields</th></tr></thead><tbody>
+<tr><td><code>AddVertex</code></td><td><code>id</code>, <code>labels</code>, <code>properties</code></td></tr>
+<tr><td><code>DropVertex</code></td><td><code>id</code>, <code>before</code> (labels and properties)</td></tr>
+<tr><td><code>AddEdge</code></td><td><code>id</code>, <code>label</code>, <code>out_id</code>, <code>in_id</code>, <code>properties</code></td></tr>
+<tr><td><code>DropEdge</code></td><td><code>id</code>, <code>before</code> (label, endpoints and properties)</td></tr>
+<tr><td><code>SetProperty</code></td><td><code>element</code> (kind and id), <code>key</code>, <code>before</code> (absent: <code>None</code>), <code>after</code></td></tr>
+<tr><td><code>RemoveProperty</code></td><td><code>element</code>, <code>key</code>, <code>before</code></td></tr>
+<tr><td><code>AddLabel</code> / <code>RemoveLabel</code></td><td><code>id</code>, <code>label</code> (a vertex label)</td></tr>
+<tr><td><code>SetEdgeLabel</code></td><td><code>id</code>, <code>before</code> (unlabeled: <code>None</code>), <code>after</code></td></tr>
+<tr><td><code>SetSchema</code></td><td><code>before</code>, <code>after</code></td></tr>
+<tr><td><code>SetDefinition</code></td><td><code>kind</code>, <code>name</code>, <code>before</code> (absent: <code>None</code>), <code>after</code> (removed: <code>None</code>): one mutation for every kind of catalog definition (define, replace, move, describe, remove)</td></tr>
+</tbody></table>
+</div>
+<p>Rules a consumer can rely on:</p>
+<ul>
+<li><strong>Cascades are explicit.</strong> Dropping a vertex lists one <code>DropEdge</code> per removed edge <em>before</em> the
+<code>DropVertex</code>; replaying the list in order needs no knowledge of the cascade.</li>
+<li><strong>jpath writes</strong> (<code>property(jpath("a.b[1]"), v)</code>) appear as <code>SetProperty</code> of the top-level key
+with the whole new value.</li>
+<li><strong>Schema changes</strong> are in the same stream, in order with the data; so are <strong>catalog changes</strong>
+(<code>SetDefinition</code>).</li>
+<li>A write of an equal value is still a <code>SetProperty</code> (<code>before == after</code>).</li>
+<li><code>compact()</code> returns the net effect: one entry per element, key and label (an element added and
+dropped again disappears, an added element absorbs its later changes, a property set back to its
+old value disappears). Schema changes stay barriers, and the result is ordered so that it
+replays. The changes of one catalog definition merge into one (dropped when it ends where it
+started), listed at the end.</li>
+</ul>
+<h3 id="building-a-change-set"><a class="header" href="#building-a-change-set">Building a change set</a></h3>
+<p>The graph builds the change sets of its own commits. Outside it (a storage of your own that
+captures changes, a replication feed, a test) a change set is built with
+<code>ChangeSet::builder(commit_seq, committed_at)</code>, optionally <code>.with_sequences(node, edge)</code> and
+<code>.with_metadata(..)</code>, then <code>push(..)</code> per mutation and <code>build()</code>. Every mutation kind has a
+constructor: <code>Mutation::add_vertex</code>, <code>drop_vertex</code> (with <code>VertexState::new</code>), <code>add_edge</code>,
+<code>drop_edge</code> (with <code>EdgeState::new</code>), <code>set_property</code>, <code>remove_property</code>, <code>add_label</code>,
+<code>remove_label</code>, <code>set_edge_label</code>, <code>set_schema</code> and <code>set_definition</code>. <code>build()</code> makes the cheap
+checks and fails with <code>GraphError::InvalidChangeSet</code>: a <code>commit_seq</code> of <code>0</code> (a never-committed
+change set, like a dry run's) has no commit time, a commit time is not negative, and a definition
+change has a before or an after image of its own kind and name. A built change set applies,
+replays and serializes exactly like a captured one.</p>
+<pre><code class="language-rust">use graphersal::changes::{ChangeSet, ElementRef, Mutation};
+use graphersal::prelude::*;
+
+let mut builder = ChangeSet::builder(1, 1_700_000_000_000_000);
+builder
+    .push(Mutation::add_vertex("ann", ["person"], Default::default()))
+    .push(Mutation::set_property(ElementRef::vertex("ann"), "age", None, 29i64.into()));
+let changes = builder.build().unwrap();
+let replica = TraversalGraph::new().replay(&amp;changes).unwrap();
+assert_eq!(replica.last_commit_seq(), 1);</code></pre>
+<h3 id="serialization"><a class="header" href="#serialization">Serialization</a></h3>
+<p>With the <code>serde</code> feature a <code>ChangeSet</code> serializes as JSON (<code>{"commit_seq": 1, "committed_at": 1791369725123456, "node_sequence": 7, "edge_sequence": 12, "mutations": [{"op": "set_property", ...}]}</code>; a missing <code>committed_at</code> or sequence reads as <code>0</code>, which <code>replay</code> ignores), and a serialized change set replays into an <strong>identical</strong> graph
+without any schema. JSON-native values stay plain JSON; a value of a logical type JSON cannot hold
+carries an explicit per-value type tag, at any depth (in element images, property writes and
+commit attributes): <code>uuid</code> and the date and time types, in TinkerPop GraphSON style with the
+canonical text:</p>
+<pre><code class="language-json">{"@type": "g:UUID", "@value": "6f1d3c2a-0000-4000-8000-000000000001"}
+{"@type": "gx:OffsetDateTime", "@value": "2024-05-01T09:30:00+02:00"}
+</code></pre>
+<div class="table-wrapper"><table><thead><tr><th>Type</th><th>Tag</th></tr></thead><tbody>
+<tr><td><code>datetime</code>, <code>date</code>, <code>localdatetime</code>, <code>time</code></td><td><code>gx:OffsetDateTime</code>, <code>gx:LocalDate</code>, <code>gx:LocalDateTime</code>, <code>gx:LocalTime</code></td></tr>
+<tr><td><code>duration</code> of microseconds only (no months, no days)</td><td><code>gx:Duration</code> (<code>PT26H</code>)</td></tr>
+<tr><td><code>duration</code> of months and days only</td><td><code>gx:Period</code> (<code>P1Y2M3D</code>)</td></tr>
+<tr><td>any other <code>duration</code></td><td><code>graphersal:Interval</code> (<code>P1MT2H</code>)</td></tr>
+<tr><td><code>vector</code> (book page <a href="vectors.html">Vectors</a>)</td><td><code>graphersal:Vector</code> with an object: <code>{"element": "f32", "data": [0.5, -1.0]}</code> (<code>f16</code> the same), <code>{"element": "i8", "scale": 0.007874016, "codes": [64, -127]}</code>, <code>{"element": "bit", "dimension": 3, "bits": "a0"}</code> (the packed bytes in hex); exact for every element kind</td></tr>
+</tbody></table>
+</div>
+<p>A user map that happens to have an <code>"@type"</code> key of its own is escaped, so it can never be misread
+as a tag: <code>{"@type": "graphersal:Object", "@value": {"@type": "mine", "x": 1}}</code> (the payload's keys
+are literal). Reading is strict: an object with an <code>"@type"</code> key must be exactly one of these
+forms (only <code>@type</code> and <code>@value</code>, a canonical lowercase uuid, the text of a value of the tag's
+type, with a <code>gx:Duration</code> holding no months or days and a <code>gx:Period</code> no time part, or an object
+payload); anything else is an error, never a guess. The tags exist for the <code>ChangeSet</code> only; GraphML and the other exports
+are unchanged.</p>
+<h2 id="commit-hooks"><a class="header" href="#commit-hooks">Commit hooks</a></h2>
+<p>A host registers a <code>CommitHook</code> on the graph (<code>GraphStorage::register_commit_hook</code>); while at least
+one is registered, every committed unit builds its <code>ChangeSet</code> (without hooks nothing is captured
+and nothing is paid):</p>
+<div class="table-wrapper"><table><thead><tr><th>Event</th><th>When</th><th>Can veto?</th></tr></thead><tbody>
+<tr><td><code>before_commit(&amp;ChangeSet) -&gt; Result&lt;(), HookError&gt;</code></td><td>the unit validated, before it is final</td><td>yes: <code>Err</code> rolls the unit back</td></tr>
+<tr><td><code>after_commit(&amp;ChangeSet)</code></td><td>after the unit is final</td><td>no</td></tr>
+<tr><td><code>after_rollback(&amp;RollbackReason)</code></td><td>after a unit that changed something was rolled back (vetoed or failed)</td><td>no</td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-rust ignore">use graphersal::prelude::*;
+use graphersal::changes::ChangeSet;
+use graphersal::changes::{CommitHook, HookError, RollbackReason};
+
+/// A write-ahead log: one JSON line per committed unit (needs the `serde` feature).
+struct Wal&lt;W: std::io::Write + Send + Sync&gt; {
+    out: W, // a `std::fs::File` in a server (call `sync_data()` after the write)
+}
+
+impl&lt;W: std::io::Write + Send + Sync&gt; CommitHook for Wal&lt;W&gt; {
+    fn name(&amp;self) -&gt; &amp;str {
+        "wal"
+    }
+
+    fn before_commit(&amp;mut self, changes: &amp;ChangeSet) -&gt; Result&lt;(), HookError&gt; {
+        // Persist BEFORE the commit is final: an Err rolls the unit back and the caller
+        // gets GraphError::CommitRejected { hook: "wal", source }.
+        serde_json::to_writer(&amp;mut self.out, changes)?;
+        self.out.write_all(b"\n")?;
+        self.out.flush()?;
+        Ok(())
+    }
+
+    fn after_rollback(&amp;mut self, reason: &amp;RollbackReason) {
+        let _ = reason; // metrics, audit of failed attempts
+    }
+}
+
+let mut graph = TraversalGraph::tinkerpop_modern();
+graph.register_commit_hook(Box::new(Wal { out: Vec::new() })).unwrap();
+graph.traversal_mut().add_v("person").property("name", "ann").to_list().unwrap();
+assert_eq!(graph.last_commit_seq(), 1); // one committed unit, one WAL line</code></pre>
+<ul>
+<li>Hooks run in registration order. The first <code>before_commit</code> that returns <code>Err</code> stops the commit:
+the later <code>before_commit</code> hooks are not called, the unit is rolled back, <strong>every</strong> hook gets
+<code>after_rollback</code> (<code>RollbackReason::Vetoed</code>), and the caller gets
+<code>GraphError::CommitRejected { hook, source }</code> (inside a <code>TraverserError</code> for a traversal) whose
+<code>source</code> is the hook's own error. The error's help says to fix the cause and run the query
+again; a veto for which that is wrong (a state that refuses every write) returns a
+<code>changes::HookRefusal::new(message, help)</code>, whose help replaces it (a Store's refusals do the
+same with their own help: a backup, maintenance mode, damage, a read-only view).</li>
+<li>This makes <code>before_commit</code> a write-ahead log: when persisting fails the in-memory change is
+undone, so memory and journal never diverge.</li>
+<li>Only the outermost unit emits events; a unit that changed nothing emits none and takes no
+sequence number, unless it raised an automatic id sequence (a <em>sequence-only commit</em>, see
+<a href="#applying-and-replaying-change-sets">Applying and replaying change sets</a>). Hooks run synchronously, strictly in commit sequence order, and get the change
+set only, never the graph.</li>
+<li>Hooks cannot be removed (register them before publishing the graph).</li>
+<li>A hook that <strong>panics</strong> in <code>before_commit</code> is treated like a veto that does not come back as an
+error: the unit is rolled back, every hook gets <code>after_rollback</code> (<code>RollbackReason::Failed</code>; a
+second panic there is dropped), the commit sequence number does not move, and the panic then
+continues to the caller (see <a href="#panics">Panics</a>). A Store's journal runs after every user hook,
+so it never writes a unit whose user hook panicked. A panic inside the journal itself cuts its
+record off again, poisons it and rolls the unit back as well
+(<a href="../persistence/journal_and_recovery.html#failures-while-committing">Failures while committing</a>). A panic in <code>after_commit</code> comes after the
+unit is final (and, with a journal, durable): the unit stays committed and the panic continues.</li>
+</ul>
+<p><code>execute()</code> reports whether a run changed the graph: <code>Execution::mutated()</code> (Rhai: <code>r.mutated</code>;
+inside a transaction or a whole-script unit see <a href="#explicit-transactions-rust">above</a>).</p>
+<h2 id="applying-and-replaying-change-sets"><a class="header" href="#applying-and-replaying-change-sets">Applying and replaying change sets</a></h2>
+<ul>
+<li><code>apply_change_set(&amp;changes)</code> (any <code>GraphStorage</code>) applies a change set to a <strong>live</strong> graph as one
+unit: ids preserved (an explicit numeric id raises the automatic id sequence), schema enforced,
+all-or-nothing, captured and seen by the hooks like any other commit. A replica or a migration
+uses it. Inside the unit it raises the graph's automatic id sequences to the change set's own
+(<code>GraphStorage::raise_id_sequences</code>, never lowered), like <code>replay</code> does: an automatic id the
+source handed out to an element whose add and drop were compacted away, or in a unit it rolled
+back, is never handed out again in the target. The raise is not undone by a rollback (ids are
+never reused, gaps are fine). When the change set changes nothing in the target (every mutation
+was compacted away) but raises a sequence, the unit is still committed as a <strong>sequence-only
+commit</strong>: it takes a commit sequence number, the hooks get a change set without mutations whose
+<code>node_sequence</code>/<code>edge_sequence</code> carry the raised values (a veto rolls it back; the raise stays in
+memory), and a journal or a Store writes it, so the raise survives a reopen, a checkpoint, a
+backup or a fork. <code>Execution::mutated()</code> stays <code>false</code> for it (no data changed). A change set that
+raises nothing (the target's sequences are already as high) commits nothing.</li>
+<li><code>TraversalGraph::replay(self, &amp;changes) -&gt; Result&lt;TraversalGraph, _&gt;</code> rebuilds a graph nobody
+sees yet (recovery from a snapshot plus the write-ahead log). It runs <strong>outside</strong> units: no undo
+log, no capture, no hook fires (a server must not re-write the journal it is reading). The
+graph's commit sequence number, commit time and both automatic id sequences are raised to the
+change set's own (never lowered), so the next live commit continues the journal's numbering and
+clock, and an automatic id of an element that was dropped or rolled back before the journal ends
+is never handed out again. On error the half-built graph is simply dropped.</li>
+</ul>
+<h2 id="loading-versus-importing"><a class="header" href="#loading-versus-importing">Loading versus importing</a></h2>
+<p>Two ways to bring data in, with different rules:</p>
+<div class="table-wrapper"><table><thead><tr><th></th><th>Loading (a graph nobody sees yet)</th><th>Importing (a live graph)</th></tr></thead><tbody>
+<tr><td>Examples</td><td>start-up from disk: <code>GraphSource::from_graphml</code>, <code>from_graphml_reader</code>; recovery: <code>TraversalGraph::replay</code>; building a graph with direct <code>GraphStorage</code> calls before it is shared</td><td><code>import_graphml</code> into an existing graph, <code>apply_change_set</code>, any mutating traversal</td></tr>
+<tr><td>Unit</td><td>none: no undo log, no <code>ChangeSet</code>, no hooks</td><td>one unit: all-or-nothing</td></tr>
+<tr><td>On error</td><td>drop the half-built graph</td><td>the import is rolled back</td></tr>
+<tr><td>Commit hooks</td><td>never called (replaying a journal must not re-write it)</td><td>called like for any commit, may veto</td></tr>
+</tbody></table>
+</div>
+<p>Isolation for loading comes from "build, then publish": nobody else can see the graph yet. A
+server therefore registers its hooks <em>after</em> loading and <em>before</em> it publishes the graph. Only an
+import into a live graph pays for change capture (a <code>ChangeSet</code> about the size of the imported
+data, built only while hooks are registered).</p>
+<h2 id="snapshot-with-position"><a class="header" href="#snapshot-with-position">Snapshot with position</a></h2>
+<p><code>last_commit_seq()</code> read together with a full export under the same read lock is a consistent
+snapshot with its position:</p>
+<pre><code class="language-rust">use graphersal::prelude::*;
+use graphersal::changes::ChangeSet;
+
+<span class="boring">fn wal_after(_position: u64) -&gt; Vec&lt;ChangeSet&gt; { Vec::new() }
+</span><span class="boring">fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+</span>let graph: Graph = GraphSource::tinkerpop_modern(); // the live, shared graph
+let (graphml, position) = {
+    let g = graph.read();
+    let mut buf = Vec::new();
+    g.export_graphml_writer(&amp;mut buf)?;
+    (buf, g.last_commit_seq())
+};
+// keep the snapshot, truncate the write-ahead log up to `position`
+
+// recovery:
+let loaded = GraphSource::from_graphml_reader(std::io::Cursor::new(graphml))?;
+let mut recovered = std::mem::take(&amp;mut *loaded.write()).with_last_commit_seq(position);
+for changes in wal_after(position) {
+    recovered = recovered.replay(&amp;changes)?;
+}
+// register the commit hooks, then publish `recovered`
+<span class="boring">Ok(())
+</span><span class="boring">}</span></code></pre>
+<p>GraphML carries no schema. A graph that stores one keeps its schema JSON next to the snapshot
+(<code>serde_json::to_string(&amp;schema)</code> under the same read lock); on recovery, set that schema on the
+empty target before importing the GraphML, so the declared types (<code>uuid</code>, <code>array</code>, <code>object</code>) come
+back (see <a href="uuid_values.html#graphml-import-and-export">UUID Values</a>).</p>
+<h2 id="storages"><a class="header" href="#storages">Storages</a></h2>
+<p>The unit boundaries are three methods of <code>GraphStorage</code>: <code>begin_unit()</code>, <code>commit_unit(mark)</code> and
+<code>rollback_unit(mark, reason)</code>. Units nest; an inner unit is a savepoint. Their default
+implementation does nothing: a custom storage that does not implement them is <strong>not atomic</strong>, and
+a failing traversal keeps the changes it made before the error. <code>TraversalGraph</code> (and <code>&amp;mut</code>,
+<code>Box</code> and a solely owned <code>Arc</code> of it) implements them with the undo log. An atomic storage also
+answers <code>unit_changes(mark)</code> exactly (<code>UnitChanges { data, schema, definitions }</code>; it drives
+<code>Execution::mutated()</code> and <code>Execution::changes()</code> inside an outer unit)
+and counts its commits in <code>last_commit_seq()</code>. Outside a unit a mutation records nothing: no hook
+is called and <code>last_commit_seq()</code> does not move.</p>
+<p>Three more methods carry the explicit units of <code>Transactional</code>, each with a default:
+<code>set_unit_metadata(metadata)</code> hands <code>transaction_with</code>'s metadata to the unit before its commit
+(default: ignored); <code>discard_unit(mark)</code> undoes a unit without hooks and returns its <code>ChangeSet</code>
+(the end of <code>dry_run</code>; it needs <code>change_capture</code>, the default rolls back and returns
+<code>GraphError::Unsupported</code>); <code>mark(name)</code> has the storage's journal record a named mark (Rhai
+<code>g.mark</code>; default <code>GraphError::MarkUnavailable</code>). The rustdoc of <code>GraphStorage</code> is the guide for
+writing a storage; <a href="../for_developers/storage_conformance.html">Storage Conformance</a> is its test
+suite.</p>
+<p>A storage that captures changes builds its change sets with the constructors above (there is no
+reusable undo-log component) and embeds a <code>CommitHooks</code> (<code>graphersal::storage</code>): it registers the
+user hooks, holds the journal slot (<code>JournalSlot</code>, handed out by the library's journal and Store)
+and runs the events in the required order: <code>before_commit</code> of the user hooks in registration
+order, then the journal's. The storage assigns the commit sequence number first and does nothing
+fallible after an <code>Ok</code> (the journal has written its record); on a veto it rolls back and calls
+<code>after_rollback(&amp;RollbackReason::from_error(&amp;err))</code>. <code>GraphStorage::mark</code> forwards to
+<code>CommitHooks::mark</code>. With feature <code>persist</code>, <code>PersistentStorage</code> (EXPERIMENTAL) adds what a
+snapshot and a Store need: the lineage id, the commit position (<code>raise_position</code>, never lowered),
+a load sink (<code>load_vertex</code>, <code>load_edge</code>, <code>load_schema</code>, <code>load_definition</code>, <code>finish_load</code>; outside
+units, no hooks, no schema scan), <code>clear</code> (keeps the hooks and the journal), <code>attach_journal</code> and
+<code>replay(&amp;changes, verify)</code> (a default over the write methods; <code>TraversalGraph</code> overrides it).</p>
+<p>What a storage guarantees is <code>GraphStorage::capabilities()</code>, a <code>StorageCapabilities</code> value (facts,
+not permissions): <code>atomic</code>, <code>change_capture</code>, <code>isolation</code>, <code>concurrent_writers</code>, <code>durability</code>,
+<code>writable</code>, <code>immutable</code>. The default claims nothing. <code>TraversalGraph</code> reports <code>atomic</code>,
+<code>change_capture</code> and <code>writable</code>; a read-only <code>&amp;TraversalGraph</code> and a shared <code>Arc</code> claim nothing.</p>
+<p><strong><code>change_capture</code> requires <code>atomic</code>.</strong> A storage that cannot roll back cannot honour a
+<code>before_commit</code> veto, so it reports <code>change_capture: false</code> and refuses hook registration
+(<code>GraphError::Unsupported</code>); there is no half-atomic notification. The conformance suite
+(<code>graphersal-storage-tests</code>) runs its rollback and hook items only for a storage that claims them.</p>
+<h2 id="panics"><a class="header" href="#panics">Panics</a></h2>
+<p>The engine maps every failure to an error, so a panic inside it is a bug. Still, a host that
+catches a panic (a server thread, a test harness) must not keep serving a half-applied unit: every
+unit rolls itself back when a panic unwinds through it, innermost first, and the panic then
+continues to the caller unchanged. This covers a traversal run and its terminal, <code>execute()</code>, an
+explicit <code>transaction(|g| ..)</code> (also a panic in the caller's own closure; the commit hooks get
+<code>after_rollback</code>), a <code>dry_run(|g| ..)</code>, a whole-script unit (<code>eval_value_atomic</code>,
+<code>eval_value_dry_run</code>), <code>apply_change_set</code>, a GraphML or GraphSON import into a live graph and a
+schema change. The commit itself is covered too: a panic in a commit hook's <code>before_commit</code> rolls
+the unit back before it continues (see <a href="#commit-hooks">Commit hooks</a>); a panic in <code>after_commit</code>
+leaves the unit committed.
+No unit is left open afterwards, so the graph keeps working. The success path pays nothing for it
+(no allocation, no clock).</p>
+<p>With <code>panic = "abort"</code> (the default on <code>wasm32-unknown-unknown</code>) there is nothing to catch: the
+process ends, and the graph with it.</p>
+<h2 id="not-covered-yet"><a class="header" href="#not-covered-yet">Not covered yet</a></h2>
+<ul>
+<li>Transactions in the script DSL (<code>g.tx()</code>) and a dry-run preview in the playground.</li>
+<li>Commit hooks registered from Python (Python gets change sets only as data, through <code>dry_run</code>).</li>
+<li>Removing a commit hook.</li>
+<li>Isolation of concurrent readers during a write: readers wait for the writer. A layered storage
+with snapshot reads is planned.</li>
+</ul>
+<h2 id="deviations-from-tinkerpop"><a class="header" href="#deviations-from-tinkerpop">Deviations from TinkerPop</a></h2>
+<ul>
+<li>TinkerGraph without transactions keeps the changes a traversal made before it failed.
+Graphersal rolls them back: the graph is never left half-changed by one failing traversal.</li>
+<li>TinkerPop opens an explicit transaction with <code>g.tx()</code> and ends it with <code>commit()</code> /
+<code>rollback()</code>. Graphersal has no <code>tx()</code>; the Rust API uses the closure
+<code>transaction(|g| ..)</code>, and a host can make a whole script one unit.</li>
+<li>TinkerPop's <code>EventStrategy</code> reports each mutation to a <code>MutationListener</code> after it happened.
+Graphersal's commit hooks get one <code>ChangeSet</code> per committed unit, before it is final (with a
+veto) and after it; there are no per-mutation events.</li>
+</ul>
+<p>See <a href="../for_developers/tinkerpop_deviations.html">TinkerPop Deviations</a>.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../dsl/changing_the_graph.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../users_guide/upserts.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../dsl/changing_the_graph.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../users_guide/upserts.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

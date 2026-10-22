@@ -1,0 +1,310 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Test Data Functions - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/traversal/functions/test_data.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!-- generated by the test book_step_reference of graphersal-session from the texts of crates/graphersal/src/script/register/docs.rs: change those and regenerate (GRAPHERSAL_UPDATE_BOOK=1), not this file -->
+<h1 id="test-data-functions"><a class="header" href="#test-data-functions">Test Data Functions</a></h1>
+<p>See also <a href="../../users_guide/generating_test_data.html">Generating Test Data</a>.</p>
+<p><strong><code>Fake.address</code></strong>: A random one-line US address whose city and state belong together.</p>
+<pre><code class="language-rhai graph=modern">Fake(1).address()   // 5666 Broad Trail, Bakersfield, CA 44960
+</code></pre>
+<p><strong><code>Fake.chance</code></strong>: True with the given probability (0.0 to 1.0).</p>
+<pre><code class="language-rhai graph=modern">Fake(1).chance(0.5)   // false
+</code></pre>
+<p><strong><code>Fake.city</code></strong>: A random US city name.</p>
+<pre><code class="language-rhai graph=modern">Fake(1).city()   // Irvine
+</code></pre>
+<p><strong><code>Fake.company</code></strong>: A random company name.</p>
+<pre><code class="language-rhai graph=modern">Fake(1).company()   // Vargas &amp; Ryan
+</code></pre>
+<p><strong><code>Fake.country</code></strong>: A random country name.</p>
+<pre><code class="language-rhai graph=modern">Fake(1).country()   // South Africa
+</code></pre>
+<p><strong><code>Fake.domain_name</code> · <code>Fake.domainName</code></strong>: A random domain name.</p>
+<pre><code class="language-rhai graph=modern">Fake(1).domain_name()   // vasquezsalt.info
+</code></pre>
+<p><strong><code>Fake.email</code></strong>: A random e-mail address at a reserved example domain (example.com, .org, .net); with a name, one made from that name.</p>
+<pre><code class="language-rhai graph=modern">Fake(1).email("Ada Lovelace")   // ada.lovelace57@example.net
+</code></pre>
+<p><strong><code>Fake.first_name</code> · <code>Fake.firstName</code></strong>: A random English given name.</p>
+<pre><code class="language-rhai graph=modern">Fake(1).first_name()   // Victoria
+</code></pre>
+<p><strong><code>Fake.float</code></strong>: A random float from 0.0 (included) to 1.0 (excluded), or from lo to hi.</p>
+<pre><code class="language-rhai graph=modern">Fake(1).float(0, 100)   // 56.65615751722809
+</code></pre>
+<p><strong><code>Fake.fork</code></strong>: An independent generator for a named stream of the same seed, unaffected by what was drawn before.</p>
+<pre><code class="language-rhai graph=modern">Fake(1).fork("people").first_name()   // Mason
+</code></pre>
+<p><strong><code>Fake.full_name</code> · <code>Fake.fullName</code></strong>: A random given name and surname.</p>
+<pre><code class="language-rhai graph=modern">Fake(1).full_name()   // Victoria Vargas
+</code></pre>
+<p><strong><code>Fake.int</code></strong>: A random integer from lo to hi, both included.</p>
+<pre><code class="language-rhai graph=modern">Fake(1).int(1, 6)   // 4
+</code></pre>
+<p><strong><code>Fake.job_title</code> · <code>Fake.jobTitle</code></strong>: A random job title such as Senior Data Analyst.</p>
+<pre><code class="language-rhai graph=modern">Fake(1).job_title()   // Principal Infrastructure Officer
+</code></pre>
+<p><strong><code>Fake.last_name</code> · <code>Fake.lastName</code></strong>: A random English surname.</p>
+<pre><code class="language-rhai graph=modern">Fake(1).last_name()   // Vasquez
+</code></pre>
+<p><strong><code>Fake.lorem</code></strong>: Lorem ipsum text of a random length from lo to hi bytes, in paragraphs, ending with a period.</p>
+<pre><code class="language-rhai graph=modern">Fake(1).lorem(100, 200).len()   // 157
+</code></pre>
+<p><strong><code>Fake.lorem_paragraph</code> · <code>Fake.loremParagraph</code></strong>: A random Lorem ipsum paragraph of 3 to 7 sentences.</p>
+<pre><code class="language-rhai graph=modern">Fake(1).lorem_paragraph().len()   // 300
+</code></pre>
+<p><strong><code>Fake.lorem_sentence</code> · <code>Fake.loremSentence</code></strong>: A random Lorem ipsum sentence of 6 to 14 words.</p>
+<pre><code class="language-rhai graph=modern">Fake(1).lorem_sentence()   // Vel non non accumsan libero est consequat ac excepteur montes sunt.
+</code></pre>
+<p><strong><code>Fake.phone</code></strong>: A random US phone number in the fictional 555-01xx range.</p>
+<pre><code class="language-rhai graph=modern">Fake(1).phone()   // +1-648-555-0174
+</code></pre>
+<p><strong><code>Fake.pick</code></strong>: A random element of a non-empty array.</p>
+<pre><code class="language-rhai graph=modern">Fake(1).pick(["red", "green", "blue"])   // green
+</code></pre>
+<p><strong><code>Fake.sample</code></strong>: The given number of distinct elements of the array, in random order.</p>
+<pre><code class="language-rhai graph=modern">Fake(1).sample([1, 2, 3, 4], 2)   // [3, 4]
+</code></pre>
+<p><strong><code>Fake.seed</code></strong>: The seed the generator (or the root of a fork) was created with; pass it to Fake(seed) to reproduce a run.</p>
+<pre><code class="language-rhai graph=modern">Fake(1).seed()   // 1
+</code></pre>
+<p><strong><code>Fake.sentence</code></strong>: A random sentence of 4 to 12 words.</p>
+<pre><code class="language-rhai graph=modern">Fake(1).sentence()   // Salt winter linen linen shadow swift mountain glacier snow.
+</code></pre>
+<p><strong><code>Fake.shuffle</code></strong>: A copy of the array in random order.</p>
+<pre><code class="language-rhai graph=modern">Fake(1).shuffle([1, 2, 3, 4])   // [1, 2, 4, 3]
+</code></pre>
+<p><strong><code>Fake.state</code></strong>: A random US state name.</p>
+<pre><code class="language-rhai graph=modern">Fake(1).state()   // New Hampshire
+</code></pre>
+<p><strong><code>Fake.state_abbr</code> · <code>Fake.stateAbbr</code></strong>: A random US state postal abbreviation.</p>
+<pre><code class="language-rhai graph=modern">Fake(1).state_abbr()   // NH
+</code></pre>
+<p><strong><code>Fake.street_address</code> · <code>Fake.streetAddress</code></strong>: A random house number and street name.</p>
+<pre><code class="language-rhai graph=modern">Fake(1).street_address()   // 5666 Broad Trail
+</code></pre>
+<p><strong><code>Fake.street_name</code> · <code>Fake.streetName</code></strong>: A random street name.</p>
+<pre><code class="language-rhai graph=modern">Fake(1).street_name()   // Lakeview Circle
+</code></pre>
+<p><strong><code>Fake.username</code></strong>: A random user name: a lowercase given name, an initial and a number.</p>
+<pre><code class="language-rhai graph=modern">Fake(1).username()   // victoriav971
+</code></pre>
+<p><strong><code>Fake.uuid</code></strong>: A random version 4 UUID value drawn from the seed.</p>
+<pre><code class="language-rhai graph=modern">Fake(1).uuid().as_string()   // 910a2dec-8902-4cc1-beeb-8da1658eec67
+</code></pre>
+<p><strong><code>Fake.word</code></strong>: A random English word.</p>
+<pre><code class="language-rhai graph=modern">Fake(1).word()   // onyx
+</code></pre>
+<p><strong><code>Fake.zip_code</code> · <code>Fake.zipCode</code></strong>: A random five-digit US ZIP code.</p>
+<pre><code class="language-rhai graph=modern">Fake(1).zip_code()   // 57062
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../traversal/functions/tokens_and_values.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../traversal/steps/list_functions.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../traversal/functions/tokens_and_values.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../traversal/steps/list_functions.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../../dsl-highlight.js"></script>
+        <script src="../../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

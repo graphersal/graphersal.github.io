@@ -1,0 +1,397 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>GQL Conformance - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/gql/conformance.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="gql-conformance"><a class="header" href="#gql-conformance">GQL Conformance</a></h1>
+<p>This page lists which parts of ISO/IEC 39075 (GQL) <code>gql()</code> supports, in the style of the
+conformance appendices that GQL implementations publish. It is <strong>maintained by hand</strong> together
+with the code; when a construct lands, its row moves here in the same change.</p>
+<p>GQL names its optional features with identifiers such as <code>G036</code> (graph pattern features),
+<code>GQ..</code> (query features), <code>GE..</code> (expressions), <code>GF..</code> (functions), <code>GA..</code> (additional
+behaviour), <code>GB..</code> (lexical), <code>GL..</code> (literals), <code>GH..</code> (other). This page cites only those
+identifiers and short descriptive names of our own; it does not reproduce the standard. An
+identifier marked <em>(provisional)</em> could not be checked against the standard text yet and may be
+corrected.</p>
+<p>How far the Cypher compatibility forms agree with Neo4j's behaviour is measured against the
+openCypher TCK: <a href="tck_compliance.html">TCK Compliance</a>.</p>
+<p>Status: <strong>supported</strong>, <strong>partial</strong> (what is missing is named), <strong>not yet</strong> (planned), <strong>no</strong>
+(refused for good; see <a href="refused.html">Refused Constructs</a>).</p>
+<h2 id="core-language"><a class="header" href="#core-language">Core language</a></h2>
+<p>The mandatory core of a GQL query, by construct.</p>
+<div class="table-wrapper"><table><thead><tr><th>Construct</th><th>Status</th><th>Notes</th></tr></thead><tbody>
+<tr><td><code>MATCH</code> with node and edge patterns, comma-separated patterns, several <code>MATCH</code> clauses</td><td>supported</td><td>trail (<code>DIFFERENT EDGES</code>) match mode per clause</td></tr>
+<tr><td><code>WHERE</code> after <code>MATCH</code>, inline <code>WHERE</code> and property maps in element patterns</td><td>supported</td><td></td></tr>
+<tr><td><code>RETURN</code>, <code>RETURN *</code>, <code>RETURN DISTINCT</code>, <code>AS</code></td><td>supported</td><td><code>RETURN</code> is mandatory unless the last clause writes; <code>FINISH</code> ends a query without a result</td></tr>
+<tr><td><code>ORDER BY ... ASC / DESC</code></td><td>supported</td><td><code>NULL</code> last ascending, first descending</td></tr>
+<tr><td>label expressions <code>&amp;</code>, <code>|</code>, <code>!</code>, <code>( )</code></td><td>supported</td><td></td></tr>
+<tr><td>property reference <code>x.key</code></td><td>supported</td><td></td></tr>
+<tr><td>comparison, <code>AND</code> / <code>OR</code> / <code>NOT</code>, <code>IS [NOT] NULL</code></td><td>supported</td><td>three-valued logic</td></tr>
+<tr><td>arithmetic <code>+ - * / %</code>, string concatenation <code>||</code></td><td>supported</td><td></td></tr>
+<tr><td>simple and searched <code>CASE</code>, <code>COALESCE</code>, <code>NULLIF</code></td><td>supported</td><td></td></tr>
+<tr><td><code>UPPER</code>, <code>LOWER</code>, <code>CHAR_LENGTH</code> / <code>CHARACTER_LENGTH</code>, <code>LEFT</code>, <code>RIGHT</code>, <code>TRIM(s)</code></td><td>supported</td><td><code>TRIM</code> removes spaces by default; <code>NORMALIZE</code> not yet</td></tr>
+<tr><td><code>BYTE_LENGTH</code> / <code>OCTET_LENGTH</code> of a character string</td><td>supported</td><td>the number of UTF-8 bytes; Graphersal has no byte strings</td></tr>
+<tr><td>list trim <code>TRIM(list, n)</code></td><td>supported</td><td>drops the last <code>n</code> items</td></tr>
+<tr><td>parameters <code>$name</code></td><td>supported</td><td>values only, never text</td></tr>
+<tr><td>aggregate functions <code>COUNT</code>, <code>SUM</code>, <code>AVG</code>, <code>MIN</code>, <code>MAX</code>, <code>COLLECT_LIST</code>, with <code>DISTINCT</code></td><td>supported</td><td>implicit grouping by the items without an aggregate; Cypher <code>collect</code> alias</td></tr>
+<tr><td>binary set functions <code>PERCENTILE_CONT</code>, <code>PERCENTILE_DISC</code></td><td>supported</td><td>value first, then the percentile (0.0 to 1.0, <code>22003</code> outside); Cypher <code>percentileCont</code> / <code>percentileDisc</code> aliases (stage 3f)</td></tr>
+<tr><td><code>OPTIONAL MATCH</code></td><td>supported</td><td>also as the first clause</td></tr>
+<tr><td><code>EXISTS</code> predicate: <code>EXISTS { MATCH ... }</code>, <code>EXISTS { &lt;pattern&gt; }</code>, <code>EXISTS ( ... )</code> <em>(provisional: whether the standard makes it core or an optional feature, and its identifier, are still to be checked)</em></td><td>supported</td><td>anywhere an expression stands, nested too; TRUE or FALSE, never <code>NULL</code>; the body is a pattern, <code>MATCH</code> clauses, or a whole query ending in <code>RETURN</code> (<a href="subset.html#exists-and-pattern-predicates">EXISTS</a>); Cypher pattern predicates as <a href="aliases.html">aliases</a></td></tr>
+<tr><td>Cypher <code>WITH</code></td><td>supported</td><td>not GQL; accepted with Cypher's meaning (<a href="aliases.html#the-cypher-clause-with">Cypher Aliases</a>)</td></tr>
+<tr><td>record constructor <code>{k: expr, ...}</code> / <code>RECORD {k: expr, ...}</code> and list value constructor <code>[a, b]</code></td><td>supported</td><td><code>RECORD</code> is contextual: a variable named <code>record</code> stays usable, back-quoted before a projection that starts with <code>key:</code> or is empty (<a href="subset.html#expressions">Expressions</a>)</td></tr>
+<tr><td>Cypher map projections <code>p {.k, .*, x, k: expr}</code>, list comprehensions <code>[x IN l WHERE c | e]</code>, pattern comprehensions <code>[(a)--&gt;(b) WHERE c | e]</code></td><td>supported</td><td>not GQL; accepted as compatibility forms with Cypher's meaning (<a href="aliases.html#map-projections-and-comprehensions">Cypher Aliases</a>); a pattern comprehension is a subquery; <code>all()</code> / <code>any()</code> / <code>none()</code> / <code>single()</code> / <code>reduce()</code> likewise, three-valued as the openCypher TCK (<a href="aliases.html#list-predicates-and-reduce">Cypher Aliases</a>)</td></tr>
+<tr><td>Cypher <code>COUNT { }</code> and <code>COLLECT { }</code> subqueries</td><td>supported</td><td>not GQL; compatibility forms with Cypher's meaning (<a href="aliases.html#count-and-collect">Cypher Aliases</a>); bodies as for <code>EXISTS</code>, <code>COLLECT</code> returns one item; one deviation below</td></tr>
+<tr><td>a query without <code>MATCH</code> (<code>RETURN 1</code>)</td><td>supported</td><td>a query may start with <code>FOR</code>, <code>LET</code>, <code>WITH</code>, <code>FILTER</code> or <code>RETURN</code>; it starts from one empty row</td></tr>
+<tr><td>data-modifying statements: <code>INSERT</code></td><td>supported</td><td>nodes with label conjunctions and properties, directed edges with one label, once per row; Cypher <code>CREATE</code> as an <a href="aliases.html">alias</a> (<a href="writes.html">Writing with GQL</a>)</td></tr>
+<tr><td>data-modifying statements: <code>SET</code>, <code>REMOVE</code></td><td>supported</td><td>property items <code>n.k = v</code>, all properties <code>n = {..}</code>, label items <code>n:A</code> / <code>n IS A</code>; once per row, items left to right, <code>NULL</code> removes; Cypher's <code>+=</code> and <code>SET n = &lt;expression&gt;</code> as <a href="aliases.html#set-and-remove">compatibility forms</a> (<a href="writes.html#set">Writing with GQL</a>)</td></tr>
+<tr><td>data-modifying statements: <code>DELETE</code></td><td>supported</td><td><code>DETACH DELETE</code> and <code>[NODETACH] DELETE</code> of nodes, edges, paths and lists of them, once per row; NODETACH checked per clause (<code>G1001</code>); reading a deleted element afterwards is an error (<a href="writes.html#delete">Writing with GQL</a>, <a href="semantics.html#delete">Semantics</a>)</td></tr>
+<tr><td>Cypher <code>MERGE</code> with <code>ON CREATE SET</code> / <code>ON MATCH SET</code></td><td>supported</td><td>not GQL; a compatibility form with Cypher's meaning (<a href="aliases.html#merge">Cypher Aliases</a>): one pattern, per row every match a row or the whole pattern created, rows see earlier rows' creations, <code>NULL</code> in the pattern <code>22004</code> (<a href="writes.html#merge">Writing with GQL</a>, <a href="semantics.html#merge">Semantics</a>)</td></tr>
+<tr><td>catalog statements (<code>CREATE GRAPH</code>, <code>CREATE GRAPH TYPE</code>, ...), session and transaction commands</td><td>no</td><td>the host application manages graphs, schemas and transactions</td></tr>
+<tr><td>value types</td><td>partial</td><td>the GQL types Graphersal has (integers, floats, strings, booleans, lists, records/maps, dates and times, <code>NULL</code>); path values; no byte strings</td></tr>
+</tbody></table>
+</div>
+<h2 id="optional-features"><a class="header" href="#optional-features">Optional features</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>ID</th><th>Feature</th><th>Status</th><th>Notes</th></tr></thead><tbody>
+<tr><td>G002</td><td>different-edges match mode</td><td>partial</td><td>the semantics is the default and only mode; writing <code>DIFFERENT EDGES</code> is not accepted yet</td></tr>
+<tr><td>G004</td><td>path variables</td><td>supported</td><td><code>p = (a)--&gt;(b)</code>, <code>path_length(p)</code> (Cypher <code>length</code>); Cypher's <code>nodes(p)</code> / <code>relationships(p)</code> as <a href="aliases.html#compatibility-functions">compatibility functions</a></td></tr>
+<tr><td>G005</td><td>path search prefix in a path pattern</td><td>not yet</td><td><code>ANY</code>, <code>ALL</code>, <code>SHORTEST</code> prefixes</td></tr>
+<tr><td>G010</td><td>explicit <code>WALK</code> keyword</td><td>not yet</td><td></td></tr>
+<tr><td>G011</td><td>advanced path modes: <code>TRAIL</code></td><td>not yet</td><td>trail is the semantics of every <code>MATCH</code>; the keyword is not accepted yet</td></tr>
+<tr><td>G012</td><td>advanced path modes: <code>SIMPLE</code></td><td>not yet</td><td></td></tr>
+<tr><td>G013</td><td>advanced path modes: <code>ACYCLIC</code></td><td>not yet</td><td></td></tr>
+<tr><td>G016</td><td>any path search</td><td>not yet</td><td></td></tr>
+<tr><td>G017</td><td>all shortest path search</td><td>not yet</td><td>Gremlin <code>repeat()</code></td></tr>
+<tr><td>G018</td><td>any shortest path search</td><td>not yet</td><td>Gremlin <code>repeat()</code></td></tr>
+<tr><td>G019</td><td>counted shortest path search</td><td>not yet</td><td></td></tr>
+<tr><td>G035</td><td>quantified paths <em>(provisional)</em></td><td>partial</td><td>a parenthesized path pattern with <code>{m,n}</code>, <code>{n}</code>, <code>{m,}</code>, <code>{,n}</code>, <code>*</code>, <code>+</code> (<a href="subset.html#quantified-path-patterns">Quantified path patterns</a>); body variables are group variables (lists), the outer nodes merge with the body's first and last node, trail per body edge; one chain per body, no quantifier, path variable, path mode or search prefix inside a body, a body variable is a new name (each refused with <code>0A000</code>)</td></tr>
+<tr><td>G036</td><td>quantified edges</td><td>supported</td><td><code>{m,n}</code>, <code>{n}</code>, <code>{m,}</code>, <code>{,n}</code>, <code>*</code>, <code>+</code> on full and abbreviated edges; Cypher <code>[*m..n]</code> and its forms are aliases; trail per clause</td></tr>
+<tr><td>G037</td><td>questioned paths <em>(provisional)</em></td><td>supported</td><td><code>((..))?</code>: the body once or not at all; its variables are single elements, <code>NULL</code> when it did not match (<a href="semantics.html#quantified-path-patterns">Semantics</a>)</td></tr>
+<tr><td>G043</td><td>complete full edge patterns</td><td>partial</td><td>pointing left, right, either direction (<code>-[e]-</code>, <code>&lt;-[e]-&gt;</code>); the undirected forms (<code>~[e]~</code> and its variants) are refused, Graphersal edges are directed</td></tr>
+<tr><td>G044</td><td>basic abbreviated edge patterns</td><td>supported</td><td><code>-&gt;</code>, <code>&lt;-</code>, <code>-</code> (Cypher <code>--&gt;</code>, <code>&lt;--</code>, <code>--</code>)</td></tr>
+<tr><td>G045</td><td>complete abbreviated edge patterns</td><td>partial</td><td><code>&lt;-&gt;</code> supported; <code>~</code>, <code>&lt;~</code>, <code>~&gt;</code> refused</td></tr>
+<tr><td>G050</td><td>parenthesized path pattern: <code>WHERE</code> clause <em>(provisional)</em></td><td>partial</td><td><code>((x)-[e]-&gt;(y) WHERE &lt;condition&gt;)</code> with or without a quantifier, run in every iteration; it reads the body's variables, parameters and values (a condition reading an outer variable is not yet supported); a parenthesized path pattern without a quantifier matches once and keeps singletons</td></tr>
+<tr><td>G074</td><td>label expression: wildcard label</td><td>supported</td><td><code>%</code></td></tr>
+<tr><td>G100</td><td><code>ELEMENT_ID</code> function</td><td>supported</td><td>the id as a string; Cypher <code>elementId</code> alias</td></tr>
+<tr><td>G110</td><td><code>IS DIRECTED</code> predicate <em>(provisional)</em></td><td>not yet</td><td>every edge is directed</td></tr>
+<tr><td>G111</td><td><code>IS LABELED</code> predicate</td><td>supported</td><td>Cypher <code>x:A</code> alias</td></tr>
+<tr><td>G112</td><td><code>IS SOURCE OF</code> / <code>IS DESTINATION OF</code> predicates <em>(provisional)</em></td><td>supported</td><td><code>n IS [NOT] SOURCE OF e</code>, <code>n IS [NOT] DESTINATION OF e</code>: the stored direction of the edge; Cypher's <code>startNode(e)</code> / <code>endNode(e)</code> as compatibility functions</td></tr>
+<tr><td>G113</td><td><code>ALL_DIFFERENT</code> predicate <em>(provisional)</em></td><td>not yet</td><td></td></tr>
+<tr><td>G114</td><td><code>SAME</code> predicate <em>(provisional)</em></td><td>not yet</td><td></td></tr>
+<tr><td>G115</td><td><code>PROPERTY_EXISTS</code> predicate <em>(provisional)</em></td><td>not yet</td><td><code>x.key IS NOT NULL</code> tests a property</td></tr>
+<tr><td>GA03</td><td>explicit ordering of nulls</td><td>not yet</td><td><code>NULLS FIRST</code> / <code>NULLS LAST</code></td></tr>
+<tr><td>GA04</td><td>universal comparison <em>(provisional)</em></td><td>partial</td><td><code>=</code> / <code>&lt;&gt;</code> between values of different kinds are FALSE / TRUE, the orderings <code>NULL</code> (Neo4j's reading, see <a href="#differences-from-the-standard">Differences from the standard</a>); there is no total order across kinds outside <code>ORDER BY</code></td></tr>
+<tr><td>GA05</td><td>cast specification</td><td>partial</td><td><code>CAST(x AS INTEGER | FLOAT | STRING | BOOLEAN)</code> and their synonyms (<code>INT</code>, <code>BIGINT</code>, <code>DOUBLE</code>, <code>VARCHAR</code>, <code>BOOL</code>, ...); the other target types (<code>DATE</code>, <code>LIST&lt;..&gt;</code>, <code>DECIMAL</code>, ...) not yet; strict: unconvertible text is <code>22018</code></td></tr>
+<tr><td>GA07</td><td>ordering by discarded binding variables <em>(provisional)</em></td><td>supported</td><td><code>ORDER BY</code> may read variables that <code>RETURN</code> does not return (not after <code>RETURN DISTINCT</code>)</td></tr>
+<tr><td>GB02</td><td>double minus sign comments</td><td>supported</td><td><code>-- ...</code>, with the edge rule of <a href="rhai_strings.html#comments">Writing GQL in Rhai Strings</a></td></tr>
+<tr><td>GB03</td><td>double solidus comments</td><td>supported</td><td><code>// ...</code></td></tr>
+<tr><td>GD01</td><td>updatable graphs <em>(provisional)</em></td><td>partial</td><td><code>INSERT</code> (Cypher <code>CREATE</code>), <code>SET</code>, <code>REMOVE</code>, <code>DELETE</code>; Cypher's <code>MERGE</code> (no ISO counterpart) as a <a href="aliases.html#merge">compatibility form</a> (<a href="writes.html">Writing with GQL</a>); the Cypher forms pass every in-scope case of the openCypher TCK's write clauses (<a href="tck_compliance.html">TCK Compliance</a>)</td></tr>
+<tr><td>GD02</td><td>graph label set changes <em>(provisional)</em></td><td>supported</td><td><code>SET n:A</code> / <code>SET n IS A</code> and <code>REMOVE n:A</code> add and remove node labels; an edge's single label is not changed by them (<a href="writes.html#set">Writing with GQL</a>)</td></tr>
+<tr><td>GD03</td><td><code>DELETE</code> statement: subquery support <em>(provisional)</em></td><td>supported</td><td>a <code>DELETE</code> item may hold a subquery, as in <code>DETACH DELETE COLLECT { MATCH (s)&lt;-[e]-() RETURN e }</code>; a <code>CALL { }</code> body may end with a <code>DELETE</code> (<a href="writes.html#delete">Writing with GQL</a>)</td></tr>
+<tr><td>GD04</td><td><code>DELETE</code> statement: simple expression support <em>(provisional)</em></td><td>supported</td><td>a <code>DELETE</code> item is an expression: a variable, a path, a list (<code>collect(n)</code>), a map member, a function result; <code>NULL</code> is skipped, another value is <code>42002</code> / <code>22G03</code> (<a href="semantics.html#delete">Semantics</a>)</td></tr>
+<tr><td>GE07</td><td>Boolean <code>XOR</code></td><td>supported</td><td></td></tr>
+<tr><td>GF01</td><td>enhanced numeric functions</td><td>supported</td><td><code>ABS</code>, <code>FLOOR</code>, <code>CEIL</code> / <code>CEILING</code>, <code>SQRT</code>, <code>MOD</code>; an integer argument keeps its type</td></tr>
+<tr><td>GF02</td><td>trigonometric functions <em>(provisional)</em></td><td>not yet</td><td>Gremlin <code>math()</code> after <code>gql()</code></td></tr>
+<tr><td>GF03</td><td>logarithmic functions</td><td>supported</td><td><code>EXP</code>, <code>LN</code>, <code>LOG10</code>, <code>LOG(base, x)</code> <em>(provisional)</em>, <code>POWER</code>; an argument outside the domain is an error (<code>2201E</code>, <code>2201F</code>), never <code>NaN</code></td></tr>
+<tr><td>GF04</td><td>enhanced path functions</td><td>partial</td><td><code>PATH_LENGTH</code>; <code>ELEMENTS(p)</code> <em>(provisional)</em> not yet (Cypher's <code>nodes(p)</code> / <code>relationships(p)</code> instead)</td></tr>
+<tr><td>GF05</td><td>multi-character trim functions</td><td>supported</td><td><code>BTRIM</code>, <code>LTRIM</code>, <code>RTRIM</code> with an optional set of characters (default: the space)</td></tr>
+<tr><td>GF06</td><td>explicit <code>TRIM</code> function</td><td>supported</td><td><code>TRIM([LEADING | TRAILING | BOTH] [c] FROM s)</code>; <code>c</code> is one character (<code>22027</code> otherwise), the space by default</td></tr>
+<tr><td>GF12</td><td><code>CARDINALITY</code> function</td><td>supported</td><td></td></tr>
+<tr><td>GF13</td><td><code>SIZE</code> function</td><td>supported</td><td>also on strings as the Cypher alias of <code>CHAR_LENGTH</code></td></tr>
+<tr><td>GH02</td><td>undirected edge patterns</td><td>no</td><td>Graphersal edges are directed; <code>-[e]-</code> matches either direction</td></tr>
+<tr><td>GL01</td><td>hexadecimal literals</td><td>supported</td><td><code>0x1F</code></td></tr>
+<tr><td>GL02</td><td>octal literals</td><td>supported</td><td><code>0o17</code></td></tr>
+<tr><td>GL03</td><td>binary literals</td><td>supported</td><td><code>0b101</code></td></tr>
+<tr><td>GQ01</td><td><code>USE</code> graph clause</td><td>no</td><td><code>gql()</code> runs on the graph of its traversal source</td></tr>
+<tr><td>GQ02</td><td>composite query: <code>OTHERWISE</code> <em>(provisional)</em></td><td>not yet</td><td></td></tr>
+<tr><td>GQ03</td><td>composite query: <code>UNION</code></td><td>supported</td><td><code>UNION</code>, <code>UNION DISTINCT</code>, <code>UNION ALL</code>; operands return the same column names in any order; one kind per chain; <code>ORDER BY</code> / <code>OFFSET</code> / <code>LIMIT</code> per operand (<a href="subset.html#union-and-next">UNION and NEXT</a>)</td></tr>
+<tr><td>GQ04</td><td>composite query: <code>EXCEPT DISTINCT</code> <em>(provisional)</em></td><td>not yet</td><td></td></tr>
+<tr><td>GQ06</td><td>composite query: <code>INTERSECT DISTINCT</code> <em>(provisional)</em></td><td>not yet</td><td></td></tr>
+<tr><td>GQ08</td><td><code>FILTER</code> statement</td><td>supported</td><td><code>FILTER [WHERE] &lt;condition&gt;</code></td></tr>
+<tr><td>GQ09</td><td><code>LET</code> statement</td><td>supported</td><td></td></tr>
+<tr><td>GQ10</td><td><code>FOR</code> statement: list value support</td><td>supported</td><td><code>FOR x IN &lt;list&gt;</code> (Cypher <code>UNWIND &lt;list&gt; AS x</code>), also as the first clause; a <code>NULL</code> list gives no row, a value that is not a list one row (<a href="semantics.html#for-null-and-values-that-are-not-lists">Semantics</a>)</td></tr>
+<tr><td>GQ11</td><td><code>FOR</code> statement: <code>WITH ORDINALITY</code> <em>(provisional)</em></td><td>supported</td><td>the position from 1</td></tr>
+<tr><td>GQ24</td><td><code>FOR</code> statement: <code>WITH OFFSET</code> <em>(provisional)</em></td><td>supported</td><td>the position from 0</td></tr>
+<tr><td>GQ12</td><td><code>ORDER BY</code> and page statement: <code>OFFSET</code> clause</td><td>partial</td><td><code>OFFSET</code> / <code>SKIP</code> after <code>RETURN</code> and in <code>WITH</code>; the standalone statement form not yet</td></tr>
+<tr><td>GQ13</td><td><code>ORDER BY</code> and page statement: <code>LIMIT</code> clause</td><td>partial</td><td><code>LIMIT</code> after <code>RETURN</code> and in <code>WITH</code>; the standalone statement form not yet</td></tr>
+<tr><td>GQ14</td><td>complex expressions in sort keys <em>(provisional)</em></td><td>supported</td><td><code>ORDER BY element_id(e)</code>, <code>ORDER BY n.age * 2</code></td></tr>
+<tr><td>GQ15</td><td><code>GROUP BY</code> clause <em>(provisional)</em></td><td>supported</td><td>after the <code>RETURN</code> items, <code>GROUP BY ()</code> included; the keys must be the items without an aggregate (grouping is implicit, so it is optional); a key may also repeat an item's expression (<code>GROUP BY p.name</code>), beyond ISO's variable references</td></tr>
+<tr><td>GQ18</td><td>scalar subqueries <em>(provisional)</em></td><td>not yet</td><td></td></tr>
+<tr><td>GQ20</td><td>advanced linear composition with <code>NEXT</code></td><td>partial</td><td><code>RETURN .. NEXT ..</code>, also after a <code>UNION</code> and inside subquery bodies; <code>NEXT YIELD</code> not yet</td></tr>
+<tr><td>GQ21</td><td><code>OPTIONAL</code>: multiple <code>MATCH</code> statements <em>(provisional)</em></td><td>not yet</td><td>one <code>OPTIONAL MATCH</code> per optional part is supported; the block form <code>OPTIONAL { MATCH ... MATCH ... }</code> is not</td></tr>
+<tr><td>GP01</td><td>inline procedure <em>(provisional)</em></td><td>supported</td><td><code>[OPTIONAL] CALL { &lt;query&gt; }</code>, run once per incoming row, the body ending in <code>RETURN</code> (<a href="subset.html#call-subqueries">CALL subqueries</a>) or, as a unit subquery, in a write (<a href="writes.html#once-per-row">Writing with GQL</a>); <code>IN TRANSACTIONS</code> refused</td></tr>
+<tr><td>GP02</td><td>inline procedure with implicit nested variable scope <em>(provisional)</em></td><td>partial</td><td><code>CALL { }</code> without a scope clause is accepted but imports <strong>nothing</strong> (Neo4j Cypher 25's reading; the ISO scoping is still to be checked); import with <code>CALL (*)</code> or Cypher's importing <code>WITH</code></td></tr>
+<tr><td>GP03</td><td>inline procedure with explicit nested variable scope <em>(provisional)</em></td><td>supported</td><td><code>CALL (a, b) { }</code>, <code>CALL (*) { }</code>, <code>CALL () { }</code></td></tr>
+<tr><td>GP04</td><td>named procedure calls <em>(provisional)</em></td><td>partial</td><td><code>[OPTIONAL] CALL folder.name(args) [YIELD ..]</code> calls a saved query written in GQL of the graph's catalog, once per row, standalone or inside a query (<a href="subset.html#calling-saved-queries">Calling saved queries</a>); arguments are constants or parameters; a saved query in Rhai and a call inside <code>EXISTS</code> / <code>COUNT</code> / <code>COLLECT</code> not yet; vendor procedures (<code>CALL db.*</code>, <code>dbms.*</code>, <code>apoc.*</code>, <code>gds.*</code>) are refused</td></tr>
+<tr><td>GV39</td><td>temporal types: date, local datetime and local time <em>(provisional)</em></td><td>partial</td><td><code>date()</code>, <code>local_time()</code>, <code>local_datetime()</code> (Cypher <code>localtime()</code>, <code>localdatetime()</code>) from ISO 8601 text, a map of fields or another temporal value, components (<code>d.year</code>), arithmetic with durations, comparison (<a href="subset.html#dates-and-times">Dates and times</a>); values hold microseconds (finer is <code>0A000</code>); the literals <code>DATE '..'</code>, <code>CAST(x AS DATE)</code> and <code>CURRENT_DATE</code> / <code>LOCAL_TIMESTAMP</code> not yet (<code>date()</code> with no argument instead)</td></tr>
+<tr><td>GV40</td><td>temporal types: zoned datetime and zoned time <em>(provisional)</em></td><td>partial</td><td><code>zoned_datetime()</code> (Cypher <code>datetime()</code>) keeps a UTC offset; a zone name resolves to its offset at that instant and is not kept (<a href="semantics.html#where-dates-and-times-differ-from-neo4j">Semantics</a>); <code>zoned_time()</code> (Cypher <code>time()</code>) not yet</td></tr>
+<tr><td>GV41</td><td>temporal types: duration <em>(provisional)</em></td><td>partial</td><td><code>duration()</code> from text or a map, <code>+</code> / <code>-</code> / <code>*</code> / <code>/</code>, components; ISO <code>DURATION_BETWEEN</code> not yet (the Cypher compatibility function <code>duration.between()</code> instead); <code>&lt;</code> on two durations is <code>NULL</code></td></tr>
+</tbody></table>
+</div>
+<p>Every feature not listed here is not supported. Cypher spellings that GQL does not have, and the
+openCypher functions accepted without a GQL counterpart (<code>toInteger</code>, <code>substring</code>, <code>split</code>,
+<code>round</code>, <code>keys</code>, <code>nodes</code>, the temporal <code>date.truncate()</code>, <code>duration.between()</code>, ...), are on
+<a href="aliases.html">Cypher Aliases</a>.</p>
+<h2 id="implementation-defined-choices"><a class="header" href="#implementation-defined-choices">Implementation-defined choices</a></h2>
+<p>Where the standard leaves a choice to the implementation, <code>gql()</code> makes this one (Neo4j's,
+where it has one):</p>
+<div class="table-wrapper"><table><thead><tr><th>Topic</th><th>Choice</th></tr></thead><tbody>
+<tr><td><code>NULL</code> in <code>ORDER BY</code></td><td>last ascending, first descending</td></tr>
+<tr><td>order of values of different types</td><td>map, vertex, edge, list, date/time, UUID, string, boolean, number, vector, <code>NULL</code></td></tr>
+<tr><td>row order without <code>ORDER BY</code></td><td>unspecified</td></tr>
+<tr><td>item order of a pattern comprehension</td><td>unspecified: the order the matches are found, which depends on the plan</td></tr>
+<tr><td>item order of <code>COLLECT { }</code></td><td>the order of the body's rows: its <code>ORDER BY</code> when it has one, unspecified otherwise</td></tr>
+<tr><td><code>UNION</code> operands with the same column names in another order</td><td>accepted, matched by name; the result has the first operand's column order (provisional)</td></tr>
+<tr><td>order of the rows of a <code>UNION</code></td><td>unspecified, also when the operands are sorted: sort after <code>NEXT</code></td></tr>
+<tr><td>a <code>CALL</code> body that imports nothing</td><td>still run once per incoming row; its rows are not cached</td></tr>
+<tr><td>the <code>RETURN</code> items of a projecting <code>COUNT { }</code> body</td><td>not evaluated: the rows are counted, an expression that would fail raises no error (a deviation, <a href="semantics.html#count-and-collect">Semantics</a>)</td></tr>
+<tr><td>a comprehension variable named like another variable of the query</td><td>an error (<code>42002</code>) for a name in scope or one a <code>LET</code> / <code>WITH</code> value in scope still reads (stricter than Neo4j only there); a name no longer in scope may be used again (<a href="semantics.html#map-projections-and-comprehensions">Semantics</a>)</td></tr>
+<tr><td><code>DISTINCT</code>, grouping keys, <code>DISTINCT</code> in aggregates</td><td>GQL equality: <code>1</code> and <code>1.0</code> are one value, <code>NULL</code>s form one group</td></tr>
+<tr><td>aggregates of no rows (no grouping keys)</td><td>one row: <code>count</code> 0, <code>sum</code> 0, <code>collect_list</code> <code>[]</code>, <code>avg</code> / <code>min</code> / <code>max</code> <code>NULL</code> (Neo4j's values, which the openCypher TCK confirms; the ISO text is still to be checked)</td></tr>
+<tr><td><code>min</code> / <code>max</code> over values of different kinds</td><td>the <code>ORDER BY</code> order, never an error</td></tr>
+<tr><td><code>sum</code> of integers</td><td>an integer; overflow is an error (<code>22003</code>)</td></tr>
+<tr><td>unbounded quantifiers</td><td>no own limit: trail ends them; <code>repeat.max_loops</code> and <code>traversal.max_traversers</code> are errors, never a shortened result (quantified edges and quantified path patterns alike)</td></tr>
+<tr><td>outer nodes next to a quantified path pattern</td><td>merged with the body's first node of the first iteration and last node of the last iteration (Neo4j Cypher 25's reading)</td></tr>
+<tr><td>order of a group variable's list</td><td>the iterations in the order the text reads, also when the plan walks the pattern from its far end</td></tr>
+<tr><td><code>WITH ... LIMIT ... WHERE</code></td><td>the <code>WHERE</code> filters after <code>ORDER BY</code> / <code>OFFSET</code> / <code>LIMIT</code> (Cypher's order; provisional)</td></tr>
+<tr><td>name of an unaliased column</td><td>the expression as written (Neo4j's names, such as <code>count(*)</code>, which the openCypher TCK confirms; the ISO text is still to be checked)</td></tr>
+<tr><td>element ids</td><td>strings, the same as Gremlin's <code>id()</code>; vertex and edge ids are separate spaces</td></tr>
+<tr><td>integer division</td><td>truncates toward zero; <code>%</code> takes the sign of the dividend</td></tr>
+<tr><td>temporal precision</td><td>microseconds; a value with a non-zero part below the microsecond is <code>0A000</code>, never cut</td></tr>
+<tr><td>default time zone</td><td>UTC: a <code>datetime</code> without an offset or zone, and the clocks without a zone</td></tr>
+<tr><td>the current date and time</td><td>one instant per query, taken when it starts; <code>X.realtime()</code> is refused</td></tr>
+<tr><td><code>ORDER BY</code> of durations</td><td>by length, a month counted as 30 days (<code>&lt;</code> on two durations is <code>NULL</code>)</td></tr>
+<tr><td><code>CAST(temporal AS STRING)</code></td><td>the engine's ISO 8601 text (<code>'12:00:00'</code>); Cypher's <code>toString()</code> writes Neo4j's (<code>'12:00'</code>)</td></tr>
+<tr><td>integer overflow</td><td>an error (<code>22003</code>), never a wrap</td></tr>
+<tr><td>text and numbers</td><td>no implicit conversion: <code>'a' + 1</code> is an error (<code>22G03</code>); convert with <code>CAST(x AS STRING)</code></td></tr>
+<tr><td><code>CAST</code> of a float to <code>INTEGER</code>, of text with surrounding spaces</td><td>truncated toward zero; the spaces are skipped (provisional)</td></tr>
+<tr><td><code>CAST</code> to <code>STRING</code> of a float, a boolean, a list or a map</td><td>Java's float text (<code>'1.0'</code>, <code>'1.0E7'</code>), <code>'true'</code> / <code>'false'</code>, Neo4j's list and map text (provisional)</td></tr>
+<tr><td><code>CAST(x AS BOOLEAN)</code> of a number; of <code>'unknown'</code></td><td><code>22G03</code>; <code>NULL</code> (provisional)</td></tr>
+<tr><td>default character of <code>TRIM</code>, <code>BTRIM</code>, <code>LTRIM</code>, <code>RTRIM</code></td><td>the space U+0020 only (provisional)</td></tr>
+<tr><td><code>BTRIM</code> / <code>LTRIM</code> / <code>RTRIM</code> with characters</td><td>any character of the set is removed (Neo4j's semantics; provisional)</td></tr>
+<tr><td>functions and <code>NULL</code></td><td>a <code>NULL</code> argument gives <code>NULL</code>, before the kinds are checked</td></tr>
+<tr><td>strings in functions</td><td>positions and lengths count characters (Unicode scalar values)</td></tr>
+<tr><td>GQLSTATUS codes</td><td><code>42001</code> for syntax errors; the others provisional (<a href="errors.html">Errors</a>)</td></tr>
+<tr><td>order of the writes of one <code>INSERT</code></td><td>per row: its nodes in text order, then its edges in text order</td></tr>
+<tr><td>property values of <code>INSERT</code></td><td><code>NULL</code> is not stored; maps and lists of any kinds are stored as given (a <a href="semantics.html#writes">difference from Neo4j</a>)</td></tr>
+</tbody></table>
+</div>
+<h2 id="differences-from-the-standard"><a class="header" href="#differences-from-the-standard">Differences from the standard</a></h2>
+<p>Where ISO GQL and Neo4j disagree and the openCypher TCK measures the Neo4j behaviour, <code>gql()</code>
+follows Neo4j in these places (user decision, stage 3f):</p>
+<div class="table-wrapper"><table><thead><tr><th>Topic</th><th>ISO GQL</th><th><code>gql()</code></th></tr></thead><tbody>
+<tr><td><code>=</code> / <code>&lt;&gt;</code> / <code>IN</code> / simple <code>CASE</code> between values of different kinds</td><td>not comparable</td><td><code>=</code> FALSE, <code>&lt;&gt;</code> TRUE (<code>1 = '1'</code>, <code>[1] = 1</code>, <code>1 IN ['1']</code>); the orderings <code>&lt;</code> .. <code>&gt;=</code> stay <code>NULL</code> (<a href="semantics.html#comparisons-across-types">Semantics</a>)</td></tr>
+<tr><td><code>&lt;</code> <code>&lt;=</code> <code>&gt;</code> <code>&gt;=</code> on two lists</td><td>not comparable</td><td>lexicographic, three-valued</td></tr>
+<tr><td>a float divided by zero</td><td><code>22012</code></td><td>IEEE 754: <code>Infinity</code>, <code>-Infinity</code> or <code>NaN</code>; an integer divided by zero stays <code>22012</code></td></tr>
+<tr><td><code>NaN</code> in a comparison</td><td>(no <code>NaN</code> arises: every division by zero is <code>22012</code>)</td><td>never equal (<code>NaN = NaN</code> FALSE), every ordering against a number FALSE</td></tr>
+</tbody></table>
+</div>
+<p>The deliberate differences from Neo4j are listed on <a href="semantics.html#differences-from-neo4j">Semantics</a>.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../gql/plans.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../gql/tck_compliance.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../gql/plans.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../gql/tck_compliance.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

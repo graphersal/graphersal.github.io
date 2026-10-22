@@ -1,0 +1,327 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>FAQ and Troubleshooting - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/persistence/faq.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <p>| <code>Cannot create a store in data/: the directory is not empty</code>, <code>PersistError::DirectoryNotEmpty</code> | a new store (<code>Store::create</code>, the target of <code>Store::convert</code>) needs a new or empty directory | choose an empty or new directory, or open the existing store if it is one (<code>graphersal store info data/</code>) |</p>
+<h1 id="faq-and-troubleshooting"><a class="header" href="#faq-and-troubleshooting">FAQ and Troubleshooting</a></h1>
+<h2 id="choosing"><a class="header" href="#choosing">Choosing</a></h2>
+<p><strong>Snapshot, journal or Store?</strong> A <code>.gsnap</code> when the application decides when to save (a script,
+the browser, a download). A journal when you need durability over streams you manage yourself.
+The Store for everything else: it is a snapshot plus a journal plus recovery, retention, backups
+and repair. See <a href="overview.html#what-to-choose">Persistence</a>.</p>
+<p><strong>Directory or single file?</strong> A directory for a server (parts can live on other disks, the files
+are easy to inspect); a <code>.gstore</code> file when the store travels as one document. Both have the same
+guarantees, and <code>graphersal store convert</code> switches between them.</p>
+<p><strong>Is GraphSON or GraphML not enough?</strong> They are exchange formats: they do not carry the schema,
+the commit position or the auto-id sequences, and GraphML loses value types without a schema. A
+snapshot is lossless.</p>
+<h2 id="errors-and-what-to-do"><a class="header" href="#errors-and-what-to-do">Errors and what to do</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Message</th><th>Cause</th><th>What to do</th></tr></thead><tbody>
+<tr><td><code>The store data/ is in use: another writer holds its lock</code></td><td>a dev server, a REPL or a program has the store open read-write</td><td>use the reading commands (they work), the dev server's Store menu, or stop the writer. A crashed writer never leaves a stale lock (the OS releases it)</td></tr>
+<tr><td><code>data/ is not a Graphersal store: no valid GRAPH file (...)</code></td><td>the path is not a store (a typo, or not created yet), or both <code>GRAPH</code> copies are unreadable</td><td>check the path; <code>graphersal --graph &lt;dir&gt; --create-store</code> creates a store; for damage see <a href="store_damage.html">Damage</a></td></tr>
+<tr><td><code>... is a BACKUP (up to commit N, ...)</code>, <code>PersistError::IsBackup</code></td><td>a backup opens read-only</td><td><code>graphersal store restore &lt;dir&gt;</code> makes it the live store, <code>store fork &lt;dir&gt; &lt;new&gt;</code> a writable copy</td></tr>
+<tr><td><code>warning: the store ... has DAMAGE and opened READ-ONLY in maintenance mode</code></td><td>checksums failed, a WAL segment is missing, ...</td><td>follow the <a href="store_damage.html#runbook-the-disk-started-to-fail">runbook</a>: stop writing, <code>verify</code>, <code>repair --to</code></td></tr>
+<tr><td><code>The commit was rejected by the commit hook 'maintenance'</code></td><td>a write to a store in maintenance mode</td><td>the same: repair into a new directory</td></tr>
+<tr><td><code>The journal is poisoned by an earlier failure</code></td><td>an fsync or a write failed (a full disk, an I/O error)</td><td>fix the cause, then reopen the store (or restart the server): recovery continues from the last durable commit</td></tr>
+<tr><td><code>The journal is poisoned by an earlier failure: a panic while writing a commit record: ...</code></td><td>the journal panicked while it wrote a record (a bug, or a store backend that panics); the record was cut off again and the unit rolled back</td><td>report the panic; reopen the store (or restart the server): it gives the state before that unit. Every case: <a href="journal_and_recovery.html#failures-while-committing">Failures while committing</a></td></tr>
+<tr><td><code>Commit N is too large for the journal: its uncompressed record body is B bytes, more than the limit of 1073741824 bytes per commit</code> / <code>CommitTooLarge</code> (in <code>CommitRejected</code> from the hook <code>journal</code>)</td><td>one unit changed more than 1 GiB of WAL record (every change with its before and after values: dropping and re-creating a large graph in one script of the dev server or the playground)</td><td>split the work: drop in a run of its own, load in several runs; see <a href="store_commits.html#the-size-of-one-commit">The size of one commit</a>. The unit rolled back; the store keeps working</td></tr>
+<tr><td><code>Recovery target mark "x" not reached</code></td><td>no such mark, a commit after the end, or a target before the oldest retained snapshot (pruned)</td><td><code>store marks</code>, <code>store list</code>, <code>store info</code> show what exists</td></tr>
+<tr><td><code>Cannot roll the store back: ... there is nothing after commit N</code></td><td>the target is the current commit or later</td><td>choose an earlier target</td></tr>
+<tr><td><code>Cannot &lt;operation&gt;: &lt;reason&gt;</code> / <code>PersistError::Store</code></td><td>the store's state refuses the operation; its <code>cause</code> (<code>StoreFailure</code>, Python <code>err.cause</code>) says why, see the table below</td><td>follow the help printed with it</td></tr>
+<tr><td><code>--at-time: "..." is not a date-time: add a zone</code></td><td>a time without a zone, or a bare date</td><td>write <code>2026-10-08T02:43:00Z</code> (UTC) or an offset like <code>+02:00</code></td></tr>
+<tr><td><code>Incremental backup ... refused</code> / <code>BackupRefused</code></td><td>another graph, a pruned gap, a rollback behind the backup, a non-empty directory</td><td>back up into a new directory with <code>--full</code></td></tr>
+<tr><td><code>The backup stopped: the store ... is damaged: &lt;file&gt; at byte N: ...</code> / <code>BackupDamaged</code>, side <code>Store</code></td><td>a checksum of something the backup copies failed in the store</td><td>repair the STORE (<code>graphersal store repair &lt;dir&gt; --to &lt;new_dir&gt;</code>), never the backup; while the store is open in a server or a program, save its graph first with a <a href="store_backups.html#a-backup-from-memory">backup from memory</a>. Nothing of the failed backup was kept</td></tr>
+<tr><td><code>The backup stopped: the backup ... does not verify</code> / side <code>Backup</code></td><td>the copy did not read back intact (the backup's disk)</td><td>check the backup's disk and back up again (into a new directory with <code>--full</code> when the old backup is damaged); the store is fine</td></tr>
+<tr><td><code>The store ... is read-only: backup found damage on disk ... damage policy "maintenance"</code> / <code>DamageFound</code></td><td>damage was found while the store is open, and its policy (fixed at creation) is <code>maintenance</code></td><td>the data in memory is intact: back it up from memory, then repair the store; see <a href="store_damage.html#damage-found-while-the-store-is-open">Damage found while the store is open</a></td></tr>
+<tr><td><code>--on-damage ... applies only to a store being created</code></td><td><code>--on-damage</code> for an existing store with another policy</td><td>the <a href="creation_parameters.html">damage policy</a> never changes; drop the option</td></tr>
+<tr><td><code>The store ... has the older format version N; this build reads and writes only version M</code> / <code>OlderFormat</code></td><td>a store written by an older Graphersal (version 2: Graphersal 0.1.x; version 1: a pre-release before the store id)</td><td>version 2: upgrade it with this build, no older binary needed: <code>graphersal store upgrade &lt;dir&gt; &lt;new_dir&gt;</code> (or <code>--in-place</code>), see <a href="store_versions.html#upgrading-a-store-of-an-older-version">Format Versions</a>; version 1: migrate it through a packed snapshot, <a href="../users_guide/command_cheat_sheet.html#migrate-a-store-from-an-older-format">the recipe</a>. The error's help names the command</td></tr>
+<tr><td><code>Unsupported format version N of the store ...: written by a newer Graphersal</code> / <code>UnsupportedVersion</code></td><td>a store, backup, single-file store, packed snapshot or one of a store's snapshot or WAL files written by a NEWER Graphersal (a newer store format version in <code>GRAPH</code>, file format version, or container version)</td><td>open it with that version; this build refuses it in every operation (open, <code>info</code>, <code>verify</code>, backup, restore, repair, upgrade, ...) without changing anything, and never takes it for damage or offers a repair; see <a href="store_versions.html">Format Versions</a></td></tr>
+<tr><td><code>The snapshot needs about N bytes in memory, more than the memory limit</code></td><td>a memory budget (<code>--memory-limit</code>, <code>ReadOptions::with_memory_limit</code>) smaller than the graph</td><td>raise the budget, or load on a bigger machine</td></tr>
+</tbody></table>
+</div>
+<h3 id="refused-store-operations-persisterrorstore"><a class="header" href="#refused-store-operations-persisterrorstore">Refused store operations (<code>PersistError::Store</code>)</a></h3>
+<p>A refused operation reads <code>Cannot &lt;operation&gt;: &lt;reason&gt;</code>. Its <code>cause</code> is one of a closed set
+(<code>graphersal::persist::StoreFailure</code>, <code>#[non_exhaustive]</code>), so a program or a server can react to
+it with a <code>match</code>; <code>StoreFailure::name()</code> is the stable name, which the Python exception carries as
+<code>err.cause</code> (<code>None</code> for every other error). Each cause has its own help:</p>
+<div class="table-wrapper"><table><thead><tr><th>Cause (<code>name()</code>)</th><th>When</th><th>What to do</th></tr></thead><tbody>
+<tr><td><code>Closed</code> (<code>closed</code>)</td><td>the store was closed (<code>close</code>, <code>shutdown</code>)</td><td>open it again</td></tr>
+<tr><td><code>LockPoisoned</code> (<code>lock_poisoned</code>)</td><td>a thread panicked while it held a lock of the open store</td><td>end the process and reopen the store</td></tr>
+<tr><td><code>NameTaken</code> (<code>name_taken</code>)</td><td>a snapshot name in use, or a mark name used before (also by a mark a prune made unreachable)</td><td>choose another name; <code>store list</code>, <code>store marks</code></td></tr>
+<tr><td><code>NameTooLong</code> (<code>name_too_long</code>)</td><td>a snapshot name over 255 bytes</td><td>a shorter name</td></tr>
+<tr><td><code>SnapshotExists</code> (<code>snapshot_exists</code>)</td><td>a named checkpoint at a commit that already has a snapshot under another name</td><td>commit something first, or checkpoint without a name</td></tr>
+<tr><td><code>NoSnapshot</code> (<code>no_snapshot</code>)</td><td>an export of a commit without a snapshot, a backup of a store without one</td><td><code>store list</code>, <code>store checkpoint</code></td></tr>
+<tr><td><code>BackupRunning</code> (<code>backup_running</code>)</td><td>a prune while a backup copies the files</td><td>prune again afterwards</td></tr>
+<tr><td><code>PruneRunning</code> (<code>prune_running</code>)</td><td>a backup while a prune deletes files</td><td>back up again afterwards</td></tr>
+<tr><td><code>NothingAfterTarget</code> (<code>nothing_after_target</code>)</td><td>a rollback to the current commit or later</td><td>an earlier target</td></tr>
+<tr><td><code>UnknownAtticEntry</code> (<code>unknown_attic_entry</code>)</td><td>no attic entry with that id</td><td><code>store attic &lt;dir&gt;</code> lists them</td></tr>
+<tr><td><code>AtticLineageChanged</code> (<code>attic_lineage_changed</code>)</td><td>a later rollback or restore came after the entry's rollback</td><td>restore the newer entry first, or fork the entry</td></tr>
+<tr><td><code>ChangedSinceRollback</code> (<code>changed_since_rollback</code>)</td><td>commits or marks since the entry's rollback</td><td>fork the entry (<code>store attic &lt;dir&gt; fork &lt;id&gt; &lt;new_dir&gt;</code>)</td></tr>
+<tr><td><code>AtticBaseMissing</code> (<code>attic_base_missing</code>)</td><td>the snapshot an attic entry continues is gone</td><td><code>store verify</code>; take the entry from a backup or remove it</td></tr>
+<tr><td><code>NotABackup</code> (<code>not_a_backup</code>)</td><td>a backup-only operation (<code>prune_backup</code>) on a live store</td><td>open and prune it as a store</td></tr>
+<tr><td><code>KeptSnapshotDamaged</code> (<code>kept_snapshot_damaged</code>)</td><td>a snapshot a prune would keep fails verification; nothing was removed</td><td><code>store verify</code>, then <code>store repair &lt;dir&gt; --to &lt;new_dir&gt;</code></td></tr>
+<tr><td><code>CopyDoesNotVerify</code> (<code>copy_does_not_verify</code>)</td><td>a converted or repaired copy does not read back intact</td><td>check the target disk, repeat into a new directory</td></tr>
+<tr><td><code>ChangedConcurrently</code> (<code>changed_concurrently</code>)</td><td>a store file changed or vanished while the operation read it</td><td>never edit a store's files; repeat, then <code>store verify</code></td></tr>
+<tr><td><code>JournalSyncFailed</code> (<code>journal_sync_failed</code>)</td><td>writing or syncing the journal failed</td><td>fix the disk, reopen the store</td></tr>
+<tr><td><code>MissingCapability</code> (<code>missing_capability</code>)</td><td>the graph's storage does not claim <code>atomic</code> and <code>change_capture</code>, so no journal can be attached (never for <code>TraversalGraph</code>)</td><td>keep the graph in a storage that claims both</td></tr>
+<tr><td><code>ReloadFailed</code> (<code>reload_failed</code>)</td><td>the files of a rollback or attic restore changed, but loading the new state into the open graph failed: the graph in memory was emptied and the store stopped</td><td>close the store and open it again (restart the server): the open completes the change</td></tr>
+<tr><td><code>Stopped</code> (<code>stopped</code>)</td><td>an earlier rollback or attic restore failed part-way, so the store writes nothing more (<code>Store::stopped_reason</code>)</td><td>close the store and open it again</td></tr>
+<tr><td><code>AlreadyCurrent</code> (<code>already_current</code>)</td><td><code>store upgrade &lt;dir&gt; &lt;new&gt;</code> of a store that already has the current format</td><td>open it as it is; for a copy use <code>store convert</code> or a backup</td></tr>
+<tr><td><code>DamagedSource</code> (<code>damaged_source</code>)</td><td>the store to upgrade does not verify (the message lists the first problems); nothing was written</td><td><code>graphersal store repair &lt;dir&gt; --to &lt;new_dir&gt;</code> reads the older store and writes a repaired one in the current format; or upgrade a backup instead</td></tr>
+<tr><td><code>UpgradeNeedsCopy</code> (<code>upgrade_needs_copy</code>)</td><td><code>store upgrade &lt;dir&gt; --in-place</code> of a store whose version the <a href="store_versions.html#the-upgrade-table">upgrade table</a> upgrades only into a copy; nothing was written</td><td><code>graphersal store upgrade &lt;dir&gt; &lt;new_dir&gt;</code> (the older store stays as it is)</td></tr>
+</tbody></table>
+</div>
+<h2 id="questions"><a class="header" href="#questions">Questions</a></h2>
+<p><strong>Can I change the damage policy (or the chunk size) of a store?</strong> No. Both are <a href="creation_parameters.html">fixed at
+creation</a> and carried by every fork, repair, conversion and backup. To get
+another policy, create a new store with it and load the data (for example <code>graphersal store export old/ graph.gsnap</code>, then <code>graphersal store create new/ --from graph.gsnap --on-damage continue</code>).</p>
+<p><strong>Does a backup check what it copies?</strong> Yes, every checksum, in the store before anything is
+written and again in the copy. A backup never copies damage silently; see <a href="store_backups.html#every-checksum-twice">Every checksum,
+twice</a>.</p>
+<p><strong>Is a commit really on disk when the query returns?</strong> Yes, with the default
+<code>Durability::EveryCommit</code>: the WAL record is written and <code>fsync</code>ed first; a failed sync rolls
+the commit back. With <code>Interval</code> or <code>Os</code> a machine crash may lose the last commits (never one in
+the middle). See <a href="store_commits.html">Commits and Durability</a>.</p>
+<p><strong>The dev server (or my program) was killed. Is the store damaged?</strong> No. The next open replays the
+WAL and cuts an interrupted last write; stderr notes that the store was not closed cleanly, which
+is harmless. Ctrl+C closes it cleanly in the first place.</p>
+<p><strong>Why does the store keep growing?</strong> Nothing is deleted implicitly: every commit is in the WAL and
+every checkpoint adds a snapshot until you <a href="store_prune.html">prune</a>. <code>store compact-advice</code> tells
+you what a prune and a compaction would give back.</p>
+<p><strong>How do I see the graph as it was yesterday?</strong> <code>Store::open_read_only(dir, RecoveryTarget::Time(..))</code>, the dev server's <strong>Go to time...</strong>, or <code>graphersal store fork data/ yesterday/ --at-time 2026-10-07T18:00:00Z</code> and open the fork. See
+<a href="store_point_in_time.html">Point in Time</a>.</p>
+<p><strong>I rolled back by mistake.</strong> <code>graphersal store attic data/</code> lists the rolled-back history;
+<code>store attic data/ restore &lt;ID&gt;</code> undoes the rollback as long as nothing was committed or marked
+since, otherwise <code>store attic data/ fork &lt;ID&gt; &lt;NEW_DIR&gt;</code> keeps it as a new store. A rollback with
+<code>--delete</code> cannot be undone (restore a backup).</p>
+<p><strong>Can I copy a store with <code>cp</code> or <code>rsync</code>?</strong> While no process has it open, yes: no file records a
+path. While it is open, use <code>graphersal store backup</code> (it copies up to the durable end and pins the
+files against a concurrent prune); a plain copy of a live store may catch a half-written file.</p>
+<p><strong>Can two processes use one store?</strong> One writer at a time (an operating-system lock). Any number
+of readers (<code>info</code>, <code>verify</code>, <code>fork</code>, <code>backup</code>, <code>Store::open_read_only</code>) at the same time as the
+writer.</p>
+<p><strong>Does a backup include the attic?</strong> No. It holds the snapshots and the WAL up to the durable
+end, and the marks.</p>
+<p><strong>Where is the time zone?</strong> Everything is stored and printed in UTC. <code>--at-time</code> takes any offset,
+but refuses a time without one.</p>
+<p><strong>Does it work in the browser?</strong> Snapshots, journals and recovery work over any stream in
+WebAssembly; the Store works there over a <code>MemDir</code> (the <a href="playground_store.html">playground</a> does
+that). There is no disk: download a <code>.gsnap</code> to keep a state.</p>
+<p><strong>Can another program read the WAL (change data capture)?</strong> Yes. The byte format is public
+(<a href="format.html">specification</a>); a reader tails the WAL segments, reads complete records only, and
+treats records after the writer's durable end as possibly not final. In Rust,
+<code>store.changes_since(commit)</code> yields the <code>ChangeSet</code>s.</p>
+<p><strong>Is the format stable?</strong> Store format version 3 (with file format version 2) is specified on the
+<a href="format.html">specification</a> page; a newer version is refused, never guessed at, and a store of an
+older released version is upgraded by <code>graphersal store upgrade</code> without the older build (every
+build keeps the readers of every released format; <a href="store_versions.html">Format Versions</a>).</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../persistence/python.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../for_developers/custom_storage.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../persistence/python.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../for_developers/custom_storage.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

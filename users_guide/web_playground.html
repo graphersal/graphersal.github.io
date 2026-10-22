@@ -1,0 +1,658 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Web Playground - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/users_guide/web_playground.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="web-playground"><a class="header" href="#web-playground">Web Playground</a></h1>
+<p>The playground is a single-page web app that runs Graphersal <strong>in the browser</strong>: the real engine,
+compiled to WebAssembly (<code>crates/graphersal-wasm</code>), in a Web Worker. There is no server-side part;
+any static file server can host it. Its source is <code>playground/</code> in the repository; the developer
+details (engine boundary, file layout, libraries) are in <code>playground/README.md</code>.</p>
+<h2 id="build-and-run"><a class="header" href="#build-and-run">Build and run</a></h2>
+<pre><code class="language-bash">rustup target add wasm32-unknown-unknown                      # one-time
+cargo install --locked wasm-bindgen-cli --version 0.2.129     # one-time; must match the wasm-bindgen crate
+playground/build.sh                                           # builds playground/pkg/
+python3 playground/serve.py 8000                              # open http://localhost:8000/ (no browser caching)
+</code></pre>
+<p><code>wasm-opt</code> (from binaryen) is optional; when it is installed, <code>build.sh</code> uses it to make the module
+smaller. Without the build output the page explains how to build it.</p>
+<p>The same UI also runs against the CLI as a local engine, without WebAssembly:
+<code>graphersal --graph &lt;src&gt; --server</code> (DEV mode, unstable, local only; see
+<a href="../persistence/dev_server.html">Dev Server and MCP</a>). There the Query panel can also open an
+<a href="../persistence/dev_server.html#ai-chat">AI Chat</a> tab (EXPERIMENTAL, <code>--ai FILE</code>): an LLM agent that
+answers questions by querying the served graph. In the WebAssembly playground that tab is read-only.</p>
+<h2 id="what-it-does"><a class="header" href="#what-it-does">What it does</a></h2>
+<ul>
+<li><strong>Graphs</strong>: the empty graph, the TinkerPop "modern" graph, the generated ~110k element graph (the
+CLI's <code>--graph large</code>), a file tree sample, or a <a href="graphson.html">GraphSON</a> (<code>.json</code>, TinkerPop's
+<code>g.io()</code> format) or GraphML file from your disk (it stays in the browser). What a GraphSON import
+skips (dates, unsupported types) is shown in a notice.</li>
+<li><strong>Queries</strong>: the full DSL, both spellings, with completion from the engine's own function list
+(each entry's tooltip shows its overloads, a one-line description and a runnable example). A
+traversal without a terminal runs as <code>execute()</code>, so one run gives the results and, with
+<strong>Profile</strong> on, the metrics; <strong>Memory</strong> adds the exact per-step memory figures (the module installs
+the counting allocator, so the source is <code>tracked</code>). Results are shown as a table, JSON and the raw
+text the CLI prints, within the CLI's display limits (see <a href="displaying_results.html">Displaying Results</a>).</li>
+<li><strong>Examples</strong>: the Query panel's <strong>Examples</strong> button (a click, or resting the pointer on it) opens
+a panel over the editor with every example, in collapsible groups (GQL split by topic). Its search
+field finds a plain text in titles and scripts, case-insensitive (<code>.order(</code> lists every example
+that uses it, with the matching line); <code>Up</code>/<code>Down</code> move, <code>Enter</code> opens, <code>Esc</code> clears the search
+and then closes. Reopening returns to where you were and marks the example opened last, so the
+next one is right below it.</li>
+<li><strong>Query tabs</strong>: the Query panel holds several queries side by side. Each tab has its own text,
+Profile/Memory toggles, last result and last profile; switching tabs shows that tab's results
+without running anything. The graph is shared: when a run in one tab changes it, the other tabs'
+results are marked "possibly stale" until they run again. An example from the Examples menu goes
+into the active tab only when that tab is empty or still holds an unchanged example; otherwise it
+opens in a new tab, so your own text is never overwritten. The tab menu also offers <em>Duplicate
+tab</em>, <em>Close other tabs</em> and <em>Run all tabs</em>. The tabs (not their results) are kept in the browser;
+the query history records every run with its tab's name. Shortcuts: <code>Ctrl</code>/<code>⌘</code>+<code>Enter</code> runs the
+active tab (or its selection, see <strong>Run</strong> below), <code>Ctrl</code>/<code>⌘</code>+<code>Shift</code>+<code>Enter</code> runs all tabs, <code>Alt</code>+<code>N</code> opens and <code>Alt</code>+<code>W</code> closes a tab,
+<code>Alt</code>+<code>[</code> / <code>Alt</code>+<code>]</code> switch to the previous / next tab and <code>Alt</code>+<code>Shift</code>+<code>1</code>…<code>9</code> to tab 1…8 or
+the last one (the browser keeps <code>Ctrl</code>/<code>⌘</code>+<code>T</code>, <code>W</code> and <code>1</code>…<code>9</code> for its own tabs).</li>
+<li><strong>GQL query tabs</strong>: a query tab is in Rhai (the Gremlin DSL, the default) or in
+<a href="../gql/index.html">GQL</a>. Open one with <strong>+ ▸ GQL query</strong> (marked <code>GQL</code> in the tab strip), or switch
+the tab with the <strong>Rhai / GQL</strong> switch in the Query panel's header; nothing is detected from the
+text. In a GQL tab you write the query itself, <code>MATCH (p:person) WHERE p.age &gt; $min RETURN p.name</code>,
+with GQL highlighting and completion: the keywords that fit the position (after <code>MATCH</code> a pattern's
+<code>WHERE</code>, <code>RETURN</code> and the next clauses, after <code>RETURN</code> <code>AS</code>, <code>ORDER BY</code>, <code>LIMIT</code>, ...), the GQL
+functions with a short description, the graph's labels after <code>:</code> (edge types inside <code>[..]</code>), the
+property keys after <code>n.</code> (those of <code>n</code>'s labels), the variables the query binds, the
+parameters after <code>$</code>, and after <code>CALL</code> the saved queries written in GQL as <code>folder.name</code>
+(<a href="saved_queries.html#calling-saved-queries-from-gql">Calling saved queries from GQL</a>). Under the editor the <strong>Parameters</strong> field holds the parameter map as JSON,
+<code>{"min": 30}</code> (checked as you type; a fault names its line and column); <strong>+ Add $parameters</strong>
+adds every <code>$name</code> the query reads that the map lacks. Run, Run selection, Stop, Profile, the
+history and the results work as in a Rhai tab: the tab runs <code>g.gql("&lt;query&gt;", #{min: 30})</code>, and
+an error's GQLSTATUS stays in its message while the part of the query it names is underlined in
+the editor (<strong>Go to line</strong> jumps there). Switching a tab that holds exactly one
+<code>g.gql(`...`, #{..})</code> call to GQL takes its query and its literal parameters out of it;
+switching back writes them as that call again; any other text is kept as it is. GQL examples of
+the Examples menu open as GQL tabs. <strong>Save as query…</strong> of a GQL tab saves a GQL query with its
+<code>$parameters</code>, typed and defaulted by the Parameters field.</li>
+<li><strong>Statistics</strong>, a tab of the Profile panel (next to Steps and Text), shows two sources
+side by side: the graph's data (<code>g.statistics()</code>: vertex and edge totals, the counts per vertex
+label, also as primary label, and per edge label; at most 50 labels per kind, largest first) with
+its memory footprint (<code>g.memory_usage()</code>), and the limits a query runs under: the host's presets
+(none in the playground; the dev server's <code>--timeout</code>, <code>--max-*</code>, ...) and the engine's defaults
+for the rest (see <a href="resource_limits.html">Resource Limits</a>; <code>g.with(..)</code> changes them per query).
+While open it reloads after every run that changed the data.</li>
+<li><strong>Errors</strong> show the message, the step path of a runtime error (the same step ids as the profile),
+the <code>help()</code> advice, a "Go to line" for script errors, and the full diagnostic.</li>
+<li><strong>Graph, Schema, Profile</strong> panels draw the graph (capped), show and edit the schema (see
+<a href="#the-schema-editor">The schema editor</a> below; the drawings, a label graph and a Mermaid diagram,
+show at most 300 labels), and the optimized plan with timings, traverser counts, loop statistics,
+path recording and memory. The Graph panel draws the whole graph when it has at most 10 000
+vertices and 20 000 edges (Settings), else its labels; it also draws the neighbourhood of a
+vertex and the last query result. Clicking a vertex or an edge shows its properties, fetched from
+the engine at that moment (the drawing itself carries only ids, labels and names; long texts and
+vectors are collapsed with an expand button, see <a href="#what-the-panel-shows">Long values</a>);
+double-clicking a vertex in the neighbourhood or the query result expands it by one hop from
+the engine (in the whole graph: selects it with its neighbours, again for one hop more),
+double-clicking empty space fits the drawing. Above 200 vertices the engine lays the drawing out (with progress
+and Stop) instead of the browser. See <a href="#the-graph-drawing">The graph drawing</a> below for what
+the panel shows and its two drawing tiers.</li>
+<li><strong>Run</strong> (or <code>Ctrl</code>/<code>⌘</code>+<code>Enter</code>) runs the selected text when the editor has a selection, else the
+whole tab, so a script can be tried piece by piece. The button then reads <em>Run selection</em>, and the
+status bar and the Results header say "selection (N lines)". A selection of only whitespace runs
+the whole tab; with several selections (<code>Alt</code>+drag) only the main one runs. Everything else is a
+normal run: one unit (committed only when it succeeds), the history records the text that ran,
+Profile and Memory apply, and an error's "Go to line" points into the full text of the tab.
+<em>Run all tabs</em> always runs whole tabs.</li>
+<li><strong>Stop</strong> (next to Run) ends a long query: the engine is restarted and the graph restored as it was
+last loaded (sample or file) or last saved. Changes made after that point are lost, and so is the
+history of the <a href="../persistence/playground_store.html">store in memory</a> (it starts over from that state).
+While no query runs but the graph drawing is being laid out, Stop ends only the layout: the
+drawing keeps the positions reached so far and nothing is restarted.</li>
+<li><strong>Save ▾</strong> (top bar; the start page has the same entries as buttons) downloads ONE file per
+entry: the graph data as GraphSON 3.0 (<code>graphersal-graph-YYYYMMDD-HHMMSS.json</code>) or GraphML
+(<code>.graphml</code>), the schema (<code>graphersal-schema-YYYYMMDD-HHMMSS.json</code>; neither data format carries
+it, see <a href="uuid_values.html#graphml-import-and-export">UUID Values</a>), the <a href="#saved-queries">saved queries</a>, or a snapshot (<code>.gsnap</code>) with
+data, schema and saved queries in one file. One file per click, because browsers block or drop a second
+download started by the same click. To load both back, choose both in <strong>Load from file</strong> on the
+start page: the graph file and, in the dialog's optional second field, the <strong>schema file (JSON)</strong>.
+The schema is set on the new, empty graph first and the data is imported against it as one unit,
+so the elements, ids, labels, properties and the schema come back; in mode <code>open</code> or <code>closed</code> a
+violation fails the load with the error and nothing changes. <strong>Load from file always starts
+without the previous graph's schema</strong>: a graph file loaded without a schema file has no schema
+(a previous graph's schema has nothing to do with an unrelated file). Dropping ONE file on the
+card loads it without a schema; dropping a graph file together with its <code>.json</code> schema pairs them
+when that is unambiguous (the graph file is GraphML, <code>.jsonl</code> or <code>.graphson</code>; two <code>.json</code> files
+are refused, choose them in the dialog). A snapshot (<code>.gsnap</code>) brings its own schema and takes no
+schema file.
+GraphSON keeps every value type (<code>uuid</code>, lists, maps) by itself; GraphML gets them back from the
+schema's declarations, and Save warns about values that come back as strings without one (an
+undeclared <code>uuid</code>, lists and maps, a property with different types on different labels).</li>
+<li><strong>Load schema</strong> applies a JSON file in <a href="schema_enforcement.html#the-format">the schema format</a>
+(<code>set_schema</code>) to the current graph. In mode <code>open</code>
+or <code>closed</code> the existing data is validated first; on violations nothing changes and the error is
+shown. It changes only the current graph: a graph loaded from a file afterwards does not keep
+it (give the schema file in Load from file instead).</li>
+</ul>
+<p>Scripts run without Rhai resource limits and without a default timeout, as in the CLI: the page is
+your own local front end, and Stop ends a runaway query or loop. Every run starts with a fresh
+script scope; the graph keeps the changes queries make until you load another one.</p>
+<p>A run is all-or-nothing: the whole script is one unit of work, and a run that shows an error leaves
+the graph as it was before the run (see
+<a href="transactions.html#a-whole-script-as-one-unit-rhai">Transactions</a>). Scripts may do everything except
+file access, which the browser does not have (see <a href="permissions.html">Permissions</a>).</p>
+<h2 id="links-to-a-query"><a class="header" href="#links-to-a-query">Links to a query</a></h2>
+<p>A link can open the playground with a query in the editor, and run it, on a sample graph or on a
+small graph the link carries itself:</p>
+<pre><code class="language-text">https://graphersal.github.io/play/#/play?graph=modern&amp;q=g.v().has_label(%22person%22).values(%22name%22)&amp;run=1
+https://graphersal.github.io/play/#/play?v=1&amp;data=xZWxboMwEIb3PoZnFIFtSMOUoR36Al...&amp;q=g.v().count()&amp;run=1
+https://graphersal.github.io/play/#/play?graph=modern&amp;q=MATCH%20(p%3Aperson)%20WHERE%20p.age%20%3E%20%24min%20RETURN%20p.name&amp;lang=gql&amp;params=%7B%22min%22%3A30%7D&amp;run=1
+</code></pre>
+<div class="table-wrapper"><table><thead><tr><th>Parameter</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>graph</code></td><td>the sample graph: <code>modern</code> (the default), <code>empty</code>, <code>large</code>, <code>tree</code></td></tr>
+<tr><td><code>data</code></td><td>instead of <code>graph</code>: the graph itself, as GraphSON 3.0 compressed with deflate and written as base64url</td></tr>
+<tr><td><code>schema</code></td><td>with <code>data</code> only: the graph's schema (the <a href="schema_enforcement.html">schema format</a>), encoded the same way</td></tr>
+<tr><td><code>v</code></td><td>the format of <code>data</code> and <code>schema</code>; <code>1</code> (the default) is the only one so far</td></tr>
+<tr><td><code>q</code></td><td>the query, percent-encoded (<code>encodeURIComponent</code>; a literal <code>+</code> must be <code>%2B</code>)</td></tr>
+<tr><td><code>lang</code></td><td><code>gql</code>: <code>q</code> is a plain GQL query and opens in a GQL tab (absent: a Rhai script)</td></tr>
+<tr><td><code>params</code></td><td>with <code>lang=gql</code>: the GQL tab's Parameters field, a JSON map, percent-encoded (optional)</td></tr>
+<tr><td><code>title</code></td><td>the name of the query tab (optional)</td></tr>
+<tr><td><code>run</code></td><td><code>1</code> runs the query once it is in the editor</td></tr>
+</tbody></table>
+</div>
+<p>The parameters are in the fragment (after <code>#</code>), so the browser never sends them to a server: a
+graph in a link goes only where you paste the link. The query goes into a new tab when the current
+one holds your own text. When a graph is already open in the page, the playground asks before it
+replaces it; declined, the query is only put into the editor. The address then goes back to
+<code>#/play</code>, so a reload does not apply the link again. With the dev server a link only opens the
+query: the served graph is your own data, so nothing is replaced and nothing runs. Parameters the
+playground does not know are ignored, so later additions keep older links working.</p>
+<h3 id="share-a-query-with-its-graph"><a class="header" href="#share-a-query-with-its-graph">Share a query with its graph</a></h3>
+<p>The green <strong>Share link</strong> button in the top bar (also <strong>Share as link…</strong> in the Query panel's tab
+menu) makes such a link for the active tab: its query and the graph. A sample graph that has not changed goes into the link by its name; any other
+graph goes into the link itself, with its schema. Saved queries and compression rules are not
+included. Copy the link into a bug report or a message; whoever opens it gets the same graph and
+query in their own browser.</p>
+<p><strong>Only small graphs fit into a link.</strong> A link is at most 60,000 characters, so that it fits into
+the text of an issue: roughly a graph of a thousand elements, fewer with long property values. For
+a bug report, reduce the graph to the few vertices and edges that reproduce the problem and leave
+out everything else; a minimal graph is also the fastest to understand. For a larger graph, save it
+with <strong>Save ▸ Data</strong> (GraphSON) and attach the file instead.</p>
+<p>The book uses these links: every example that runs on a sample graph has a <strong>▶</strong> run button next
+to each of its queries (or a <strong>Run in the playground</strong> link under a block with one query).</p>
+<h2 id="the-graph-drawing"><a class="header" href="#the-graph-drawing">The graph drawing</a></h2>
+<h3 id="what-the-panel-shows"><a class="header" href="#what-the-panel-shows">What the panel shows</a></h3>
+<p>Drawing "the first 1000 vertices" of a large graph shows an arbitrary slice of it. The Graph
+panel's tabs choose a meaningful part instead:</p>
+<ul>
+<li><strong>Whole graph</strong>: the graph itself when it has at most the vertex and edge limits of the
+settings (10 000 vertices and 20 000 edges by default). A larger graph shows its labels (below)
+with a note saying how large it is; <strong>Draw the first N vertices anyway</strong> draws that slice (said
+to be one), <strong>Double the limits</strong> raises them.</li>
+<li><strong>Labels</strong>: the label overview. Each vertex label is a node sized by its number of vertices,
+each edge is a label pair (<code>person –created→ software</code>) with its number of edges. The 40 largest
+labels are drawn, the others form one "other labels" node; the 200 largest pairs are drawn and
+the note counts the rest. The counts come from the graph's statistics and one pass over the
+edges, so they are exact (for graphs with more than five million edges, the pairs are counted
+over the first five million and the note says so). <strong>Double-click a label</strong> to draw a sample of
+its vertices with the edges between them, <strong>double-click an edge</strong> for a sample of that label
+pair. A sample is the first matching elements in storage order (at most 1000 vertices), not a
+random choice, and its note says how many of how many it shows.</li>
+<li><strong>Neighbourhood</strong>: a vertex and its neighbours, fetched from the engine. Type a vertex id (or
+click <strong>Neighbourhood</strong> in a vertex's properties, or the <strong>⌖</strong> button of a vertex row in the
+Results table) and choose the <strong>Depth</strong> (1 = the direct neighbours, 2 = their neighbours too,
+up to 5) and the <strong>direction</strong>: <strong>both</strong>, <strong>out →</strong> (the vertices it points to) or <strong>← in</strong> (the
+vertices pointing to it); changing either redraws from the same vertex. <strong>Double-click a vertex</strong>
+to expand it by one hop (along the chosen direction): its neighbours are added, everything already
+drawn stays where it is and the new vertices are placed around it. The note says how many edges
+still lead out of the drawing, and when the limits (Settings) cut the neighbourhood, how many
+vertices and edges within that depth were left out.</li>
+<li><strong>Query result</strong>: the vertices, edges and paths the last query returned, with the edges
+between them. At most 50 000 vertices + edges by default (<strong>Result graph</strong> in the settings, up
+to 200 000; the result's data itself is never cut); the note says when a result has more.
+<strong>Double-click a vertex</strong> of the result to expand it by one hop from the engine, like in a
+neighbourhood: the drawing continues as a neighbourhood ("the query result, expanded"), the
+result's vertices stay in place, and further double clicks keep expanding. A result with more
+vertices than the drawing limit is not expanded (the note says so; open a vertex's
+neighbourhood instead).</li>
+</ul>
+<p><strong>Result highlight.</strong> In the <strong>Whole graph</strong> tab the elements the active tab's last query result
+refers to are highlighted and everything else is faded (the <strong>highlight result</strong> checkbox turns
+this off for good). <strong>✕ Clear highlight</strong> in the toolbar, shown while a highlight is active, or
+<code>Esc</code> on the drawing (click it first) shows the graph normally again; <code>Esc</code> also clears a
+double-click selection. Clearing applies to that result only: the next query result highlights
+again, and switching to another query tab shows that tab's result highlighted, while the tab you
+cleared stays cleared. Both tiers behave the same.</p>
+<p><strong>Long values.</strong> In an element's details (click a vertex or an edge) and in the Results table, a
+text longer than 200 characters or with more than 3 lines is cut to its start and "…", and a
+vector (a list of 16 or more numbers) shows as <code>vector[384] [0.12, -0.03, 0.5, 1, …]</code>. <strong>expand</strong>
+shows the full value, <strong>collapse</strong> the short form again; the copy button next to it in the
+element's details copies the full value. <strong>Collapse values above</strong> in the Settings sets the
+number of characters (20 to 100 000), 0 shows every value in full. A vector in the Results table
+keeps its own disclosure (<code>vector[768 f32]</code>, the JSON tab has every value).</p>
+<h3 id="editing-properties"><a class="header" href="#editing-properties">Editing properties</a></h3>
+<p>Click a vertex or an edge for its properties, then the <strong>pencil</strong> next to the close button: a
+dialog edits them. Each property is one line with its name, its type (<code>string</code>, <code>int64</code>,
+<code>float64</code>, <code>boolean</code>, <code>uuid</code>, <code>array</code>, <code>object</code>, <code>null</code>), its value and its buttons, in columns
+aligned across the rows (in a narrow window a property takes two lines); a changed or invalid
+property is marked at its left edge. The last line adds a property: name, type and value, then
+<strong>+ Add</strong> or Enter. Remove (with undo) and rename properties. Arrays and objects are edited as a
+tree below their line (expand, collapse, add and remove items and keys); the <strong>{ }</strong> button edits
+any value as JSON, <strong>Edit as JSON</strong> (next to Save) the whole element. A string always stays a
+string, whatever it looks like, until you pick another type. Long or multi-line strings, and every
+string a <a href="compressed_properties.html">compression rule</a> covers, get a large text box below their
+line (<strong>⤢</strong> opens one for any string).</p>
+<p>When the graph has a <a href="schema_enforcement.html">schema</a>, the dialog follows it: the properties of the
+element's label(s) are listed (also the ones not set yet), required ones are marked with <code>*</code>, the
+type, bounds and description are shown under each line, and an <code>enum</code> is a menu. Every change is
+checked by the engine before you save; its errors appear next to their fields and <strong>Save</strong> stays
+disabled until they are fixed. Saving writes all changes as one commit: if the engine still refuses
+(for example the schema changed meanwhile), nothing is applied and the dialog stays open with the
+error. Ids and labels are shown but not edited. The pencil is disabled, with the reason as its
+tooltip, while a query runs and when the graph cannot be written: a read-only view of a past state
+(Store menu), a backup, or a store in maintenance mode.</p>
+<h3 id="edit-mode"><a class="header" href="#edit-mode">Edit mode</a></h3>
+<p>The <strong>Edit mode</strong> switch in the Graph panel's toolbar turns the mouse into an editor of the graph:</p>
+<ul>
+<li><strong>Add a vertex:</strong> double-click empty space. A dialog asks for the label (a menu of the labels the
+schema declares and the graph already has; any label can be typed unless the schema is
+<code>closed</code>), an optional id (empty: automatic) and the properties, laid out by the label's schema
+(required ones are already there, <code>*</code>). The vertex appears where you double-clicked.</li>
+<li><strong>Add an edge:</strong> drag from one vertex to another (a dashed line follows the pointer; back onto
+the start vertex after leaving it makes a loop). The label menu offers the schema's edge labels
+whose <code>connections</code> allow the two vertices (<code>*</code> matches any label, any label of a multi-label
+vertex counts), then the graph's other edge labels; with a <code>closed</code> schema only the allowed ones.</li>
+<li><strong>Delete:</strong> select a vertex or an edge (click it) and press <strong>Delete</strong>, or use the bin in its
+card. A confirmation says how many edges go with a vertex.</li>
+<li><strong>Edit properties:</strong> double-click an element (or use the pencil), as above.</li>
+</ul>
+<p>Every draft is checked by the engine with a dry run, its errors shown at their fields; each
+change is one commit. The drawing changes in place: the other vertices keep their positions and no
+layout runs. In edit mode vertices cannot be dragged around (a drag draws an edge). The Fast tier
+edits and deletes but adds nothing with the mouse (switch to Detailed to add). Edit mode is off,
+with the reason as its tooltip, in the Labels overview and when the graph cannot be written (a
+read-only view of a past state, a backup, a store in maintenance mode or frozen by damage).</p>
+<p>A small cloud inventory (58 vertices, 91 edges) in the three views:</p>
+<p><img src="../images/playground/graph-whole.png" alt="Whole graph: every vertex and edge, coloured by label" /></p>
+<p><img src="../images/playground/graph-labels.png" alt="Labels: one node per vertex label, sized by its count, and the label pairs with their edge counts" /></p>
+<p><img src="../images/playground/graph-neighbourhood.png" alt="Neighbourhood: the vertices within two hops of one service" /></p>
+<h3 id="tiers"><a class="header" href="#tiers">Tiers</a></h3>
+<p>The Graph panel draws in one of two tiers:</p>
+<div class="table-wrapper"><table><thead><tr><th></th><th>Detailed</th><th>Fast</th></tr></thead><tbody>
+<tr><td>Engine</td><td>Cytoscape.js (Canvas 2D)</td><td>sigma.js + graphology (WebGL)</td></tr>
+<tr><td>Chosen by Auto</td><td>below 2000 vertices + edges</td><td>from 2000 (back to Detailed below 1600)</td></tr>
+<tr><td>Vertex labels</td><td>always (from 2000 elements only when large enough to read)</td><td>as you zoom in</td></tr>
+<tr><td>Edge labels</td><td>yes</td><td>only on hover: hovering a vertex highlights its neighbours and labels its edges</td></tr>
+<tr><td>Edges</td><td>curved, loops, arrows</td><td>straight, arrows, no loops</td></tr>
+<tr><td>Layouts</td><td>Force, Circle, Concentric, Tree, Grid</td><td>Force (the engine's), Circle, Grid</td></tr>
+<tr><td>Export</td><td>PNG</td><td>PNG</td></tr>
+<tr><td>Pans smoothly up to</td><td>about 2000 elements</td><td>100 000 elements (the largest measured)</td></tr>
+</tbody></table>
+</div>
+<p>The switch <strong>Auto / Detailed / Fast</strong> in the panel's toolbar (also in Settings) chooses the tier;
+Auto decides by size, with a margin so a drawing does not flip back and forth around the
+threshold. Switching keeps the drawing's positions. In the Fast tier a banner says what it lacks,
+and the controls it cannot honour (edge labels, the Concentric and Tree layouts) are disabled with
+the reason as tooltip. The schema drawing and the label overview always use the Detailed tier.</p>
+<p><strong>Drill down:</strong> in the Fast tier, click a vertex (or double-click it to select its neighbours,
+again for one hop more) and choose <strong>Open in Detailed</strong>: that neighbourhood is drawn in the Detailed
+tier, with every label and style; <strong>Back to the whole drawing</strong> returns.</p>
+<p>A drawing waits for an explicit <strong>Draw it</strong> only where it can still make the page slow: Detailed
+forced above 5000 vertices + edges, the Fast tier above 200 000. A browser without WebGL (or where
+the Fast tier's scripts cannot load) draws in the Detailed tier, at most 10 000 vertices + edges,
+and says so. The Fast tier's scripts are loaded only the first time a drawing needs them.</p>
+<p>The Fast tier draws the first 10 000 vertices of the generated 110k-element graph:</p>
+<p><img src="../images/playground/graph-fast-10k.png" alt="10 000 vertices drawn by the Fast (WebGL) tier" /></p>
+<h2 id="saved-queries"><a class="header" href="#saved-queries">Saved queries</a></h2>
+<p><a href="saved_queries.html">Saved queries</a> are named, parameterized queries stored in the graph. The top
+bar's <strong>Catalog ▾ ▸ Saved queries</strong> manager lists them by folder (the description and the
+signature) with a badge each: <strong>R/O</strong> (it only reads), <strong>R/W</strong> (it changes data; the tooltip lists
+what, as inferred from its body), <strong>R/O ⚠</strong> (read-only, its writing steps are denied until it is
+saved again) or <strong>unavailable</strong> (it cannot run; the tooltip says why), and its language, <strong>Rhai</strong>
+or <strong>GQL</strong> (the tooltip names the dialect). It manages them on the
+WebAssembly playground and on the <a href="../persistence/dev_server.html">dev server</a> alike:</p>
+<ul>
+<li><strong>New saved query…</strong> / <strong>✎</strong> opens the editor: name, folder, description, the language, the
+parameter list and the body. Each parameter has a name, a type (<code>string</code>, <code>integer</code>, <code>number</code>, <code>boolean</code>, <code>uuid</code>,
+<code>array</code> of one of these, <code>object</code>, or a schema written as JSON), constraints (minimum and
+maximum, length, pattern, allowed values), a default (empty: the parameter is required) and a
+description; ↑/↓ reorder and ✕ removes one. The body is what goes inside the function, in the code
+editor with the DSL completion; the line <code>fn name(a, b) {</code> above it follows the parameter list,
+so a parameter is added or renamed in one place. <strong>Save</strong> stores it (a rename replaces the old
+name in the same commit); what the engine refuses is shown next to its field (a bad name or
+folder, a parameter whose default breaks its schema, a body that does not compile). Moving a
+query to another folder is changing its folder here. <strong>Delete…</strong> asks first.</li>
+<li>The <strong>Rhai / GQL</strong> switch picks the language. A <a href="saved_queries.html#saved-queries-in-gql">GQL query</a>
+is the whole query text, highlighted as GQL, with no function line around it; every <code>$name</code> it
+reads must be a declared parameter and every parameter must be read (<strong>+ Add $parameters of
+the query</strong> declares the missing ones as strings). Switching a <code>g.gql(`...`)</code> body to GQL keeps
+its query; switching a GQL query to Rhai wraps it into <code>g.gql(`...`, #{p: p})</code>.</li>
+<li><strong>Save as query…</strong> in a query tab's <strong>⋯</strong> menu opens the editor on the tab's text. A GQL tab
+becomes a GQL query with every <code>$name</code> as a parameter, typed and defaulted by its Parameters
+field. A Rhai tab holding exactly one <code>g.gql(`...`)</code> call (as <strong>Wrap as GQL</strong> writes it)
+becomes a GQL query of the inner text the same way, typed by the values the tab passes in its
+<code>#{..}</code> map; any other tab becomes a Rhai query whose body is the tab's text.</li>
+<li>The body editor completes the declared parameters: in a Rhai body their names (the function's
+arguments), shown with their type above the DSL's own names; in a GQL query <code>$name</code> after <code>$</code>. A
+parameter added, renamed or removed in the list is offered at once.</li>
+<li>Clicking a query opens its <strong>run form</strong>, built from the parameter schemas: a number field with
+its minimum and maximum, a list for allowed values, a checkbox for a boolean, UUID text that is
+checked, one line per item for a list; defaults are prefilled and required fields marked with
+<code>*</code>, the descriptions are hints. <strong>Run</strong> writes the call, for example
+<code>g.query("older_than", #{age: 29, label: "person"})</code>, into a query tab and runs it there: it is
+visible, editable and in the history like any other query. The form remembers the last values
+per query (in the browser). An empty field takes the parameter's default.</li>
+<li>In the editor, <code>g.query("</code> completes the names of the saved queries, grouped by folder.</li>
+<li>Saved queries travel in the <strong>catalog file</strong>, like the schema: <strong>Catalog ▾ ▸ Save catalog
+(.json)</strong> (<code>graphersal-catalog-YYYYMMDD-HHMMSS.json</code>, also <strong>Save catalog</strong> on the start page)
+holds the whole catalog, saved queries, <a href="compressed_properties.html">compression rules</a> and
+<a href="property_indexes.html">property indexes</a>; <strong>Catalog ▾ ▸ Load catalog…</strong> (or <strong>Load catalog</strong> on the start
+page) adds the file's definitions to the current graph (one of the same kind and name is
+replaced; a compression rule compresses its values at once). A graph loaded from a GraphSON or
+GraphML file afterwards keeps them; a sample graph starts without any, a snapshot (<code>.gsnap</code>)
+brings its own. <strong>Stop</strong> keeps the catalog the page loaded or edited (like the schema);
+definitions a script made since the last load or save are gone with the rest of the run's
+changes.</li>
+</ul>
+<h2 id="the-catalog"><a class="header" href="#the-catalog">The Catalog</a></h2>
+<p>The top bar's <strong>Catalog ▾</strong> lists what the graph stores besides its data and schema, each kind with
+its count, and opens its manager:</p>
+<ul>
+<li><strong>Saved queries</strong>: the queries by folder with <strong>Run…</strong>, <strong>Edit…</strong>, <strong>Delete</strong> and <strong>New saved
+query…</strong> (the editor and run form described above).</li>
+<li><strong>Compression</strong>: the <a href="compressed_properties.html">compression rules</a> with their stats (compressed
+values, plain and stored size, ratio, saving, dictionary size), <strong>Edit…</strong>, <strong>Recompress</strong> and
+<strong>Drop</strong>, and <strong>New rule…</strong>: a form with name, element (vertex or edge), label (the graph's
+labels are suggested), path, minimum size and dictionary; the engine's errors show next to their
+field. Saving re-encodes the label's values at once.</li>
+<li><strong>Property indexes</strong>: the <a href="property_indexes.html">property indexes</a> with their stats (entries,
+distinct values, elements per value, memory; <em>not served</em> on a storage that keeps the
+definition but serves no index) and <strong>Drop</strong> (after a confirmation), and <strong>New index…</strong>: a form
+with element (vertex or edge), label (the graph's labels are suggested), key and an optional
+name (the default <code>&lt;label&gt;_&lt;key&gt;</code> is shown as you type); the engine's errors show next to their
+field. Creating builds the index from the data at once.</li>
+</ul>
+<p>The same dropdown holds <strong>Save catalog (.json)</strong> and <strong>Load catalog…</strong>. The Statistics tab of the
+Profile panel shows the compressed strings and the dictionaries, and the property indexes' memory,
+in its memory part when there are any.</p>
+<p>A catalog change is a commit: in the <a href="#the-store-in-memory">store in memory</a> it is part of the
+history, and on the dev server another browser tab or an AI agent sees it through the change feed.</p>
+<h2 id="the-store-in-memory"><a class="header" href="#the-store-in-memory">The store in memory</a></h2>
+<p>Every graph you load is kept as a Store in memory: every run that changes the graph is a commit,
+and the <strong>Store</strong> menu in the top bar checkpoints, marks, opens past states read-only, forks and
+rolls back. <strong>Everything in memory is lost on page reload</strong>: download a <code>.gsnap</code> to keep a state.
+The details are on the page <a href="../persistence/playground_store.html">The Store in the Playground</a>.</p>
+<h2 id="the-schema-editor"><a class="header" href="#the-schema-editor">The schema editor</a></h2>
+<p>The Schema panel's <strong>Tables</strong> tab shows the schema (the stored one, or, without one, the schema
+inferred from the data; the badge says which) as nested tables on one page: a table per vertex and
+edge label, one row per property with its type, <em>required</em>, <em>nullable</em> and a compact constraint
+column (<code>0..150</code>, <code>length 1..80</code>, <code>^\d{5}$</code>, <code>&lt;= 10</code>, <code>one of a, b</code>). A nested object is a table
+inside its row; arrays show as <code>array of T</code> (an array of objects gets the item table); objects
+deeper than the first level start collapsed as <code>object {n fields}</code>. The format is described in
+<a href="schema_enforcement.html#the-format">Schemas</a>.</p>
+<p>Everything is edited in place, and every edit changes a <strong>draft</strong>, never the stored schema:</p>
+<ul>
+<li>the type (a dropdown; <code>uuid</code> is <code>string</code> + <code>format: "uuid"</code>, <code>any</code> is <code>{}</code>; a union of several
+kinds is edited in the JSON tab), <em>required</em>, <em>nullable</em>, the property name, a <code>+ property</code> row in
+every table, and a detail form per property (open it from the constraint column) with the
+constraints of its type, <code>enum</code>, <code>const</code>, <code>additionalProperties</code> for objects, and the annotations
+<code>title</code>, <code>description</code>, <code>default</code>, <code>examples</code>, <code>$comment</code>, <code>deprecated</code>;</li>
+<li>labels: add, rename (a renamed vertex label is renamed in the edge connections too), remove; the
+connections of an edge label with from/to dropdowns (<code>*</code> is any label; no connection allows every
+pair); <code>additionalProperties</code> per label;</li>
+<li>the <code>mode</code> (toolbar) and <code>meta</code> (free JSON);</li>
+<li>the <strong>JSON</strong> tab is the same draft as text, synchronised both ways: text that parses becomes the
+draft, invalid JSON is shown inline while the tables keep the last valid state;</li>
+<li><strong>Infer from data</strong> starts a draft from <code>infer_schema()</code>; <strong>Load…</strong> reads a <code>schema.json</code> into the
+draft; <strong>Download</strong> saves what the editor shows as <code>schema.json</code>;</li>
+<li><strong>Freeze as open</strong> / <strong>Freeze as closed</strong> (offered while the graph stores no enforcing schema and
+no draft is being edited) store the inferred schema with that mode in one step,
+<code>set_schema(infer_schema(), mode)</code>: see
+<a href="schema_enforcement.html#freeze-the-structure-you-have">Freeze the structure you have</a>. It always
+applies, except <code>closed</code> with vertices or edges without a label: then nothing changes and the
+report is shown.</li>
+</ul>
+<p>A property's <code>default</code> is stored when a vertex or edge is created without it (see
+<a href="schema_enforcement.html#defaults-on-create">Defaults on create</a>), never filled into existing
+elements; the editor's backfill script uses it as the value it writes into those.</p>
+<p>With a draft, the toolbar offers the review and the apply:</p>
+<ol>
+<li><strong>What changes</strong> lists the changes from the stored schema (<code>diff_schema</code>), each marked backward
+compatible or not (compatible: it only adds or relaxes, so data and clients written against the
+old schema keep working; adding an optional property is compatible, removing one is not; see
+<a href="schema_enforcement.html#changing-a-schema-patch-and-diff">the rule set</a>). Existing data that
+conflicts is what the next step finds.</li>
+<li><strong>Check against data</strong> validates the existing data against the draft (<code>validate_schema_patch</code>;
+nothing changes) and lists the violations grouped by rule. A click on a group opens a new query
+tab that runs a query showing the offending elements (<code>g.V().hasLabel("person").not(__.has("email"))</code>
+for a missing required key, the sample ids for a constraint violation).</li>
+<li><strong>Apply</strong> stores the draft with <code>patch_schema</code> (a JSON Merge Patch computed from the stored
+schema; one unit, all or nothing). It checks first and is blocked while the data violates the
+draft. To make a key required on existing data, <strong>Open a backfill script</strong> writes the recipe as
+one run: the draft with mode <code>none</code>, a <code>property(key, value)</code> for every element that lacks the
+key (the draft's <code>default</code>, or a placeholder to edit), then the draft itself; a playground run is
+one unit, so nothing is kept unless all of it succeeds.</li>
+</ol>
+<p><strong>Discard</strong> drops the draft. A draft that sets a member <em>to</em> <code>null</code> (<code>"default": null</code>) cannot be a
+merge patch; Apply then uses <code>set_schema</code> with the whole draft. The editor talks to the engine only
+through the seven schema methods, the same as in Rust, the DSL and Python. The Graph and Mermaid
+tabs draw the stored (or inferred) schema, not the draft.</p>
+<p><strong>When the panel infers.</strong> Inferring a schema reads the whole graph, so the panel does it only
+when it is first shown (expanded) and when you press its refresh button, never after every change
+of the graph. A stored schema is read again after every change (a schema set or changed by a
+query shows at once). Without one, a change (a query that writes, the property editor, a change
+made in another tab or by an AI agent) keeps the schema inferred last on screen and adds the badge
+<strong>may be outdated - refresh</strong> next to the refresh button; press refresh to infer it again. The
+same badge appears when the stored schema is dropped. Loading another graph, opening a read-only
+view of the Store, going back to the live graph, rolling back or switching databases replaces the
+graph: the panel infers once for it, right away if it is shown, else when you open it. The
+WebAssembly playground and the dev server behave the same.</p>
+<h2 id="if-the-playground-freezes"><a class="header" href="#if-the-playground-freezes">If the playground freezes</a></h2>
+<p>Open the playground's address with <code>/reset</code> added (for example <code>http://localhost:8000/reset/</code>).
+That page loads nothing of the playground itself: it removes the playground's saved state from the
+browser (settings, panel layout, theme, query tabs, view choices; the query history is kept) and
+then opens the playground with the Modern sample graph. Use it when a saved state makes the page
+hang again after every reload, for example a huge drawing that is restored on start.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../library/python.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../persistence/dev_server.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../library/python.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../persistence/dev_server.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

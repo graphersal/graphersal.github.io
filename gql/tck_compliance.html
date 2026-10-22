@@ -1,0 +1,400 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>TCK Compliance - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/gql/tck_compliance.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="tck-compliance"><a class="header" href="#tck-compliance">TCK Compliance</a></h1>
+<p>Graphersal's GQL is measured against the openCypher TCK (Technology Compatibility Kit): Gherkin
+scenarios that each set up a graph, run one query and state the exact expected result, side
+effects or error. They exercise the Cypher compatibility forms that <code>gql()</code> accepts (<code>CREATE</code>,
+<code>MATCH ... RETURN</code>, <code>WITH</code>, <code>UNWIND</code>, ...) with Neo4j's semantics, so the kit works as a
+ready-made differential test. It serves three purposes:</p>
+<ol>
+<li><strong>Compliance measure:</strong> what passes, what does not, and why.</li>
+<li><strong>Regression gate:</strong> a test case that passed must keep passing; <code>cargo test</code> fails otherwise.</li>
+<li><strong>Backlog generator:</strong> the report ranks the missing constructs and lists every wrong
+behaviour.</li>
+</ol>
+<p>Graphersal's GQL is not a Cypher implementation; the TCK measures how far its compatibility
+forms agree with the behaviour the kit specifies.</p>
+<h2 id="the-kit"><a class="header" href="#the-kit">The kit</a></h2>
+<ul>
+<li><strong>Pinned version:</strong> openCypher TCK release <strong>2024.3</strong> (commit
+<code>677cbafabb8c3c5eed458fd3b1ec0daec8d67d23</code>), vendored unmodified under
+<code>crates/graphersal/tests/opencypher/</code> (<code>features/</code>, the named graphs in <code>graphs/</code>, its licence
+and notice). The directory's <code>README.md</code> records the upgrade procedure. A <em>test case</em> is a
+scenario, or one <code>Examples</code> row of a scenario outline.</li>
+<li><strong>Runner:</strong> the integration test target <code>crates/graphersal/tests/opencypher_tck.rs</code> (feature
+<code>gql</code>), with its harness in <code>crates/graphersal/tests/opencypher/harness/</code>. Every case runs on a
+fresh graph through the Rust GQL API: the setup queries (<code>having executed</code>, the named graphs)
+run through <code>gql()</code>'s own writes, the query runs with its parameters, then its rows, its side
+effects (a state diff) and its error are compared. Every query runs under resource limits and
+a wall-clock guard.</li>
+<li><strong>Gate:</strong> <code>crates/graphersal/tests/opencypher/baseline.toml</code> lists every in-scope case that
+does not pass yet, with its class and a one-line reason.</li>
+</ul>
+<h2 id="headline-numbers"><a class="header" href="#headline-numbers">Headline numbers</a></h2>
+<p>The numbers below are the kit's result on the current code. All totals and percentages count
+in-scope cases only (see <a href="#out-of-scope">Out of scope</a>). The text between the
+<code>opencypher:begin</code> / <code>opencypher:end</code> markers on this page is <strong>generated</strong> by the run and
+checked by every test run (see <a href="#running-and-regenerating">Running and regenerating</a>); never
+edit it by hand.</p>
+<!-- opencypher:begin scope -->
+<p>3818 in-scope test cases; 79 excluded (upstream-ignore 1, w21-property-kinds 1, parameter-at-compile-time 6, zone-name-not-kept 69, year-range 2).</p>
+<!-- opencypher:end scope -->
+<!-- opencypher:begin headline -->
+<div class="table-wrapper"><table><thead><tr><th></th><th style="text-align: right">Test cases</th><th style="text-align: right">Share</th></tr></thead><tbody>
+<tr><td><strong>Passed</strong></td><td style="text-align: right"><strong>3216</strong> / 3818</td><td style="text-align: right"><strong>84.2 %</strong></td></tr>
+<tr><td>Unsupported (not yet or refused)</td><td style="text-align: right">602 / 3818</td><td style="text-align: right">15.8 %</td></tr>
+<tr><td><strong>Wrong behaviour of supported constructs</strong></td><td style="text-align: right"><strong>0</strong> / 3818</td><td style="text-align: right"><strong>0.0 %</strong></td></tr>
+<tr><td>Passed without <code>expressions/temporal</code></td><td style="text-align: right">2761 / 2885</td><td style="text-align: right">95.7 %</td></tr>
+</tbody></table>
+</div>
+<p>Unsupported = missing 533, setup 69. Wrong behaviour = wrong_result 0, wrong_columns 0, wrong_side_effects 0, wrong_error 0, unexpected_error 0, timeout 0, panic 0.</p>
+<!-- opencypher:end headline -->
+<p>The date and time functions (<code>date()</code>, <code>datetime()</code>, <code>duration()</code>, <code>datetime.truncate()</code>, ...)
+are supported with the differences listed on <a href="semantics.html#where-dates-and-times-differ-from-neo4j">Semantics</a>
+(zoned <code>time()</code> not yet), and <code>expressions/temporal</code> is about a quarter of the kit and its least
+covered part, so the headline also shows the share without it. The write clauses (<code>CREATE</code>,
+<code>SET</code>, <code>REMOVE</code>, <code>DELETE</code>, <code>MERGE</code>) pass, and so do the procedure calls of <code>clauses/call</code>: the
+kit declares each procedure it calls with its signature and a table of rows, and the harness
+saves it as a saved GQL query before the case runs (<code>test.my.proc</code> is the query <code>proc</code> of the
+folder <code>test/my</code>, its parameters typed from the signature, its body returning the table's rows
+that match the arguments), which the query then calls with <code>CALL test.my.proc(..)</code>
+(<a href="subset.html#calling-saved-queries">Calling saved queries</a>). <code>rand()</code> is refused by design
+(<a href="refused.html">Refused Constructs</a>). The ranking with counts is in the report.</p>
+<p>Per sub-directory of the kit:</p>
+<!-- opencypher:begin directories -->
+<div class="table-wrapper"><table><thead><tr><th>Directory</th><th style="text-align: right">Pass %</th><th style="text-align: right">Passed</th><th style="text-align: right">Total</th><th style="text-align: right">Unsupported</th><th style="text-align: right">Wrong</th></tr></thead><tbody>
+<tr><td><code>clauses/call</code></td><td style="text-align: right">100.0 %</td><td style="text-align: right">52</td><td style="text-align: right">52</td><td style="text-align: right">·</td><td style="text-align: right">·</td></tr>
+<tr><td><code>clauses/create</code></td><td style="text-align: right">100.0 %</td><td style="text-align: right">78</td><td style="text-align: right">78</td><td style="text-align: right">·</td><td style="text-align: right">·</td></tr>
+<tr><td><code>clauses/delete</code></td><td style="text-align: right">100.0 %</td><td style="text-align: right">41</td><td style="text-align: right">41</td><td style="text-align: right">·</td><td style="text-align: right">·</td></tr>
+<tr><td><code>clauses/match</code></td><td style="text-align: right">99.2 %</td><td style="text-align: right">378</td><td style="text-align: right">381</td><td style="text-align: right">3</td><td style="text-align: right">·</td></tr>
+<tr><td><code>clauses/match-where</code></td><td style="text-align: right">100.0 %</td><td style="text-align: right">34</td><td style="text-align: right">34</td><td style="text-align: right">·</td><td style="text-align: right">·</td></tr>
+<tr><td><code>clauses/merge</code></td><td style="text-align: right">100.0 %</td><td style="text-align: right">75</td><td style="text-align: right">75</td><td style="text-align: right">·</td><td style="text-align: right">·</td></tr>
+<tr><td><code>clauses/remove</code></td><td style="text-align: right">100.0 %</td><td style="text-align: right">33</td><td style="text-align: right">33</td><td style="text-align: right">·</td><td style="text-align: right">·</td></tr>
+<tr><td><code>clauses/return</code></td><td style="text-align: right">98.4 %</td><td style="text-align: right">62</td><td style="text-align: right">63</td><td style="text-align: right">1</td><td style="text-align: right">·</td></tr>
+<tr><td><code>clauses/return-orderby</code></td><td style="text-align: right">100.0 %</td><td style="text-align: right">35</td><td style="text-align: right">35</td><td style="text-align: right">·</td><td style="text-align: right">·</td></tr>
+<tr><td><code>clauses/return-skip-limit</code></td><td style="text-align: right">96.0 %</td><td style="text-align: right">24</td><td style="text-align: right">25</td><td style="text-align: right">1</td><td style="text-align: right">·</td></tr>
+<tr><td><code>clauses/set</code></td><td style="text-align: right">100.0 %</td><td style="text-align: right">52</td><td style="text-align: right">52</td><td style="text-align: right">·</td><td style="text-align: right">·</td></tr>
+<tr><td><code>clauses/union</code></td><td style="text-align: right">100.0 %</td><td style="text-align: right">12</td><td style="text-align: right">12</td><td style="text-align: right">·</td><td style="text-align: right">·</td></tr>
+<tr><td><code>clauses/unwind</code></td><td style="text-align: right">100.0 %</td><td style="text-align: right">14</td><td style="text-align: right">14</td><td style="text-align: right">·</td><td style="text-align: right">·</td></tr>
+<tr><td><code>clauses/with</code></td><td style="text-align: right">96.6 %</td><td style="text-align: right">28</td><td style="text-align: right">29</td><td style="text-align: right">1</td><td style="text-align: right">·</td></tr>
+<tr><td><code>clauses/with-orderBy</code></td><td style="text-align: right">82.2 %</td><td style="text-align: right">240</td><td style="text-align: right">292</td><td style="text-align: right">52</td><td style="text-align: right">·</td></tr>
+<tr><td><code>clauses/with-skip-limit</code></td><td style="text-align: right">77.8 %</td><td style="text-align: right">7</td><td style="text-align: right">9</td><td style="text-align: right">2</td><td style="text-align: right">·</td></tr>
+<tr><td><code>clauses/with-where</code></td><td style="text-align: right">100.0 %</td><td style="text-align: right">19</td><td style="text-align: right">19</td><td style="text-align: right">·</td><td style="text-align: right">·</td></tr>
+<tr><td><code>expressions/aggregation</code></td><td style="text-align: right">100.0 %</td><td style="text-align: right">35</td><td style="text-align: right">35</td><td style="text-align: right">·</td><td style="text-align: right">·</td></tr>
+<tr><td><code>expressions/boolean</code></td><td style="text-align: right">100.0 %</td><td style="text-align: right">150</td><td style="text-align: right">150</td><td style="text-align: right">·</td><td style="text-align: right">·</td></tr>
+<tr><td><code>expressions/comparison</code></td><td style="text-align: right">100.0 %</td><td style="text-align: right">72</td><td style="text-align: right">72</td><td style="text-align: right">·</td><td style="text-align: right">·</td></tr>
+<tr><td><code>expressions/conditional</code></td><td style="text-align: right">100.0 %</td><td style="text-align: right">13</td><td style="text-align: right">13</td><td style="text-align: right">·</td><td style="text-align: right">·</td></tr>
+<tr><td><code>expressions/existentialSubqueries</code></td><td style="text-align: right">100.0 %</td><td style="text-align: right">10</td><td style="text-align: right">10</td><td style="text-align: right">·</td><td style="text-align: right">·</td></tr>
+<tr><td><code>expressions/graph</code></td><td style="text-align: right">100.0 %</td><td style="text-align: right">60</td><td style="text-align: right">60</td><td style="text-align: right">·</td><td style="text-align: right">·</td></tr>
+<tr><td><code>expressions/list</code></td><td style="text-align: right">100.0 %</td><td style="text-align: right">185</td><td style="text-align: right">185</td><td style="text-align: right">·</td><td style="text-align: right">·</td></tr>
+<tr><td><code>expressions/literals</code></td><td style="text-align: right">100.0 %</td><td style="text-align: right">131</td><td style="text-align: right">131</td><td style="text-align: right">·</td><td style="text-align: right">·</td></tr>
+<tr><td><code>expressions/map</code></td><td style="text-align: right">100.0 %</td><td style="text-align: right">44</td><td style="text-align: right">44</td><td style="text-align: right">·</td><td style="text-align: right">·</td></tr>
+<tr><td><code>expressions/mathematical</code></td><td style="text-align: right">100.0 %</td><td style="text-align: right">6</td><td style="text-align: right">6</td><td style="text-align: right">·</td><td style="text-align: right">·</td></tr>
+<tr><td><code>expressions/null</code></td><td style="text-align: right">100.0 %</td><td style="text-align: right">44</td><td style="text-align: right">44</td><td style="text-align: right">·</td><td style="text-align: right">·</td></tr>
+<tr><td><code>expressions/path</code></td><td style="text-align: right">100.0 %</td><td style="text-align: right">7</td><td style="text-align: right">7</td><td style="text-align: right">·</td><td style="text-align: right">·</td></tr>
+<tr><td><code>expressions/pattern</code></td><td style="text-align: right">98.0 %</td><td style="text-align: right">49</td><td style="text-align: right">50</td><td style="text-align: right">1</td><td style="text-align: right">·</td></tr>
+<tr><td><code>expressions/precedence</code></td><td style="text-align: right">100.0 %</td><td style="text-align: right">121</td><td style="text-align: right">121</td><td style="text-align: right">·</td><td style="text-align: right">·</td></tr>
+<tr><td><code>expressions/quantifier</code></td><td style="text-align: right">89.6 %</td><td style="text-align: right">541</td><td style="text-align: right">604</td><td style="text-align: right">63</td><td style="text-align: right">·</td></tr>
+<tr><td><code>expressions/string</code></td><td style="text-align: right">100.0 %</td><td style="text-align: right">32</td><td style="text-align: right">32</td><td style="text-align: right">·</td><td style="text-align: right">·</td></tr>
+<tr><td><code>expressions/temporal</code></td><td style="text-align: right">48.8 %</td><td style="text-align: right">455</td><td style="text-align: right">933</td><td style="text-align: right">478</td><td style="text-align: right">·</td></tr>
+<tr><td><code>expressions/typeConversion</code></td><td style="text-align: right">100.0 %</td><td style="text-align: right">47</td><td style="text-align: right">47</td><td style="text-align: right">·</td><td style="text-align: right">·</td></tr>
+<tr><td><code>useCases/countingSubgraphMatches</code></td><td style="text-align: right">100.0 %</td><td style="text-align: right">11</td><td style="text-align: right">11</td><td style="text-align: right">·</td><td style="text-align: right">·</td></tr>
+<tr><td><code>useCases/triadicSelection</code></td><td style="text-align: right">100.0 %</td><td style="text-align: right">19</td><td style="text-align: right">19</td><td style="text-align: right">·</td><td style="text-align: right">·</td></tr>
+<tr><td><strong>all</strong></td><td style="text-align: right"><strong>84.2 %</strong></td><td style="text-align: right"><strong>3216</strong></td><td style="text-align: right"><strong>3818</strong></td><td style="text-align: right">602</td><td style="text-align: right">·</td></tr>
+</tbody></table>
+</div><!-- opencypher:end directories -->
+<h2 id="out-of-scope"><a class="header" href="#out-of-scope">Out of scope</a></h2>
+<p>Some cases are excluded from the scope: they are not run, get the class <code>excluded</code>, have no
+baseline entry and are in no total or percentage. They are listed by case id, grouped by reason,
+in <code>crates/graphersal/tests/opencypher/harness/scope.rs</code> (ids, never tags or content, so a case
+that a kit upgrade adds is never excluded silently). Merely unimplemented constructs are never
+excluded: they stay <code>missing</code>, the backlog.</p>
+<!-- opencypher:begin excluded -->
+<div class="table-wrapper"><table><thead><tr><th>Code</th><th>Why</th><th>Docs</th><th style="text-align: right">Test cases</th></tr></thead><tbody>
+<tr><td><code>upstream-ignore</code></td><td>marked @ignore by the TCK itself ("does not work in Cypher")</td><td><a href="../gql/tck_compliance.html#out-of-scope">gql/tck_compliance.md#out-of-scope</a></td><td style="text-align: right">1</td></tr>
+<tr><td><code>w21-property-kinds</code></td><td>a list of maps is a valid property value (maps and lists of any kinds are stored as given); Neo4j raises a TypeError (deliberate deviation)</td><td><a href="../gql/semantics.html#writes">gql/semantics.md#writes</a></td><td style="text-align: right">1</td></tr>
+<tr><td><code>parameter-at-compile-time</code></td><td>parameters are bound when the query is compiled: a negative or non-integer SKIP / LIMIT parameter is refused then (22G02 / 22G03), not at runtime (deliberate deviation)</td><td><a href="../gql/semantics.html#parameters-are-bound-when-the-query-is-compiled">gql/semantics.md#parameters-are-bound-when-the-query-is-compiled</a></td><td style="text-align: right">6</td></tr>
+<tr><td><code>zone-name-not-kept</code></td><td>a datetime keeps its UTC offset, not the zone name: a zone name resolves to its offset at that time, so the value prints +01:00, not +01:00[Europe/Stockholm], and a later change of the date keeps the offset (no daylight saving step) (deliberate deviation)</td><td><a href="../gql/semantics.html#where-dates-and-times-differ-from-neo4j">gql/semantics.md#where-dates-and-times-differ-from-neo4j</a></td><td style="text-align: right">69</td></tr>
+<tr><td><code>year-range</code></td><td>temporal values hold the years -9999 to 9999; a year beyond them is a data error (22008), Neo4j reads years up to 999999999 (deliberate deviation)</td><td><a href="../gql/semantics.html#where-dates-and-times-differ-from-neo4j">gql/semantics.md#where-dates-and-times-differ-from-neo4j</a></td><td style="text-align: right">2</td></tr>
+<tr><td><strong>all</strong></td><td></td><td></td><td style="text-align: right"><strong>79</strong></td></tr>
+</tbody></table>
+</div><!-- opencypher:end excluded -->
+<ul>
+<li><strong><code>upstream-ignore</code>:</strong> the one scenario that the kit itself marks <code>@ignore</code>.</li>
+<li><strong><code>w21-property-kinds</code></strong> (a deliberate deviation, user decision): a list of maps is a valid
+property value in Graphersal, where Neo4j raises a <code>TypeError</code>
+(<a href="semantics.html#writes">Semantics</a>).</li>
+<li><strong><code>parameter-at-compile-time</code></strong> (a deliberate deviation, user decision): a negative or
+non-integer <code>$parameter</code> of <code>SKIP</code> / <code>LIMIT</code> is refused when the query is compiled, since
+parameters are bound then; the kit expects the <code>SyntaxError</code> at runtime. The user sees the
+same thing, an error before any row
+(<a href="semantics.html#parameters-are-bound-when-the-query-is-compiled">Semantics</a>).</li>
+</ul>
+<p>Every difference from Neo4j, also those the kit has no case for, is listed on
+<a href="semantics.html#differences-from-neo4j">Semantics</a>.</p>
+<p>The deliberate deviations run in a guard test (<code>deviation_cases_still_deviate</code>): it fails when
+one of them passes, so it moves back into scope. <code>id()</code> (an integer in Neo4j, a string id here)
+does not occur in the pinned kit.</p>
+<h2 id="classes"><a class="header" href="#classes">Classes</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Class</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>pass</code></td><td>every expectation holds: rows (and their order where stated), column names, side effects, the error type and phase</td></tr>
+<tr><td><code>missing</code></td><td>the query uses a construct that <code>gql()</code> refuses or does not support yet (GQLSTATUS <code>0A000</code>); the report ranks the constructs</td></tr>
+<tr><td><code>setup</code></td><td>a setup step (<code>having executed</code>, a named graph, a parameter value) does not run, usually for the same reason</td></tr>
+<tr><td><code>excluded</code></td><td>out of the scope (above): not run, in no total</td></tr>
+<tr><td><code>wrong_result</code></td><td>the rows differ</td></tr>
+<tr><td><code>wrong_columns</code></td><td>the column names differ</td></tr>
+<tr><td><code>wrong_side_effects</code></td><td>the side effects differ, or a failed query changed the graph</td></tr>
+<tr><td><code>wrong_error</code></td><td>an error was expected and another one (type or phase), or none, came</td></tr>
+<tr><td><code>unexpected_error</code></td><td>an error where a result was expected</td></tr>
+<tr><td><code>timeout</code></td><td>a time or resource budget of the harness fired</td></tr>
+<tr><td><code>panic</code></td><td>a panic was caught (a rule-1 violation, top priority)</td></tr>
+</tbody></table>
+</div>
+<p>The headline groups them: <strong>Unsupported</strong> = <code>missing</code> + <code>setup</code>; <strong>Wrong behaviour of
+supported constructs</strong> = the seven classes from <code>wrong_result</code> to <code>panic</code>. An unimplemented
+construct is fine; a supported construct must behave as the kit specifies, unless a user
+decision says otherwise (then the case is excluded with its reason and documented as a
+difference from Neo4j). The wrong-behaviour count is driven to 0.</p>
+<p>Errors match by type and phase only, never by the detail text. The phase comes from where the
+error arose: <em>compile time</em> is an error of parsing, binding or planning, before the traversal
+runs; <em>runtime</em> is an error while it runs.</p>
+<h2 id="running-and-regenerating"><a class="header" href="#running-and-regenerating">Running and regenerating</a></h2>
+<pre><code class="language-bash"># Run the kit (also part of the plain `cargo test --package graphersal --features script,io,display,serde,persist,gql`)
+cargo test --package graphersal --features script,io,display,serde,persist,gql --test opencypher_tck
+
+# Rewrite the baseline AND the generated blocks of this page after intended changes; review the diff like code
+OPENCYPHER_UPDATE_BASELINE=1 cargo test --package graphersal --features script,io,display,serde,persist,gql --test opencypher_tck
+</code></pre>
+<p>Every run prints a summary to stderr and writes the full report to
+<code>target/opencypher-report.md</code>: the headline, the per-directory table, the exclusions with their
+ids, the full wrong-behaviour list by class, the missing constructs ranked by the number of
+cases they block, the setup failures by reason and the baseline class changes.
+<code>OPENCYPHER_DETAILS=1</code> prints one line per in-scope case that does not pass;
+<code>OPENCYPHER_LANES=&lt;n&gt;</code> sets the number of parallel lanes (default: one per core).</p>
+<p>The test fails when:</p>
+<ul>
+<li>a case that is not in the baseline does not pass (a regression);</li>
+<li>a case in the baseline passes now, no longer exists or is excluded (the entry is stale; remove
+it in the same change);</li>
+<li>an id of the scope table does not exist, an <code>@ignore</code> case is not in it, or a
+deliberate deviation passes now (<code>scope_table_is_consistent</code>, <code>deviation_cases_still_deviate</code>);</li>
+<li>a generated block of this page (<code>scope</code>, <code>headline</code>, <code>directories</code>, <code>excluded</code>) differs from
+what the run computes. Only trailing whitespace is ignored.</li>
+</ul>
+<p>A case still failing under another class than recorded is reported, not failed.
+<code>GRAPHERSAL_TEST_STORAGE=forwarding</code> runs the whole kit on a storage that is not
+<code>TraversalGraph</code> (the <code>Forwarding</code> wrapper of <code>graphersal-storage-tests</code>): the same gate against
+the same baseline and page, it additionally fails when a case changes class, never rewrites
+either and writes <code>target/opencypher-report-forwarding.md</code>.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../gql/conformance.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../dsl/writing_queries.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../gql/conformance.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../dsl/writing_queries.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>
