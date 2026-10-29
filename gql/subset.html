@@ -1,0 +1,1557 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>The Supported Subset - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/gql/subset.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="the-supported-subset"><a class="header" href="#the-supported-subset">The Supported Subset</a></h1>
+<p>This page lists what <code>gql()</code> accepts in this version, construct by construct, each with a
+runnable example and, where it is natural, its Gremlin twin. Everything not listed here is an
+error that says so (<a href="#not-supported-yet">Not supported yet</a> at the end,
+<a href="refused.html">Refused Constructs</a> for what will never be supported).</p>
+<h2 id="the-shape-of-a-query"><a class="header" href="#the-shape-of-a-query">The shape of a query</a></h2>
+<pre><code class="language-text">[ clauses, in any order and number:
+  [OPTIONAL] MATCH &lt;pattern&gt; [, &lt;pattern&gt; ...] [WHERE &lt;condition&gt;]
+  LET &lt;name&gt; = &lt;expr&gt; [, ...]
+  FILTER [WHERE] &lt;condition&gt;
+  FOR &lt;name&gt; IN &lt;list&gt; [WITH ORDINALITY &lt;name&gt; | WITH OFFSET &lt;name&gt;]
+  UNWIND &lt;list&gt; AS &lt;name&gt;                     -- Cypher spelling of FOR
+  WITH [DISTINCT] &lt;item&gt; [AS &lt;name&gt;], ...     -- or WITH *; Cypher
+       [ORDER BY ...] [OFFSET &lt;n&gt;] [LIMIT &lt;n&gt;] [WHERE &lt;condition&gt;]
+  [OPTIONAL] CALL [(&lt;name&gt;, ...) | (*)] { &lt;query&gt; }   -- a subquery run for each row
+  [OPTIONAL] CALL &lt;folder&gt;.&lt;name&gt;(&lt;arg&gt;, ...)          -- a saved query run for each row
+       [YIELD &lt;column&gt; [AS &lt;name&gt;], ... [WHERE &lt;condition&gt;]]
+  INSERT &lt;pattern&gt; [, &lt;pattern&gt; ...]          -- Cypher spelling: CREATE; creates per row
+  SET &lt;item&gt; [, ...]  /  REMOVE &lt;item&gt; [, ...] -- change properties and labels per row
+  [DETACH | NODETACH] DELETE &lt;expr&gt; [, ...]   -- removes per row; NODETACH is the default
+  MERGE [&lt;name&gt; =] &lt;pattern&gt;                  -- Cypher; finds or creates one pattern per row
+       { ON CREATE SET &lt;item&gt; [, ...] | ON MATCH SET &lt;item&gt; [, ...] }   -- any number, any order ]
+RETURN [DISTINCT] &lt;item&gt; [AS &lt;name&gt;], ...     -- or RETURN *; items may aggregate
+                                              -- (mandatory unless the last clause writes;
+                                              -- FINISH ends a query without a result)
+[ORDER BY &lt;expr&gt; [ASC | DESC], ...]
+[OFFSET &lt;n&gt;]                                  -- Cypher alias: SKIP
+[LIMIT &lt;n&gt;]
+[ UNION [ALL | DISTINCT] &lt;clauses&gt; RETURN ... [ORDER BY ...] [OFFSET ..] [LIMIT ..] ]   -- any number
+[ NEXT &lt;the same again: clauses, RETURN, UNION ...&gt; ]                                   -- any number
+[;]
+
+-- or a standalone call of a saved query, the whole query:
+CALL &lt;folder&gt;.&lt;name&gt;[(&lt;arg&gt;, ...)] [YIELD * | YIELD &lt;column&gt; [AS &lt;name&gt;], ... [WHERE &lt;condition&gt;]]
+</code></pre>
+<p>A pattern is a path of node and edge patterns, optionally named (<code>p = (a)--&gt;(b)</code>); an edge may
+carry a quantifier (<code>-[:knows]-&gt;{1,3}</code>), and so may a parenthesized part of the path
+(<code>((x)-[:knows]-&gt;(y)){1,3}</code>, a quantified path pattern). A query usually starts with <code>MATCH</code>, but it may start
+with any clause, or with <code>RETURN</code> alone (<a href="#queries-without-match">Queries without MATCH</a>).
+Queries ending in <code>RETURN</code> combine with <code>UNION</code> and continue with <code>NEXT</code>
+(<a href="#union-and-next">UNION and NEXT</a>); <code>NEXT</code> binds looser than <code>UNION</code>. A <code>CALL</code> runs a whole
+query of that shape for each row (<a href="#call-subqueries">CALL subqueries</a>), and <code>CALL folder.name(..)</code> a saved query of the graph's catalog (<a href="#calling-saved-queries">Calling saved
+queries</a>). <code>INSERT</code> creates nodes
+and edges once per row, <code>SET</code> / <code>REMOVE</code> change them, <code>DELETE</code> removes them and Cypher's <code>MERGE</code>
+finds or creates them; a query whose last clause writes may end there and returns no rows
+(<a href="writes.html">Writing with GQL</a>).</p>
+<p>Keywords are case-insensitive (<code>match</code>, <code>Match</code>, <code>MATCH</code>); variables, labels and property keys
+are case-sensitive. The words ISO GQL lists as non-reserved (<code>FIRST</code>, <code>LAST</code>, <code>LABELED</code>,
+<code>SHORTEST</code>) keep their meaning where the grammar expects them (<code>NULLS FIRST</code>, <code>IS LABELED</code>) and
+are names everywhere a variable can stand: <code>WITH [1, 2] AS first RETURN first</code>. Line breaks are whitespace, so a query may span lines. Comments are <code>// ...</code>,
+<code>/* ... */</code> and the GQL <code>-- ...</code> (<a href="rhai_strings.html#comments">the <code>--</code> rule</a>).</p>
+<pre><code class="language-rhai graph=modern">g.gql("match (n:person) where n.age &gt; 30 return n.name as name order by name desc").to_list()   // #{"name": "peter"}, #{"name": "josh"}
+</code></pre>
+<h2 id="match"><a class="header" href="#match">MATCH</a></h2>
+<p><code>MATCH</code> takes one or more patterns separated by commas. A variable written twice is the same
+element: that is how patterns join. Several <code>MATCH</code> clauses in a row combine the same way.</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (a)-[:knows]-&gt;(b), (b)-[:created]-&gt;(s) RETURN a.name AS a, s.name AS s ORDER BY s").to_list()   // #{"a": "marko", "s": "lop"}, #{"a": "marko", "s": "ripple"}
+g.gql("MATCH (a)-[:knows]-&gt;(b) MATCH (b)-[:created]-&gt;(s) RETURN b.name AS b, s.name AS s ORDER BY b, s").to_list()   // #{"b": "josh", "s": "lop"}, #{"b": "josh", "s": "ripple"}
+</code></pre>
+<p>Patterns that share no variable form a Cartesian product: every combination of their matches.</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (a:person), (s:software) WHERE a.age &gt; 32 RETURN a.name AS a, s.name AS s ORDER BY a, s").to_list()   // #{"a": "peter", "s": "lop"}, #{"a": "peter", "s": "ripple"}
+</code></pre>
+<h3 id="node-patterns"><a class="header" href="#node-patterns">Node patterns</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Form</th><th>Matches</th></tr></thead><tbody>
+<tr><td><code>()</code></td><td>any vertex, unnamed</td></tr>
+<tr><td><code>(n)</code></td><td>any vertex, bound to <code>n</code></td></tr>
+<tr><td><code>(n:person)</code> or <code>(n IS person)</code></td><td>a vertex with the label <code>person</code></td></tr>
+<tr><td><code>(n:person {name: 'marko'})</code></td><td>... whose <code>name</code> equals <code>'marko'</code></td></tr>
+<tr><td><code>(n:person WHERE n.age &gt; 30)</code></td><td>... for which the condition is TRUE</td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person {name: 'marko'})--&gt;(x) RETURN x.name AS x ORDER BY x").to_list()   // #{"x": "josh"}, #{"x": "lop"}, #{"x": "vadas"}
+g.gql("MATCH (p:person WHERE p.age &lt; 30) RETURN p.name AS name ORDER BY name").to_list()   // #{"name": "marko"}, #{"name": "vadas"}
+g.v().has_label("person").has("age", P.lt(30)).values("name").order().to_list()   // "marko", "vadas"
+</code></pre>
+<p>An inline property map <code>{k: v}</code> is the same as <code>WHERE n.k = v</code>: a property that is missing or
+<code>NULL</code> never matches.</p>
+<h3 id="edge-patterns"><a class="header" href="#edge-patterns">Edge patterns</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Form</th><th>Abbreviated</th><th>Matches</th></tr></thead><tbody>
+<tr><td><code>-[e:T]-&gt;</code></td><td><code>-&gt;</code> (Cypher <code>--&gt;</code>)</td><td>an edge pointing right</td></tr>
+<tr><td><code>&lt;-[e:T]-</code></td><td><code>&lt;-</code> (Cypher <code>&lt;--</code>)</td><td>an edge pointing left</td></tr>
+<tr><td><code>-[e:T]-</code></td><td><code>-</code> (Cypher <code>--</code>)</td><td>an edge in either direction</td></tr>
+<tr><td><code>&lt;-[e:T]-&gt;</code></td><td><code>&lt;-&gt;</code> (Cypher <code>&lt;--&gt;</code>)</td><td>an edge in either direction (same as <code>-[e]-</code>)</td></tr>
+</tbody></table>
+</div>
+<p>The brackets take the same parts as a node: a variable, a label expression after <code>:</code> or <code>IS</code>,
+an inline property map and a <code>WHERE</code> condition. Graphersal edges are always directed, so
+"either direction" means "pointing left or right"; a self-loop matches once
+(<a href="semantics.html#either-direction-and-self-loops">Semantics</a>).</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (a)-[e:created]-&gt;(s:software) WHERE e.weight &gt;= 0.4 RETURN a.name AS who, s.name AS what, e.weight AS w ORDER BY w DESC, who").to_list()
+// #{"w": 1.0, "what": "ripple", "who": "josh"}, #{"w": 0.4, "what": "lop", "who": "josh"}, #{"w": 0.4, "what": "lop", "who": "marko"}
+g.gql("MATCH (s:software)&lt;-[:created]-(p) RETURN s.name AS sw, p.name AS author ORDER BY sw, author").to_list()
+// #{"author": "josh", "sw": "lop"}, #{"author": "marko", "sw": "lop"}, #{"author": "peter", "sw": "lop"}, #{"author": "josh", "sw": "ripple"}
+g.gql("MATCH (a)-[:knows]-(b) RETURN a.name AS a, b.name AS b ORDER BY a, b").to_list()
+// #{"a": "josh", "b": "marko"}, #{"a": "marko", "b": "josh"}, #{"a": "marko", "b": "vadas"}, #{"a": "vadas", "b": "marko"}
+g.gql("MATCH (a {name: 'marko'})-(b) RETURN b.name AS b ORDER BY b").to_list()   // #{"b": "josh"}, #{"b": "lop"}, #{"b": "vadas"}
+g.v().has("name", "marko").both().values("name").order().to_list()   // "josh", "lop", "vadas"
+</code></pre>
+<p>Patterns chain: <code>(a)-[..]-&gt;(b)-[..]-&gt;(c)</code> is a path of two hops, and the same variable may close a
+cycle.</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (a:person)-[:knows]-&gt;(b)-[:created]-&gt;(s) RETURN a.name AS a, b.name AS b, s.name AS s ORDER BY b, s").to_list()
+// #{"a": "marko", "b": "josh", "s": "lop"}, #{"a": "marko", "b": "josh", "s": "ripple"}
+g.v().has_label("person").as("a").out("knows").as("b").out("created").as("s").select("a", "b", "s").by("name").to_list()
+// #{"a": "marko", "b": "josh", "s": "ripple"}, #{"a": "marko", "b": "josh", "s": "lop"}
+g.gql("MATCH (a)-[:created]-&gt;(s)&lt;-[:created]-(b) RETURN a.name AS a, b.name AS b, s.name AS s ORDER BY s, a, b").to_list()
+// josh/marko, josh/peter, marko/josh, marko/peter, peter/josh, peter/marko, all on "lop"
+</code></pre>
+<p>The last query never pairs a person with themselves: both edges would be the same edge, and a
+<code>MATCH</code> binds every edge at most once (<a href="semantics.html#trail-different-edges">trail semantics</a>).</p>
+<h3 id="quantified-edges"><a class="header" href="#quantified-edges">Quantified edges</a></h3>
+<p>A quantifier after an edge pattern repeats the edge: <code>(a)-[:knows]-&gt;{1,3}(b)</code> matches a path of
+one to three <code>knows</code> edges from <code>a</code> to <code>b</code>, every node in between unnamed. It applies to full and
+abbreviated edges (<code>-&gt;{2}</code>) in every direction.</p>
+<div class="table-wrapper"><table><thead><tr><th>Quantifier</th><th>Repeats the edge</th><th>Cypher spelling (<a href="aliases.html">alias</a>)</th></tr></thead><tbody>
+<tr><td><code>{m,n}</code></td><td><code>m</code> to <code>n</code> times</td><td><code>[*m..n]</code></td></tr>
+<tr><td><code>{n}</code></td><td>exactly <code>n</code> times</td><td><code>[*n]</code></td></tr>
+<tr><td><code>{m,}</code></td><td>at least <code>m</code> times</td><td><code>[*m..]</code></td></tr>
+<tr><td><code>{,n}</code></td><td>0 to <code>n</code> times</td><td></td></tr>
+<tr><td><code>*</code></td><td>0 or more times, <code>{0,}</code></td><td></td></tr>
+<tr><td><code>+</code></td><td>1 or more times, <code>{1,}</code></td><td><code>[*]</code> (Cypher's lower bound is 1)</td></tr>
+<tr><td></td><td>1 to <code>n</code> times, <code>{1,n}</code></td><td><code>[*..n]</code></td></tr>
+<tr><td></td><td>never: no match</td><td><code>[*m..n]</code> with <code>m &gt; n</code>, <code>[*..0]</code></td></tr>
+</tbody></table>
+</div>
+<p>A GQL lower bound above the upper bound (<code>{3,1}</code>) is a syntax error; the Cypher spelling of the
+same interval (<code>[*3..1]</code>) is empty and matches nothing, as in Neo4j.</p>
+<p>A lower bound of 0 includes the zero-length match, where <code>b</code> is <code>a</code> itself. The edges of one match
+are all different (trail), so an unbounded quantifier ends on every finite graph
+(<a href="semantics.html#quantified-edges">Semantics</a>). The Gremlin twin is a <code>repeat()</code> with <code>emit()</code> and
+<code>times()</code>:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (a {name: 'marko'})-[:knows|created]-&gt;{1,2}(b) RETURN b.name AS b ORDER BY b").to_list()
+// josh, lop, lop, ripple, vadas
+g.v().has("name", "marko").repeat(__.out("knows", "created")).emit().times(2).values("name").order().to_list()
+// "josh", "lop", "lop", "ripple", "vadas"
+g.gql("MATCH (a {name: 'marko'})-&gt;{2}(b) RETURN b.name AS b ORDER BY b").to_list()   // #{"b": "lop"}, #{"b": "ripple"}
+g.v().has("name", "marko").repeat(__.out()).times(2).values("name").order().to_list()   // "lop", "ripple"
+g.gql("MATCH (a {name: 'marko'})-&gt;{0,1}(b) RETURN b.name AS b ORDER BY b").to_list()   // josh, lop, marko, vadas
+g.v().has("name", "marko").emit().repeat(__.out()).times(1).values("name").order().to_list()   // "josh", "lop", "marko", "vadas"
+g.gql("MATCH (a {name: 'marko'})-[:knows]-&gt;{1,2}(b)-[:created]-&gt;(s) RETURN b.name AS b, s.name AS s ORDER BY b, s").to_list()
+// #{"b": "josh", "s": "lop"}, #{"b": "josh", "s": "ripple"}
+</code></pre>
+<p>The variable of a quantified edge is a <strong>group variable</strong>: after the pattern it is the list of
+the edges of the match, in the written order (<code>[]</code> for a zero-length match). Inside its own
+brackets (<code>-[e WHERE e.weight &gt; 0.5]-&gt;{1,2}</code>) it is the single edge of each repetition, so the
+condition tests every edge:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (a {name: 'marko'})-[e]-&gt;*(b) RETURN b.name AS b, size(e) AS hops ORDER BY hops, b").to_list()
+// marko 0, josh 1, lop 1, vadas 1, lop 2, ripple 2
+g.gql("MATCH (a {name: 'marko'})-[e:knows|created WHERE e.weight &gt; 0.5]-&gt;{1,2}(b) RETURN b.name AS b, e AS edges ORDER BY b").to_list()
+// #{"b": "josh", "edges": [e[2][1-knows-&gt;4]]}, #{"b": "ripple", "edges": [e[2][1-knows-&gt;4], e[4][4-created-&gt;5]]}
+g.v().has("name", "marko").repeat(__.out_e("knows", "created").has("weight", P.gt(0.5)).in_v()).emit().times(2).values("name").order().to_list()
+// "josh", "ripple"
+</code></pre>
+<p>To repeat more than one edge, put the chain in parentheses and quantify it:
+<a href="#quantified-path-patterns">a quantified path pattern</a>.</p>
+<h3 id="quantified-path-patterns"><a class="header" href="#quantified-path-patterns">Quantified path patterns</a></h3>
+<p>A parenthesized path pattern <code>( &lt;chain&gt; [WHERE &lt;condition&gt;] )</code> with a quantifier after its <code>)</code>
+repeats the whole chain, its nodes, edges and conditions included:
+<code>(a) ((x)-[:created]-&gt;(s)&lt;-[:created]-(y)){1,2} (b)</code> walks from <code>a</code> to <code>b</code> over one or two
+"created the same software" hops. It takes every quantifier of a quantified edge (<code>{m,n}</code>, <code>{n}</code>,
+<code>{m,}</code>, <code>{,n}</code>, <code>*</code>, <code>+</code>) and also <code>?</code> (0 or 1 times); without a quantifier it matches exactly
+once.</p>
+<ul>
+<li><strong>The outer nodes merge with the body.</strong> The node written before the group is the first node of
+the first iteration, the node after it the last node of the last iteration, and consecutive
+iterations join end to start: <code>(a) ((x)--&gt;(y)){1,3} (b)</code> binds <code>a</code> = the first <code>x</code> and <code>b</code> = the
+last <code>y</code>. Where the text has no node next to the group (at the start or end of the path, or
+between two groups), an anonymous one stands. After zero iterations (<code>{0,n}</code>, <code>*</code>, <code>?</code>) the two
+outer nodes are the same node.</li>
+<li><strong>Body variables are group variables.</strong> With a quantifier other than <code>?</code>, every variable inside
+the body is, after the pattern, the list of its nodes or edges, one per iteration in walk
+order, like the variable of a quantified edge. Read the list (<code>size(x)</code>, <code>[n IN x | n.name]</code>,
+<code>RETURN x</code>), not a property of it: <code>x.name</code> outside the body is an error. With <code>?</code> or without a
+quantifier the body variables are single values; with <code>?</code> they are <code>NULL</code> when the part
+matched nothing (<a href="semantics.html#quantified-path-patterns">Semantics</a>).</li>
+<li><strong>The body condition runs in every iteration.</strong> The <code>WHERE</code> before the closing parenthesis, and
+the inline maps and <code>WHERE</code>s of the body's elements, test each iteration's elements, and read
+only the body's variables, parameters and values; test an outer variable in the <code>WHERE</code> of the
+<code>MATCH</code> clause.</li>
+<li><strong>Trail holds across iterations.</strong> No edge is bound twice in one match, across the iterations,
+the body's edges and the other edges of the clause.</li>
+</ul>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (a {name: 'marko'}) ((x)-[e:knows|created]-&gt;(y)){1,2} (b) RETURN b.name AS b, size(e) AS hops ORDER BY hops, b").to_list()
+// josh 1, lop 1, vadas 1, lop 2, ripple 2
+g.gql("MATCH (a {name: 'marko'}) ((x)-[:knows|created]-&gt;(y)){1,2} (b) RETURN [n IN x | n.name] AS xs, [n IN y | n.name] AS ys ORDER BY ys").to_list()
+// #{"xs": ["marko"], "ys": ["josh"]}, #{"xs": ["marko", "josh"], "ys": ["josh", "lop"]}, #{"xs": ["marko", "josh"], "ys": ["josh", "ripple"]}, #{"xs": ["marko"], "ys": ["lop"]}, #{"xs": ["marko"], "ys": ["vadas"]}
+g.gql("MATCH (a:person) ((x)-[:created]-&gt;(s)&lt;-[:created]-(y)){1,2} (b) RETURN DISTINCT a.name AS a, b.name AS b ORDER BY a, b").to_list()
+// josh/marko, josh/peter, marko/josh, marko/peter, peter/josh, peter/marko
+g.gql("MATCH (a:person) ((x)-[:knows|created]-(y) WHERE y.age &gt; x.age){1,3} (b) RETURN a.name AS a, b.name AS b, size(y) AS steps ORDER BY a, b").to_list()
+// #{"a": "marko", "b": "josh", "steps": 1}, #{"a": "vadas", "b": "josh", "steps": 2}, #{"a": "vadas", "b": "marko", "steps": 1}
+g.gql("MATCH (p:person {name: 'josh'}) ((x)-[:created]-&gt;(s) WHERE s.lang = 'java')? (q) RETURN s.name AS project, q.name AS last ORDER BY project").to_list()
+// #{"last": "lop", "project": "lop"}, #{"last": "ripple", "project": "ripple"}, #{"last": "josh", "project": ()}
+g.gql("MATCH ((x:person)-[:created]-&gt;(s) WHERE s.name = 'ripple') RETURN x.name AS who").to_list()   // #{"who": "josh"}
+</code></pre>
+<p>The Gremlin twin is a <code>repeat()</code> of the body's steps; the second-to-last query is a filter on the
+body run in every iteration:</p>
+<pre><code class="language-rhai graph=modern">g.v().has_label("person").as("a").repeat(__.out_e("created").in_v().in_e("created").out_v()).emit().times(2).simple_path().as("b").select("a", "b").by("name").dedup().to_list()
+// the same six pairs (simple_path() stands in for trail here)
+</code></pre>
+<p>A quantified path pattern stands wherever a pattern does: in <code>MATCH</code> and <code>OPTIONAL MATCH</code>, in
+<code>EXISTS { }</code>, <code>COUNT { }</code> and <code>COLLECT { }</code>, in a pattern comprehension and in a Cypher pattern
+predicate (which names no new variable, so its body stays anonymous):</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) RETURN p.name AS p, [(p) ((x)-[:created]-&gt;(s)&lt;-[:created]-(y)){1,2} (q) | q.name] AS co ORDER BY p").to_list()
+// josh [peter, marko], marko [peter, josh], peter [josh, marko], vadas []
+g.gql("MATCH (p:person) WHERE EXISTS { (p) ((x)-[:knows]-&gt;(y)){1,3} (q:person {name: 'josh'}) } RETURN p.name AS p").to_list()   // #{"p": "marko"}
+g.gql("MATCH (p:person) WHERE (p) (()-[:knows]-&gt;()-[:created]-&gt;()){1} RETURN p.name AS p").to_list()   // #{"p": "marko"}
+</code></pre>
+<p>Not yet supported inside the body (each refused with GQLSTATUS <code>0A000</code> and a help line naming
+the rewrite): a nested parenthesized path pattern, a quantified edge, a path variable (<code>p =</code> goes
+on the whole path), a path mode or search prefix, several comma-separated patterns or a union
+(<code>|</code>), a body without an edge, a variable written twice in one body, a variable bound outside
+the body written again inside it, a condition reading an outer variable, and a subquery. A
+variable inside a quantified body must be a new name (<code>42002</code>).</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (a) (((x)--&gt;(y)){2})+ (b) RETURN b")   // error: a parenthesized path pattern nested in another one is not yet supported
+g.gql("MATCH (a) ((x)--&gt;(y)--&gt;(z)){1,3} (b) RETURN b.name AS b ORDER BY b").to_list()   // #{"b": "lop"}, #{"b": "ripple"}
+g.gql("MATCH (a) ((x)--&gt;(y))+ (b) RETURN x.name")   // error: `x` is a group variable of the quantified path pattern
+</code></pre>
+<h3 id="path-variables"><a class="header" href="#path-variables">Path variables</a></h3>
+<p><code>p = &lt;path pattern&gt;</code> names the whole path. <code>RETURN p</code> returns it as a path value (the
+alternating vertices and edges, the same value as Gremlin's <code>path()</code>;
+<a href="result_shape.html#paths">Result Shape</a>), and <code>path_length(p)</code> (Cypher <code>length(p)</code>) is its number
+of edges. A quantified edge or path pattern contributes all its edges and the vertices in
+between.</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH p = (a {name: 'marko'})-[:knows]-&gt;(b)-[:created]-&gt;(s) RETURN p, path_length(p) AS len ORDER BY s.name").to_list()
+// #{"len": 2, "p": [v[1], e[2][1-knows-&gt;4], v[4], e[3][4-created-&gt;3], v[3]]}, #{"len": 2, "p": [v[1], e[2][1-knows-&gt;4], v[4], e[4][4-created-&gt;5], v[5]]}
+g.v().has("name", "marko").out_e("knows").in_v().out_e("created").in_v().path().to_list()
+// [v[1], e[2][1-knows-&gt;4], v[4], e[4][4-created-&gt;5], v[5]], [v[1], e[2][1-knows-&gt;4], v[4], e[3][4-created-&gt;3], v[3]]
+g.gql("MATCH p = (a {name: 'marko'})-&gt;{1,2}(b) RETURN b.name AS b, length(p) AS len ORDER BY len, b").to_list()
+// josh 1, lop 1, vadas 1, lop 2, ripple 2
+</code></pre>
+<p>A path is a value: it compares (<code>p = q</code>), sorts, groups and goes into <code>collect_list()</code>. The
+Cypher functions <code>nodes(p)</code> and <code>relationships(p)</code> return its vertices and its edges as lists
+(<a href="#lists-elements-and-paths">Lists, elements and paths</a>):</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH p = (a {name: 'marko'})-[:knows]-&gt;(b) RETURN nodes(p) AS n, relationships(p) AS r ORDER BY b.name").to_list()
+// #{"n": [v[1], v[4]], "r": [e[2][1-knows-&gt;4]]}, #{"n": [v[1], v[2]], "r": [e[0][1-knows-&gt;2]]}
+g.v().has("name", "marko").out_e("knows").in_v().path().to_list()
+// [v[1], e[2][1-knows-&gt;4], v[4]], [v[1], e[0][1-knows-&gt;2], v[2]]
+</code></pre>
+<h2 id="label-expressions"><a class="header" href="#label-expressions">Label expressions</a></h2>
+<p>After <code>:</code> or <code>IS</code>, on nodes and edges:</p>
+<div class="table-wrapper"><table><thead><tr><th>Expression</th><th>Means</th></tr></thead><tbody>
+<tr><td><code>A</code></td><td>has the label <code>A</code></td></tr>
+<tr><td><code>A&amp;B</code></td><td>has both (Cypher <code>:A:B</code>)</td></tr>
+<tr><td><code>A|B</code></td><td>has at least one</td></tr>
+<tr><td><code>!A</code></td><td>does not have <code>A</code></td></tr>
+<tr><td><code>%</code></td><td>has any label (the label set is not empty)</td></tr>
+<tr><td><code>(...)</code></td><td>grouping, as in <code>A&amp;(B|C)</code></td></tr>
+</tbody></table>
+</div>
+<p>A vertex tests its <a href="../users_guide/multi_label_vertices.html">label set</a>; an edge has exactly one
+label.</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (n:person|software) RETURN n.name AS name ORDER BY name LIMIT 3").to_list()   // #{"name": "josh"}, #{"name": "lop"}, #{"name": "marko"}
+g.gql("MATCH (n:!person) RETURN n.name AS name ORDER BY name").to_list()   // #{"name": "lop"}, #{"name": "ripple"}
+g.v().not(__.has_label("person")).values("name").order().to_list()   // "lop", "ripple"
+g.gql("MATCH (n IS person&amp;!software) RETURN n.name AS name ORDER BY name").to_list()   // josh, marko, peter, vadas
+</code></pre>
+<p>In expressions the same test is <code>v IS [NOT] LABELED &lt;label expression&gt;</code> (Cypher: <code>v:A</code>):</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (n) WHERE n IS LABELED software RETURN n.name AS name ORDER BY name").to_list()   // #{"name": "lop"}, #{"name": "ripple"}
+g.gql("MATCH (n) WHERE n:software RETURN n.name AS name ORDER BY name").to_list()   // #{"name": "lop"}, #{"name": "ripple"}
+</code></pre>
+<h2 id="where"><a class="header" href="#where">WHERE</a></h2>
+<p><code>WHERE</code> after a <code>MATCH</code> clause (or inside a node or edge pattern) keeps the rows for which the
+condition is TRUE; FALSE and <code>NULL</code> drop the row (<a href="semantics.html#null-and-three-valued-logic">three-valued logic</a>).
+It may read every variable of its <code>MATCH</code> clause and of the clauses before it.</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (a:person), (b:person) WHERE a.age &lt; b.age AND a.name STARTS WITH 'm' RETURN a.name AS a, b.name AS b ORDER BY b").to_list()
+// #{"a": "marko", "b": "josh"}, #{"a": "marko", "b": "peter"}
+</code></pre>
+<h2 id="exists-and-pattern-predicates"><a class="header" href="#exists-and-pattern-predicates">EXISTS and pattern predicates</a></h2>
+<p>An <code>EXISTS</code> subquery tests whether a pattern matches: it is TRUE when its body has at least one
+match for the row and FALSE otherwise, never <code>NULL</code>. Three forms mean the same:</p>
+<pre><code class="language-text">EXISTS { MATCH &lt;pattern&gt; [, &lt;pattern&gt; ...] [WHERE &lt;condition&gt;] [MATCH ...] }
+EXISTS { &lt;pattern&gt; [, &lt;pattern&gt; ...] [WHERE &lt;condition&gt;] }
+EXISTS ( ... )                                -- either body in parentheses
+(a)-[:knows]-&gt;(b)                             -- Cypher pattern predicate: a pattern where a condition stands
+</code></pre>
+<p>The body reads the variables bound before it (they are <strong>imported</strong>: <code>p</code> inside is the row's
+<code>p</code>), and the variables it binds itself stay inside it. A pattern predicate is
+<code>EXISTS { &lt;pattern&gt; }</code> written without the keyword; it must not name a new variable (write
+<code>EXISTS { MATCH .. }</code> to name one), and it stands only where a condition does: a <code>WHERE</code> or
+<code>FILTER</code> condition (also under <code>NOT</code>, <code>AND</code>, <code>OR</code>, <code>XOR</code>), the <code>WHERE</code> of a comprehension and a
+<code>WHEN</code> of a searched <code>CASE</code>. Anywhere else (a <code>RETURN</code> column, a function argument, a <code>LET</code>
+value) it is a syntax error (<code>42001</code>), as in Neo4j: write <code>EXISTS { .. }</code>, <code>COUNT { .. }</code> or a
+pattern comprehension there. The Gremlin twins are
+<code>where(__..)</code> and <code>not(__..)</code>, and the "who has no ..." question runs exactly as its twin:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) WHERE NOT EXISTS { (p)-[:created]-&gt;() } RETURN p.name AS name ORDER BY name").to_list()   // #{"name": "vadas"}
+g.gql("MATCH (p:person) WHERE NOT (p)-[:created]-&gt;() RETURN p.name AS name ORDER BY name").to_list()   // #{"name": "vadas"}
+g.v().has_label("person").not(__.out("created")).values("name").to_list()   // "vadas"
+g.gql("MATCH (p:person) WHERE EXISTS { MATCH (p)-[:created]-&gt;(s) WHERE s.name = 'ripple' } RETURN p.name AS name").to_list()   // #{"name": "josh"}
+g.v().has_label("person").where(__.out("created").has("name", "ripple")).values("name").to_list()   // "josh"
+g.gql("MATCH (a:person), (b:person) WHERE (a)-[:knows]-&gt;(b) RETURN a.name AS a, b.name AS b ORDER BY b").to_list()
+// #{"a": "marko", "b": "josh"}, #{"a": "marko", "b": "vadas"}
+g.gql("MATCH (p:person) WHERE EXISTS (MATCH (p)-[:knows]-&gt;(f) MATCH (f)-[:created]-&gt;(:software {name: 'ripple'})) RETURN p.name AS name").to_list()   // #{"name": "marko"}
+</code></pre>
+<p><code>EXISTS</code> stands anywhere an expression does: in <code>WHERE</code> and <code>FILTER</code>, in the inline <code>WHERE</code> of a
+node or edge pattern, under <code>OR</code>, <code>XOR</code> and <code>CASE</code>, in a <code>RETURN</code> or <code>WITH</code> column, an
+<code>ORDER BY</code> key, a grouping key or an aggregate's argument, a <code>FOR</code> list. It composes with
+three-valued logic like any boolean (<a href="semantics.html#exists-and-pattern-predicates">Semantics</a>).</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) WHERE p.age &gt; 30 OR (p)&lt;-[:knows]-() RETURN p.name AS name ORDER BY name").to_list()   // josh, peter, vadas
+g.gql("MATCH (p:person) RETURN p.name AS name, EXISTS { (p)-[:knows]-&gt;() } AS knows ORDER BY knows DESC, name").to_list()
+// #{"knows": true, "name": "marko"}, #{"knows": false, "name": "josh"}, ... peter, vadas
+g.gql("MATCH (p:person) RETURN EXISTS { (p)-[:created]-&gt;() } AS creator, count(*) AS n ORDER BY creator").to_list()
+// #{"creator": false, "n": 1}, #{"creator": true, "n": 3}
+g.gql("MATCH (p:person WHERE NOT (p)-[:created]-&gt;())-[:knows]-(f) RETURN p.name AS p, f.name AS f").to_list()   // #{"f": "marko", "p": "vadas"}
+</code></pre>
+<p>The body holds <code>MATCH</code> clauses with their <code>WHERE</code> (and nested subqueries), or a <strong>whole
+query</strong>: any clauses (<code>OPTIONAL MATCH</code>, <code>WITH</code>, <code>LET</code>, <code>FILTER</code>, <code>FOR</code>, <code>CALL</code>), <code>UNION</code> and
+<code>NEXT</code>, ending in <code>RETURN</code>. <code>EXISTS</code> is then TRUE when that query returns at least one row, and
+its <code>RETURN</code> items are still evaluated (a failing expression there fails the query). Whole-query
+bodies nest at most 16 levels, <code>CALL</code> bodies included. A query holds at most 64 subqueries,
+<a href="#map-projections-and-comprehensions">pattern comprehensions</a>, <code>COUNT { }</code> and <code>COLLECT { }</code>
+included (<a href="errors.html#subqueries">Errors</a>).</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) WHERE EXISTS { MATCH (p)-[:created]-&gt;(s) WITH count(s) AS c WHERE c &gt; 1 RETURN c } RETURN p.name AS name").to_list()   // #{"name": "josh"}
+g.gql("MATCH (p:person) WHERE EXISTS { MATCH (p)-[:created]-&gt;(s) RETURN s UNION MATCH (p)-[:knows]-&gt;(s) RETURN s } RETURN p.name AS name ORDER BY name").to_list()   // josh, marko, peter
+g.gql("MATCH (p:person) WHERE (p)-[:knows]-&gt;(q) RETURN p.name AS name")   // error: the pattern predicate introduces the new variable `q`
+g.gql("MATCH (p:person) RETURN p.name AS name, (p)-[:knows]-&gt;() AS k")   // error: a pattern alone is a condition only in WHERE (42001)
+g.gql("MATCH (p:person) WHERE EXISTS { MATCH (p)-[:created]-&gt;(s) } RETURN s.name AS s")   // error: `s` is bound inside a subquery
+</code></pre>
+<h3 id="count-and-collect"><a class="header" href="#count-and-collect">COUNT and COLLECT</a></h3>
+<p><code>COUNT { }</code> counts and <code>COLLECT { }</code> collects what a subquery finds for each row. They are not
+GQL: like the <a href="#list-predicates-and-reduce">list predicates</a> they are openCypher compatibility
+forms, accepted with their Neo4j Cypher 25 meaning (<a href="aliases.html#count-and-collect">Cypher Aliases</a>).
+Their bodies are those of <code>EXISTS</code>, and they stand anywhere an expression does:</p>
+<pre><code class="language-text">COUNT { &lt;pattern&gt; [WHERE &lt;condition&gt;] }       -- the number of matches
+COUNT { MATCH ... }                           -- the same
+COUNT { &lt;query ending in RETURN&gt; }            -- the number of rows the query returns
+COLLECT { &lt;query ending in RETURN &lt;one item&gt;&gt; }   -- the list of that item, one entry per row
+</code></pre>
+<p><code>COUNT { }</code> is an integer, 0 when nothing matches, never <code>NULL</code>; <code>COUNT { .. } &gt; 0</code> keeps the
+rows <code>EXISTS</code> keeps. <code>COLLECT { }</code> is a list in the order the body returns its rows (its own
+<code>ORDER BY</code> decides it), <code>[]</code> when there are none, with <code>NULL</code> items kept. Each row runs the body
+once, like the Gremlin twins <code>project(..).by(__.out("created").count())</code> and
+<code>by(__.out("created").values("name").fold())</code>:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) RETURN p.name AS name, COUNT { (p)-[:created]-&gt;() } AS n ORDER BY name").to_list()   // josh 2, marko 1, peter 1, vadas 0
+g.v().has_label("person").order().by("name").project("name", "n").by("name").by(__.out("created").count()).to_list()   // the same rows
+g.gql("MATCH (p:person) RETURN p.name AS name, COLLECT { MATCH (p)-[:created]-&gt;(s) RETURN s.name ORDER BY s.name } AS sw ORDER BY name").to_list()
+// josh [lop, ripple], marko [lop], peter [lop], vadas []
+g.gql("MATCH (p:person {name: 'marko'}) RETURN COLLECT { MATCH (p)-[:knows]-&gt;(f) RETURN f.lang } AS l").to_list()   // #{"l": [(), ()]}: NULLs kept
+g.gql("MATCH (p:person) WHERE COUNT { (p)-[:created]-&gt;() } &gt; 1 RETURN p.name AS name").to_list()   // #{"name": "josh"}
+g.gql("MATCH (p:person) RETURN p.name AS name, COUNT { MATCH (p)-[:created]-&gt;(s) RETURN s.lang AS l UNION MATCH (p)-[:knows]-&gt;(f) RETURN f.name AS l } AS n ORDER BY name").to_list()
+// josh 1 (java once), marko 3, peter 1, vadas 0
+</code></pre>
+<p><code>COLLECT { }</code> needs a body ending in a <code>RETURN</code> of exactly one item. When a <code>COUNT { }</code> body
+is one query whose final <code>RETURN</code> only projects (no aggregate, <code>DISTINCT</code>, <code>ORDER BY</code> or
+<code>UNION</code>), its rows are counted without evaluating the <code>RETURN</code> items, so an expression there
+that would fail raises no error (<a href="semantics.html#count-and-collect">Semantics</a>).</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) RETURN COLLECT { MATCH (p)-[:knows]-&gt;(f) RETURN f.name, f.age } AS l")   // error: COLLECT { } needs a body that ends in a RETURN of exactly one column
+g.gql("MATCH (p:person) RETURN p.name AS name, COUNT { MATCH (p)-[:created]-&gt;(s) RETURN 1 / 0 AS x } AS n ORDER BY name").to_list()   // josh 2, marko 1, peter 1, vadas 0: 1 / 0 never runs
+</code></pre>
+<h2 id="optional-match"><a class="header" href="#optional-match">OPTIONAL MATCH</a></h2>
+<p><code>OPTIONAL MATCH</code> keeps every row that reaches it: where its pattern (and its own <code>WHERE</code>)
+matches, the row is extended once per match; where it does not, the row continues once with the
+new variables set to <code>NULL</code>. Gremlin's twin is <code>optional()</code>.</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) OPTIONAL MATCH (p)-[:created]-&gt;(s) RETURN p.name AS name, s.name AS sw ORDER BY name, sw").to_list()
+// #{"name": "josh", "sw": "lop"}, #{"name": "josh", "sw": "ripple"}, #{"name": "marko", "sw": "lop"}, #{"name": "peter", "sw": "lop"}, #{"name": "vadas", "sw": ()}
+g.v().has_label("person").as("p").optional(__.out("created").as("s")).project("name", "sw").by(__.select("p").values("name")).by(__.coalesce(__.select("s").values("name"), __.constant("-"))).order().by("name").to_list()
+// the same five rows, vadas with "-"
+</code></pre>
+<p>The <code>WHERE</code> of an <code>OPTIONAL MATCH</code> belongs to it: a row whose optional part fails the condition
+keeps its <code>NULL</code>s instead of being dropped. A leading <code>OPTIONAL MATCH</code> starts from one empty row,
+so a pattern without a match gives one row of <code>NULL</code>s:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) OPTIONAL MATCH (p)-[:created]-&gt;(s) WHERE s.lang = 'none' RETURN p.name AS name, s AS s ORDER BY name").to_list()
+// josh, marko, peter, vadas, each with s ()
+g.gql("OPTIONAL MATCH (n:robot) RETURN n").to_list()   // #{"n": ()}
+</code></pre>
+<p><code>NULL</code> columns then work as everywhere: <code>count(s)</code> skips them, so this counts each person's
+software, 0 for vadas (<a href="#aggregation">Aggregation</a>).</p>
+<h2 id="let-and-filter"><a class="header" href="#let-and-filter">LET and FILTER</a></h2>
+<p><code>LET name = expr</code> names a value computed from the variables in scope; <code>FILTER condition</code>
+(<code>FILTER WHERE condition</code> too) keeps the rows for which it is TRUE, like a <code>WHERE</code> that may stand
+anywhere between the clauses. Neither changes the rows otherwise: <code>MATCH ... LET ... FILTER ...</code>
+runs exactly like the same query with the value written out in <code>WHERE</code> and <code>RETURN</code>, including
+the conditions that become <code>has()</code> (<a href="plans.html#let-filter-and-with">Plans and Performance</a>).</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) LET decade = p.age / 10 * 10 FILTER decade = 30 RETURN p.name AS name, decade ORDER BY name").to_list()
+// #{"decade": 30, "name": "josh"}, #{"decade": 30, "name": "peter"}
+g.v().has_label("person").has("age", P.between(30, 40)).project("name", "decade").by("name").by(__.constant(30)).order().by("name").to_list()
+// the same rows
+</code></pre>
+<p>A <code>LET</code> name may not be bound again, and a <code>LET</code> item may not read a name defined in the same
+<code>LET</code> (write a second <code>LET</code>).</p>
+<h2 id="with"><a class="header" href="#with">WITH</a></h2>
+<p><code>WITH</code> (Cypher; GQL's linear statements express the same) ends one part of the query and passes
+only its items on: the next clauses see only the names <code>WITH</code> lists (<code>WITH *</code> keeps all; with
+nothing in scope it passes the rows on, as in <code>MATCH () CREATE () WITH * CREATE ()</code>). An item
+that is not a plain variable needs <code>AS</code>. <code>WITH</code> may take <code>DISTINCT</code>, an aggregate,
+<code>ORDER BY</code>, <code>OFFSET</code> / <code>SKIP</code>, <code>LIMIT</code> and a <code>WHERE</code>, in this order; the <code>WHERE</code> filters <strong>after</strong>
+<code>LIMIT</code> (Cypher's order of the sub-clauses). The <code>WHERE</code> reads the items and also the variables
+the <code>WITH</code> drops (<code>WITH c WHERE r IS NULL</code>), except after an aggregation; after <code>DISTINCT</code> it
+filters the rows before they are folded (with <code>DISTINCT</code> and <code>ORDER BY</code> / <code>OFFSET</code> / <code>LIMIT</code> too,
+such a <code>WHERE</code> is not yet supported).</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) WITH p.name AS name, p.age AS age WHERE age &lt; 30 RETURN name ORDER BY name").to_list()   // #{"name": "marko"}, #{"name": "vadas"}
+g.gql("MATCH (p:person) WITH p ORDER BY p.age DESC LIMIT 2 MATCH (p)-[:created]-&gt;(s) RETURN p.name AS name, s.name AS sw ORDER BY name, sw").to_list()
+// #{"name": "josh", "sw": "lop"}, #{"name": "josh", "sw": "ripple"}, #{"name": "peter", "sw": "lop"}
+g.gql("MATCH (p:person) WITH p ORDER BY p.age LIMIT 3 WHERE p.age &gt; 28 RETURN p.name AS name ORDER BY name").to_list()
+// #{"name": "josh"}, #{"name": "marko"}: the three youngest, then the filter
+g.gql("MATCH (p:person) OPTIONAL MATCH (p)-[e:created]-&gt;() WITH p.name AS name WHERE e IS NULL RETURN name").to_list()   // #{"name": "vadas"}
+g.gql("MATCH (p:person) WITH p.name AS name RETURN p.age")   // error: the variable `p` is not in scope: the WITH before does not carry it
+g.gql("MATCH (p:person) WITH p ORDER BY p.age LIMIT 2 WITH collect(p) AS ps WITH ps[0] AS youngest MATCH (youngest)&lt;-[:knows]-(f) RETURN f.name AS name").to_list()   // #{"name": "marko"}
+g.gql("MATCH (p:person) WITH collect(p.age) AS ages WITH ages[0] AS x MATCH (x)--&gt;(y) RETURN y")   // error: `x` is written as a node of the pattern but holds a value that is not a node
+</code></pre>
+<p>A <code>WITH</code> that only renames and computes values is as transparent as <code>LET</code>. One with <code>DISTINCT</code>,
+an aggregate, <code>ORDER BY</code>, <code>OFFSET</code> or <code>LIMIT</code> builds its rows first; a later <code>MATCH</code> continues
+from the elements in its columns. A <code>LET</code> or <code>WITH</code> value computed from elements (<code>coalesce(b, c)</code>, <code>l[0]</code>, <code>head(collect(e))</code>) may stand for a node or an edge of a later pattern, also as an
+endpoint of <code>INSERT</code> / <code>CREATE</code>: <code>NULL</code> matches nothing, a value of another kind is a data error
+(<code>22G03</code>) when a row reaches the pattern (a value written as an edge is compared with the
+edges the pattern walks, so one of another kind matches nothing). A value written as a literal, an operator or a property access is never an
+element and is refused before the run. The order a <code>WITH ... ORDER BY</code> makes is not kept by later
+clauses: sort again in the final <code>RETURN</code> (<a href="semantics.html#ordering">Ordering</a>).</p>
+<h2 id="for-and-unwind"><a class="header" href="#for-and-unwind">FOR and UNWIND</a></h2>
+<p><code>FOR x IN list</code> gives one row per item of the list, with the item bound to <code>x</code>; Cypher's
+<code>UNWIND list AS x</code> is the same clause (<a href="aliases.html">Cypher Aliases</a>). The list is any expression
+over the row before the <code>FOR</code>: a literal, a <code>$parameter</code>, a property, a <code>collect_list()</code> column
+of a <code>WITH</code>, <code>nodes(p)</code>. Duplicates and <code>NULL</code> items give rows like any other item; a list
+inside the list stays one item. <code>WITH ORDINALITY i</code> also binds the item's position from 1,
+<code>WITH OFFSET i</code> from 0 (only after <code>FOR</code>). Gremlin's twin is <code>unfold()</code>.</p>
+<pre><code class="language-rhai graph=modern">g.gql("FOR x IN [1, 2, 2] RETURN x ORDER BY x").to_list()   // #{"x": 1}, #{"x": 2}, #{"x": 2}
+g.inject([1, 2, 2]).unfold().order().to_list()   // 1, 2, 2
+g.gql("UNWIND [1, 2, 2] AS x RETURN x ORDER BY x").to_list()   // the same rows
+g.gql("FOR x IN [10, 20] WITH ORDINALITY i RETURN x, i ORDER BY i").to_list()   // #{"i": 1, "x": 10}, #{"i": 2, "x": 20}
+g.gql("FOR x IN [10, 20] WITH OFFSET i RETURN x, i ORDER BY i").to_list()   // #{"i": 0, "x": 10}, #{"i": 1, "x": 20}
+g.gql("FOR x IN [1, 2] FOR y IN [x, x * 10] RETURN x, y ORDER BY x, y").to_list()   // 1 1, 1 10, 2 2, 2 20
+</code></pre>
+<p>The most frequent use is "for each value in a list, find its vertex": an item compared in a
+property map or a <code>WHERE</code> equality. When an index or the element id serves that equality, each
+item is a direct lookup instead of a scan (<a href="plans.html#for-and-the-correlated-lookup">Plans and Performance</a>).
+A name without a vertex gives no row:</p>
+<pre><code class="language-rhai graph=modern">g.gql("FOR n IN $names WITH ORDINALITY i MATCH (p:person {name: n}) RETURN i, n, p.age AS age ORDER BY i", #{names: ["vadas", "marko", "nobody"]}).to_list()
+// #{"age": 27, "i": 1, "n": "vadas"}, #{"age": 29, "i": 2, "n": "marko"}
+g.gql("FOR id IN $ids MATCH (n) WHERE element_id(n) = id RETURN id, n.name AS name ORDER BY id", #{ids: ["1", "3", "42"]}).to_list()
+// #{"id": "1", "name": "marko"}, #{"id": "3", "name": "lop"}
+</code></pre>
+<p>An item that is a vertex continues a pattern by its name, like a vertex column of a <code>WITH</code>
+(an item of another kind gives no row there):</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) WITH collect_list(p) AS ps FOR p IN ps MATCH (p)-[:created]-&gt;(s) RETURN p.name AS name, s.name AS sw ORDER BY name, sw").to_list()
+// josh lop, josh ripple, marko lop, peter lop
+g.gql("MATCH p = (a {name: 'marko'})-[:knows]-&gt;(b) FOR n IN nodes(p) MATCH (n)-[:created]-&gt;(s) RETURN DISTINCT n.name AS who, s.name AS sw ORDER BY who, sw").to_list()
+// josh lop, josh ripple, marko lop
+</code></pre>
+<p>A <code>NULL</code> list gives no row and a value that is not a list gives one row of that value
+(<a href="semantics.html#for-null-and-values-that-are-not-lists">Semantics</a>). The item and the position
+are new names: a name already in scope, or the same name for both, is an error.</p>
+<h2 id="queries-without-match"><a class="header" href="#queries-without-match">Queries without MATCH</a></h2>
+<p>A query may start with <code>FOR</code>, <code>UNWIND</code>, <code>LET</code>, <code>WITH</code>, <code>FILTER</code> or <code>RETURN</code>. It then starts from
+one empty row (Gremlin's <code>inject(0)</code>): <code>RETURN</code> alone returns one row, <code>FILTER</code> keeps or drops
+it, <code>FOR</code> turns it into one row per item, and a later <code>MATCH</code> runs once for each row.</p>
+<pre><code class="language-rhai graph=modern">g.gql("RETURN 1 + 2 AS three, upper('gql') AS up").to_list()   // #{"three": 3, "up": "GQL"}
+g.gql("RETURN count(*) AS c").to_list()   // #{"c": 1}: the one empty row
+g.gql("WITH 2 AS n RETURN n * n AS sq").to_list()   // #{"sq": 4}
+g.gql("FILTER $on RETURN 1 AS x", #{on: false}).to_list()   // no row
+g.gql("LET k = 30 MATCH (p:person) FILTER p.age &gt; k RETURN p.name AS name ORDER BY name").to_list()   // #{"name": "josh"}, #{"name": "peter"}
+</code></pre>
+<h2 id="return"><a class="header" href="#return">RETURN</a></h2>
+<p><code>RETURN</code> is mandatory in a query that only reads (a query whose last clause writes may end
+there, and <code>FINISH</code> ends any query without a result; <a href="writes.html">Writing with GQL</a>). It builds
+one map per row: <code>RETURN expr AS name, ...</code>, <code>RETURN *</code> (every
+named variable) and <code>RETURN DISTINCT</code> (duplicate rows removed, with GQL's equality:
+<code>1</code> and <code>1.0</code> are one value, <a href="semantics.html#distinct-and-grouping-equality">Semantics</a>).
+<a href="result_shape.html">Result Shape</a> covers names and column order.</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (a)-[:created]-&gt;(s) RETURN s.name AS s ORDER BY s").to_list()   // lop, lop, lop, ripple
+g.gql("MATCH (a)-[:created]-&gt;(s) RETURN DISTINCT s.name AS s ORDER BY s").to_list()   // #{"s": "lop"}, #{"s": "ripple"}
+g.v().out("created").values("name").dedup().order().to_list()   // "lop", "ripple"
+</code></pre>
+<h2 id="aggregation"><a class="header" href="#aggregation">Aggregation</a></h2>
+<p><code>RETURN</code> and <code>WITH</code> items may aggregate. The items without an aggregate are the <strong>grouping
+keys</strong>: one row per distinct combination of their values (grouping is implicit, as in Cypher).
+Without keys the whole input is one group. ISO GQL's <code>GROUP BY</code> may follow the <code>RETURN</code> items: it
+must list exactly the items without an aggregate (by column name, or by repeating the item's
+expression), changes nothing in the result, and <code>GROUP BY ()</code> is the single group of an
+all-aggregate <code>RETURN</code>; without any aggregate it gives one row per group, like <code>DISTINCT</code>. After
+<code>WITH</code> (Cypher) <code>GROUP BY</code> is an error that explains implicit grouping.</p>
+<div class="table-wrapper"><table><thead><tr><th>Aggregate</th><th>Returns</th><th>On no input</th></tr></thead><tbody>
+<tr><td><code>count(*)</code></td><td>the number of rows</td><td><code>0</code></td></tr>
+<tr><td><code>count(x)</code></td><td>the number of rows where <code>x</code> is not <code>NULL</code></td><td><code>0</code></td></tr>
+<tr><td><code>sum(x)</code></td><td>the sum of the numbers; integers stay integers</td><td><code>0</code></td></tr>
+<tr><td><code>avg(x)</code></td><td>the mean, always a float</td><td><code>NULL</code></td></tr>
+<tr><td><code>min(x)</code>, <code>max(x)</code></td><td>the smallest / largest value in the <a href="semantics.html#ordering">order of <code>ORDER BY</code></a></td><td><code>NULL</code></td></tr>
+<tr><td><code>collect_list(x)</code> (Cypher <code>collect(x)</code>)</td><td>the values as a list</td><td><code>[]</code></td></tr>
+<tr><td><code>percentile_disc(x, p)</code> (Cypher <code>percentileDisc</code>)</td><td>the value at percentile <code>p</code> (0.0 to 1.0) of the sorted numbers, with its type</td><td><code>NULL</code></td></tr>
+<tr><td><code>percentile_cont(x, p)</code> (Cypher <code>percentileCont</code>)</td><td>the percentile <code>p</code> interpolated linearly between the two nearest numbers, always a float</td><td><code>NULL</code></td></tr>
+</tbody></table>
+</div>
+<p>The percentiles take numbers (another kind is error <code>22G03</code>) and a percentile <code>p</code> from 0.0 to
+1.0 (outside it: error <code>22003</code>), evaluated and checked on every row; the group uses the value of
+its first row, so write a constant or a <code>$parameter</code>. <code>percentile_disc</code> returns the value at
+position <code>ceil(p * n) - 1</code> of the <code>n</code> sorted numbers (the first for <code>p = 0</code>), <code>percentile_cont</code>
+interpolates at position <code>p * (n - 1)</code> (Neo4j's definitions):</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) RETURN percentile_disc(p.age, 0.5) AS d, percentile_cont(p.age, 0.5) AS c, percentileCont(p.age, 1) AS top").to_list()   // #{"c": 30.5, "d": 29, "top": 35.0}
+g.gql("MATCH (p:person) RETURN percentile_cont(p.age, 1.5) AS c")   // error: percentile_cont() takes a percentile from 0.0 to 1.0, not 1.5 (22003)
+</code></pre>
+<p><code>NULL</code> values are skipped by every aggregate except <code>count(*)</code>. <code>DISTINCT</code> inside the call
+(<code>count(DISTINCT x)</code>) aggregates each distinct value once. An aggregate may be part of an
+expression (<code>count(*) + 1</code>); outside its aggregates such an item reads only grouping keys,
+constants and parameters. It may repeat a key written as a variable or a property (<code>p.age + count(*)</code> beside the key <code>p.age</code>), not a computed key (<code>a.age + b.age</code>): compute that one in a
+<code>WITH</code> first, as in <code>WITH *, a.age + b.age AS k RETURN k, k + count(*)</code>. The details are on <a href="semantics.html#aggregation">Semantics</a>.</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) RETURN count(*) AS n, sum(p.age) AS total, avg(p.age) AS mean, min(p.age) AS lo, max(p.age) AS hi").to_list()
+// #{"hi": 35, "lo": 27, "mean": 30.75, "n": 4, "total": 123}
+g.v().has_label("person").values("age").fold().project("n", "total", "mean", "lo", "hi").by(__.count(Scope.local)).by(__.sum(Scope.local)).by(__.mean(Scope.local)).by(__.min(Scope.local)).by(__.max(Scope.local)).to_list()
+// the same values
+g.gql("MATCH (s:software)&lt;-[:created]-(p) RETURN s.name AS sw, count(p) AS authors ORDER BY sw").to_list()
+// #{"authors": 3, "sw": "lop"}, #{"authors": 1, "sw": "ripple"}
+g.v().has_label("software").group().by("name").by(__.in("created").count()).to_list()   // #{"lop": 3, "ripple": 1}
+g.gql("MATCH (p:person)-[:created]-&gt;(s) RETURN p.name AS name, collect_list(s.name) AS sw ORDER BY name").to_list()
+// #{"name": "josh", "sw": ["ripple", "lop"]}, #{"name": "marko", "sw": ["lop"]}, #{"name": "peter", "sw": ["lop"]}
+g.gql("MATCH (n) RETURN count(n.age) AS ages, count(*) AS all, count(DISTINCT n.lang) AS langs").to_list()
+// #{"ages": 4, "all": 6, "langs": 1}
+</code></pre>
+<p>With <code>OPTIONAL MATCH</code>, <code>count()</code> of an optional variable gives 0 where nothing matched; Gremlin
+counts per vertex with <code>group()</code> or <code>project()</code>:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) OPTIONAL MATCH (p)-[:created]-&gt;(s) RETURN p.name AS name, count(s) AS n ORDER BY name").to_list()
+// josh 2, marko 1, peter 1, vadas 0
+g.v().has_label("person").project("name", "n").by("name").by(__.out("created").count()).order().by("name").to_list()
+// the same rows
+</code></pre>
+<p>An aggregating <code>WITH</code> passes the groups on, and its <code>WHERE</code> filters them (SQL's <code>HAVING</code>):</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person)-[:created]-&gt;(s) WITH p, count(s) AS n WHERE n &gt; 1 RETURN p.name AS name, n").to_list()   // #{"n": 2, "name": "josh"}
+g.gql("MATCH (p:person)-[:created]-&gt;(s) RETURN p.name AS name, count(s) AS n GROUP BY name").to_list()   // the same rows as without GROUP BY
+g.gql("MATCH (p:person) WITH p.name AS n, count(*) AS c GROUP BY n RETURN n, c")   // error: GROUP BY is not needed: grouping is implicit
+g.gql("MATCH (p:person) WHERE count(p) &gt; 1 RETURN p")   // error: an aggregate cannot be used in WHERE
+g.gql("MATCH (p:person) RETURN sum(p.name) AS s")   // error: sum() takes numbers, not a string (22G03)
+</code></pre>
+<p>After an aggregation <code>ORDER BY</code> reads the returned columns only: by their names, or written
+again inside an expression, an aggregate call or a property access as an item has it
+(<code>ORDER BY count(s) + 1</code>, <code>ORDER BY p.name + 'x'</code> when <code>p.name</code> is a key). An expression written
+like another item next to an aggregate stays refused, as in Neo4j. The groups come out in an
+unspecified order: write <code>ORDER BY</code>.</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person)-[:created]-&gt;(s) RETURN p.name AS name, count(s) AS n ORDER BY 10 - count(s), p.name").to_list()   // #{"n": 2, "name": "josh"}, #{"n": 1, "name": "marko"}, #{"n": 1, "name": "peter"}
+g.gql("MATCH (p:person)-[:created]-&gt;(s) RETURN count(s) AS n ORDER BY p.age + count(s)")   // error: after an aggregation, ORDER BY can only use the returned columns
+</code></pre>
+<h2 id="order-by-offset-limit"><a class="header" href="#order-by-offset-limit">ORDER BY, OFFSET, LIMIT</a></h2>
+<p><code>ORDER BY</code> takes expressions (a column name, a property, a function call) with <code>ASC</code> /
+<code>ASCENDING</code> (the default) or <code>DESC</code> / <code>DESCENDING</code>; it may read variables that are not returned
+(except after <code>RETURN DISTINCT</code>). <code>OFFSET n</code> (Cypher <code>SKIP n</code>) skips rows, <code>LIMIT n</code> keeps at
+most <code>n</code>. They come in this order, each at most once; <code>n</code> is a non-negative integer literal, a
+parameter, or a constant expression: one without variables, aggregates or subqueries, evaluated
+once before the run (<code>LIMIT 1 + 1</code>, <code>SKIP toInteger(ceil(1.7))</code>; a negative result is an error
+<code>22G02</code>, a non-integer one <code>22G03</code>). An expression with a parameter in it (<code>LIMIT $n + 1</code>) is
+refused: pass the computed value as the parameter.</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (n:person) RETURN n.name AS name ORDER BY n.age DESC").to_list()   // peter, josh, marko, vadas
+g.gql("MATCH (n:person) RETURN n.name AS name ORDER BY name OFFSET 1 LIMIT 2").to_list()   // #{"name": "marko"}, #{"name": "peter"}
+g.v().has_label("person").values("name").order().range(1, 3).to_list()   // "marko", "peter"
+g.gql("MATCH (n:person) RETURN n.name AS name ORDER BY name OFFSET 2 - 1 LIMIT toInteger(ceil(1.7))").to_list()   // #{"name": "marko"}, #{"name": "peter"}
+g.gql("MATCH (n:person) RETURN n.name AS name LIMIT n.age").to_list()   // error: LIMIT ... not an expression that reads the row (22G03)
+</code></pre>
+<p>Without <code>ORDER BY</code> the row order is unspecified; <a href="semantics.html#ordering">Semantics</a> gives the
+order of <code>NULL</code> and of values of different types.</p>
+<h2 id="union-and-next"><a class="header" href="#union-and-next">UNION and NEXT</a></h2>
+<p><code>UNION</code> combines the rows of queries that each end in <code>RETURN</code>. Every operand returns the same
+column names, in any order; the result has the column order of the first operand. <code>UNION</code> (also
+written <code>UNION DISTINCT</code>) removes duplicate rows with GQL's equality (<code>1</code> and <code>1.0</code> are one
+value), <code>UNION ALL</code> keeps them; one chain uses one kind. Each operand is a query of its own:
+its own variables, and its own <code>ORDER BY</code>, <code>OFFSET</code> and <code>LIMIT</code>, which apply to that operand
+only. Gremlin's twin is <code>union()</code>, followed by <code>dedup()</code> for <code>UNION</code>:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) WHERE p.age &gt; 30 RETURN p.name AS name UNION MATCH (s:software) RETURN s.name AS name").to_list()   // josh, peter, lop, ripple (in any order)
+g.union(__.V().has("person", "age", P.gt(30)), __.V().has_label("software")).values("name").to_list()   // "josh", "peter", "lop", "ripple"
+g.gql("MATCH (p:person) RETURN p.name AS name UNION ALL MATCH (p:person)-[:created]-&gt;() RETURN p.name AS name").count().next()   // 8: duplicates kept
+g.gql("RETURN 1 AS a, 2 AS b UNION RETURN 2 AS b, 1 AS a").to_list()   // #{"a": 1, "b": 2}: one row, the first operand's order
+g.gql("MATCH (p:person) RETURN p.name AS name ORDER BY p.age DESC LIMIT 1 UNION ALL MATCH (s:software) RETURN s.name AS name ORDER BY name LIMIT 1").to_list()   // peter, lop: per operand
+g.gql("RETURN 1 AS x UNION RETURN 2 AS y")   // error: the operands of UNION must return the same column names
+g.gql("RETURN 1 AS x UNION RETURN 2 AS x UNION ALL RETURN 3 AS x")   // error: UNION ALL is mixed with UNION in one query
+</code></pre>
+<p><code>NEXT</code> continues after a <code>RETURN</code>: the rows that <code>RETURN</code> builds are the input of the next
+statement, which sees only its columns, by name (<code>RETURN *</code> passes every variable on). It may
+start with any clause: <code>NEXT RETURN</code>, <code>NEXT FILTER</code>, <code>NEXT MATCH</code> continuing from an element
+column. <code>NEXT</code> binds looser than <code>UNION</code>, so a <code>NEXT</code> after a union sorts, filters, pages or
+aggregates the whole union, which no operand's <code>ORDER BY</code> can:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) RETURN p.name AS name UNION MATCH (s:software) RETURN s.name AS name NEXT RETURN name ORDER BY name LIMIT 3").to_list()   // josh, lop, marko
+g.gql("MATCH (p:person) RETURN p.name AS name, p.age AS age NEXT FILTER age &gt; 30 RETURN name ORDER BY name").to_list()   // #{"name": "josh"}, #{"name": "peter"}
+g.gql("MATCH (p:person) RETURN p NEXT MATCH (p)-[:created]-&gt;(s) RETURN p.name AS who, s.name AS sw ORDER BY who, sw").to_list()   // josh lop, josh ripple, marko lop, peter lop
+g.gql("MATCH (p:person) RETURN p.name AS name, p.age AS age NEXT RETURN count(*) AS n, avg(age) AS mean").to_list()   // #{"mean": 30.75, "n": 4}
+g.gql("MATCH (p:person) RETURN p.name AS name NEXT RETURN p.age")   // error: the variable `p` is not in scope: the RETURN before NEXT does not return it
+</code></pre>
+<p>A <code>NEXT</code> after a plain query is the Cypher <code>WITH</code> of the same items: <code>q1 RETURN a, b NEXT q2</code>
+gives the rows of <code>q1 WITH a, b q2</code> (<a href="aliases.html#the-cypher-clause-with">Cypher Aliases</a>).
+<code>NEXT YIELD</code> is not supported yet.</p>
+<h2 id="call-subqueries"><a class="header" href="#call-subqueries">CALL subqueries</a></h2>
+<p><code>CALL { }</code> runs a whole query (any clauses, <code>UNION</code>, <code>NEXT</code>, ending in <code>RETURN</code>) <strong>once for
+each incoming row</strong>, and joins the row with each row the body returns: the columns of the body's
+<code>RETURN</code> become new variables of the query. Three things make it more than a <code>MATCH</code>:</p>
+<ul>
+<li>the body's aggregates, <code>DISTINCT</code>, <code>ORDER BY</code> and <code>LIMIT</code> apply to <strong>each row's</strong> records:
+a count per row, the top k per group;</li>
+<li>a row whose body returns no row is dropped, <code>OPTIONAL CALL</code> keeps it with the new variables
+<code>NULL</code> (an aggregating body returns one row anyway: <code>count</code> is 0 there);</li>
+<li>a <code>UNION</code> or <code>NEXT</code> inside the body works per row too.</li>
+</ul>
+<pre><code class="language-text">CALL (a, b) { &lt;query&gt; }       -- imports a and b (GQL and Cypher 25)
+CALL (*) { &lt;query&gt; }          -- imports every variable in scope
+CALL () { &lt;query&gt; }           -- imports nothing
+CALL { &lt;query&gt; }              -- imports nothing, unless it starts with WITH a, b (Cypher's importing WITH)
+OPTIONAL CALL ...             -- keeps a row without results, with NULL columns
+</code></pre>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) CALL (p) { MATCH (p)-[e:created]-&gt;(s) RETURN s.name AS top ORDER BY e.weight DESC LIMIT 1 } RETURN p.name AS who, top ORDER BY who").to_list()
+// #{"top": "ripple", "who": "josh"}, #{"top": "lop", "who": "marko"}, #{"top": "lop", "who": "peter"}: vadas has no row
+g.v().has_label("person").as("p").flat_map(__.out_e("created").order().by("weight", Order.desc).limit(1).in_v()).project("who", "top").by(__.select("p").values("name")).by("name").to_list()   // the same three rows
+g.gql("MATCH (p:person) OPTIONAL CALL (p) { MATCH (p)-[:created]-&gt;(s) RETURN s.name AS sw ORDER BY sw LIMIT 1 } RETURN p.name AS who, sw ORDER BY who").to_list()
+// josh lop, marko lop, peter lop, vadas ()
+g.gql("MATCH (p:person) CALL (p) { MATCH (p)-[:knows]-&gt;(f) RETURN count(f) AS friends } RETURN p.name AS who, friends ORDER BY who").to_list()   // josh 0, marko 2, peter 0, vadas 0
+g.gql("MATCH (p:person) CALL (p) { MATCH (p)-[:knows]-&gt;(f) RETURN f.name AS other UNION MATCH (p)-[:created]-&gt;(s) RETURN s.name AS other } RETURN p.name AS who, other ORDER BY who, other").to_list()
+// josh lop, josh ripple, marko josh, marko lop, marko vadas, peter lop
+g.gql("MATCH (p:person) CALL { WITH p MATCH (p)-[:created]-&gt;(s) RETURN s.name AS sw } RETURN p.name AS who, sw ORDER BY who, sw").to_list()   // Cypher's importing WITH: josh lop, josh ripple, marko lop, peter lop
+</code></pre>
+<p>The body reads only the variables it imports: in <code>CALL { MATCH (p)--&gt;(s) .. }</code> without a scope
+clause, <code>p</code> is a new variable of the body, not the outer one. A body that imports nothing still
+runs once per row (<a href="semantics.html#call-subqueries">Semantics</a>). The returned names must be new,
+and a body without <code>RETURN</code> (a unit subquery) must end in a write
+(<a href="writes.html#once-per-row">Inside <code>CALL</code></a>): a body that only reads must return something;
+<code>IN TRANSACTIONS</code> is <a href="refused.html">refused</a>. A later clause continues from a returned element as
+from a <code>WITH</code> column:</p>
+<pre><code class="language-rhai graph=modern">g.gql("CALL { MATCH (s:software) RETURN s } MATCH (s)&lt;-[:created]-(p) RETURN s.name AS sw, count(p) AS n ORDER BY sw").to_list()   // lop 3, ripple 1
+g.gql("MATCH (p:person) CALL (p) { MATCH (p)-[:knows]-&gt;(f) RETURN f AS p } RETURN p")   // error: the CALL body returns `p`, which is already defined outside it
+g.gql("MATCH (p:person) CALL (p) { MATCH (p)-[:created]-&gt;(s) } RETURN p")   // error: a CALL { } body without RETURN only makes sense for writes
+</code></pre>
+<h2 id="calling-saved-queries"><a class="header" href="#calling-saved-queries">Calling saved queries</a></h2>
+<p><code>CALL folder.name(args)</code> is GQL's named procedure call: it runs the <a href="../users_guide/saved_queries.html#calling-saved-queries-from-gql">saved
+query</a> <code>name</code> of the catalog
+folder <code>folder</code> (the segments before the name joined by <code>/</code>; one segment, <code>CALL name()</code>, calls
+a query of the root folder) <strong>for each incoming row</strong>, like a <code>CALL { }</code> body that imports
+nothing. Only saved queries written in GQL can be called.</p>
+<pre><code class="language-text">CALL f.name(a, b) YIELD x, y AS z [WHERE &lt;condition&gt;]   -- inside a query: YIELD names the columns read after it
+CALL f.name(a, b)                -- inside a query, a VOID saved query (no RETURN): each row kept once
+MATCH .. CALL f.name(a, b)       -- a VOID call may end the query, like a write: zero rows
+CALL f.name() YIELD n MATCH (n)--&gt;(m) ..   -- a yielded node (or edge) starts a later pattern
+OPTIONAL CALL f.name(a) YIELD x  -- keeps a row without results, with x NULL
+CALL f.name(a, b)                -- the whole query: every column of the saved query
+CALL f.name(a, b) YIELD *        -- the same
+CALL f.name                      -- the whole query, arguments from the query's parameters by name
+</code></pre>
+<ul>
+<li>The <strong>arguments</strong> are constants or <code>$parameters</code> (and lists, maps and arithmetic of them),
+positional in the order the saved query first reads its parameters; trailing ones left out
+take their defaults, and each is checked against the parameter's schema before the run. An
+argument that reads the row is not supported yet.</li>
+<li><strong><code>YIELD</code></strong> names columns of the saved query's <code>RETURN</code>; each yielded name is a new variable
+(<code>AS</code> renames one, also swapping two names), and <code>WHERE</code> after the items filters the rows.
+Inside a query, a call of a saved query with columns needs <code>YIELD</code>; <code>YIELD *</code> and the form
+without parentheses are for a standalone call only.</li>
+<li>The saved query runs as a query of its own: it sees none of the caller's variables, and its
+variables none of the caller's. Its writes are part of the calling query's one unit.</li>
+<li>A call stands wherever a clause stands, also inside <code>CALL { }</code> bodies and <code>UNION</code> operands;
+inside <code>EXISTS { }</code>, <code>COUNT { }</code> and <code>COLLECT { }</code> it is not supported yet. The vendor
+namespaces <code>db</code>, <code>dbms</code>, <code>apoc</code> and <code>gds</code> are <a href="refused.html">refused</a>.</li>
+</ul>
+<pre><code class="language-rhai graph=modern script">g.define_query(#{
+    name: "older",
+    folder: "people",
+    language: "gql",
+    params: #{min: #{schema: #{type: "integer"}, default: 30}},
+    body: "MATCH (p:person) WHERE p.age &gt; $min RETURN p.name AS name, p.age AS age"
+});
+g.gql("MATCH (s:software) CALL people.older(33) YIELD name RETURN s.name AS sw, name ORDER BY sw").to_list();
+// [#{"name": "peter", "sw": "lop"}, #{"name": "peter", "sw": "ripple"}]
+g.gql("MATCH (s:software) OPTIONAL CALL people.older(40) YIELD name RETURN s.name AS sw, name ORDER BY sw").to_list();
+// [#{"name": (), "sw": "lop"}, #{"name": (), "sw": "ripple"}]
+g.gql("CALL people.older(26) YIELD name RETURN name UNION CALL people.older(33) YIELD name RETURN name").to_list();
+// marko, vadas, josh, peter
+g.gql("CALL people.older").to_list();   // [#{"age": 32, "name": "josh"}, #{"age": 35, "name": "peter"}]: min takes its default 30
+</code></pre>
+<p><code>.profile()</code> shows a call as <code>gql:call_query("people/older", ..)</code> with the saved query's plan
+as its child. <a href="../users_guide/saved_queries.html#calling-saved-queries-from-gql">Saved Queries</a>
+has the parameters, <code>VOID</code> queries, effects and permissions; <a href="errors.html#calls-of-saved-queries">Errors</a>
+every error of a call.</p>
+<h2 id="insert"><a class="header" href="#insert">INSERT</a></h2>
+<p><code>INSERT &lt;pattern&gt;, ...</code> (Cypher <code>CREATE</code>) creates the pattern's new nodes and edges once for
+each row that reaches it; a variable bound before connects an existing node. Edges need a
+direction and one label, node labels are a conjunction (<code>:A&amp;B</code>, Cypher <code>:A:B</code>). The full rules
+are on <a href="writes.html">Writing with GQL</a>.</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person {name: 'marko'}) INSERT (p)-[:likes]-&gt;(f:fruit {name: 'apple'}) RETURN f.name AS fruit").to_list()   // #{"fruit": "apple"}
+g.gql("FOR n IN ['ann', 'bob'] CREATE (:person {name: n})").to_list()   // no rows
+</code></pre>
+<h2 id="set-and-remove"><a class="header" href="#set-and-remove">SET and REMOVE</a></h2>
+<p><code>SET &lt;item&gt;, ...</code> changes the elements of each row that reaches it, items left to right: a
+property (<code>SET n.k = expr</code>), all properties (<code>SET n = {..}</code>; Cypher's merge <code>SET n += {..}</code>) or
+labels of a node (<code>SET n:A</code>, <code>SET n IS A</code>). <code>REMOVE &lt;item&gt;, ...</code> removes a property
+(<code>REMOVE n.k</code>) or labels (<code>REMOVE n:A</code>). A <code>NULL</code> value removes the property, a <code>NULL</code> target
+is skipped. The full rules are on <a href="writes.html#set">Writing with GQL</a>.</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person {name: 'marko'}) SET p.age = p.age + 1, p:admin RETURN p.age AS age, labels(p) AS labels").to_list()   // #{"age": 30, "labels": ["person", "admin"]}
+g.gql("MATCH (p:person {name: 'marko'}) REMOVE p.age RETURN keys(p) AS keys").to_list()   // #{"keys": ["name"]}
+</code></pre>
+<h2 id="delete"><a class="header" href="#delete">DELETE</a></h2>
+<p><code>[DETACH | NODETACH] DELETE &lt;expr&gt;, ...</code> removes the nodes, edges, paths and lists of them its
+expressions give, for each row. <code>DETACH DELETE</code> removes a node with its edges; a plain <code>DELETE</code>
+(the default, also written <code>NODETACH DELETE</code>) fails the query (<code>G1001</code>) for a node that still
+has edges the same clause does not delete. A <code>NULL</code> target is skipped; reading or returning a
+deleted element later in the query is an error. The full rules are on <a href="writes.html#delete">Writing with
+GQL</a>.</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person {name: 'vadas'}) WITH p, p.name AS name DETACH DELETE p RETURN name").to_list()   // #{"name": "vadas"}
+g.gql("MATCH (a {name: 'marko'})-[e:knows]-&gt;() DELETE e RETURN count(e) AS deleted").to_list()   // #{"deleted": 2}
+</code></pre>
+<h2 id="merge"><a class="header" href="#merge">MERGE</a></h2>
+<p><code>MERGE [p =] &lt;pattern&gt; [ON CREATE SET &lt;items&gt;] [ON MATCH SET &lt;items&gt;]</code> (Cypher, a
+<a href="aliases.html#merge">compatibility form</a>) looks for its one pattern on each row: every match is a
+row, and when nothing matches, the whole pattern is created, reusing the nodes bound before.
+Each row sees what the rows before it created. <code>ON CREATE SET</code> and <code>ON MATCH SET</code> hold <code>SET</code>
+items for the created or the found elements. A <code>NULL</code> property value in the pattern fails the
+query (<code>22004</code>). The full rules are on <a href="writes.html#merge">Writing with GQL</a>.</p>
+<pre><code class="language-rhai graph=modern">g.gql("FOR n IN ['ann', 'ann'] MERGE (p:person {name: n}) ON CREATE SET p.new = true RETURN count(DISTINCT p) AS people").to_list()   // #{"people": 1}
+g.gql("MATCH (a:person {name: 'marko'}), (b:person {name: 'josh'}) MERGE (a)-[e:knows]-&gt;(b) RETURN e.weight AS weight").to_list()   // #{"weight": 1.0}: found
+</code></pre>
+<h2 id="expressions"><a class="header" href="#expressions">Expressions</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Kind</th><th>Forms</th></tr></thead><tbody>
+<tr><td>literals</td><td>integers (<code>42</code>, <code>1_000</code>, <code>0x1F</code>, <code>0o17</code>, <code>0b101</code>), floats (<code>1.5</code>, <code>.5</code>, <code>1.5e3</code>), strings (<code>'...'</code> or <code>"..."</code>), <code>TRUE</code>, <code>FALSE</code>, <code>NULL</code>, lists <code>[1, 2]</code>, maps (records) <code>{k: v}</code>, also written <code>RECORD {k: v}</code></td></tr>
+<tr><td>parameters</td><td><code>$name</code> (<a href="#parameters">Parameters</a>)</td></tr>
+<tr><td>property access</td><td><code>n.name</code>, <code>m.key</code> on a map</td></tr>
+<tr><td>indexing and slicing</td><td><code>x[0]</code>, <code>x[-1]</code>, <code>x[1..3]</code>, <code>x[..2]</code>, <code>x[1..]</code>, <code>m['key']</code>, <code>n[k]</code> (Cypher, <a href="#indexing-and-slicing">below</a>)</td></tr>
+<tr><td>comparison</td><td><code>=</code>, <code>&lt;&gt;</code> (Cypher <code>!=</code>), <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code>; a chain <code>a &lt; b &lt;= c</code> is the Cypher compatibility form of <code>a &lt; b AND b &lt;= c</code> (<a href="aliases.html">alias</a>)</td></tr>
+<tr><td>logic</td><td><code>AND</code>, <code>OR</code>, <code>XOR</code>, <code>NOT</code></td></tr>
+<tr><td>predicates</td><td><code>IS [NOT] NULL</code>, <code>IN [list]</code>, <code>STARTS WITH</code>, <code>ENDS WITH</code>, <code>CONTAINS</code>, <code>IS [NOT] LABELED</code>, <code>IS [NOT] SOURCE OF e</code>, <code>IS [NOT] DESTINATION OF e</code></td></tr>
+<tr><td>arithmetic</td><td><code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code>, <code>^</code> (Cypher power, always a float: <code>2 ^ 10</code> is <code>1024.0</code>), unary <code>-</code> and <code>+</code></td></tr>
+<tr><td>concatenation</td><td><code>||</code> on two strings or two lists (Cypher <code>+</code>); Cypher <code>+</code> of a list and one other value appends or prepends it (<code>[1] + 2</code> is <code>[1, 2]</code>, <code>0 + [1]</code> is <code>[0, 1]</code>)</td></tr>
+<tr><td>conditional</td><td>simple <code>CASE x WHEN v THEN r ... ELSE d END</code> and searched <code>CASE WHEN cond THEN r ... END</code></td></tr>
+<tr><td>conversion</td><td><code>CAST(x AS INTEGER | FLOAT | STRING | BOOLEAN)</code> (<a href="#conversions">Conversions</a>)</td></tr>
+<tr><td>function calls</td><td><code>name(args)</code> (<a href="#functions">Functions</a>)</td></tr>
+<tr><td>map projection</td><td><code>p {.name, .*, f, key: expr}</code> (Cypher, <a href="#map-projections-and-comprehensions">below</a>)</td></tr>
+<tr><td>list comprehension</td><td><code>[x IN list WHERE cond | expr]</code>, either part optional (Cypher)</td></tr>
+<tr><td>pattern comprehension</td><td><code>[(p)-[:knows]-&gt;(f) WHERE cond | expr]</code> (Cypher)</td></tr>
+</tbody></table>
+</div>
+<p>Precedence, loosest first: <code>OR</code>, <code>XOR</code>, <code>AND</code>, <code>NOT</code>, comparison, the predicates (<code>IS NULL</code>,
+<code>IN</code>, <code>STARTS WITH</code>, ...), <code>+ - ||</code>, <code>* / %</code>, <code>^</code> (left to right: <code>2 ^ 3 ^ 2</code> is <code>64.0</code>), unary
+minus (<code>-3 ^ 2</code> is <code>9.0</code>), property access and subscripts (<code>x[i]</code>, <code>x[a..b]</code>, left to right:
+<code>[1, 2][0] + 1</code> is <code>2</code>). <code>x ^ y</code> follows the rules of <code>power(x, y)</code>: <code>0 ^ -1</code> and <code>(-8) ^ 0.5</code>
+are errors (<code>2201F</code>), an overflow is error <code>22003</code>.</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (n:person) WHERE n.age IN [27, 35] RETURN n.name AS name ORDER BY name").to_list()   // #{"name": "peter"}, #{"name": "vadas"}
+g.gql("MATCH (n:person) WHERE n.name STARTS WITH 'm' OR n.name ENDS WITH 's' OR n.name CONTAINS 'et' RETURN n.name AS name ORDER BY name").to_list()   // marko, peter, vadas
+g.gql("MATCH (n:person) WHERE n.age &gt; 30 XOR n.name = 'josh' RETURN n.name AS name ORDER BY name").to_list()   // #{"name": "peter"}
+g.gql("MATCH (n:person) RETURN n.name || '!' AS a, n.age * 2 + 1 AS b, n.age / 10 AS c, n.age % 10 AS d, n.age / 10.0 AS e ORDER BY a LIMIT 1").to_list()
+// #{"a": "josh!", "b": 65, "c": 3, "d": 2, "e": 3.2}
+g.gql("MATCH (n:person) RETURN n.name AS name, CASE WHEN n.age &lt; 30 THEN 'young' WHEN n.age &lt; 34 THEN 'middle' ELSE 'senior' END AS band ORDER BY name").to_list()
+// josh middle, marko young, peter senior, vadas young
+g.gql("MATCH (n) RETURN n.name AS name, CASE n.lang WHEN 'java' THEN 'jvm' ELSE 'other' END AS k ORDER BY name LIMIT 2").to_list()
+// #{"k": "other", "name": "josh"}, #{"k": "jvm", "name": "lop"}
+g.gql("MATCH (n:person) RETURN {name: n.name, tags: [n.age, NULL, true]} AS m ORDER BY n.name LIMIT 1").to_list()
+// #{"m": #{"name": "josh", "tags": [32, (), true]}}
+g.gql("MATCH (n:person) RETURN RECORD {name: n.name, age: n.age} AS m ORDER BY n.name LIMIT 1").to_list()
+// #{"m": #{"age": 32, "name": "josh"}}
+</code></pre>
+<p><code>RECORD {k: v}</code> is the ISO record constructor with its keyword written out; it builds the same map
+as <code>{k: v}</code>. The word is contextual, not reserved: <code>RECORD</code> (any case) followed by <code>{</code> and then
+<code>}</code> or <code>name:</code> is the constructor; anywhere else <code>record</code> is an ordinary variable, also before a
+map projection such as <code>record {.name}</code>. A variable named <code>record</code> whose projection is empty or
+starts with a <code>key: expr</code> item is back-quoted: <code>`record` {k: 1}</code>.</p>
+<p>Integer arithmetic stays integer (<code>/</code> truncates toward zero, <code>%</code> takes the sign of the
+dividend); a float operand makes the result a float. An overflow or an integer division by zero
+is an error, never a wrapped value (<a href="errors.html#errors-while-the-query-runs">Errors</a>); a float
+divided by zero follows IEEE 754 (<code>1.0 / 0.0</code> is <code>Infinity</code>, <code>0.0 / 0.0</code> is <code>NaN</code>;
+<a href="semantics.html#comparisons-across-types">Semantics</a>).</p>
+<pre><code class="language-rhai graph=empty">g.gql("RETURN [1, 2] + 3 AS a, 0 + [1] AS b, [1] + [2] AS c").to_list()   // #{"a": [1, 2, 3], "b": [0, 1], "c": [1, 2]}
+</code></pre>
+<h3 id="indexing-and-slicing"><a class="header" href="#indexing-and-slicing">Indexing and slicing</a></h3>
+<p><code>x[i]</code> reads the item <code>i</code> of a list, counted from 0; a negative index counts from the end
+(<code>x[-1]</code> is the last item), and an index out of range gives <code>NULL</code>. <code>x[a..b]</code> is the sub-list
+from <code>a</code> up to <code>b</code> (excluded); either bound may be left out (<code>x[..2]</code>, <code>x[1..]</code>), a negative
+one counts from the end, bounds beyond the list are clamped, and <code>a &gt;= b</code> gives <code>[]</code>. On a map
+<code>m[k]</code> reads the entry of the string key <code>k</code>, and on a node or an edge <code>n[k]</code> reads the
+property <code>k</code>; a missing key gives <code>NULL</code>. <code>n['name']</code> with a string literal is the property
+access <code>n.name</code> (the same plan, so a property index serves it); a computed key (<code>n[$key]</code>,
+<code>n['na' || 'me']</code>) is read per row. A <code>NULL</code> list, map, index or bound gives <code>NULL</code>. These are
+Cypher forms with their Neo4j meaning, measured against the openCypher TCK
+(<a href="semantics.html#indexing-and-slicing">Semantics</a>).</p>
+<pre><code class="language-rhai graph=modern">g.gql("RETURN [10, 20, 30][0] AS a, [10, 20, 30][-1] AS b, [10, 20, 30][5] AS c, [10, 20, 30][1..] AS d, [10, 20, 30][..-1] AS e").to_list()
+// #{"a": 10, "b": 30, "c": (), "d": [20, 30], "e": [10, 20]}
+g.gql("MATCH (p:person) WITH p ORDER BY p.age RETURN collect(p.name)[0] AS youngest, collect(p.name)[-2..] AS oldest").to_list()
+// #{"oldest": ["josh", "peter"], "youngest": "vadas"}
+g.gql("MATCH (p:person {name: 'marko'}) RETURN p['na' || 'me'] AS name, {lang: 'java'}['lang'] AS lang").to_list()
+// #{"lang": "java", "name": "marko"}
+g.gql("MATCH (p:person {name: 'josh'}) RETURN p[$key] AS v", #{key: "age"}).to_list()   // #{"v": 32}
+g.gql("RETURN 'abc'[0] AS c")   // error: cannot index a string
+</code></pre>
+<p>The index of a list is an integer (<code>x[1.0]</code> and <code>x['1']</code> are errors, GQLSTATUS <code>22G03</code>; convert
+with <code>toInteger(i)</code>), the key of a map or an element a string; a text is no list (use
+<code>substring(s, start, length)</code>). These errors arise when a row reaches the expression, as for
+every other operand of the wrong kind (<a href="errors.html#errors-while-the-query-runs">Errors</a>).</p>
+<h2 id="map-projections-and-comprehensions"><a class="header" href="#map-projections-and-comprehensions">Map projections and comprehensions</a></h2>
+<p>Three Cypher forms build maps and lists inside an expression. They are not GQL; <code>gql()</code> accepts
+them with their Neo4j meaning because Cypher users and LLMs write them all the time
+(<a href="aliases.html#map-projections-and-comprehensions">Cypher Aliases</a>). Together they give a
+JSON-shaped answer: one row per entity, its related data nested inside.</p>
+<pre><code class="language-text">v {.key, .*, x, key: expr}                    -- map projection of a vertex, an edge or a map
+[x IN list]  [x IN list WHERE cond]  [x IN list | expr]  [x IN list WHERE cond | expr]
+[(a)-[:R]-&gt;(b) WHERE cond | expr]             -- pattern comprehension, also [p = (a)--&gt;(b) | p]
+</code></pre>
+<p><strong>Map projection.</strong> <code>v {...}</code> builds a map from the variable <code>v</code>: <code>.key</code> is its property (<code>NULL</code>
+when missing, the key kept), <code>.*</code> every stored property (no id, no labels), <code>x</code> the entry <code>x: x</code>,
+and <code>key: expr</code> any value, all in the written order. Its Gremlin twins are <code>project()</code> and
+<code>value_map().by(unfold())</code>; the GQL form is the record constructor <code>{name: p.name}</code>, which
+differs only for a <code>NULL</code> variable (<a href="semantics.html#map-projections-and-comprehensions">Semantics</a>):</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) RETURN p {.name, .age, decade: p.age / 10} AS m ORDER BY p.name LIMIT 2").to_list()
+// #{"m": #{"age": 32, "decade": 3, "name": "josh"}}, #{"m": #{"age": 29, "decade": 2, "name": "marko"}}
+g.gql("MATCH (p:person {name: 'marko'}) RETURN p {.*} AS m").to_list()   // #{"m": #{"age": 29, "name": "marko"}}
+g.v().has("name", "marko").value_map().by(__.unfold()).to_list()   // #{"age": 29, "name": "marko"}
+g.gql("MATCH (p:person {name: 'marko'})-[e:knows]-&gt;(f) RETURN e {.*, to: f.name} AS k ORDER BY k.to").to_list()
+// #{"k": #{"to": "josh", "weight": 1.0}}, #{"k": #{"to": "vadas", "weight": 0.5}}
+</code></pre>
+<p><strong>List comprehension.</strong> <code>[x IN list WHERE cond | expr]</code> walks the list in its order, keeps the
+items for which <code>cond</code> is TRUE and maps each kept item to <code>expr</code>; leave out <code>WHERE</code> to keep every
+item, <code>| expr</code> to keep the item itself. <code>x</code> is a new name that exists only inside the brackets.
+The Gremlin twin is <code>local(__.unfold().is(..).fold())</code>:</p>
+<pre><code class="language-rhai graph=modern">g.gql("RETURN [x IN range(1, 5) WHERE x % 2 = 1] AS odd, [x IN range(1, 3) | x * x] AS sq, [x IN [1, 2] | [y IN [10, 20] | x * y]] AS grid").to_list()
+// #{"grid": [[10, 20], [20, 40]], "odd": [1, 3, 5], "sq": [1, 4, 9]}
+g.inject([1, 2, 3, 4, 5]).local(__.unfold().is(P.gt(2)).fold()).to_list()   // [3, 4, 5]
+g.gql("MATCH p = (a {name: 'marko'})-[:knows|created]-&gt;{2}(b) RETURN [x IN nodes(p) | x.name] AS names ORDER BY b.name").to_list()
+// #{"names": ["marko", "josh", "lop"]}, #{"names": ["marko", "josh", "ripple"]}
+g.gql("MATCH (p:person) RETURN p.name AS name, [x IN [p.age, p.age + 10] WHERE x &gt; 30] AS l ORDER BY name LIMIT 2").to_list()
+// #{"l": [32, 42], "name": "josh"}, #{"l": [39], "name": "marko"}
+</code></pre>
+<p>A <code>|</code> inside the list or the <code>WHERE</code> part ends that part, so a label alternative there needs
+parentheses: <code>[x IN l WHERE x:(A|B) | x.name]</code>.</p>
+<p><strong>Pattern comprehension.</strong> <code>[(a)-[:R]-&gt;(b) WHERE cond | expr]</code> is the list of <code>expr</code> for every
+match of the pattern on the row: <code>[]</code> when nothing matches, never <code>NULL</code>. The pattern has at
+least one edge; it reads the variables bound before it (they are imported, like in
+<a href="#exists-and-pattern-predicates"><code>EXISTS</code></a>), and the names it binds itself (<code>b</code> here, or a path
+variable <code>p = ...</code>) exist only inside the brackets. It is a subquery: the Gremlin twin is
+<code>project(..).by(__.out("knows").values("name").fold())</code>, and the items come in no defined order.</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person {name: 'marko'}) RETURN [(p)-[:knows]-&gt;(f) | f.name] AS friends").to_list()   // #{"friends": ["josh", "vadas"]}, in any order
+g.v().has("name", "marko").project("friends").by(__.out("knows").values("name").fold()).to_list()   // #{"friends": ["josh", "vadas"]}
+g.gql("MATCH (s:software {name: 'ripple'}) RETURN [(s)&lt;-[:created]-(p) WHERE p.age &gt; 30 | p.name] AS older").to_list()   // #{"older": ["josh"]}
+g.gql("MATCH (p:person) WHERE size([(p)-[:created]-&gt;(s) | s]) &gt;= 2 RETURN p.name AS name").to_list()   // #{"name": "josh"}
+g.gql("MATCH (p:person {name: 'marko'}) RETURN [q = (p)-[:knows]-&gt;() | path_length(q)] AS l").to_list()   // #{"l": [1, 1]}
+</code></pre>
+<p>Together, one row per person with its friends and projects nested inside, the shape a JSON API
+or an LLM wants (<a href="result_shape.html#nested-maps-and-lists">Result Shape</a>):</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) RETURN p {.name, friends: [(p)-[:knows]-&gt;(f) | f.name], projects: [(p)-[:created]-&gt;(s) | s {.name, .lang}]} AS person ORDER BY person.name").to_json()
+// [{"person": {"name": "josh", "friends": [], "projects": [{"name": "ripple", "lang": "java"}, ...]}}, ...]
+</code></pre>
+<p>All three stand anywhere an expression does (<code>WHERE</code>, <code>RETURN</code>, <code>WITH</code>, <code>LET</code>, <code>FILTER</code>, <code>FOR</code>,
+<code>ORDER BY</code>, an aggregate's argument) and nest in each other. Their rules:</p>
+<ul>
+<li>A comprehension variable must be a <strong>new name</strong>: one that is in scope, or that the query uses
+anywhere else, is an error (<a href="semantics.html#map-projections-and-comprehensions">Semantics</a>).</li>
+<li>No aggregate inside the <code>WHERE</code> or <code>|</code> part (aggregate in a <code>WITH</code> first, or aggregate the list:
+<code>size([..])</code>).</li>
+<li>A list-comprehension variable cannot be read inside an <code>EXISTS</code> or a pattern comprehension in
+its <code>WHERE</code> or <code>|</code> part yet (<a href="#not-supported-yet">Not supported yet</a>).</li>
+<li>A pattern comprehension counts as a subquery: a query holds at most 64 subqueries
+(<a href="errors.html#subqueries">Errors</a>).</li>
+<li>The list predicates <code>all()</code>, <code>any()</code>, <code>none()</code>, <code>single()</code> and <code>reduce()</code> follow the same
+rules for their variables (below).</li>
+</ul>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) RETURN [p IN [1, 2] | p * 2] AS l")   // error: the comprehension variable `p` shadows the variable `p` in scope
+g.gql("MATCH (p:person) RETURN [(p)-[:knows]-&gt;(f) | count(f)] AS l")   // error: count() cannot be used inside the | part of a pattern comprehension
+g.gql("MATCH (p:person) RETURN p.name AS n, [(p)-[:knows]-&gt;(f) | f.name] AS l ORDER BY f.name")   // error: `f` is bound inside a pattern comprehension
+g.gql("RETURN size([x IN [1, 2, 3] WHERE x &gt; 0]) = size([1, 2, 3]) AS all_positive").to_list()   // #{"all_positive": true}
+</code></pre>
+<h3 id="list-predicates-and-reduce"><a class="header" href="#list-predicates-and-reduce">List predicates and <code>reduce</code></a></h3>
+<p>Cypher's <code>all(x IN l WHERE c)</code>, <code>any(..)</code>, <code>none(..)</code>, <code>single(..)</code> and
+<code>reduce(acc = init, x IN l | expr)</code> are openCypher compatibility forms
+(<a href="aliases.html#list-predicates-and-reduce">Cypher Aliases</a> has their <code>NULL</code> rules). The predicates
+are three-valued: a <code>NULL</code> list or, when no item decides the answer, a <code>NULL</code> condition gives
+<code>NULL</code>. A list comprehension counted with <code>size()</code> gives the same answer when no condition is
+<code>NULL</code>; over a pattern comprehension they are the Gremlin <code>where(__..)</code> / <code>not(__..)</code> of a
+pattern. <code>reduce</code> folds a list per row, where <code>FOR</code> and an aggregate fold the rows of a query.</p>
+<pre><code class="language-rhai graph=modern">g.gql("RETURN all(x IN [1, 2, 3] WHERE x &gt; 0) AS a, any(x IN [1, NULL] WHERE x &gt; 1) AS b, single(x IN [1, 2] WHERE x &gt; 1) AS c").to_list()   // #{"a": true, "b": (), "c": true}
+g.gql("RETURN size([x IN [1, 2, 3] WHERE x &gt; 0]) = size([1, 2, 3]) AS a").to_list()   // #{"a": true}, the count form of all()
+g.gql("MATCH (p:person) WHERE all(w IN [(p)-[:created]-&gt;(s) | s] WHERE w.lang = 'java') AND any(a IN [(p)-[:knows]-&gt;(f) | f.age] WHERE a &gt; 30) RETURN p.name AS name").to_list()   // #{"name": "marko"}
+g.V().hasLabel("person").not(__.out("created").has("lang", P.neq("java"))).where(__.out("knows").has("age", P.gt(30))).values("name").to_list()   // "marko"
+g.gql("MATCH (p:person) RETURN p.name AS name, reduce(s = 0, a IN [(p)-[:knows]-&gt;(f) | f.age] | s + a) AS ages ORDER BY name").to_list()   // josh 0, marko 59, peter 0, vadas 0
+g.gql("FOR x IN [1, 2, 3] RETURN sum(x) AS s").to_list()   // #{"s": 6}, one fold over the rows
+g.gql("RETURN reduce(s = 0, x IN [1, 2, 3] | s + x) AS s").to_list()   // #{"s": 6}, one fold per row
+g.gql("MATCH (p:person) RETURN all(p IN [1] WHERE p &gt; 0) AS a")   // error: the variable `p` of all() shadows the variable `p` in scope
+g.gql("MATCH (p:person) RETURN any(x IN [1] WHERE x &gt; count(*)) AS a")   // error: count() cannot be used inside the WHERE part of all(), any(), none() or single()
+</code></pre>
+<h2 id="functions"><a class="header" href="#functions">Functions</a></h2>
+<p>Function names are case-insensitive (<code>toInteger</code>, <code>TOINTEGER</code>). Every function returns <code>NULL</code>
+for a <code>NULL</code> argument (except <code>coalesce</code>, <code>nullif</code> and the <code>...OrNull</code> conversions, by their
+definition) and fails for an argument of the wrong kind (<code>22G03</code>), never with a silent <code>NULL</code>. A
+position or a length counts <strong>characters</strong> (Unicode scalar values), never bytes. The aggregates
+are listed under <a href="#aggregation">Aggregation</a>; <a href="semantics.html#functions">Semantics</a> has the exact
+rules and where they differ from Neo4j and from the Gremlin steps of the same name.</p>
+<p>The functions come from two sources: the <strong>GQL functions</strong> (with their Cypher spellings as
+<a href="aliases.html">aliases</a>), and a fixed list of openCypher <strong>compatibility functions</strong> that GQL has no
+counterpart for (<code>toInteger</code>, <code>substring</code>, <code>split</code>, <code>round</code>, <code>keys</code>, <code>nodes</code>, ...): they keep
+their Neo4j meaning (<a href="aliases.html#compatibility-functions">Cypher Aliases</a>).</p>
+<div class="table-wrapper"><table><thead><tr><th>Function</th><th>Returns</th><th>Cypher alias</th></tr></thead><tbody>
+<tr><td><code>element_id(x)</code></td><td>the id of a vertex or edge, a string</td><td><code>elementId(x)</code></td></tr>
+<tr><td><code>labels(x)</code></td><td>a vertex's labels in stored order (primary first); an edge's label as a one-item list</td><td></td></tr>
+<tr><td><code>type(e)</code></td><td>an edge's label; a vertex is an error (use <code>labels(v)</code>)</td><td></td></tr>
+<tr><td><code>coalesce(a, b, ...)</code></td><td>the first argument that is not <code>NULL</code></td><td></td></tr>
+<tr><td><code>nullif(a, b)</code></td><td><code>NULL</code> when <code>a = b</code> is TRUE, else <code>a</code></td><td>same (<code>nullIf</code>)</td></tr>
+<tr><td><code>path_length(p)</code></td><td>the number of edges of a path</td><td><code>length(p)</code></td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (n) RETURN element_id(n) AS id, labels(n) AS labels ORDER BY id LIMIT 3").to_list()
+// #{"id": "1", "labels": ["person"]}, #{"id": "2", "labels": ["person"]}, #{"id": "3", "labels": ["software"]}
+g.gql("MATCH ()-[e]-&gt;() RETURN element_id(e) AS id, type(e) AS type, e.weight AS w ORDER BY id LIMIT 2").to_list()
+// #{"id": "0", "type": "knows", "w": 0.5}, #{"id": "1", "type": "created", "w": 0.4}
+g.gql("MATCH (n) RETURN n.name AS name, coalesce(n.age, n.lang) AS info ORDER BY name LIMIT 2").to_list()
+// #{"info": 32, "name": "josh"}, #{"info": "java", "name": "lop"}
+g.gql("MATCH (n:person) RETURN n.name AS name, nullif(n.age, 29) AS age ORDER BY name").to_list()
+// #{"age": 32, "name": "josh"}, #{"age": (), "name": "marko"}, #{"age": 35, "name": "peter"}, #{"age": 27, "name": "vadas"}
+</code></pre>
+<h3 id="conversions"><a class="header" href="#conversions">Conversions</a></h3>
+<p>GQL's <code>CAST</code> is <strong>strict</strong>: text that is not a value of the target type is an error (<code>22018</code>).
+The Cypher conversions are <strong>lenient</strong>: <code>toInteger</code>, <code>toFloat</code>, <code>toBoolean</code> give <code>NULL</code> for such
+text, and their <code>...OrNull</code> forms give <code>NULL</code> for a value of any unsupported kind too
+(<a href="semantics.html#conversions-strict-cast-lenient-tox">Semantics</a>).</p>
+<div class="table-wrapper"><table><thead><tr><th>Function</th><th>Converts</th><th>Unconvertible text</th><th>Wrong kind</th></tr></thead><tbody>
+<tr><td><code>CAST(x AS INTEGER)</code> (<code>INT</code>, <code>INT64</code>, <code>BIGINT</code>, <code>SIGNED INTEGER</code>)</td><td>integer; float truncated toward zero; a decimal text (<code>'42'</code>, <code>' 1.9 '</code>, <code>'1e3'</code>)</td><td>error <code>22018</code></td><td>error <code>22G03</code> (a boolean too)</td></tr>
+<tr><td><code>CAST(x AS FLOAT)</code> (<code>FLOAT64</code>, <code>DOUBLE</code>, <code>DOUBLE PRECISION</code>, <code>REAL</code>)</td><td>number; a decimal text, <code>'NaN'</code>, <code>'Infinity'</code>, <code>'-Infinity'</code></td><td>error <code>22018</code></td><td>error <code>22G03</code></td></tr>
+<tr><td><code>CAST(x AS STRING)</code> (<code>VARCHAR</code>, <code>CHAR VARYING</code>)</td><td>any value except a vertex, edge or path</td><td>-</td><td>error <code>22G03</code></td></tr>
+<tr><td><code>CAST(x AS BOOLEAN)</code> (<code>BOOL</code>)</td><td>boolean; <code>'true'</code> / <code>'false'</code> in any case, <code>'unknown'</code> is <code>NULL</code></td><td>error <code>22018</code></td><td>error <code>22G03</code> (numbers too)</td></tr>
+<tr><td><code>toInteger(x)</code></td><td>as <code>CAST</code>, also <code>true</code> / <code>false</code> (1 / 0) and Cypher literals (<code>'0x1F'</code>, <code>'0o17'</code>, <code>'1_000'</code>)</td><td><code>NULL</code></td><td>error <code>22G03</code></td></tr>
+<tr><td><code>toFloat(x)</code></td><td>as <code>CAST</code>, also Cypher literals</td><td><code>NULL</code></td><td>error <code>22G03</code></td></tr>
+<tr><td><code>toBoolean(x)</code></td><td>as <code>CAST</code>, also integers (0 is FALSE, any other TRUE)</td><td><code>NULL</code></td><td>error <code>22G03</code></td></tr>
+<tr><td><code>toString(x)</code></td><td>as <code>CAST(x AS STRING)</code>, scalars only; a temporal value in Neo4j's text (<a href="#dates-and-times">Dates and times</a>)</td><td>-</td><td>error <code>22G03</code> (a list or a map too)</td></tr>
+<tr><td><code>toIntegerOrNull(x)</code>, <code>toFloatOrNull(x)</code>, <code>toBooleanOrNull(x)</code>, <code>toStringOrNull(x)</code></td><td>as their <code>toX</code></td><td><code>NULL</code></td><td><code>NULL</code> (for <code>toStringOrNull</code> a list, map, vertex, edge or path too)</td></tr>
+</tbody></table>
+</div>
+<p>A float's text always shows that it is a float (<code>toString(1.0)</code> is <code>'1.0'</code>, Neo4j's form), while
+Gremlin's <code>as_string()</code> gives <code>"1"</code>; integers and booleans give the same text as <code>as_string()</code>.
+A list or a map converts to Neo4j's text form (<code>'[29, marko, 1.0, null]'</code>, <code>'{a: 1, b: marko}'</code>).</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (n:person) RETURN n.name AS name, toString(n.age) AS a, toString(n.age / 10.0) AS b ORDER BY name").to_list()
+// #{"a": "32", "b": "3.2", "name": "josh"}, #{"a": "29", "b": "2.9", "name": "marko"}, #{"a": "35", "b": "3.5", "name": "peter"}, #{"a": "27", "b": "2.7", "name": "vadas"}
+g.v().has_label("person").values("age").as_string().order().to_list()   // "27", "29", "32", "35"
+g.gql("MATCH (n:person) RETURN toFloat(n.age) AS f ORDER BY f").to_list()   // #{"f": 27.0}, #{"f": 29.0}, #{"f": 32.0}, #{"f": 35.0}
+g.v().has_label("person").values("age").as_number(GType.DOUBLE).order().to_list()   // 27.0, 29.0, 32.0, 35.0
+g.gql("MATCH (n:person {name: 'marko'}) RETURN CAST('42' AS INTEGER) AS i, CAST(' 1.5 ' AS FLOAT) AS f, CAST('TRUE' AS BOOLEAN) AS b, CAST(1.0 AS STRING) AS s").to_list()
+// #{"b": true, "f": 1.5, "i": 42, "s": "1.0"}
+g.gql("MATCH (n:person {name: 'marko'}) RETURN toInteger(' 42 ') AS a, toInteger('1.9') AS b, toInteger('0x1F') AS c, toInteger('abc') AS d, toIntegerOrNull(true) AS e").to_list()
+// #{"a": 42, "b": 1, "c": 31, "d": (), "e": 1}
+g.gql("MATCH (n:person {name: 'marko'}) RETURN toBoolean(1) AS a, toBooleanOrNull(1.5) AS b, toFloat('1e3') AS c, toFloatOrNull([1]) AS d").to_list()
+// #{"a": true, "b": (), "c": 1000.0, "d": ()}
+g.gql("MATCH (n:person {name: 'marko'}) RETURN CAST([n.age, n.name, 1.0, NULL] AS STRING) AS l, CAST({a: 1, b: n.name} AS STRING) AS m").to_list()
+// #{"l": "[29, marko, 1.0, null]", "m": "{a: 1, b: marko}"}
+g.gql("MATCH (n:person {name: 'marko'}) RETURN toString([n.age])")   // error: toString() takes a number, a boolean, a string or another scalar, not a list (22G03)
+g.gql("MATCH (n:person {name: 'marko'}) RETURN toStringOrNull([n.age]) AS s").to_list()   // #{"s": ()}
+g.gql("MATCH (n:person) RETURN n.name || ' is ' || toString(n.age) AS s ORDER BY s LIMIT 2").to_list()
+// #{"s": "josh is 32"}, #{"s": "marko is 29"}
+g.gql("MATCH (n:person {name: 'marko'}) RETURN CAST('abc' AS INTEGER) AS x")   // error: invalid character value for cast (22018)
+g.gql("MATCH (n:person {name: 'marko'}) RETURN toFloat(true) AS x")   // error: toFloat() takes a number or a string, not a boolean (22G03)
+g.gql("MATCH (n:person {name: 'marko'}) RETURN toString(n) AS x")   // error: toString() takes no vertex, edge or path (22G03)
+</code></pre>
+<p><code>CAST</code> to a GQL type Graphersal has no values of yet (<code>DATE</code>, <code>LIST&lt;..&gt;</code>, <code>DECIMAL</code>, ...) is
+not supported yet; an unknown type name is a syntax error with a suggestion:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (n) RETURN CAST(n.age AS DATE) AS d")   // error: CAST to DATE is not yet supported
+g.gql("MATCH (n) RETURN CAST(n.age AS INTEGR) AS d")   // error: unknown type INTEGR in CAST, did you mean INTEGER
+</code></pre>
+<h3 id="strings"><a class="header" href="#strings">Strings</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Function</th><th>Returns</th><th>Cypher spelling</th></tr></thead><tbody>
+<tr><td><code>upper(s)</code>, <code>lower(s)</code></td><td>the string in upper / lower case</td><td><code>toUpper(s)</code>, <code>toLower(s)</code></td></tr>
+<tr><td><code>char_length(s)</code>, <code>character_length(s)</code></td><td>the number of characters</td><td><code>size(s)</code></td></tr>
+<tr><td><code>byte_length(s)</code>, <code>octet_length(s)</code></td><td>the number of UTF-8 bytes</td><td></td></tr>
+<tr><td><code>left(s, n)</code>, <code>right(s, n)</code></td><td>the first / last <code>n</code> characters (the whole string when <code>n</code> is larger)</td><td>same</td></tr>
+<tr><td><code>substring(s, start [, length])</code></td><td>Cypher: <code>length</code> characters from the 0-based <code>start</code> (to the end without <code>length</code>); past the end <code>''</code></td><td>compatibility function</td></tr>
+<tr><td><code>TRIM([[LEADING | TRAILING | BOTH] [c] FROM] s)</code>, <code>trim(s)</code></td><td><code>s</code> without the character <code>c</code> (default: the space) at both ends, the start or the end; <code>c</code> is exactly one character</td><td><code>trim(s)</code></td></tr>
+<tr><td><code>btrim(s [, chars])</code>, <code>ltrim(s [, chars])</code>, <code>rtrim(s [, chars])</code></td><td><code>s</code> without any character of the set <code>chars</code> (default: the space) at both ends / the start / the end</td><td>same</td></tr>
+<tr><td><code>replace(s, search, replacement [, limit])</code></td><td>every occurrence of <code>search</code> replaced, left to right; at most <code>limit</code> of them</td><td>compatibility function</td></tr>
+<tr><td><code>split(s, delimiter)</code></td><td>the list of the parts between the delimiters (a string or a list of strings); empty parts are kept</td><td>compatibility function</td></tr>
+<tr><td><code>reverse(x)</code></td><td>a string with its characters reversed, or a list with its items reversed</td><td>compatibility function</td></tr>
+<tr><td><code>isEmpty(x)</code></td><td>whether a string, list or map has no character / item / entry</td><td>compatibility function</td></tr>
+</tbody></table>
+</div>
+<p>A negative position or length is an error (<code>22011</code>), and a <code>TRIM</code> character that is not exactly
+one character is too (<code>22027</code>). The SQL form <code>SUBSTRING(s FROM a FOR b)</code> is not GQL; it fails
+with a hint to <code>substring(s, start, length)</code>.</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (n:person) RETURN left(n.name, 2) AS l, right(n.name, 2) AS r, substring(n.name, 1, 3) AS s, substring(n.name, 2) AS t ORDER BY l").to_list()
+// #{"l": "jo", "r": "sh", "s": "osh", "t": "sh"}, #{"l": "ma", "r": "ko", "s": "ark", "t": "rko"}, ... peter, vadas
+g.v().has_label("person").values("name").substring(1, 4).order().to_list()   // "ada", "ark", "ete", "osh"
+g.gql("MATCH (n:person) RETURN n.name AS name, replace(n.name, 'a', '4') AS r, split(n.name, 'a') AS s ORDER BY name").to_list()
+// #{"name": "josh", "r": "josh", "s": ["josh"]}, #{"name": "marko", "r": "m4rko", "s": ["m", "rko"]}, ... #{"name": "vadas", "r": "v4d4s", "s": ["v", "d", "s"]}
+g.v().has_label("person").values("name").replace("a", "4").order().to_list()   // "josh", "m4rko", "peter", "v4d4s"
+g.gql("MATCH (n:person {name: 'marko'}) RETURN reverse(n.name) AS r, reverse([1, 2, 3]) AS l, byte_length('héllo') AS b, char_length('héllo') AS c, isEmpty('') AS e").to_list()
+// #{"b": 6, "c": 5, "e": true, "l": [3, 2, 1], "r": "okram"}
+g.v().has("name", "marko").values("name").reverse().to_list()   // "okram"
+g.gql("MATCH (n:person {name: 'marko'}) RETURN trim('  a  ') AS a, TRIM(LEADING 'x' FROM 'xxaxx') AS b, TRIM(TRAILING FROM '  a  ') AS c, btrim('xyaxy', 'xy') AS d, ltrim('  a  ') AS e, rtrim('..a..', '.') AS f").to_list()
+// #{"a": "a", "b": "axx", "c": "  a", "d": "a", "e": "a  ", "f": "..a"}
+g.gql("MATCH (n:person {name: 'marko'}) RETURN split('a,,b,', ',') AS a, split('a-b;c', ['-', ';']) AS b, split('abc', '') AS c, replace('abc', '', '.') AS d, replace('aaa', 'a', 'b', 2) AS e").to_list()
+// #{"a": ["a", "", "b", ""], "b": ["a", "b", "c"], "c": ["a", "b", "c"], "d": ".a.b.c.", "e": "bba"}
+g.gql("MATCH (n:person {name: 'marko'}) RETURN substring(n.name, -1) AS x")   // error: substring() takes a start of 0 or more (22011)
+g.gql("MATCH (n:person {name: 'marko'}) RETURN TRIM(BOTH 'ab' FROM 'abxab') AS x")   // error: TRIM(.. FROM ..) removes exactly one character (22027)
+g.gql("MATCH (n) RETURN SUBSTRING(n.name FROM 1 FOR 2) AS r")   // error: SUBSTRING(s FROM a FOR b) is SQL, not GQL
+</code></pre>
+<h3 id="numbers"><a class="header" href="#numbers">Numbers</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Function</th><th>Returns</th><th>Cypher spelling</th></tr></thead><tbody>
+<tr><td><code>abs(x)</code></td><td>the absolute value, of the argument's type</td><td>same</td></tr>
+<tr><td><code>floor(x)</code>, <code>ceil(x)</code> / <code>ceiling(x)</code></td><td>rounded down / up; an integer stays the integer</td><td>same</td></tr>
+<tr><td><code>round(x [, precision [, mode]])</code></td><td>rounded, always a float; <code>mode</code> one of <code>'UP'</code>, <code>'DOWN'</code>, <code>'CEILING'</code>, <code>'FLOOR'</code>, <code>'HALF_UP'</code> (the default), <code>'HALF_DOWN'</code>, <code>'HALF_EVEN'</code></td><td>compatibility function</td></tr>
+<tr><td><code>sign(x)</code></td><td>-1, 0 or 1, an integer</td><td>compatibility function</td></tr>
+<tr><td><code>sqrt(x)</code>, <code>exp(x)</code></td><td>the square root, e to the power <code>x</code>; a float</td><td>same</td></tr>
+<tr><td><code>ln(x)</code>, <code>log10(x)</code></td><td>the natural / decimal logarithm; a float</td><td><code>log(x)</code>, <code>log10(x)</code></td></tr>
+<tr><td><code>log(base, x)</code></td><td>the logarithm to <code>base</code>; a float</td><td></td></tr>
+<tr><td><code>power(x, y)</code></td><td><code>x</code> to the power <code>y</code>; a float</td><td>(Cypher's <code>^</code> is not supported yet)</td></tr>
+<tr><td><code>mod(a, b)</code></td><td>the remainder, exactly as <code>a % b</code></td><td><code>a % b</code></td></tr>
+</tbody></table>
+</div>
+<p>None of them makes <code>NaN</code> or an infinity from finite numbers: the square root of a negative
+number and <code>power()</code> of 0 to a negative power are errors (<code>2201F</code>), the logarithm of a number
+<code>&lt;= 0</code> is an error (<code>2201E</code>), an overflow is <code>22003</code>. <code>round()</code> with one argument rounds a half
+toward positive infinity (<code>round(-2.5)</code> is <code>-2.0</code>, Java's and Neo4j's rule); with a precision it
+rounds the decimal text of the number (<code>round(2.675, 2)</code> is <code>2.68</code>).</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (n:person) RETURN n.name AS name, sqrt(n.age) AS s ORDER BY name LIMIT 2").to_list()
+// #{"name": "josh", "s": 5.656854249492381}, #{"name": "marko", "s": 5.385164807134504}
+g.v().has_label("person").order().by("name").limit(2).values("age").math("sqrt(_)").to_list()   // 5.656854249492381, 5.385164807134504
+g.gql("MATCH (n:person {name: 'marko'}) RETURN abs(-3) AS a, abs(-2.5) AS b, floor(2.7) AS c, ceil(2.1) AS d, ceiling(3) AS e, sign(-0.5) AS f, mod(7, 3) AS g").to_list()
+// #{"a": 3, "b": 2.5, "c": 2.0, "d": 3.0, "e": 3, "f": -1, "g": 1}
+g.gql("MATCH (n:person {name: 'marko'}) RETURN round(2.5) AS a, round(-2.5) AS b, round(2.675, 2) AS c, round(-1.55, 1) AS d, round(2.5, 0, 'HALF_EVEN') AS e, round(3) AS f").to_list()
+// #{"a": 3.0, "b": -2.0, "c": 2.68, "d": -1.6, "e": 2.0, "f": 3.0}
+g.gql("MATCH (n:person {name: 'marko'}) RETURN exp(1) AS a, ln(1) AS b, log(100) AS c, log10(1000) AS d, log(2, 8) AS e, power(2, 10) AS f").to_list()
+// #{"a": 2.718281828459045, "b": 0.0, "c": 4.605170185988092, "d": 3.0, "e": 3.0, "f": 1024.0}
+g.inject(100).math("log(_)").to_list()   // 4.605170185988092
+g.gql("MATCH (n:person) RETURN round(avg(n.age), 1) AS mean").to_list()   // #{"mean": 30.8}
+g.gql("MATCH (n:person {name: 'marko'}) RETURN ln(0) AS x")   // error: ln() of a number &lt;= 0 (2201E)
+g.gql("MATCH (n:person {name: 'marko'}) RETURN sqrt(-1) AS x")   // error: sqrt() of a negative number (2201F)
+g.gql("MATCH (n:person {name: 'marko'}) RETURN round(1234.5, -2) AS x")   // error: round() needs a precision &gt;= 0 (22023)
+</code></pre>
+<h3 id="lists-elements-and-paths"><a class="header" href="#lists-elements-and-paths">Lists, elements and paths</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Function</th><th>Returns</th><th>Cypher spelling</th></tr></thead><tbody>
+<tr><td><code>size(list)</code>, <code>cardinality(list)</code></td><td>the number of items (<code>size(e)</code> of a group variable counts its edges)</td><td><code>size(list)</code></td></tr>
+<tr><td><code>head(list)</code>, <code>last(list)</code></td><td>the first / last item; <code>NULL</code> for <code>[]</code></td><td>compatibility function</td></tr>
+<tr><td><code>tail(list)</code></td><td>all items but the first</td><td>compatibility function</td></tr>
+<tr><td><code>trim(list, n)</code></td><td>the list without its last <code>n</code> items</td><td></td></tr>
+<tr><td><code>range(start, end [, step])</code></td><td>the integers from <code>start</code> to <code>end</code> inclusive, by <code>step</code> (default 1)</td><td>compatibility function</td></tr>
+<tr><td><code>keys(x)</code></td><td>the property keys of a vertex or edge (a stored <code>null</code> is no key), or the keys of a map</td><td>compatibility function</td></tr>
+<tr><td><code>properties(x)</code></td><td>the properties of a vertex or edge as a map; a map itself</td><td>compatibility function</td></tr>
+<tr><td><code>startNode(e)</code>, <code>endNode(e)</code></td><td>the stored source / target vertex of the edge</td><td>compatibility function</td></tr>
+<tr><td><code>n IS [NOT] SOURCE OF e</code>, <code>n IS [NOT] DESTINATION OF e</code></td><td>whether <code>n</code> is the edge's source / target (a predicate)</td><td></td></tr>
+<tr><td><code>nodes(p)</code>, <code>relationships(p)</code></td><td>the vertices / the edges of a path, in the path's order</td><td>compatibility function</td></tr>
+</tbody></table>
+</div>
+<p><code>startNode(e)</code> is the edge's <strong>stored</strong> source, whatever direction the pattern was written in:
+in <code>(a)-[e]-(b)</code> the variable <code>a</code> may be either end. <code>range()</code> checks its size before it builds
+the list, so <code>range(0, 9223372036854775807)</code> is a limit error, never an out-of-memory
+(<a href="errors.html#scope-grouping-and-limits">Errors</a>).</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (n:person {name: 'marko'}) RETURN head([1, 2, 3]) AS h, last([1, 2, 3]) AS l, tail([1, 2, 3]) AS t, trim([1, 2, 3], 1) AS tr, range(1, 5) AS r, range(10, 0, -5) AS d, head([]) AS e").to_list()
+// #{"d": [10, 5, 0], "e": (), "h": 1, "l": 3, "r": [1, 2, 3, 4, 5], "t": [2, 3], "tr": [1, 2]}
+g.gql("MATCH (p:person)-[:created]-&gt;(s) WITH p, s ORDER BY s.name RETURN p.name AS name, head(collect(s.name)) AS first ORDER BY name").to_list()
+// #{"first": "lop", "name": "josh"}, #{"first": "lop", "name": "marko"}, #{"first": "lop", "name": "peter"}
+g.gql("MATCH (n:person {name: 'marko'}) RETURN keys(n) AS k, properties(n) AS p").to_list()   // #{"k": ["name", "age"], "p": #{"age": 29, "name": "marko"}}
+g.v().has("name", "marko").properties().key().fold().to_list()   // ["name", "age"]
+g.v().has("name", "marko").value_map().by(__.unfold()).to_list()   // #{"age": 29, "name": "marko"}
+g.gql("MATCH (a)-[e:knows]-(b) RETURN a.name AS a, b.name AS b, startNode(e).name AS s, endNode(e).name AS t ORDER BY a, b").to_list()
+// josh marko: s marko, t josh; marko josh: marko, josh; marko vadas: marko, vadas; vadas marko: marko, vadas
+g.e().has_label("knows").project("s", "t").by(__.out_v().values("name")).by(__.in_v().values("name")).to_list()
+// #{"s": "marko", "t": "vadas"}, #{"s": "marko", "t": "josh"}
+g.gql("MATCH (a)-[e:knows]-(b) RETURN a.name AS a, b.name AS b, a IS SOURCE OF e AS src ORDER BY a, b").to_list()
+// josh marko false, marko josh true, marko vadas true, vadas marko false
+g.gql("MATCH p = (a {name: 'marko'})-[:knows|created]-&gt;{1,2}(b) RETURN b.name AS b, size(nodes(p)) AS n, size(relationships(p)) AS r, last(nodes(p)) = b AS same ORDER BY n, b").to_list()
+// josh 2 1 true, lop 2 1 true, vadas 2 1 true, lop 3 2 true, ripple 3 2 true
+g.gql("MATCH (n:person {name: 'marko'}) RETURN range(0, 9223372036854775807) AS r")   // error: Resource limit 'traversal.max_materialized_bytes' exceeded
+</code></pre>
+<p>A <a href="#map-projections-and-comprehensions">list comprehension</a> maps or filters the items of a
+list (<code>[x IN nodes(p) | x.name]</code>); <a href="#for-and-unwind"><code>FOR</code></a> walks a list as rows and
+<code>collect_list()</code> collects them again:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH p = (a {name: 'marko'})-[:knows]-&gt;(b) RETURN b.name AS b, [x IN nodes(p) | x.name] AS names ORDER BY b").to_list()
+// #{"b": "josh", "names": ["marko", "josh"]}, #{"b": "vadas", "names": ["marko", "vadas"]}
+g.gql("MATCH p = (a {name: 'marko'})-[:knows]-&gt;(b) FOR x IN nodes(p) RETURN b.name AS b, collect_list(x.name) AS names ORDER BY b").to_list()
+// #{"b": "josh", "names": ["marko", "josh"]}, #{"b": "vadas", "names": ["marko", "vadas"]}
+</code></pre>
+<h3 id="dates-and-times"><a class="header" href="#dates-and-times">Dates and times</a></h3>
+<p>The temporal values are the engine's six <a href="../dates/index.html">date and time types</a> (<code>date</code>,
+<code>time</code>, <code>offsettime</code>, <code>localdatetime</code>, <code>datetime</code>, <code>duration</code>): a value <code>gql()</code> builds is the same value a
+Gremlin step or a stored property holds, and a stored date reads as a date (<code>n.born.year</code>). The
+functions are openCypher's (Neo4j Cypher 25) with Neo4j's meaning; the constructors also have
+their ISO GQL names. The places where an answer differs from Neo4j are on
+<a href="semantics.html#where-dates-and-times-differ-from-neo4j">Semantics</a>, and the Gremlin step that does
+the same as each function on <a href="../dates/gql.html">Dates in GQL</a>.</p>
+<div class="table-wrapper"><table><thead><tr><th>ISO GQL</th><th>Cypher</th><th>Gives (engine type)</th></tr></thead><tbody>
+<tr><td><code>date(x)</code></td><td><code>date(x)</code></td><td>a calendar day (<code>date</code>)</td></tr>
+<tr><td><code>local_time(x)</code></td><td><code>localtime(x)</code></td><td>a time of day without an offset (<code>time</code>)</td></tr>
+<tr><td><code>zoned_time(x)</code></td><td><code>time(x)</code></td><td>a time of day with its UTC offset (<code>offsettime</code>)</td></tr>
+<tr><td><code>local_datetime(x)</code></td><td><code>localdatetime(x)</code></td><td>a date and a time of day without an offset (<code>localdatetime</code>)</td></tr>
+<tr><td><code>zoned_datetime(x)</code></td><td><code>datetime(x)</code></td><td>an instant with its UTC offset, and its zone name when built with one (<code>datetime</code>)</td></tr>
+<tr><td><code>duration(x)</code></td><td><code>duration(x)</code></td><td>months, days and a time part (<code>duration</code>)</td></tr>
+</tbody></table>
+</div>
+<p><code>x</code> is ISO 8601 text, a map of fields, or (not for <code>duration</code>) another temporal value, which is
+projected onto the type (<code>date(datetime(..))</code> is the date at the value's own offset,
+<code>datetime(localdatetime(..))</code> the wall clock at UTC, <code>time(localtime(..))</code> at UTC,
+<code>time(datetime(..))</code> its time of day and offset). With no argument a constructor gives the
+time the query started (<a href="#clocks">Clocks</a>). A <code>NULL</code> argument, or a <code>NULL</code> field of the map,
+gives <code>NULL</code>. Values hold <strong>nanoseconds</strong>, as Neo4j's: up to nine fraction digits and the
+<code>nanosecond</code> field are kept exactly. A constant can also be written as an ISO GQL literal, <code>DATE '2015-07-21'</code>
+(<a href="#literals">Literals</a>).</p>
+<pre><code class="language-rhai graph=empty">g.gql("RETURN date('2015-07-21') AS d, localtime('21:40:32.142') AS t, localdatetime('2015-07-21T21:40') AS ldt, datetime('2015-07-21T21:40+01:00') AS dt").to_list()
+// #{"d": date("2015-07-21"), "dt": datetime("2015-07-21T21:40:00+01:00"), "ldt": localdatetime("2015-07-21T21:40:00"), "t": time("21:40:32.142")}
+g.gql("RETURN local_time('10:00') AS t, local_datetime('2015-07-21T21:40') AS ldt, zoned_datetime('2015-07-21T21:40:32+02:00') AS dt").to_list()
+// #{"dt": datetime("2015-07-21T21:40:32+02:00"), "ldt": localdatetime("2015-07-21T21:40:00"), "t": time("10:00:00")}
+g.gql("RETURN date(datetime('2015-07-21T23:40:32+02:00')) AS d, localtime(datetime('2015-07-21T23:40:32+02:00')) AS t, datetime(localdatetime('2015-07-21T12:00')) AS dt").to_list()
+// #{"d": date("2015-07-21"), "dt": datetime("2015-07-21T12:00:00Z"), "t": time("23:40:32")}
+g.gql("RETURN date(null) AS a, date({year: 2015, month: null}) AS b").to_list()   // #{"a": (), "b": ()}
+</code></pre>
+<p><strong>Text.</strong> The constructors read ISO 8601 as Neo4j does, in the extended and the basic form:</p>
+<div class="table-wrapper"><table><thead><tr><th>Type</th><th>Text forms (examples)</th></tr></thead><tbody>
+<tr><td><code>date</code></td><td><code>2015-07-21</code> / <code>20150721</code>, <code>2015-07</code> / <code>201507</code>, <code>2015</code>; week dates <code>2015-W30-2</code> / <code>2015W302</code>, <code>2015-W30</code> (its Monday); ordinal dates <code>2015-202</code> / <code>2015202</code>; quarter dates <code>2015-Q3-21</code> / <code>2015Q321</code>, <code>2015-Q3</code></td></tr>
+<tr><td><code>localtime</code></td><td><code>21:40:32.142</code> / <code>214032.142</code>, <code>21:40</code> / <code>2140</code>, <code>21</code>; a comma for the fraction (<code>21:40:32,142</code>); no offset (<code>12:00+01:00</code> is <code>22007</code>)</td></tr>
+<tr><td><code>time</code></td><td>a <code>localtime</code> form, then <code>Z</code>, <code>+01:00</code>, <code>+0100</code> or <code>+01</code> (<code>21:40:32.142+0100</code>, <code>2140-02</code>); no offset is UTC; no zone name</td></tr>
+<tr><td><code>localdatetime</code></td><td>a date form, <code>T</code>, a time form: <code>2015-07-21T21:40</code>, <code>2015-W30-2T2140</code>, <code>2015202T21:40:32.142</code></td></tr>
+<tr><td><code>datetime</code></td><td>a local datetime with <code>Z</code>, <code>+01:00</code>, <code>+0100</code> or <code>+01</code>, and / or a zone in brackets: <code>2015-07-21T21:40:32.142[Europe/London]</code>, <code>..+01:00[Europe/London]</code> (the offset must be the zone's at that time; the name is kept); a date alone is midnight; no offset and no zone is UTC</td></tr>
+<tr><td><code>duration</code></td><td><code>P14DT16H12M</code>, <code>P5W</code>, <code>-P1D</code>, <code>P-1DT2H</code>; a fraction on any unit (<code>P1.5Y</code>, <code>PT0.75M</code>, <code>PT1.5H</code>); the alternative form <code>P0001-02-03T04:05:06</code></td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-rhai graph=empty">g.gql("RETURN date('2015W302') AS w, date('2015-202') AS o, date('2015-Q3-21') AS q, date('2015-W30') AS monday").to_list()
+// #{"monday": date("2015-07-20"), "o": date("2015-07-21"), "q": date("2015-07-21"), "w": date("2015-07-21")}
+g.gql("RETURN datetime('2015-07-21T21:40:32.142[Europe/London]') AS a, datetime('2015-07-21T21:40:32+0100') AS b, datetime('2015-07-21') AS c").to_list()
+// #{"a": datetime("2015-07-21T21:40:32.142+01:00[Europe/London]"), "b": datetime("2015-07-21T21:40:32+01:00"), "c": datetime("2015-07-21T00:00:00Z")}
+g.gql("RETURN time('21:40:32.142+0100') AS a, time('2140-02') AS b, zoned_time('12:00') AS c").to_list()
+// #{"a": offsettime("21:40:32.142+01:00"), "b": offsettime("21:40:00-02:00"), "c": offsettime("12:00:00Z")}
+g.gql("RETURN duration('P1Y2M10DT2H30M') AS a, duration('P1.5Y') AS b, duration('PT0.75M') AS c, duration('P0001-02-03T04:05:06') AS d").to_list()
+// #{"a": duration("P1Y2M10DT2H30M"), "b": duration("P1Y6M"), "c": duration("PT45S"), "d": duration("P1Y2M3DT4H5M6S")}
+g.gql("RETURN date('2015-13-01') AS d")   // fails: the date does not exist (22007)
+</code></pre>
+<p><strong>Maps.</strong> A map names the fields; the keys match in any ASCII case:</p>
+<div class="table-wrapper"><table><thead><tr><th>Type</th><th>Keys</th></tr></thead><tbody>
+<tr><td><code>date</code></td><td><code>year</code> with one group: <code>month</code> / <code>day</code>; <code>week</code> / <code>dayOfWeek</code> (ISO 8601 weeks: <code>year</code> is then the week-numbering year); <code>ordinalDay</code>; <code>quarter</code> / <code>dayOfQuarter</code>. A missing smaller field is its first value (<code>{year: 1984}</code> is January 1)</td></tr>
+<tr><td><code>localtime</code></td><td><code>hour</code>, <code>minute</code>, <code>second</code>, and <code>millisecond</code>, <code>microsecond</code>, <code>nanosecond</code> (added up: <code>{millisecond: 645, microsecond: 876}</code> is <code>.645876</code>)</td></tr>
+<tr><td><code>time</code></td><td>the keys of <code>localtime</code> and <code>timezone</code> (an offset, or a zone name: its offset at the query's instant); no <code>timezone</code> is UTC</td></tr>
+<tr><td><code>localdatetime</code></td><td>the keys of both</td></tr>
+<tr><td><code>datetime</code></td><td>the keys of both and <code>timezone</code> (<code>'+01:00'</code>, <code>'Europe/Stockholm'</code>: the name is kept); no <code>timezone</code> is UTC</td></tr>
+<tr><td>base values</td><td><code>date: d</code> takes the date (of a date, a local datetime or a datetime at its own offset), <code>time: t</code> the time of day (and the offset of a datetime or time <code>t</code>, and the zone name of a datetime <code>t</code>), <code>datetime: x</code> both; the other keys then override single fields (<code>{date: d, day: 28}</code>, <code>{date: d, week: 1}</code> keeps the day of the week), and a base with a zone name is read again in its zone. With a base that has an offset, <code>timezone</code> converts the instant (<code>12:00+01:00</code> to <code>16:00+05:00</code>); without one it attaches the zone</td></tr>
+<tr><td><code>duration</code></td><td><code>years</code>, <code>months</code>, <code>weeks</code>, <code>days</code>, <code>hours</code>, <code>minutes</code>, <code>seconds</code>, <code>milliseconds</code>, <code>microseconds</code>, <code>nanoseconds</code>, each may be fractional and negative; a fraction cascades down (a year is 12 months, a month 2 629 746 seconds, a week 7 days, a day 86 400 seconds, then the whole days of the seconds become days: <code>{months: 0.75}</code> is <code>P22DT19H51M49.5S</code>)</td></tr>
+</tbody></table>
+</div>
+<p>An unknown key, or two groups of date keys together, is <code>22007</code>; a field out of range (<code>month: 13</code>, <code>day: 30</code> in February, <code>hour: 25</code>, the year 10000) is <code>22008</code>.</p>
+<pre><code class="language-rhai graph=empty">g.gql("RETURN date({year: 2015, week: 30, dayOfWeek: 2}) AS w, date({year: 1984, quarter: 3, dayOfQuarter: 45}) AS q, localdatetime({year: 1984, ordinalDay: 202, hour: 12}) AS o").to_list()
+// #{"o": localdatetime("1984-07-20T12:00:00"), "q": date("1984-08-14"), "w": date("2015-07-21")}
+g.gql("RETURN localtime({hour: 12, minute: 31, second: 14, millisecond: 645, microsecond: 876}) AS t, datetime({year: 1984, month: 10, day: 11, hour: 12, timezone: 'Europe/Stockholm'}) AS dt").to_list()
+// #{"dt": datetime("1984-10-11T12:00:00+01:00[Europe/Stockholm]"), "t": time("12:31:14.645876")}
+g.gql("RETURN date({date: date('2015-07-21'), day: 28}) AS a, localdatetime({date: date('2015-07-21'), time: localtime('12:30')}) AS b, datetime({datetime: datetime('2015-07-21T12:00+01:00'), timezone: '+05:00'}) AS c").to_list()
+// #{"a": date("2015-07-28"), "b": localdatetime("2015-07-21T12:30:00"), "c": datetime("2015-07-21T16:00:00+05:00")}
+g.gql("RETURN duration({days: 14, hours: 16, minutes: 12}) AS a, duration({years: 1.5, weeks: 2, seconds: 1.25}) AS b, duration({months: 0.75}) AS c").to_list()
+// #{"a": duration("P14DT16H12M"), "b": duration("P1Y6M14DT1.250S"), "c": duration("P22DT19H51M49.500S")}
+g.gql("RETURN date({year: 2015, month: 2, day: 30}) AS d")   // fails: the field day cannot be 30 (22008)
+</code></pre>
+<p><code>datetime.fromepoch(seconds, nanoseconds)</code> and <code>datetime.fromepochmillis(milliseconds)</code> give the
+<code>datetime</code> (UTC) of a time since 1970-01-01T00:00Z.
+The map form does the same as in Neo4j: <code>datetime({epochSeconds: s})</code> with an optional
+<code>millisecond</code> / <code>microsecond</code> / <code>nanosecond</code>, or <code>datetime({epochMillis: ms})</code>, each with an
+optional <code>timezone</code> (the instant shown in that zone); no other field may stand next to them.</p>
+<pre><code class="language-rhai graph=empty">g.gql("RETURN datetime.fromepoch(1416779, 999999000) AS a, datetime.fromepochmillis(237821673987) AS b").to_list()
+// #{"a": datetime("1970-01-17T09:32:59.999999Z"), "b": datetime("1977-07-15T13:34:33.987Z")}
+g.gql("RETURN datetime({epochSeconds: 1416779, microsecond: 5}) AS a, datetime({epochMillis: 237821673987, timezone: '+01:00'}) AS b").to_list()
+// #{"a": datetime("1970-01-17T09:32:59.000005Z"), "b": datetime("1977-07-15T14:34:33.987+01:00")}
+</code></pre>
+<h4 id="components"><a class="header" href="#components">Components</a></h4>
+<p><code>x.name</code> reads a component of a temporal value (any ASCII case: <code>d.weekyear</code> is <code>d.weekYear</code>).
+A name the value's type does not have is <code>22G03</code>, and the message lists the names it has:</p>
+<div class="table-wrapper"><table><thead><tr><th>Of</th><th>Components</th></tr></thead><tbody>
+<tr><td><code>date</code>, <code>localdatetime</code>, <code>datetime</code></td><td><code>year</code>, <code>quarter</code> (1-4), <code>month</code>, <code>week</code> and <code>weekYear</code> (ISO 8601: Monday weeks, week 1 holds January 4), <code>dayOfQuarter</code> (also <code>quarterDay</code>), <code>day</code>, <code>ordinalDay</code> (1-366), <code>dayOfWeek</code> (also <code>weekDay</code>; 1 = Monday to 7 = Sunday)</td></tr>
+<tr><td><code>localtime</code>, <code>time</code>, <code>localdatetime</code>, <code>datetime</code></td><td><code>hour</code>, <code>minute</code>, <code>second</code>, <code>millisecond</code>, <code>microsecond</code>, <code>nanosecond</code>, each fraction counted from the start of the second (<code>.645876</code> gives 645, 645876, 645876000)</td></tr>
+<tr><td><code>datetime</code></td><td><code>timezone</code> (the zone name, <code>'Europe/Stockholm'</code>, of a value built with one, else the offset text), <code>offset</code> (the offset text: <code>Z</code>, <code>+01:00</code>), <code>offsetMinutes</code>, <code>offsetSeconds</code>, <code>epochSeconds</code>, <code>epochMillis</code></td></tr>
+<tr><td><code>time</code></td><td><code>timezone</code> and <code>offset</code> (the offset text), <code>offsetMinutes</code>, <code>offsetSeconds</code></td></tr>
+<tr><td><code>duration</code></td><td>the totals <code>years</code>, <code>quarters</code>, <code>months</code>, <code>weeks</code>, <code>days</code>, <code>hours</code>, <code>minutes</code>, <code>seconds</code>, <code>milliseconds</code>, <code>microseconds</code>, <code>nanoseconds</code>; the remainders <code>quartersOfYear</code>, <code>monthsOfQuarter</code>, <code>monthsOfYear</code>, <code>daysOfWeek</code>, <code>minutesOfHour</code>, <code>secondsOfMinute</code>, <code>millisecondsOfSecond</code>, <code>microsecondsOfSecond</code>, <code>nanosecondsOfSecond</code></td></tr>
+</tbody></table>
+</div>
+<p>A duration's months, days and seconds stay apart: <code>years</code> and <code>quarters</code> count its months,
+<code>weeks</code> its days, <code>hours</code> to <code>nanoseconds</code> its time part (<code>duration('P1M2D').days</code> is 2). The
+divisions truncate toward zero (<code>duration({months: -16}).years</code> is -1).</p>
+<pre><code class="language-rhai graph=empty">g.gql("RETURN date('2017-10-11').year AS y, date('2017-10-11').week AS w, date('2017-10-11').dayOfWeek AS dw, date('1984-01-01').weekYear AS wy, date('1984-10-11').ordinalDay AS o").to_list()
+// #{"dw": 3, "o": 285, "w": 41, "wy": 1983, "y": 2017}
+g.gql("RETURN datetime('2015-07-21T21:40:32.142+01:00').epochMillis AS e, datetime('2015-07-21T21:40:32.142+01:00').offset AS o, localtime('12:31:14.645876').millisecond AS ms").to_list()
+// #{"e": 1437511232142, "ms": 645, "o": "+01:00"}
+g.gql("RETURN duration({months: 14, days: 3, seconds: 3725}).years AS y, duration({months: 14, days: 3, seconds: 3725}).monthsOfYear AS my, duration({months: 14, days: 3, seconds: 3725}).hours AS h").to_list()
+// #{"h": 1, "my": 2, "y": 1}
+g.gql("RETURN date('2015-01-01').hour AS h")   // fails: a date has no component hour (22G03)
+</code></pre>
+<h4 id="arithmetic-and-comparison"><a class="header" href="#arithmetic-and-comparison">Arithmetic and comparison</a></h4>
+<div class="table-wrapper"><table><thead><tr><th>Form</th><th>Result</th></tr></thead><tbody>
+<tr><td><code>x + dur</code>, <code>dur + x</code>, <code>x - dur</code> (<code>x</code> a <code>date</code>, <code>localtime</code>, <code>time</code>, <code>localdatetime</code> or <code>datetime</code>)</td><td>a value of <code>x</code>'s type: the duration's months (the day clamped to the month's end), then its days, then its time part, each where the type has it</td></tr>
+<tr><td><code>dur + dur</code>, <code>dur - dur</code></td><td>part by part (<code>P1D + PT49H</code> is <code>P1DT49H</code>)</td></tr>
+<tr><td><code>dur * n</code>, <code>n * dur</code>, <code>dur / n</code></td><td>each part scaled, with the fraction cascade of <code>duration({..})</code> (<code>P1M * 0.5</code> is <code>P15DT5H14M33S</code>)</td></tr>
+<tr><td><code>-dur</code></td><td>every part negated</td></tr>
+</tbody></table>
+</div>
+<p>A <code>date</code> takes the months, the days and the <strong>whole days</strong> of the time part (toward zero:
+<code>PT33H</code> adds one day, <code>PT-33H</code> takes one away), a <code>localtime</code> and a <code>time</code> only the time part,
+wrapping around midnight (a <code>time</code> keeps its offset). A <code>datetime</code> keeps its offset, or, with a
+zone name, follows its zone: a day added across a daylight saving change keeps the wall-clock
+time. Two values that are not both durations cannot
+be added (<code>22G03</code>: the time between them is <code>duration.between(a, b)</code>); <code>dur / 0</code> is <code>22012</code>; a
+result outside the years -9999 to 9999 is <code>22008</code>.</p>
+<pre><code class="language-rhai graph=empty">g.gql("RETURN date('2024-01-31') + duration('P1M') AS a, date('1997-09-11') + duration('P29DT33H') AS b, localtime('23:00') + duration('PT2H') AS c, localdatetime('2015-07-21T21:40') - duration('PT1H30M') AS d").to_list()
+// #{"a": date("2024-02-29"), "b": date("1997-10-11"), "c": time("01:00:00"), "d": localdatetime("2015-07-21T20:10:00")}
+g.gql("RETURN duration('P1M') * 0.5 AS a, duration('P1Y') / 2 AS b, duration('P1D') + duration('PT49H') AS c, -duration('P1D') AS d").to_list()
+// #{"a": duration("P15DT5H14M33S"), "b": duration("P6M"), "c": duration("P1DT49H"), "d": duration("-P1D")}
+g.gql("RETURN date('2015-01-01') + date('2015-01-01') AS x")   // fails: + adds a duration to a temporal value (22G03)
+</code></pre>
+<p>Values of one type compare by calendar and clock, two <code>datetime</code>s by their instant
+(<code>12:00+01:00 = 11:00Z</code> is TRUE). Two durations are equal when their months, days and time
+part are, but they are <strong>not ordered</strong>: <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code> on two durations are <code>NULL</code> (a
+month has no fixed length); <code>ORDER BY</code> still sorts them, by their length with a month of 30
+days. Values of different temporal types are never equal (<code>=</code> FALSE) and not ordered (<code>NULL</code>),
+as values of different kinds are (<a href="semantics.html#comparisons-across-types">Comparisons across types</a>).</p>
+<pre><code class="language-rhai graph=empty">g.gql("RETURN datetime('2015-07-21T12:00+01:00') = datetime('2015-07-21T11:00Z') AS a, date('2015-01-01') &lt; date('2016-01-01') AS b, duration('P1M') &lt; duration('P30DT1S') AS c, date('2015-01-01') = localdatetime('2015-01-01T00:00') AS d").to_list()
+// #{"a": true, "b": true, "c": (), "d": false}
+g.gql("FOR d IN [duration('P1M'), duration('P30DT1S'), duration('PT1H')] RETURN d ORDER BY d").to_list()
+// #{"d": duration("PT1H")}, #{"d": duration("P1M")}, #{"d": duration("P30DT1S")}
+</code></pre>
+<p><code>toString(x)</code> writes a temporal value in Neo4j's text (<code>'12:00'</code>, <code>'1984-10-11T12:31'</code>,
+<code>'PT-1M-0.001S'</code>: no zero seconds, trailing fraction zeros stripped, a sign per duration
+component), while <code>CAST(x AS STRING)</code> writes the engine's canonical ISO 8601 text
+(<code>'12:00:00'</code>, <code>'-PT1M0.001S'</code>, <a href="../dates/text_formats.html">Text Formats</a>). The constructors read
+both back.</p>
+<pre><code class="language-rhai graph=empty">g.gql("RETURN toString(localtime('12:00')) AS a, CAST(localtime('12:00') AS STRING) AS b, toString(duration({minutes: -1, milliseconds: -1})) AS c, CAST(duration({minutes: -1, milliseconds: -1}) AS STRING) AS d").to_list()
+// #{"a": "12:00", "b": "12:00:00", "c": "PT-1M-0.001S", "d": "-PT1M0.001S"}
+</code></pre>
+<h4 id="truncation"><a class="header" href="#truncation">Truncation</a></h4>
+<p><code>date.truncate(unit, x [, map])</code>, <code>localtime.truncate(..)</code>, <code>time.truncate(..)</code>,
+<code>localdatetime.truncate(..)</code> and <code>datetime.truncate(..)</code> cut <code>x</code> to the start of <code>unit</code> and give
+a value of their type (these
+qualified names are Cypher's; GQL has no spelling for them):</p>
+<div class="table-wrapper"><table><thead><tr><th>Function</th><th>Units (any ASCII case)</th></tr></thead><tbody>
+<tr><td><code>date.truncate</code></td><td><code>millennium</code>, <code>century</code>, <code>decade</code>, <code>year</code>, <code>weekYear</code>, <code>quarter</code>, <code>month</code>, <code>week</code>, <code>day</code></td></tr>
+<tr><td><code>localdatetime.truncate</code>, <code>datetime.truncate</code></td><td>those, and <code>hour</code>, <code>minute</code>, <code>second</code>, <code>millisecond</code>, <code>microsecond</code>, <code>nanosecond</code></td></tr>
+<tr><td><code>localtime.truncate</code>, <code>time.truncate</code></td><td><code>day</code> (midnight) to <code>nanosecond</code></td></tr>
+</tbody></table>
+</div>
+<ul>
+<li><code>millennium</code> and <code>century</code> follow Neo4j: 2017 truncates to 2000, 1984 to 1900 (Gremlin's
+<code>date_trunc</code> keeps PostgreSQL's 2001 and 1901). <code>weekYear</code> is the Monday of ISO week 1 of the
+week-numbering year (1984-01-01 gives 1983-01-03); <code>week</code> is a Monday; <code>nanosecond</code> keeps the
+value (it holds nanoseconds).</li>
+<li><code>x</code> may be of another temporal type and is projected first: the date of a datetime at its own
+offset, the time of day of either, midnight for a date. <code>datetime.truncate</code> keeps the offset
+of a datetime (and its zone name: the truncated wall clock is read in that zone again) and
+gives UTC to a value without one; <code>time.truncate</code> keeps the offset of a time or a datetime.</li>
+<li>The <strong>map</strong> overrides fields of the truncated value as the constructors' base form does:
+<code>{day: 2}</code>, <code>{dayOfWeek: 2}</code>, <code>{hour: 1}</code>, <code>{millisecond: 5}</code>, and for <code>datetime.truncate</code>
+<code>{timezone: ..}</code>, which keeps the wall clock and reads it in that zone (a name is kept), for
+<code>time.truncate</code> the offset of the result.</li>
+<li>A unit the type lacks (<code>date.truncate('hour', ..)</code>) or an unknown unit is <code>22023</code>; a value
+without the part the type needs (<code>date.truncate('day', localtime(..))</code>) or a duration <code>22G03</code>.</li>
+</ul>
+<pre><code class="language-rhai graph=empty">g.gql("RETURN date.truncate('millennium', date('2017-10-11')) AS m, date.truncate('century', date('1984-10-11')) AS c, date.truncate('weekYear', date('1984-01-01')) AS wy").to_list()
+// #{"c": date("1900-01-01"), "m": date("2000-01-01"), "wy": date("1983-01-03")}
+g.gql("RETURN date.truncate('week', date('2017-10-11'), {dayOfWeek: 2}) AS a, localdatetime.truncate('quarter', localdatetime('2017-11-11T12:31:14'), {day: 2}) AS b, localtime.truncate('hour', localtime('12:31:14'), {minute: 5}) AS c").to_list()
+// #{"a": date("2017-10-10"), "b": localdatetime("2017-10-02T00:00:00"), "c": time("12:05:00")}
+g.gql("RETURN datetime.truncate('month', date('2017-11-11')) AS a, datetime.truncate('day', datetime('2017-10-11T12:31:14+01:00'), {timezone: 'Europe/Stockholm'}) AS b").to_list()
+// #{"a": datetime("2017-11-01T00:00:00Z"), "b": datetime("2017-10-11T00:00:00+02:00[Europe/Stockholm]")}
+g.gql("RETURN date.truncate('hour', date('2017-10-11')) AS d")   // fails: the unit hour is not defined for a date (22023)
+</code></pre>
+<h4 id="durations-between-two-values"><a class="header" href="#durations-between-two-values">Durations between two values</a></h4>
+<div class="table-wrapper"><table><thead><tr><th>Function</th><th>Gives</th></tr></thead><tbody>
+<tr><td><code>duration.between(a, b)</code></td><td>the whole months from <code>a</code> to <code>b</code> (a month counts once its day of the month and time of day are reached), then the whole days after them, then the rest of the time; every part has the sign of the direction</td></tr>
+<tr><td><code>duration.inMonths(a, b)</code></td><td>the whole months only (toward zero)</td></tr>
+<tr><td><code>duration.inDays(a, b)</code></td><td>the whole days only (toward zero)</td></tr>
+<tr><td><code>duration.inSeconds(a, b)</code></td><td>the elapsed time, as a duration of seconds only</td></tr>
+</tbody></table>
+</div>
+<p>The operands may be of different types; they are aligned first as Neo4j aligns them: when only
+one has a time of day, the other gets midnight; when only one has a date, the other gets that
+date (<code>date('1984-10-11')</code> to <code>localtime('16:30')</code> is <code>PT16H30M</code>); when only one has an offset,
+the other is read at that offset, or in that side's zone when it is a <code>datetime</code> with a zone
+name (across a daylight saving change, as Neo4j). <code>inMonths</code> / <code>inDays</code> of two <code>localtime</code>s or
+two <code>time</code>s, a duration or a
+value that is no temporal value is <code>22G03</code>.</p>
+<pre><code class="language-rhai graph=empty">g.gql("RETURN duration.between(date('1984-10-11'), date('2015-06-24')) AS d, duration.inMonths(date('1984-10-11'), date('2015-06-24')) AS m, duration.inDays(date('1984-10-11'), date('2015-06-24')) AS dd, duration.inSeconds(date('1984-10-11'), date('1984-10-12')) AS s").to_list()
+// #{"d": duration("P30Y8M13D"), "dd": duration("P11213D"), "m": duration("P30Y8M"), "s": duration("PT24H")}
+g.gql("RETURN duration.between(localdatetime('2015-07-21T21:40:32.142'), date('2015-06-24')) AS a, duration.between(date('1984-10-11'), localtime('16:30')) AS b").to_list()
+// #{"a": duration("-P27DT21H40M32.142S"), "b": duration("PT16H30M")}
+g.gql("RETURN duration.inDays(localtime('10:00'), localtime('12:00')) AS d")   // fails: two local times have no days (22G03)
+</code></pre>
+<h4 id="clocks"><a class="header" href="#clocks">Clocks</a></h4>
+<p><code>date()</code>, <code>localtime()</code>, <code>time()</code>, <code>localdatetime()</code> and <code>datetime()</code> with no argument (and their ISO
+names), the ISO clocks <code>CURRENT_DATE</code>, <code>CURRENT_TIME</code>, <code>CURRENT_TIMESTAMP</code>, <code>LOCAL_TIME</code> and
+<code>LOCAL_TIMESTAMP</code> (written without parentheses; <code>current_date()</code> with empty ones is accepted
+too), and <code>X.statement()</code> / <code>X.transaction()</code> (<code>date.statement()</code>, <code>datetime.transaction()</code>,
+...) give the time the query started: <strong>one instant per query</strong>, the same for every row and
+every call, so a query is deterministic and repeatable. A zone argument or map gives that
+instant in the zone (<code>datetime.statement('Europe/Berlin')</code>, <code>date({timezone: '+05:00'})</code>); the
+default zone is UTC. In a script the instant is the script's own: <code>datetime()</code> in <code>g.gql(..)</code>
+equals the script's <code>now()</code>, and <code>date()</code> its <code>today()</code> at UTC. <code>X.realtime()</code>, a clock that
+moves while the query runs, is refused like <code>rand()</code>.</p>
+<pre><code class="language-rhai graph=empty">g.gql("RETURN date() = date.statement() AS a, datetime.transaction() = datetime() AS b, datetime({timezone: '+05:00'}).timezone AS z").to_list()   // #{"a": true, "b": true, "z": "+05:00"}
+g.gql("RETURN CURRENT_DATE = date() AS a, CURRENT_TIMESTAMP = zoned_datetime() AS b, LOCAL_TIMESTAMP = local_datetime() AS c").to_list()   // #{"a": true, "b": true, "c": true}
+g.gql("FOR i IN [1, 2, 3] RETURN count(DISTINCT datetime()) AS instants").to_list()   // #{"instants": 1}
+g.gql("RETURN datetime.realtime() AS t")   // refused: a clock that moves while the query runs
+</code></pre>
+<h4 id="literals"><a class="header" href="#literals">Literals</a></h4>
+<p>The ISO GQL temporal literals are a type word and a string; the string is read as the
+constructor of that type reads its text:</p>
+<div class="table-wrapper"><table><thead><tr><th>Literal</th><th>Value</th><th>As</th></tr></thead><tbody>
+<tr><td><code>DATE '2024-01-05'</code></td><td>a date</td><td><code>date('2024-01-05')</code></td></tr>
+<tr><td><code>TIME '10:00:00.5'</code></td><td>a local time (no offset in the text)</td><td><code>local_time('10:00:00.5')</code></td></tr>
+<tr><td><code>TIME '10:00+01:00'</code></td><td>a zoned time (an offset in the text)</td><td><code>zoned_time('10:00+01:00')</code></td></tr>
+<tr><td><code>DATETIME '2024-01-05T10:00'</code>, <code>TIMESTAMP '..'</code></td><td>a local datetime (no offset or zone in the text)</td><td><code>local_datetime('..')</code></td></tr>
+<tr><td><code>DATETIME '2024-01-05T10:00+01:00'</code>, <code>TIMESTAMP '..[Europe/Berlin]'</code></td><td>a zoned datetime (an offset or a zone in the text, a zone name kept)</td><td><code>zoned_datetime('..')</code></td></tr>
+<tr><td><code>DURATION 'P1DT2H'</code></td><td>a duration</td><td><code>duration('P1DT2H')</code></td></tr>
+<tr><td><code>ZONED TIME '..'</code>, <code>ZONED DATETIME '..'</code> / <code>ZONED TIMESTAMP '..'</code></td><td>the zoned type; a text without an offset or zone is a syntax error (<code>42001</code>)</td><td><code>zoned_time('..')</code>, <code>zoned_datetime('..')</code></td></tr>
+<tr><td><code>LOCAL TIME '..'</code>, <code>LOCAL DATETIME '..'</code> / <code>LOCAL TIMESTAMP '..'</code></td><td>the local type; an offset in the text is <code>22007</code></td><td><code>local_time('..')</code>, <code>local_datetime('..')</code></td></tr>
+</tbody></table>
+</div>
+<p>The type follows the text as ISO GQL defines it, never a guess from its content beyond the
+offset: <code>TIME '10:00'</code> is a local time, <code>TIME '10:00Z'</code> a zoned one. The <code>ZONED</code> / <code>LOCAL</code> forms
+spell the type out (the words of the GQL type names, as in <code>CAST</code>). A text the type cannot read
+is <code>22007</code>. The type words are no reserved words: <code>date</code> stays a variable name wherever no string
+follows it.</p>
+<pre><code class="language-rhai graph=empty">g.gql("RETURN DATE '2024-01-31' + DURATION 'P1M' AS d, TIME '10:00:00.123456789+01:00' AS t, TIMESTAMP '2024-01-05T10:00[Europe/Berlin]' AS z").to_list()
+// #{"d": date("2024-02-29"), "t": offsettime("10:00:00.123456789+01:00"), "z": datetime("2024-01-05T10:00:00+01:00[Europe/Berlin]")}
+g.gql("RETURN ZONED TIME '10:00' AS t")   // error: a ZONED TIME literal needs a UTC offset or a time zone (42001)
+</code></pre>
+<h4 id="not-yet"><a class="header" href="#not-yet">Not yet</a></h4>
+<p><code>timestamp()</code> (Neo4j's milliseconds since 1970), <code>date_trunc()</code>, <code>datetime_trunc()</code> and
+<code>CAST(x AS DATE)</code> (and the other temporal <code>CAST</code> targets). Each is <code>0A000</code> with the alternative.</p>
+<pre><code class="language-rhai graph=empty">g.gql("RETURN timestamp() AS t")   // error: timestamp() is not yet supported
+g.gql("RETURN time('12:00+01:00') AS t").to_list()   // [#{"t": offsettime("12:00:00+01:00")}]
+</code></pre>
+<h2 id="parameters"><a class="header" href="#parameters">Parameters</a></h2>
+<p><code>$name</code> reads the value of <code>name</code> from the parameter map, the second argument of <code>gql()</code>. A
+parameter is a value, never query text: it cannot change the query, whatever it holds. A
+parameter the query reads but the map lacks is an error before the run; extra entries are
+ignored.</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (n:person) WHERE n.age &gt; $min RETURN n.name AS name ORDER BY name", #{min: 30}).to_list()   // #{"name": "josh"}, #{"name": "peter"}
+g.gql("MATCH (n:person) WHERE n.name IN $names RETURN n.name AS name, n.age AS age ORDER BY name", #{names: ["josh", "vadas"]}).to_list()
+// #{"age": 32, "name": "josh"}, #{"age": 27, "name": "vadas"}
+g.gql("MATCH (n:person {name: $who})-[:created]-&gt;(s) RETURN s.name AS s", #{who: "peter"}).to_list()   // #{"s": "lop"}
+g.gql("MATCH (n:person) RETURN n.name AS name ORDER BY name SKIP $s LIMIT $l", #{s: 2, l: 5}).to_list()   // #{"name": "peter"}, #{"name": "vadas"}
+</code></pre>
+<p>A parameter may also stand where an index can serve it, so <code>MATCH (p:person {name: $n})</code> uses a
+property index on <code>person.name</code> when one exists (<a href="plans.html#index-use">Plans and Performance</a>).</p>
+<h2 id="not-supported-yet"><a class="header" href="#not-supported-yet">Not supported yet</a></h2>
+<p>These are part of GQL (or Cypher constructs that LLMs and Cypher users write often) and come in
+a later version. Each fails before the run with GQLSTATUS <code>0A000</code> and a message that names the
+construct and the alternative.</p>
+<div class="table-wrapper"><table><thead><tr><th>Construct</th><th>Until then</th></tr></thead><tbody>
+<tr><td>Cypher's <code>FOREACH</code></td><td><code>FOR x IN list INSERT ..</code> (or <code>SET ..</code>, <code>DELETE ..</code>, <code>MERGE ..</code>) (<a href="writes.html#not-yet">Writing with GQL</a>)</td></tr>
+<tr><td>a write in an operand of <code>UNION</code>, a path variable in <code>INSERT</code></td><td>run the write on its own; name the nodes and edges</td></tr>
+<tr><td>a <code>SET</code> / <code>REMOVE</code> target deeper than a variable (<code>n.a.b = ..</code>, <code>head(l).k = ..</code>, a computed key <code>n[k] = ..</code>)</td><td><code>WITH head(l) AS x SET x.k = ..</code></td></tr>
+<tr><td><code>NEXT YIELD</code></td><td><code>RETURN</code> the columns to pass on before <code>NEXT</code></td></tr>
+<tr><td>a <code>CALL folder.name(..)</code> of a saved query written in Rhai</td><td><code>g.query(name, #{..})</code> from the DSL, or save it again in GQL (<a href="#calling-saved-queries">Calling saved queries</a>)</td></tr>
+<tr><td>an argument of <code>CALL folder.name(..)</code> that reads the row (<code>CALL people.older(s.age)</code>); a <code>CALL</code> of a saved query inside <code>EXISTS { }</code>, <code>COUNT { }</code>, <code>COLLECT { }</code></td><td>a constant or a <code>$parameter</code>; a <code>CALL (s) { .. }</code> subquery or the saved query's pattern in the query</td></tr>
+<tr><td><code>OPTIONAL { ... }</code> / <code>OPTIONAL ( ... )</code> blocks</td><td>one <code>OPTIONAL MATCH</code> per optional part</td></tr>
+<tr><td>a quantified edge over a list of edges bound before, Cypher's <code>WITH [r1, r2] AS rs MATCH (a)-[rs*]-&gt;(b)</code></td><td>a new name compared in <code>WHERE</code>: <code>MATCH (a)-[rs2*]-&gt;(b) WHERE rs2 = rs</code></td></tr>
+<tr><td>a quantifier nested in a quantified path pattern, <code>(((a)--&gt;(b)){2})+</code></td><td>write the inner path out, <code>((x)--&gt;(y)--&gt;(z))+</code>, or Gremlin <code>repeat()</code></td></tr>
+<tr><td>path search prefixes and match modes (<code>ANY SHORTEST</code>, <code>TRAIL</code>, <code>DIFFERENT EDGES</code> written out)</td><td>Gremlin <code>path()</code>, <code>repeat()</code></td></tr>
+<tr><td><code>EXCEPT</code>, <code>INTERSECT</code>, <code>OTHERWISE</code></td><td><code>NOT EXISTS { }</code> / <code>EXISTS { }</code> on the rows of the first query, or <code>NEXT</code></td></tr>
+<tr><td><code>NULLS FIRST</code> / <code>NULLS LAST</code></td><td>the fixed order: <code>NULL</code> last ascending, first descending</td></tr>
+<tr><td><code>gql()</code> after other steps (<code>g.v().gql(..)</code>)</td><td>start with <code>g.gql(..)</code> and continue with Gremlin</td></tr>
+<tr><td>a list-comprehension or list-predicate variable read inside a subquery of its <code>WHERE</code> / <code>|</code> part</td><td>test the variable outside the subquery, or match the pattern in the query</td></tr>
+<tr><td>trigonometric functions (<code>sin</code>, <code>cos</code>, ..., <code>pi()</code>, <code>degrees()</code>)</td><td>Gremlin <code>math()</code> after <code>gql()</code></td></tr>
+<tr><td><code>timestamp()</code>, <code>date_trunc()</code>, <code>datetime_trunc()</code></td><td><code>datetime().epochMillis</code>, <code>date.truncate(unit, d)</code></td></tr>
+<tr><td><code>CAST(x AS DATE)</code> and the other temporal <code>CAST</code> targets</td><td><code>DATE '..'</code> for a constant, <code>date(x)</code> for a value</td></tr>
+<tr><td>list conversions <code>toIntegerList()</code>, <code>toStringList()</code>, ...</td><td><code>FOR t IN list RETURN collect_list(toInteger(t))</code>, or Gremlin <code>unfold()</code> and <code>as_number()</code> after <code>gql()</code></td></tr>
+<tr><td><code>normalize(s)</code></td><td>store normalized text</td></tr>
+<tr><td>GQL's <code>elements(p)</code></td><td><code>nodes(p)</code> and <code>relationships(p)</code></td></tr>
+<tr><td>the standard deviations <code>stDev()</code>, <code>stDevP()</code></td><td><code>collect_list(x)</code>, then compute after <code>gql()</code></td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (((a)-[:knows]-&gt;(b)){1,2})+ RETURN b")   // error: a parenthesized path pattern nested in another one is not yet supported
+g.gql("MATCH ((a)-[:knows]-&gt;(b)){1,3} RETURN [n IN b | n.name] AS b ORDER BY b").to_list()   // #{"b": ["josh"]}, #{"b": ["vadas"]}
+g.gql("MATCH (p:person) RETURN [x IN [p] WHERE (x)-[:created]-&gt;() | x.name] AS l")   // error: reading the comprehension variable `x` inside a subquery is not yet supported
+g.gql("MATCH (p:person) WHERE (p)-[:created]-&gt;() RETURN [x IN [p] | x.name] AS l ORDER BY l").to_list()   // #{"l": ["josh"]}, #{"l": ["marko"]}, #{"l": ["peter"]}
+g.gql("MATCH (p:person) RETURN p.name AS n EXCEPT MATCH (p:person)-[:created]-&gt;() RETURN p.name AS n")   // error: EXCEPT is not yet supported
+g.gql("MATCH (p:person) WHERE NOT EXISTS { (p)-[:created]-&gt;() } RETURN p.name AS n").to_list()   // #{"n": "vadas"}
+g.gql("MATCH (n:person) RETURN sin(n.age) AS s")   // error: sin() (a trigonometric function) is not yet supported
+g.gql("MATCH (n:person) RETURN n.name AS name, n.age AS a ORDER BY name").select("a").math("sin(_)").to_list()   // 0.5514266812416906, -0.6636338842129675, -0.428182669496151, 0.956375928404503
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../gql/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../gql/semantics.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../gql/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../gql/semantics.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,356 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Checkpoints and Snapshots - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/persistence/store_checkpoints.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="checkpoints-and-snapshots"><a class="header" href="#checkpoints-and-snapshots">Checkpoints and Snapshots</a></h1>
+<p>A <strong>snapshot</strong> is a full copy of the graph at one commit, in <code>snapshots/&lt;commit&gt;/</code>. A
+<strong>checkpoint</strong> writes a new one from the current state. Snapshots make opening fast (only the WAL
+after the latest snapshot is replayed) and are the starting points of every
+<a href="store_point_in_time.html">point-in-time</a> load. The WAL is not shortened by a checkpoint: old
+history stays until you <a href="store_prune.html">prune</a> it.</p>
+<pre><code class="language-rust no_run"><span class="boring">use graphersal::persist::{Store, StoreOptions};
+</span><span class="boring">let store = Store::open("data", StoreOptions::new())?;
+</span>let info = store.checkpoint(Some("nightly"))?;        // a name is optional
+println!("snapshot at commit {} ({} vertices)", info.commit_seq, info.vertex_count);
+for snapshot in store.snapshots()? {
+    println!("{} {} {}", snapshot.commit_seq, snapshot.name, snapshot.vertex_count);
+}
+<span class="boring">Ok::&lt;(), Box&lt;dyn std::error::Error&gt;&gt;(())</span></code></pre>
+<pre><code class="language-text">$ graphersal store checkpoint data/ --name nightly
+Snapshot at commit 3 (8 vertices, 6 edges).
+Merged from the snapshot at commit 0 and 3 commits: 0 segment files reused, 0 copied, 2 written.
+$ graphersal store list data/
+      commit  last commit             vertices       edges  name
+           0  -                              6           6
+           3  2026-10-08T07:05:08Z           8           6  nightly
+</code></pre>
+<h2 id="how-a-checkpoint-is-written"><a class="header" href="#how-a-checkpoint-is-written">How a checkpoint is written</a></h2>
+<p>A checkpoint is <strong>merged</strong>: the new snapshot is built from the newest snapshot and the WAL after
+it, not from the graph in memory, and <strong>without the graph's lock</strong>: commits go on while it runs
+and land after its position (the next checkpoint picks them up).</p>
+<ol>
+<li>The WAL records after the newest snapshot are read (every checksum) and the ids they touch
+are collected: the vertices and edges a change names, and the endpoints of the edges added
+or dropped.</li>
+<li>The chunks of the newest snapshot that hold one of these ids (found through its manifest's
+chunk index, each checksum checked) are decoded into a small <em>delta graph</em>, with the
+snapshot's schema, catalog of saved queries, position and auto-id sequences.</li>
+<li>The WAL is replayed onto the delta graph exactly as an open replays it, and every change's
+<em>before</em> image must match: a WAL that does not continue the snapshot is damage.</li>
+<li>The touched segments are read again as streams and merged on the sorted id with the delta
+into new segment files (planned first, then written chunk by chunk and checked against the
+plan). A segment no touched id falls into keeps its bytes under the
+<a href="#the-donor-rule">donor rule</a>: it is <strong>reused by reference</strong> (the manifest names a file of an
+older snapshot's directory: an <em>incremental</em> snapshot) when the snapshot before the old one
+holds an identical copy in another file, and <strong>copied</strong> into a new file otherwise.</li>
+<li>The new snapshot goes into a temporary directory, is synced, <strong>verified</strong> (every file it
+names, the referenced ones too, read back one chunk at a time) and only then renamed to its
+final name. A Checkpoint record goes to the WAL and the next commit starts a new WAL segment.</li>
+</ol>
+<p><strong>Memory</strong> is proportional to the changes since the last snapshot (the delta graph, one decoded
+chunk, one chunk being written), not to the graph. Beyond a bound,
+<code>StoreOptions::with_checkpoint_merge_bytes(bytes)</code> (the WAL bytes after the last snapshot; 1 GiB by
+default, 64 MiB in the browser; <code>0</code> = never merge), the checkpoint encodes the graph in memory
+instead, under its read lock (writers wait, readers do not; memory: about 24 bytes per element and
+one chunk). The same streaming encoder writes a store's first snapshot, a fork, a repaired store
+and packed snapshots.</p>
+<p><strong>Damage</strong> in anything the merge reads (a manifest, <code>schema.json</code>, a chunk, a segment file, a WAL
+record, a gap in the commits, a foreign lineage, a WAL that does not continue the snapshot) stops
+the checkpoint with the error: nothing visible is written (the temporary directory is removed) and
+the store keeps running. Run <a href="store_verify.html"><code>graphersal store verify</code></a> then.</p>
+<ul>
+<li>A checkpoint at a commit that already has a snapshot returns that snapshot (nothing committed
+since: nothing written).</li>
+<li>The live store merges up to the WAL's <strong>durable end</strong> (with <code>Durability::EveryCommit</code>, the last
+commit; a manual checkpoint or a checkpoint on close syncs the WAL first).</li>
+<li>Segment files are the unit of reuse: a change rewrites the whole segment holding it (64 MiB by
+default for a store, <code>with_snapshot_segment_bytes</code>), and the next checkpoint copies it once
+(the donor rule). Smaller segments mean less rewriting per checkpoint and more files.</li>
+<li>Files of an older snapshot that a newer one uses stay when <a href="store_prune.html">prune</a> removes the
+older snapshot; a <a href="#snapshots-as-gsnap-files">packed export</a> of an incremental snapshot is
+self-contained.</li>
+<li>In a <a href="store_backups.html">backup</a>, in <a href="store_damage.html">maintenance mode</a> or in a store this
+version may only read, checkpoints are refused; while a dev server holds the store, use its
+Store menu (<strong>Checkpoint</strong>).</li>
+</ul>
+<h3 id="a-closed-store"><a class="header" href="#a-closed-store">A closed store</a></h3>
+<p><code>graphersal store checkpoint &lt;dir&gt;</code> (Rust: <code>Store::checkpoint_dir(dir, options, name)</code>) merges a
+CLOSED store without loading its graph: it takes the writer lock (a store open elsewhere is
+refused as "in use"), completes an interrupted operation and removes temporary files as an open
+would, merges the newest snapshot with the whole WAL (an interrupted last record is ignored; the
+next open cuts it), and writes nothing else (no Checkpoint record, <code>GRAPH</code> unchanged). The report
+says what it did:</p>
+<pre><code class="language-text">$ graphersal store checkpoint data/ --name nightly
+Snapshot at commit 3 (8 vertices, 6 edges).
+Merged from the snapshot at commit 0 and 3 commits: 4 segment files reused, 0 copied, 1 written.
+</code></pre>
+<h2 id="the-donor-rule"><a class="header" href="#the-donor-rule">The donor rule</a></h2>
+<p>A <a href="store_damage.html">repair</a> rebuilds a damaged chunk of the newest snapshot from the previous
+snapshot plus the WAL between them: the previous snapshot is the <strong>donor</strong>. A file both used
+would be damaged in both. So a checkpoint never uses a file the newest snapshot (its base) uses:</p>
+<ul>
+<li>a segment it rewrites is a new file anyway;</li>
+<li>an unchanged segment is referenced only through a <strong>twin</strong>: the snapshot before the base holds
+the same bytes (same id range, element count, length, checksum and chunk index) in another
+file, and the new snapshot names that file;</li>
+<li>without a twin, its bytes are <strong>copied</strong> into a new file of the new snapshot (every byte read
+and checked).</li>
+</ul>
+<p>An unchanged range therefore alternates between two files from checkpoint to checkpoint (the
+newest snapshot uses one, the previous one the other): only the first checkpoint after a range
+was rewritten copies it (the store's second snapshot copies everything unchanged once).
+<code>CheckpointReport::segments_reused</code>, <code>segments_copied</code> and <code>bytes_copied</code> say what happened.
+<a href="store_verify.html"><code>verify</code></a> warns (not damage) when the newest snapshot shares a file with the
+previous one, which only a store written otherwise can show; the next checkpoint copies it.</p>
+<h2 id="automatic-checkpoints"><a class="header" href="#automatic-checkpoints">Automatic checkpoints</a></h2>
+<p>When the WAL since the last snapshot passes 256 MiB, a checkpoint runs automatically on a
+background thread (<code>StoreOptions::with_checkpoint_after_bytes(bytes)</code>; <code>0</code> = never; a store
+opened with more WAL than that checkpoints right away). It merges like a manual one, so commits
+do not wait for it. Without
+threads (WebAssembly) it runs when the host calls <code>store.run_due_checkpoint()</code> (the playground
+does after every run; the default threshold there is 4 MiB). <code>store.last_auto_checkpoint_error()</code>
+reports a failed background checkpoint as its own <code>PersistError</code> (shared, <code>Arc</code>);
+<code>store.wal_bytes_since_checkpoint()</code> the current amount.</p>
+<p>When it runs:</p>
+<ul>
+<li>Every commit wakes the background thread while the WAL since the last snapshot is at or above
+the threshold (wakes coalesce: a commit during a running checkpoint leaves one pending).</li>
+<li>After a checkpoint that wrote a snapshot, the thread checks the level again at once: commits
+that landed while it ran (a single commit can be larger than the threshold) get the next
+checkpoint without waiting for another commit.</li>
+<li>A failed automatic checkpoint is retried at the next commit, as long as the level is still at
+or above the threshold. It is never retried in a loop of its own: a checkpoint that keeps
+failing (a full disk, say) costs at most one attempt per commit, and none while nothing is
+committed. <code>last_auto_checkpoint_error()</code> keeps the last failure until a checkpoint succeeds.</li>
+<li><code>run_due_checkpoint()</code> follows the same rule: one attempt per call, while the level is at or
+above the threshold.
+<code>StoreOptions::with_checkpoint_on_close(true)</code> writes one at every clean close.</li>
+</ul>
+<h2 id="the-chunk-size"><a class="header" href="#the-chunk-size">The chunk size</a></h2>
+<p>Elements are stored sorted by id in compressed, self-contained <strong>chunks</strong> (1 MiB uncompressed by
+default), grouped into segment files (64 MiB in a store, 256 MiB in a packed snapshot;
+<code>with_snapshot_segment_bytes</code>). The chunk is the
+unit of <a href="store_damage.html">repair</a>: a damaged chunk is rebuilt from an older snapshot's chunks for
+the same id range. Its size is a property of the store, chosen at creation
+(<code>StoreOptions::with_chunk_bytes</code>, <code>graphersal store create --chunk-size</code>) and fixed for the
+store's life. Smaller chunks mean finer repair and more overhead.</p>
+<h2 id="snapshots-as-gsnap-files"><a class="header" href="#snapshots-as-gsnap-files">Snapshots as <code>.gsnap</code> files</a></h2>
+<p>A stored snapshot is exactly a <a href="packed_snapshots.html">packed snapshot</a> laid out as files:</p>
+<pre><code class="language-bash">graphersal store export data/ data.gsnap              # the latest snapshot
+graphersal store export data/ first.gsnap --commit 0  # Exported the snapshot at commit 0 to first.gsnap.
+graphersal store create copy/ --from data.gsnap       # a new store from a .gsnap
+</code></pre>
+<p><code>store.export_packed(commit, writer)</code> and <code>Store::create_from_packed(dir, reader, options)</code> do the
+same in Rust; the dev server's Store menu offers each snapshot as a <code>.gsnap</code> download. A
+<code>.gsnap</code> of a state that has no snapshot: open it read-only at that target and write it with
+<code>write_snapshot</code>, or download <strong>Download current state (.gsnap)</strong> from a read-only view.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../persistence/store_commits.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../persistence/store_marks.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../persistence/store_commits.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../persistence/store_marks.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Keeping a Graph on Disk - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/persistence/overview.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="persistence"><a class="header" href="#persistence">Persistence</a></h1>
+<p>Graphersal keeps the graph in memory. The <code>persist</code> feature keeps it on disk too: in
+Graphersal's own binary format, losslessly, with every committed change made durable before the
+commit returns, so nothing committed is lost on a restart or a crash.</p>
+<p>Looking for a command? The <a href="../users_guide/command_cheat_sheet.html">Command Cheat Sheet</a> has
+every one of them, ready to copy.</p>
+<h2 id="what-to-choose"><a class="header" href="#what-to-choose">What to choose</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>You want</th><th>Use</th><th>API</th><th>Page</th></tr></thead><tbody>
+<tr><td>save a graph now and load it later (a script, the browser, a download)</td><td>a <strong>packed snapshot</strong>: the whole graph in one file or stream (<code>.gsnap</code>)</td><td><code>graph.write_snapshot(w)</code>, <code>TraversalGraph::read_snapshot(r)</code>; DSL <code>g.export_snapshot(path)</code>; CLI <code>--graph g.gsnap</code></td><td><a href="packed_snapshots.html">Packed Snapshots</a></td></tr>
+<tr><td>durability over streams you manage yourself (a socket, an upload, any <code>Write</code>), also in WebAssembly</td><td>a snapshot plus a <strong>journal</strong> (write-ahead log) and <strong>recovery</strong></td><td><code>persist::Journal</code>, <code>persist::recover</code></td><td><a href="journal_and_recovery.html">Journal and Recovery</a></td></tr>
+<tr><td>an application that simply keeps its graph ("SQLite for graphs")</td><td>the <strong>Store</strong>: one directory (or one file) = one graph; recovery on open, checkpoints, marks, point-in-time views, fork, rollback, backups, verify, repair</td><td><code>persist::Store</code>; CLI <code>graphersal store ...</code>, <code>--graph data/</code></td><td><a href="store.html">The Store</a></td></tr>
+</tbody></table>
+</div>
+<p>GraphML and GraphSON stay the <em>exchange</em> formats. The snapshot is the <em>lossless</em> one: every value
+type (<code>uuid</code>, nested arrays and objects, NaN payloads, property order), multi-label and
+unlabeled vertices, unlabeled edges, the schema, the catalog of definitions (saved queries),
+and the graph's position (commit sequence number, commit time, auto-id sequences).</p>
+<pre><code class="language-toml">graphersal = { version = "0.4", features = ["persist"] }        # LZ4 chunks, the Store, journals
+graphersal = { version = "0.4", features = ["persist-zstd"] }   # also zstd chunks (pure Rust)
+graphersal = { version = "0.4", features = ["persist-zip"] }    # also ZIP backups of a Store
+</code></pre>
+<p>Where it runs:</p>
+<div class="table-wrapper"><table><thead><tr><th></th><th>Packed snapshot</th><th>Journal and recovery</th><th>Store</th></tr></thead><tbody>
+<tr><td>Rust, native</td><td>yes</td><td>yes</td><td>directory, single file, memory</td></tr>
+<tr><td>Rust, WebAssembly</td><td>yes</td><td>yes (no <code>fsync</code>)</td><td>in memory (<a href="store_backends.html"><code>MemDir</code></a>)</td></tr>
+<tr><td>CLI</td><td><code>--graph g.gsnap</code>, <code>g.export_snapshot</code></td><td></td><td><code>graphersal store ...</code>, <code>--graph data/</code></td></tr>
+<tr><td>Dev server</td><td><code>.gsnap</code> download</td><td></td><td><code>--graph data/ --server</code>, the Store menu</td></tr>
+<tr><td>Web playground</td><td>Save as snapshot, load <code>.gsnap</code></td><td></td><td>every loaded graph is a <a href="playground_store.html">store in memory</a></td></tr>
+<tr><td>Python</td><td><code>graph.save</code>, <code>Graph.load</code></td><td><code>graph.start_journal</code>, <code>Graph.recover</code></td><td><code>graphersal.Store</code></td></tr>
+</tbody></table>
+</div>
+<h2 id="concepts"><a class="header" href="#concepts">Concepts</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Term</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><strong>commit</strong></td><td>one committed unit of change. Every traversal is one (see <a href="../users_guide/transactions.html">Transactions</a>); so is an explicit <code>transaction(..)</code>, a whole playground script, an import</td></tr>
+<tr><td><strong>commit sequence number</strong> (<code>commit_seq</code>)</td><td>the number of a commit: 1, 2, 3, ... per graph, never reused. The <strong>position</strong> of a graph is the number of its last commit (0 = nothing committed yet)</td></tr>
+<tr><td><strong>commit time</strong></td><td>the time of a commit (UTC, microseconds); monotonic within a history</td></tr>
+<tr><td><strong>snapshot</strong></td><td>the whole graph at one position. In a Store it is a directory under <code>snapshots/</code>, packed it is one <code>.gsnap</code> file</td></tr>
+<tr><td><strong>WAL</strong> (journal)</td><td>the write-ahead log: one record per commit with every change, its before and after values, in order; one record per mark</td></tr>
+<tr><td><strong>checkpoint</strong></td><td>writing a new snapshot of the current state, so the next open replays less WAL</td></tr>
+<tr><td><strong>mark</strong></td><td>a name for a position ("before-import"); costs a few bytes</td></tr>
+<tr><td><strong>target</strong></td><td>a point to go back to: a commit, a time, or a mark</td></tr>
+<tr><td><strong>lineage</strong> (<code>graph_id</code>)</td><td>a UUID that names one history. A fork, an in-place rollback and a repair start a new lineage that records its parent</td></tr>
+<tr><td><strong>attic</strong></td><td>where an in-place rollback keeps the history it rolled back, so the rollback can be undone</td></tr>
+<tr><td><strong>backup</strong></td><td>a consistent copy of a store; marked, so it opens read-only until it is restored</td></tr>
+<tr><td><strong>donor</strong></td><td>an intact older copy (an older snapshot plus the WAL) that damaged data can be rebuilt from</td></tr>
+<tr><td><strong>maintenance mode</strong></td><td>how a damaged store opens: read-only, with a damage report</td></tr>
+</tbody></table>
+</div>
+<h2 id="guarantees"><a class="header" href="#guarantees">Guarantees</a></h2>
+<ul>
+<li><strong>Durable commits.</strong> A Store commit (and a journal commit with <code>Durability::EveryCommit</code>, the
+default) is written and <code>fsync</code>ed before it returns. A failed write or sync rolls the commit
+back: the caller never gets "ok" for a commit that is not on disk, and the WAL never holds a
+commit that did not happen.</li>
+<li><strong>Crash safety.</strong> Opening a store after a crash (or <code>kill -9</code>) brings back exactly the last
+committed state: an interrupted last write is cut off, an interrupted multi-file operation is
+completed.</li>
+<li><strong>Damage is found, never silently lost.</strong> Every header, chunk and record carries a CRC-32C;
+the small critical metadata exists twice. A damaged store opens read-only in maintenance mode
+with a report, and repair writes a new store elsewhere, never in place.</li>
+<li><strong>Nothing is deleted implicitly.</strong> History goes away only through an explicit <code>prune</code>, a
+rollback with <code>--delete</code>, or removing an attic entry.</li>
+<li><strong>Point in time.</strong> Every commit, time and mark that the retained history covers can be viewed
+read-only, forked into a new store, or rolled back to.</li>
+<li><strong>Portable bytes.</strong> Little-endian, the same bytes on every platform and in WebAssembly; no
+file holds an absolute path, so a store can be moved or copied anywhere. The format is a
+public <a href="format.html">specification</a>.</li>
+<li><strong>One writer.</strong> A store has at most one writer (an operating-system lock); readers, backups and
+forks work while it runs.</li>
+</ul>
+<h2 id="this-part-of-the-book"><a class="header" href="#this-part-of-the-book">This part of the book</a></h2>
+<ul>
+<li><a href="quick_start.html">Quick Start</a>: the CLI, Rust, Python and the playground in five minutes.</li>
+<li><a href="packed_snapshots.html">Packed Snapshots</a> and <a href="journal_and_recovery.html">Journal and Recovery</a>:
+the stream-level API.</li>
+<li><a href="store.html">The Store</a> and its pages: opening, commits, checkpoints, marks, point in time, fork,
+rollback, backups, prune and compaction, verify, damage and repair, format versions, backends,
+the single-file store, a Store over your own storage, and the creation parameters.</li>
+<li>Tools: <a href="store_cli.html">the <code>graphersal store</code> command</a>, <a href="dev_server.html">the dev server and
+MCP</a>, <a href="playground_store.html">the store in the playground</a>,
+<a href="python.html">Python</a>.</li>
+<li><a href="format.html">Storage Format Specification</a>: the normative byte layouts.</li>
+<li><a href="faq.html">FAQ and Troubleshooting</a>.</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../users_guide/execution_options_reference.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../persistence/quick_start.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../users_guide/execution_options_reference.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../persistence/quick_start.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

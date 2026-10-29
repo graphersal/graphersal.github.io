@@ -1,0 +1,514 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Cypher Aliases - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/gql/aliases.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="cypher-aliases"><a class="header" href="#cypher-aliases">Cypher Aliases</a></h1>
+<p><code>gql()</code> speaks ISO GQL. Common Cypher spellings are accepted as <strong>aliases</strong> where they are
+unambiguous and mean exactly the same: an alias is translated to its GQL form while the query is
+parsed, so both spellings give the same plan and the same rows. An alias never has a meaning of
+its own. This table lists every accepted alias; Cypher functions without any GQL counterpart are
+the <a href="#compatibility-functions">compatibility functions</a> below, and Cypher's map projections and
+comprehensions, <code>COUNT { }</code>, <code>COLLECT { }</code>, <code>SET n += ..</code> and <code>MERGE</code> the compatibility forms
+(<a href="#map-projections-and-comprehensions">Map projections and comprehensions</a>,
+<a href="#count-and-collect">COUNT and COLLECT</a>, <a href="#set-and-remove">SET and REMOVE</a>, <a href="#merge">MERGE</a>);
+any other Cypher
+spelling is either not supported yet or <a href="refused.html">refused</a>.</p>
+<div class="table-wrapper"><table><thead><tr><th>Cypher spelling</th><th>GQL form</th><th>Notes</th></tr></thead><tbody>
+<tr><td><code>SKIP n</code></td><td><code>OFFSET n</code></td><td></td></tr>
+<tr><td><code>a != b</code></td><td><code>a &lt;&gt; b</code></td><td></td></tr>
+<tr><td><code>s1 + s2</code> on two strings</td><td><code>s1 || s2</code></td><td>also on two lists; <code>+</code> of a string and a number is an error (no implicit conversion: write <code>s + toString(n)</code> or <code>s || CAST(n AS STRING)</code>)</td></tr>
+<tr><td><code>(n:A:B)</code></td><td><code>(n:A&amp;B)</code></td><td>plain names only; mixing <code>:A:B</code> with <code>|</code>, <code>&amp;</code> or <code>!</code> is an error (write it with <code>&amp;</code>)</td></tr>
+<tr><td><code>-[:A|:B]-&gt;</code></td><td><code>-[:A|B]-&gt;</code></td><td>a colon after the <code>|</code> of a label disjunction</td></tr>
+<tr><td><code>n:A</code> in an expression</td><td><code>n IS LABELED A</code></td><td></td></tr>
+<tr><td><code>--&gt;</code></td><td><code>-&gt;</code></td><td>abbreviated edge pointing right</td></tr>
+<tr><td><code>&lt;--</code></td><td><code>&lt;-</code></td><td>abbreviated edge pointing left</td></tr>
+<tr><td><code>--</code></td><td><code>-</code></td><td>abbreviated edge, either direction (<a href="rhai_strings.html#comments">the <code>--</code> rule</a>)</td></tr>
+<tr><td><code>&lt;--&gt;</code></td><td><code>&lt;-&gt;</code></td><td>either direction</td></tr>
+<tr><td><code>elementId(x)</code></td><td><code>element_id(x)</code></td><td>the id as a string</td></tr>
+<tr><td><code>toUpper(s)</code></td><td><code>upper(s)</code></td><td></td></tr>
+<tr><td><code>toLower(s)</code></td><td><code>lower(s)</code></td><td></td></tr>
+<tr><td><code>size(s)</code> on a string</td><td><code>char_length(s)</code></td><td><code>size(list)</code> is the item count, as <code>cardinality(list)</code></td></tr>
+<tr><td><code>collect(x)</code></td><td><code>collect_list(x)</code></td><td>also <code>collect(DISTINCT x)</code></td></tr>
+<tr><td><code>percentileCont(x, p)</code>, <code>percentileDisc(x, p)</code></td><td><code>percentile_cont(x, p)</code>, <code>percentile_disc(x, p)</code></td><td>ISO's binary set functions, value first (<a href="subset.html#aggregation">Aggregation</a>)</td></tr>
+<tr><td><code>length(p)</code></td><td><code>path_length(p)</code></td><td>the number of edges of a path</td></tr>
+<tr><td><code>log(x)</code> (one argument)</td><td><code>ln(x)</code></td><td>the natural logarithm; the two-argument <code>log(base, x)</code> is GQL's general logarithm</td></tr>
+<tr><td><code>-[e:T*]-&gt;</code></td><td><code>-[e:T]-&gt;{1,}</code></td><td>Cypher's lower bound is 1: <strong>not</strong> GQL's postfix <code>*</code>, which is <code>{0,}</code></td></tr>
+<tr><td><code>-[e:T*n]-&gt;</code></td><td><code>-[e:T]-&gt;{n}</code></td><td></td></tr>
+<tr><td><code>-[e:T*m..n]-&gt;</code></td><td><code>-[e:T]-&gt;{m,n}</code></td><td></td></tr>
+<tr><td><code>-[e:T*..n]-&gt;</code></td><td><code>-[e:T]-&gt;{1,n}</code></td><td>lower bound 1 again</td></tr>
+<tr><td><code>-[e:T*m..]-&gt;</code></td><td><code>-[e:T]-&gt;{m,}</code></td><td></td></tr>
+<tr><td><code>-[e:T*m..n]-&gt;</code> with <code>m &gt; n</code>, <code>-[e:T*..0]-&gt;</code></td><td>no match</td><td>the empty interval matches nothing (no row; <code>OPTIONAL MATCH</code> gives its <code>NULL</code> row); the GQL <code>{3,1}</code> is a syntax error</td></tr>
+<tr><td><code>a &lt; b &lt;= c</code>, a chained comparison</td><td><code>a &lt; b AND b &lt;= c</code></td><td>any mix of <code>=</code>, <code>&lt;&gt;</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code>; the middle operand is evaluated once per comparison</td></tr>
+<tr><td><code>WHERE (a)-[:T]-&gt;(b)</code>, a pattern predicate</td><td><code>WHERE EXISTS { (a)-[:T]-&gt;(b) }</code></td><td>where a condition stands (<code>WHERE</code>, <code>FILTER</code>, under <code>NOT</code> / <code>AND</code> / <code>OR</code> / <code>XOR</code>, a comprehension's <code>WHERE</code>, a searched <code>CASE</code> <code>WHEN</code>; elsewhere <code>42001</code>); it may name only variables bound before it (<a href="subset.html#exists-and-pattern-predicates">EXISTS</a>)</td></tr>
+<tr><td><code>UNWIND list AS x</code></td><td><code>FOR x IN list</code></td><td>one row per item; <code>WITH ORDINALITY</code> / <code>WITH OFFSET</code> only after <code>FOR</code></td></tr>
+<tr><td><code>CREATE &lt;pattern&gt;</code></td><td><code>INSERT &lt;pattern&gt;</code></td><td>the same clause: once per row, nodes with label conjunctions (<code>:A:B</code> as <code>:A&amp;B</code>), directed edges with one label (<a href="writes.html">Writing with GQL</a>); <code>CREATE INDEX</code> / <code>CONSTRAINT</code> / <code>GRAPH</code> are <a href="refused.html">refused</a> catalog commands</td></tr>
+<tr><td><code>CALL { WITH a, b ... }</code>, the importing <code>WITH</code></td><td><code>CALL (a, b) { ... }</code></td><td>the first <code>WITH</code> of the body, when it lists plain variables only, is the variable scope clause (<a href="subset.html#call-subqueries">CALL subqueries</a>)</td></tr>
+<tr><td><code>SET n:A:B</code>, <code>REMOVE n:A:B</code></td><td><code>SET n:A, n:B</code>, <code>REMOVE n:A, n:B</code></td><td>the labels in order; <code>SET n IS A &amp; B</code> likewise (<a href="writes.html#set">Writing with GQL</a>)</td></tr>
+<tr><td><code>SET (n).k = v</code>, <code>REMOVE (n).k</code></td><td><code>SET n.k = v</code>, <code>REMOVE n.k</code></td><td>a parenthesized variable as the target</td></tr>
+<tr><td><code>localtime(x)</code>, <code>localdatetime(x)</code>, <code>datetime(x)</code></td><td><code>local_time(x)</code>, <code>local_datetime(x)</code>, <code>zoned_datetime(x)</code></td><td>the temporal constructors (<a href="#dates-and-times">Dates and times</a>)</td></tr>
+</tbody></table>
+</div>
+<p>Each pair below returns the same rows:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (n:person) RETURN n.name AS name ORDER BY name SKIP 2").to_list()   // #{"name": "peter"}, #{"name": "vadas"}
+g.gql("MATCH (n:person) RETURN n.name AS name ORDER BY name OFFSET 2").to_list()   // #{"name": "peter"}, #{"name": "vadas"}
+g.gql("MATCH (n:person) WHERE n.age != 29 RETURN n.name AS name ORDER BY name").to_list()   // josh, peter, vadas
+g.gql("MATCH (n:person) WHERE n.age &lt;&gt; 29 RETURN n.name AS name ORDER BY name").to_list()   // josh, peter, vadas
+g.gql("MATCH (p {name: 'marko'})--&gt;(x) RETURN x.name AS x ORDER BY x").to_list()   // josh, lop, vadas
+g.gql("MATCH (p {name: 'marko'})-&gt;(x) RETURN x.name AS x ORDER BY x").to_list()   // josh, lop, vadas
+g.gql("MATCH (n) WHERE n:software RETURN n.name AS name ORDER BY name").to_list()   // lop, ripple
+g.gql("MATCH (n) WHERE n IS LABELED software RETURN n.name AS name ORDER BY name").to_list()   // lop, ripple
+g.gql("MATCH (n:person) RETURN elementId(n) AS id, toUpper(n.name) AS up, size(n.name) AS len, n.name + '?' AS q ORDER BY id LIMIT 1").to_list()
+// #{"id": "1", "len": 5, "q": "marko?", "up": "MARKO"}
+g.gql("MATCH (n:person) RETURN element_id(n) AS id, upper(n.name) AS up, char_length(n.name) AS len, n.name || '?' AS q ORDER BY id LIMIT 1").to_list()
+// #{"id": "1", "len": 5, "q": "marko?", "up": "MARKO"}
+g.gql("MATCH (p:person)-[:created]-&gt;(s) RETURN p.name AS name, collect(s.name) AS sw ORDER BY name").to_list()
+// #{"name": "josh", "sw": ["ripple", "lop"]}, #{"name": "marko", "sw": ["lop"]}, #{"name": "peter", "sw": ["lop"]}
+g.gql("MATCH (p:person)-[:created]-&gt;(s) RETURN p.name AS name, collect_list(s.name) AS sw ORDER BY name").to_list()
+// #{"name": "josh", "sw": ["ripple", "lop"]}, #{"name": "marko", "sw": ["lop"]}, #{"name": "peter", "sw": ["lop"]}
+g.gql("MATCH p = (a {name: 'marko'})-[*1..2]-&gt;(b) RETURN b.name AS b, length(p) AS len ORDER BY len, b").to_list()
+// josh 1, lop 1, vadas 1, lop 2, ripple 2
+g.gql("MATCH p = (a {name: 'marko'})-[]-&gt;{1,2}(b) RETURN b.name AS b, path_length(p) AS len ORDER BY len, b").to_list()
+// josh 1, lop 1, vadas 1, lop 2, ripple 2
+g.gql("MATCH (n:person {name: 'marko'}) RETURN log(100) AS l").to_list()   // #{"l": 4.605170185988092}
+g.gql("MATCH (n:person {name: 'marko'}) RETURN ln(100) AS l").to_list()   // #{"l": 4.605170185988092}
+g.gql("MATCH (p:person) WHERE (p)-[:created]-&gt;() RETURN p.name AS name ORDER BY name").to_list()   // josh, marko, peter
+g.gql("MATCH (p:person) WHERE EXISTS { (p)-[:created]-&gt;() } RETURN p.name AS name ORDER BY name").to_list()   // josh, marko, peter
+g.gql("MATCH (p:person {name: 'marko'}) UNWIND [p.age, p.age + 1] AS a RETURN a ORDER BY a").to_list()   // #{"a": 29}, #{"a": 30}
+g.gql("MATCH (p:person {name: 'marko'}) FOR a IN [p.age, p.age + 1] RETURN a ORDER BY a").to_list()   // #{"a": 29}, #{"a": 30}
+g.gql("MATCH (p:person) CALL { WITH p MATCH (p)-[:knows]-&gt;(f) RETURN count(f) AS n } RETURN p.name AS name, n ORDER BY name").to_list()   // josh 0, marko 2, peter 0, vadas 0
+g.gql("MATCH (p:person) CALL (p) { MATCH (p)-[:knows]-&gt;(f) RETURN count(f) AS n } RETURN p.name AS name, n ORDER BY name").to_list()   // josh 0, marko 2, peter 0, vadas 0
+g.gql("CREATE (c:city:capital {name: 'Rome'}) RETURN labels(c) AS l").to_list()   // #{"l": ["city", "capital"]}
+g.gql("INSERT (c:city&amp;capital {name: 'Rome'}) RETURN labels(c) AS l").to_list()   // #{"l": ["city", "capital"]}
+g.gql("MATCH (p:person {name: 'marko'}) SET p:admin:staff RETURN labels(p) AS l").to_list()   // #{"l": ["person", "admin", "staff"]}
+g.gql("MATCH (p:person {name: 'marko'}) SET p:admin, p:staff RETURN labels(p) AS l").to_list()   // #{"l": ["person", "admin", "staff"]}
+g.gql("MATCH (n:person) WHERE 27 &lt;= n.age &lt; 32 RETURN n.name AS name ORDER BY name").to_list()   // marko, vadas
+g.gql("MATCH (n:person) WHERE 27 &lt;= n.age AND n.age &lt; 32 RETURN n.name AS name ORDER BY name").to_list()   // marko, vadas
+g.gql("MATCH (a {name: 'marko'})-[*2..1]-&gt;(b) RETURN b.name AS b").to_list()   // [] (the empty interval)
+</code></pre>
+<p>The importing <code>WITH</code> passes the variables on unchanged; a first <code>WITH</code> that renames, computes or
+filters (<code>WITH p AS q</code>, <code>WITH p WHERE ..</code>) is an ordinary <code>WITH</code> of a body that imports
+nothing, so reading <code>p</code> there is an error (write <code>CALL (p) { .. }</code>). A <code>CALL { }</code>
+without a scope clause and without that <code>WITH</code> imports nothing, as in Neo4j Cypher 25.</p>
+<p>Mind the Cypher <code>*</code>: <code>-[*]-&gt;</code> starts at one edge, GQL's <code>-[]-&gt;*</code> at zero, so the GQL form
+also returns marko himself:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (a {name: 'marko'})-[*]-&gt;(b) RETURN b.name AS b ORDER BY b").to_list()   // josh, lop, lop, ripple, vadas
+g.gql("MATCH (a {name: 'marko'})-[]-&gt;*(b) RETURN b.name AS b ORDER BY b").to_list()   // josh, lop, lop, marko, ripple, vadas
+</code></pre>
+<h2 id="the-cypher-clause-with"><a class="header" href="#the-cypher-clause-with">The Cypher clause <code>WITH</code></a></h2>
+<p><code>WITH</code> is Cypher; GQL writes the same with its linear statements (<code>LET</code>, <code>FILTER</code>, and
+<code>RETURN ... NEXT</code>, <a href="subset.html#union-and-next">UNION and NEXT</a>). <code>gql()</code> accepts <code>WITH</code> with Cypher's
+meaning: it passes on only its items, may take <code>DISTINCT</code>, aggregates, <code>ORDER BY</code>, <code>SKIP</code> /
+<code>OFFSET</code>, <code>LIMIT</code> and a <code>WHERE</code> (applied last), and a later clause continues from its columns
+(<a href="subset.html#with">The Supported Subset</a>). A <code>WITH</code> that only passes values on is the same as
+<code>LET</code> plus a narrower scope, and its <code>WHERE</code> the same as <code>FILTER</code>:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) WITH p, p.age / 10 AS d WHERE d = 3 RETURN p.name AS name ORDER BY name").to_list()   // #{"name": "josh"}, #{"name": "peter"}
+g.gql("MATCH (p:person) LET d = p.age / 10 FILTER d = 3 RETURN p.name AS name ORDER BY name").to_list()   // #{"name": "josh"}, #{"name": "peter"}
+g.gql("MATCH (p:person) RETURN p, p.age / 10 AS d NEXT FILTER d = 3 RETURN p.name AS name ORDER BY name").to_list()   // #{"name": "josh"}, #{"name": "peter"}
+</code></pre>
+<h2 id="spellings-that-are-gql-as-well"><a class="header" href="#spellings-that-are-gql-as-well">Spellings that are GQL as well</a></h2>
+<p>These look like Cypher but are GQL too, so they are not aliases: <code>:</code> before a label expression
+(GQL also has <code>IS</code>), <code>ASC</code> / <code>DESC</code> (also <code>ASCENDING</code> / <code>DESCENDING</code>), string literals in
+<code>'...'</code> and <code>"..."</code>, <code>//</code> and <code>/* */</code> comments, <code>$name</code> parameters, back-quoted names.</p>
+<p>The functions <code>abs</code>, <code>floor</code>, <code>ceil</code>, <code>sqrt</code>, <code>exp</code>, <code>log10</code>, <code>left</code>, <code>right</code>, <code>ltrim</code>, <code>rtrim</code>,
+<code>btrim</code>, <code>trim(s)</code>, <code>nullif</code> (Cypher <code>nullIf</code>; names are case-insensitive) and <code>coalesce</code> have the
+same name in both languages and are GQL functions. Where Neo4j's version differs, GQL's meaning
+wins: <code>trim(s)</code>, <code>ltrim(s)</code> and <code>rtrim(s)</code> remove <strong>spaces only</strong> (Cypher removes any
+whitespace), and <code>floor(3)</code> / <code>ceil(3)</code> of an integer stay integers (Neo4j returns floats that
+compare equal). <code>ceiling(x)</code> is GQL's second spelling of <code>ceil(x)</code>.</p>
+<h2 id="compatibility-functions"><a class="header" href="#compatibility-functions">Compatibility functions</a></h2>
+<p>Some Cypher functions have no GQL counterpart at all, so they cannot be aliases. <code>gql()</code> accepts
+a fixed list of them, because Cypher users and LLMs write them all the time, with their
+openCypher / Neo4j Cypher 25 meaning: a query using them means the same as in Neo4j, except
+where <a href="semantics.html#where-functions-differ-from-neo4j">Semantics</a> says otherwise. They never get
+a meaning of their own, and no vendor function joins them (<code>apoc.*</code>, <code>text.*</code> are
+<a href="refused.html">refused</a>).</p>
+<div class="table-wrapper"><table><thead><tr><th>Function</th><th>Family</th><th>GQL nearest form</th></tr></thead><tbody>
+<tr><td><code>toInteger(x)</code>, <code>toFloat(x)</code>, <code>toBoolean(x)</code>, <code>toString(x)</code></td><td>conversions</td><td><code>CAST(x AS INTEGER | FLOAT | BOOLEAN | STRING)</code>, but <strong>stricter</strong> (below)</td></tr>
+<tr><td><code>toIntegerOrNull(x)</code>, <code>toFloatOrNull(x)</code>, <code>toBooleanOrNull(x)</code>, <code>toStringOrNull(x)</code></td><td>conversions</td><td>none</td></tr>
+<tr><td><code>substring(s, start [, length])</code></td><td>strings</td><td><code>left(s, n)</code>, <code>right(s, n)</code></td></tr>
+<tr><td><code>replace(s, search, replacement [, limit])</code>, <code>split(s, delimiter)</code>, <code>reverse(x)</code>, <code>isEmpty(x)</code></td><td>strings, lists</td><td>none</td></tr>
+<tr><td><code>round(x [, precision [, mode]])</code>, <code>sign(x)</code></td><td>numbers</td><td>none</td></tr>
+<tr><td><code>head(list)</code>, <code>last(list)</code>, <code>tail(list)</code>, <code>range(start, end [, step])</code></td><td>lists</td><td><code>trim(list, n)</code> drops items from the end</td></tr>
+<tr><td><code>keys(x)</code>, <code>properties(x)</code></td><td>elements</td><td><code>x.key</code> reads one property</td></tr>
+<tr><td><code>startNode(e)</code>, <code>endNode(e)</code></td><td>elements</td><td>the predicates <code>n IS SOURCE OF e</code>, <code>n IS DESTINATION OF e</code></td></tr>
+<tr><td><code>nodes(p)</code>, <code>relationships(p)</code></td><td>paths</td><td>GQL's <code>elements(p)</code> (not supported yet)</td></tr>
+<tr><td><code>all(x IN l WHERE c)</code>, <code>any(..)</code>, <code>none(..)</code>, <code>single(..)</code></td><td>list predicates</td><td>none; a list comprehension counted with <code>size()</code> (below)</td></tr>
+<tr><td><code>reduce(acc = init, x IN l | expr)</code></td><td>lists</td><td>none; <code>FOR x IN l</code> and an aggregate fold the rows of a query, not a list per row</td></tr>
+<tr><td><code>date.truncate(unit, x)</code> and the other <code>X.truncate()</code>, <code>duration.between(a, b)</code>, <code>duration.inMonths()</code> / <code>inDays()</code> / <code>inSeconds()</code>, <code>X.statement()</code>, <code>X.transaction()</code>, <code>datetime.fromepoch()</code>, <code>datetime.fromepochmillis()</code>, <code>toString(temporal)</code></td><td>dates and times</td><td>the constructors <code>date()</code>, <code>local_time()</code>, ... and <code>duration()</code> (<a href="#dates-and-times">Dates and times</a>)</td></tr>
+</tbody></table>
+</div>
+<p><strong><code>CAST</code> is not an alias of <code>toInteger()</code>.</strong> Both convert with the same rules, but they treat a
+text that does not convert differently: GQL's <code>CAST</code> fails the query with <code>22018</code>, Cypher's
+<code>toInteger</code> / <code>toFloat</code> / <code>toBoolean</code> give <code>NULL</code>, and the <code>...OrNull</code> forms also give <code>NULL</code>
+for a value of the wrong kind. <code>toInteger</code> and <code>toFloat</code> also read Cypher literals (<code>'0x1F'</code>,
+<code>'1_000'</code>), <code>CAST</code> only decimal text. Use <code>CAST</code> to catch dirty data, <code>toInteger</code> to skip it
+(<a href="semantics.html#conversions-strict-cast-lenient-tox">Semantics</a>).</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (n:person {name: 'marko'}) RETURN toInteger('42') AS a, CAST('42' AS INTEGER) AS b").to_list()   // #{"a": 42, "b": 42}
+g.gql("MATCH (n:person {name: 'marko'}) RETURN toInteger('forty') AS a").to_list()   // #{"a": ()}
+g.gql("MATCH (n:person {name: 'marko'}) RETURN CAST('forty' AS INTEGER) AS b")   // error: invalid character value for cast (22018)
+g.gql("MATCH (a)-[e:knows]-(b) WHERE startNode(e) = a RETURN a.name AS a, b.name AS b ORDER BY b").to_list()   // #{"a": "marko", "b": "josh"}, #{"a": "marko", "b": "vadas"}
+g.gql("MATCH (a)-[e:knows]-(b) WHERE a IS SOURCE OF e RETURN a.name AS a, b.name AS b ORDER BY b").to_list()   // #{"a": "marko", "b": "josh"}, #{"a": "marko", "b": "vadas"}
+</code></pre>
+<h3 id="list-predicates-and-reduce"><a class="header" href="#list-predicates-and-reduce">List predicates and <code>reduce</code></a></h3>
+<p><code>all(x IN l WHERE c)</code>, <code>any(..)</code>, <code>none(..)</code> and <code>single(..)</code> test the items of a list, and
+<code>reduce(acc = init, x IN l | expr)</code> folds them: <code>acc</code> starts at <code>init</code> and takes the value of
+<code>expr</code> for each item in list order. <code>x</code> (and <code>acc</code>) exist only inside the call and must be new
+names, like a <a href="#map-projections-and-comprehensions">list comprehension's variable</a>. The
+<code>WHERE</code> is required; an aggregate may stand in the list and in <code>init</code>, not in the condition or
+after <code>|</code>. Their <code>NULL</code> rules are the three-valued ones of the openCypher TCK, which Neo4j
+Cypher 25 follows:</p>
+<ul>
+<li>a <code>NULL</code> list gives <code>NULL</code> (<code>reduce</code> too), a value that is not a list is error <code>22G03</code>;</li>
+<li>a decided answer wins and stops at once: <code>all</code> is FALSE at the first FALSE item, <code>any</code> TRUE
+and <code>none</code> FALSE at the first TRUE one, <code>single</code> FALSE at the second TRUE one (later items are
+not evaluated);</li>
+<li>otherwise an item whose condition is <code>NULL</code> makes the answer <code>NULL</code>;</li>
+<li>otherwise <code>all</code> and <code>none</code> are TRUE, <code>any</code> FALSE, <code>single</code> whether exactly one item was TRUE;
+so for an empty list <code>all</code> / <code>none</code> are TRUE, <code>any</code> / <code>single</code> FALSE, and <code>reduce</code> gives
+<code>init</code>.</li>
+</ul>
+<p>A list comprehension counted with <code>size()</code> gives the same answer when no condition is <code>NULL</code>
+(it drops a <code>NULL</code> condition instead): <code>all</code> is <code>size([x IN l WHERE c]) = size(l)</code>, <code>any</code> is
+<code>&gt; 0</code>, <code>none</code> is <code>= 0</code>, <code>single</code> is <code>= 1</code>. Over a pattern comprehension the predicates test the
+matches of a pattern per row, the Gremlin <code>where(__..)</code> / <code>not(__..)</code>:</p>
+<pre><code class="language-rhai graph=modern">g.gql("RETURN all(x IN [1, NULL] WHERE x &gt; 0) AS a, any(x IN [1, NULL] WHERE x &gt; 0) AS b, single(x IN [1, 2] WHERE x &gt; 1) AS c, none(x IN [] WHERE x &gt; 1) AS d").to_list()   // #{"a": (), "b": true, "c": true, "d": true}
+g.gql("MATCH (p:person) WHERE any(a IN [(p)-[:knows]-&gt;(f) | f.age] WHERE a &gt; 30) RETURN p.name AS name").to_list()   // #{"name": "marko"}
+g.V().hasLabel("person").where(__.out("knows").has("age", P.gt(30))).values("name").to_list()   // "marko"
+g.gql("MATCH (p:person) WHERE none(w IN [(p)-[:created]-&gt;(s) | s] WHERE w.name = 'lop') RETURN p.name AS name").to_list()   // #{"name": "vadas"}
+g.V().hasLabel("person").not(__.out("created").has("name", "lop")).values("name").to_list()   // "vadas"
+g.gql("MATCH (p:person) RETURN p.name AS name, reduce(total = 0, w IN [(p)-[e]-&gt;() | e.weight] | total + w) AS weight ORDER BY name").to_list()
+// josh 1.4, marko 1.9, peter 0.2, vadas 0 (reduce starts at 0)
+g.V().hasLabel("person").order().by("name").project("name", "weight").by("name").by(__.out_e().values("weight").fold().sum(Scope.local)).to_list()
+// josh 1.4, marko 1.9, peter 0.2, vadas without "weight" (the sum of no values is no value)
+g.gql("MATCH (p:person) RETURN reduce(s = '', n IN collect_list(p.name) | s || n) AS names").to_list()   // one string of the four names
+</code></pre>
+<h2 id="map-projections-and-comprehensions"><a class="header" href="#map-projections-and-comprehensions">Map projections and comprehensions</a></h2>
+<p>Three Cypher expression forms have no GQL counterpart with the same meaning, so they are not
+aliases either. <code>gql()</code> accepts them as <strong>compatibility forms</strong>, like the compatibility
+functions: with their openCypher / Neo4j Cypher 25 meaning, because they are how Cypher users and
+LLMs ask for nested, JSON-shaped answers (<a href="subset.html#map-projections-and-comprehensions">The Supported Subset</a>).</p>
+<div class="table-wrapper"><table><thead><tr><th>Cypher form</th><th>GQL nearest form</th><th>Difference</th></tr></thead><tbody>
+<tr><td>map projection <code>p {.name, .age, .*, f, k: expr}</code></td><td>the record constructor <code>{name: p.name, age: p.age, f: f, k: expr}</code> (or <code>RECORD {..}</code>)</td><td>for a <code>NULL</code> <code>p</code> the projection is <code>NULL</code>, the record <code>{name: NULL, ...}</code>; <code>.*</code> has no record form (<code>properties(p)</code> is the map of all properties)</td></tr>
+<tr><td>list comprehension <code>[x IN list WHERE cond | expr]</code></td><td>none; <code>FOR x IN list FILTER cond RETURN collect_list(expr)</code> gives one list per query, not per row</td><td></td></tr>
+<tr><td>pattern comprehension <code>[(p)-[:R]-&gt;(f) WHERE cond | expr]</code></td><td>none; <code>OPTIONAL MATCH (p)-[:R]-&gt;(f) WHERE cond</code> + <code>collect_list(expr)</code> groups the rows instead</td><td>the comprehension keeps the row and gives <code>[]</code> when nothing matches</td></tr>
+</tbody></table>
+</div>
+<p>The projection and the record give the same map whenever the variable is not <code>NULL</code>:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) RETURN p {.name, .age} AS m ORDER BY p.name LIMIT 1").to_list()   // #{"m": #{"age": 32, "name": "josh"}}
+g.gql("MATCH (p:person) RETURN {name: p.name, age: p.age} AS m ORDER BY p.name LIMIT 1").to_list()   // #{"m": #{"age": 32, "name": "josh"}}
+g.gql("MATCH (p:person) RETURN p.name AS name, [(p)-[:created]-&gt;(s) | s.name] AS sw ORDER BY name").to_list()
+// josh [ripple, lop] (in any order), marko [lop], peter [lop], vadas []
+g.gql("MATCH (p:person) OPTIONAL MATCH (p)-[:created]-&gt;(s) RETURN p.name AS name, collect_list(s.name) AS sw ORDER BY name").to_list()
+// josh [ripple, lop], marko [lop], peter [lop], vadas []
+</code></pre>
+<p>Cypher's list predicates <code>all()</code>, <code>any()</code>, <code>none()</code>, <code>single()</code> and <code>reduce()</code> bind a variable
+the same way; they are <a href="#list-predicates-and-reduce">compatibility functions</a>.</p>
+<h2 id="count-and-collect"><a class="header" href="#count-and-collect">COUNT and COLLECT</a></h2>
+<p>Cypher's <code>COUNT { }</code> and <code>COLLECT { }</code> subqueries have no GQL counterpart either; <code>gql()</code>
+accepts them as compatibility forms with their Neo4j Cypher 25 meaning
+(<a href="subset.html#count-and-collect">COUNT and COLLECT</a>). They take the bodies of <code>EXISTS</code>: a pattern,
+<code>MATCH</code> clauses, or a whole query ending in <code>RETURN</code> (one item for <code>COLLECT</code>).</p>
+<div class="table-wrapper"><table><thead><tr><th>Cypher form</th><th>GQL nearest form</th><th>Difference</th></tr></thead><tbody>
+<tr><td><code>COUNT { &lt;pattern or query&gt; }</code></td><td><code>CALL (p) { OPTIONAL MATCH .. RETURN count(x) AS n }</code>, or <code>OPTIONAL MATCH</code> + <code>count()</code></td><td>the subquery keeps the row and stands in any expression; <code>COUNT { } &gt; 0</code> is <code>EXISTS { }</code></td></tr>
+<tr><td><code>COLLECT { &lt;query&gt; RETURN x }</code></td><td><code>CALL (p) { OPTIONAL MATCH .. RETURN collect_list(x) AS l }</code></td><td><code>COLLECT</code> keeps <code>NULL</code> items, <code>collect_list()</code> skips them</td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) RETURN p.name AS name, COUNT { (p)-[:created]-&gt;() } AS n ORDER BY name").to_list()   // josh 2, marko 1, peter 1, vadas 0
+g.gql("MATCH (p:person) CALL (p) { OPTIONAL MATCH (p)-[:created]-&gt;(s) RETURN count(s) AS n } RETURN p.name AS name, n ORDER BY name").to_list()   // josh 2, marko 1, peter 1, vadas 0
+g.gql("MATCH (p:person) RETURN p.name AS name, COLLECT { MATCH (p)-[:created]-&gt;(s) RETURN s.name ORDER BY s.name } AS sw ORDER BY name").to_list()
+// josh [lop, ripple], marko [lop], peter [lop], vadas []
+g.gql("MATCH (p:person) CALL (p) { OPTIONAL MATCH (p)-[:created]-&gt;(s) WITH s ORDER BY s.name RETURN collect_list(s.name) AS sw } RETURN p.name AS name, sw ORDER BY name").to_list()
+// josh [lop, ripple], marko [lop], peter [lop], vadas []
+</code></pre>
+<p>One difference from Neo4j: a <code>COUNT { }</code> body whose final <code>RETURN</code> only projects is counted
+without evaluating its items (<a href="semantics.html#count-and-collect">Semantics</a>).</p>
+<h2 id="set-and-remove"><a class="header" href="#set-and-remove">SET and REMOVE</a></h2>
+<p>GQL's <code>SET</code> items are a property (<code>SET n.k = v</code>), all properties from a braced map
+(<code>SET n = {k: v}</code>) and a label (<code>SET n:A</code> / <code>SET n IS A</code>); <code>REMOVE</code> takes a property or a label.
+Two Cypher forms have no GQL counterpart and are accepted as <strong>compatibility forms</strong> with
+Cypher's meaning:</p>
+<ul>
+<li><strong><code>SET n += map</code></strong> merges the map into the properties: the keys of the map are set (a <code>NULL</code>
+value removes its key), the other properties stay.</li>
+<li><strong><code>SET n = expr</code></strong> with an expression that is not a braced map: a <code>$parameter</code> or any map
+value replaces every property, and a node or an edge stands for its properties, so <code>SET n = m</code>
+copies them (<code>SET n = n</code> changes nothing). Write <code>SET n = properties(m)</code> for the same as a
+plain map.</li>
+</ul>
+<p>A <code>NULL</code> on the right of <code>=</code> or <code>+=</code> is an error (<code>22004</code>) rather than an empty map; write
+<code>coalesce($map, {})</code> (<a href="semantics.html#set-and-remove">Semantics</a>). This is our choice for the
+compatibility form, where Neo4j removes every property: standard GQL has no such form, since its
+<code>SET n = {..}</code> takes a braced map only.</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person {name: 'marko'}) SET p += {city: 'Rome'} RETURN properties(p) AS props").to_list()   // #{"props": #{"age": 29, "city": "Rome", "name": "marko"}}
+g.gql("MATCH (p:person {name: 'marko'}) SET p = $props RETURN properties(p) AS props", #{props: #{name: "marko", city: "Rome"}}).to_list()   // #{"props": #{"city": "Rome", "name": "marko"}}
+g.gql("MATCH (p:person {name: 'marko'}), (q:person {name: 'josh'}) SET p = q RETURN properties(p) AS props").to_list()   // #{"props": #{"age": 32, "name": "josh"}}
+g.gql("MATCH (p:person {name: 'marko'}) SET p += $more", #{more: ()})   // error: the right side of SET p += .. is NULL, not a map
+</code></pre>
+<h2 id="merge"><a class="header" href="#merge">MERGE</a></h2>
+<p>Cypher's <code>MERGE</code> ("find or create") has no ISO GQL counterpart. <code>gql()</code> accepts it as a
+<strong>compatibility form</strong> with Neo4j Cypher 25's meaning, and with it its <code>ON CREATE SET</code> and
+<code>ON MATCH SET</code> actions:</p>
+<div class="table-wrapper"><table><thead><tr><th>Cypher</th><th>In <code>gql()</code></th><th>Notes</th></tr></thead><tbody>
+<tr><td><code>MERGE &lt;pattern&gt;</code></td><td>supported as a compatibility form</td><td>one path pattern per clause; per row, every match is a row, or the whole pattern is created; each row sees the rows before it (<a href="writes.html#merge">Writing with GQL</a>)</td></tr>
+<tr><td><code>ON CREATE SET &lt;items&gt;</code>, <code>ON MATCH SET &lt;items&gt;</code></td><td>supported as a compatibility form</td><td>the items of <code>SET</code>, several actions in any order, applied in the order written</td></tr>
+<tr><td><code>MERGE p = &lt;pattern&gt;</code></td><td>supported</td><td>the path found or created</td></tr>
+<tr><td><code>MERGE (a)-[:T]-(b)</code> without a direction</td><td>supported</td><td>matches either direction, creates from left to right</td></tr>
+</tbody></table>
+</div>
+<p>Plain GQL writes the same with a <code>CALL</code> body that inserts only when nothing exists:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MERGE (c:city {name: 'Berlin'}) RETURN c.name AS name").to_list()   // #{"name": "Berlin"}
+g.gql("CALL { FILTER NOT EXISTS { MATCH (:city {name: 'Berlin'}) } INSERT (:city {name: 'Berlin'}) } MATCH (c:city {name: 'Berlin'}) RETURN c.name AS name").to_list()   // #{"name": "Berlin"}
+</code></pre>
+<p>The differences from Neo4j are on <a href="semantics.html#merge">Semantics</a>.</p>
+<h2 id="dates-and-times"><a class="header" href="#dates-and-times">Dates and times</a></h2>
+<p>The temporal constructors have an ISO GQL name and a Cypher name; the Cypher names are aliases
+(the same function, the same value). The qualified Cypher functions have no ISO spelling: they
+are compatibility functions with Neo4j's meaning (<a href="subset.html#dates-and-times">Dates and times</a>).</p>
+<div class="table-wrapper"><table><thead><tr><th>Cypher</th><th>ISO GQL</th><th>Notes</th></tr></thead><tbody>
+<tr><td><code>date(x)</code></td><td><code>date(x)</code></td><td>the same name</td></tr>
+<tr><td><code>localtime(x)</code></td><td><code>local_time(x)</code></td><td>a time of day without an offset</td></tr>
+<tr><td><code>localdatetime(x)</code></td><td><code>local_datetime(x)</code></td><td></td></tr>
+<tr><td><code>datetime(x)</code></td><td><code>zoned_datetime(x)</code></td><td>an instant with its UTC offset (and its zone name)</td></tr>
+<tr><td><code>time(x)</code></td><td><code>zoned_time(x)</code></td><td>a time of day with its UTC offset</td></tr>
+<tr><td><code>duration(x)</code></td><td><code>duration(x)</code></td><td>the same name</td></tr>
+<tr><td><code>date.truncate()</code>, <code>localtime.truncate()</code>, <code>time.truncate()</code>, <code>localdatetime.truncate()</code>, <code>datetime.truncate()</code></td><td>none</td><td>compatibility functions</td></tr>
+<tr><td><code>duration.between()</code>, <code>duration.inMonths()</code>, <code>duration.inDays()</code>, <code>duration.inSeconds()</code></td><td>none</td><td>compatibility functions; ISO's <code>duration_between()</code> is an unknown function that suggests <code>duration.between()</code></td></tr>
+<tr><td><code>X.statement()</code>, <code>X.transaction()</code>; <code>datetime.fromepoch()</code>, <code>datetime.fromepochmillis()</code></td><td>none</td><td>compatibility functions; the clocks give the time the query started</td></tr>
+</tbody></table>
+</div>
+<p>| <code>X.realtime()</code> | none | refused: a clock that moves while the query runs |</p>
+<pre><code class="language-rhai graph=empty">g.gql("RETURN datetime('2015-07-21T21:40+01:00') = zoned_datetime('2015-07-21T21:40+01:00') AS a, localtime('12:00') = local_time('12:00') AS b, localdatetime('2015-07-21T21:40') = local_datetime('2015-07-21T21:40') AS c").to_list()
+// #{"a": true, "b": true, "c": true}
+g.gql("RETURN zoned_time('12:00+01:00') = time('12:00+01:00') AS t").to_list()   // #{"t": true}
+</code></pre>
+<h2 id="cypher-spellings-that-are-not-aliases"><a class="header" href="#cypher-spellings-that-are-not-aliases">Cypher spellings that are not aliases</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Cypher</th><th>In <code>gql()</code></th></tr></thead><tbody>
+<tr><td><code>id(n)</code></td><td>refused: an integer in Neo4j, Graphersal ids are strings; use <code>element_id(n)</code></td></tr>
+<tr><td><code>nodes(p)</code>, <code>relationships(p)</code></td><td>supported as <a href="#compatibility-functions">compatibility functions</a>, not aliases: GQL has no such functions</td></tr>
+<tr><td><code>x ^ y</code></td><td>supported as a compatibility operator: GQL has no operator for it; it means <code>power(x, y)</code> (always a float, the same errors), binding tighter than <code>*</code> and looser than a unary minus</td></tr>
+<tr><td><code>rand()</code>, <code>randomUUID()</code></td><td>refused: <code>gql()</code> functions are deterministic</td></tr>
+<tr><td><code>time()</code>, <code>time.*()</code>; <code>date.realtime()</code> and the other <code>X.realtime()</code></td><td><code>time()</code> not supported yet (no time-with-offset type: use <code>localtime()</code> or <code>datetime()</code>); <code>X.realtime()</code> refused, like <code>rand()</code> (<a href="#dates-and-times">Dates and times</a>)</td></tr>
+<tr><td>map projections, list and pattern comprehensions</td><td>supported as <a href="#map-projections-and-comprehensions">compatibility forms</a>, not aliases</td></tr>
+<tr><td><code>any()</code> / <code>all()</code> / <code>none()</code> / <code>single()</code>, <code>reduce()</code></td><td>supported as <a href="#list-predicates-and-reduce">compatibility functions</a>, not aliases: GQL has no such functions</td></tr>
+<tr><td><code>COUNT { }</code>, <code>COLLECT { }</code></td><td>supported as <a href="#count-and-collect">compatibility forms</a>, not aliases</td></tr>
+<tr><td><code>CALL { } IN TRANSACTIONS</code></td><td><a href="refused.html">refused</a>: a write form; the <code>CALL</code> itself is supported</td></tr>
+<tr><td><code>exists(n.p)</code> (Cypher 4)</td><td><a href="refused.html">refused</a>: <code>EXISTS</code> takes a pattern; test a property with <code>n.p IS NOT NULL</code></td></tr>
+<tr><td><code>GROUP BY</code> (not Cypher)</td><td>ISO GQL, accepted after the <code>RETURN</code> items (optional: grouping is implicit); after <code>WITH</code> an error that explains implicit grouping</td></tr>
+<tr><td><code>MERGE</code></td><td>supported as a <a href="#merge">compatibility form</a>, with <code>ON CREATE SET</code> / <code>ON MATCH SET</code></td></tr>
+<tr><td><code>FOREACH</code></td><td>not supported yet (<a href="writes.html#not-yet">Writing with GQL</a>); <code>CREATE</code> is an alias of <code>INSERT</code>; <code>SET</code> and <code>REMOVE</code> are supported, <code>+=</code> as a <a href="#set-and-remove">compatibility form</a></td></tr>
+<tr><td><code>DELETE</code>, <code>DETACH DELETE</code></td><td>the same in GQL, supported (<a href="writes.html#delete">Writing with GQL</a>); GQL also writes the default explicitly as <code>NODETACH DELETE</code></td></tr>
+<tr><td><code>SET n[key] = v</code>, <code>SET n:$(expr)</code> (Cypher 25 dynamic keys and labels)</td><td>not supported; name the key and the label in the query</td></tr>
+<tr><td><code>CALL proc(..) YIELD ..</code></td><td>supported for saved queries written in GQL: <code>CALL folder.name(..)</code> with <code>YIELD</code>, <code>YIELD *</code> and the standalone forms of Cypher (<a href="subset.html#calling-saved-queries">Calling saved queries</a>)</td></tr>
+<tr><td><code>CALL db.*()</code>, <code>dbms.*</code>, <code>apoc.*</code>, <code>gds.*</code>, <code>SHOW ...</code></td><td>refused: vendor extensions</td></tr>
+<tr><td><code>a--1</code> (minus minus one)</td><td>a comment starts at <code>--</code> (GQL wins): <code>RETURN n.age--1 AS x</code> returns the column <code>n.age</code>; write <code>n.age - -1</code></td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../gql/rhai_strings.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../gql/refused.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../gql/rhai_strings.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../gql/refused.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

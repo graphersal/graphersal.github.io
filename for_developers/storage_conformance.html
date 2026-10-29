@@ -1,0 +1,254 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Storage Conformance - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/for_developers/storage_conformance.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="storage-conformance-tests"><a class="header" href="#storage-conformance-tests">Storage Conformance Tests</a></h1>
+<blockquote>
+<p><code>GraphStorage</code> is <strong>experimental in 0.4.x</strong>: its methods and associated types may change in any
+0.4.x release (a layered storage with snapshot reads is planned). The trait's own rustdoc
+is the implementer's guide: handles, units, capabilities, change capture and statistics.</p>
+</blockquote>
+<p>The crate <code>graphersal-storage-tests</code> (on crates.io, <strong>EXPERIMENTAL</strong> like the trait: it may break in any minor
+release before 1.0, so pin the exact version) runs one contract against any <code>GraphStorage</code> implementation. Add it
+as a dev-dependency (<code>graphersal-storage-tests = "=0.4.0"</code>) and, in a test of the implementing crate:</p>
+<pre><code class="language-rust ignore">graphersal_storage_tests::conformance!(my_storage, base = MyStorage::new() =&gt; base);</code></pre>
+<p>The suite uses only <code>graphersal</code>'s public API.</p>
+<p>Each contract item is a separate test (ids, label sets, edge endpoints, property kinds, JSONPath writes and
+removals, cascading drops, counts and <code>*_by_label</code> equal to scans after every mutation, schema application,
+read-only wrappers, stale handles that never alias another element) plus a smoke layer that loads the
+modern graph through the trait and compares eight traversals with <code>TraversalGraph</code>.</p>
+<p>Schema support is optional: the schema items check enforcement only when <code>set_schema</code> does not return
+<code>GraphError::Unsupported</code> (the trait default); otherwise they pass without checking anything. Schema enforcement is
+not reusable outside <code>graphersal</code> yet, so a storage in another crate keeps that default and still passes
+<code>conformance!</code>. <code>conformance_core!</code> leaves the schema items out entirely, for a storage that accepts schemas but
+deliberately does not enforce them.</p>
+<p>Some items depend on what the storage claims in <code>capabilities()</code> (see <a href="../users_guide/transactions.html#storages">Transactions</a>):
+<code>capabilities_are_consistent</code> always runs (<code>change_capture</code> requires <code>atomic</code>); the rollback, savepoint and
+<code>unit_changes</code> items run for an <code>atomic</code> storage; the commit-hook and <code>apply_change_set</code> items run for a storage
+with <code>change_capture</code> (and check that a storage without it refuses hook registration). Where the trait documentation is silent the reference implementation decides;
+those points are listed in the crate README.</p>
+<p>The suite is run against <code>TraversalGraph</code>, <code>&amp;mut TraversalGraph</code>, <code>Box&lt;TraversalGraph&gt;</code>, <code>Arc&lt;TraversalGraph&gt;</code>,
+(read-only items) <code>&amp;TraversalGraph</code> and the blanket <code>&amp;G</code> view of that wrapper, the crate's <code>Forwarding</code> test storage
+(own handle types, every method forwarded to a <code>TraversalGraph</code>) and a wrapper in the suite's own tests that keeps the
+trait's schema defaults. It found two contract violations in <code>TraversalGraph</code> (a panic in <code>add_edge</code> for a dropped endpoint, stale edge-id
+entries after <code>drop_vertex</code>); both are fixed and the suite runs with no ignored test.</p>
+<h2 id="running-the-tinkerpop-suite-against-another-storage"><a class="header" href="#running-the-tinkerpop-suite-against-another-storage">Running the TinkerPop suite against another storage</a></h2>
+<p>The harness (<code>crates/graphersal/tests/tinkerpop/harness/</code>) holds every dataset graph as
+<code>Arc&lt;dyn AnyGraph&gt;</code>, so the suite is storage-independent above the storage. Inside this repository
+<code>GRAPHERSAL_TEST_STORAGE=forwarding</code> runs it on the <code>Forwarding</code> storage of this crate (see
+<a href="tinkerpop_compliance.html">TinkerPop Compliance</a>). A storage in another crate cannot run it yet: the
+harness lives inside the library's integration tests and would have to move into a library-like
+crate that does not depend on test-only paths. Until then such a storage follows the
+<a href="custom_storage.html#the-forwarding-pattern"><code>Forwarding</code> pattern</a>: the same scripts on a
+<code>TraversalGraph</code> and on the storage, results compared.</p>
+<p>How a host plugs its storage into the DSL, the session and the Store: <a href="custom_storage.html">Custom Storages</a>.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../for_developers/custom_storage.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../gql/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../for_developers/custom_storage.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../gql/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

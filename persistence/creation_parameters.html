@@ -1,0 +1,288 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Creation Parameters - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/persistence/creation_parameters.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="creation-parameters"><a class="header" href="#creation-parameters">Creation Parameters</a></h1>
+<p>Some parameters of a store are chosen <strong>when it is created</strong> and never change afterwards: they are
+written into the store itself (its <code>GRAPH</code> file, its container), every copy of the store carries
+them, and no API, command or option changes them. Everything else is an <strong>open option</strong>: given to
+every open, it may differ from one open to the next and is stored nowhere.</p>
+<p><code>graphersal store info &lt;dir&gt;</code> lists the creation parameters under "fixed at creation"; <code>Store::info</code>
+/ <code>Store::inspect</code> return them (<code>StoreInfo::store_id</code>, <code>chunk_bytes</code>, <code>damage_policy</code>, <code>created_at</code>,
+<code>format_version</code>, <code>space</code> for a single file), the dev server's <code>GET /api/store</code> and the Store menu
+show them.</p>
+<pre><code class="language-text">$ graphersal store create data/ --from modern --on-damage continue
+Created the store data/: graph 01a11cfc-..., commit 0, 1 snapshot(s); damage policy continue (fixed for its life).
+$ graphersal store info data/
+...
+fixed at creation (never changed):
+  store id      01a11cfd-...
+  created       2026-10-08T19:27:26Z
+  chunk size    1048576 bytes
+  on damage     continue (damage found while open is reported, commits continue)
+  backend       directory (format version 3)
+</code></pre>
+<h2 id="the-parameters-fixed-at-creation"><a class="header" href="#the-parameters-fixed-at-creation">The parameters fixed at creation</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Parameter</th><th>Default</th><th>Set with</th><th>Stored in</th><th>Carried by</th></tr></thead><tbody>
+<tr><td>Damage policy: what an open store does when damage is found on disk while it is open (below)</td><td><code>maintenance</code></td><td>Rust <code>StoreOptions::with_damage_policy</code> on <code>Store::create</code>, <code>create_with</code>, <code>create_from_packed</code>, <code>create_file</code>; CLI <code>graphersal store create &lt;dir&gt; --on-damage maintenance|continue</code>, <code>graphersal --graph &lt;dir&gt; --create-store --on-damage &lt;p&gt;</code> (also with <code>--server</code>); Python <code>Store.create(path, on_damage="continue")</code>, <code>Store.create_file(...)</code></td><td><code>GRAPH</code> flag bit 5 (<a href="format.html">format spec</a> 5.2)</td><td>every write of <code>GRAPH</code>; fork, attic fork, repair, convert, compact, rollback, every backup (full, increment, ZIP, from memory), restore, upgrade (copy and in place)</td></tr>
+<tr><td>Chunk target size: the uncompressed size of a snapshot chunk, the unit of repair</td><td>1 MiB</td><td>Rust <code>StoreOptions::with_chunk_bytes</code>; CLI <code>store create --chunk-size &lt;bytes&gt;</code></td><td><code>GRAPH</code> offset 44 (5.1); each manifest</td><td>fork, attic fork, repair, convert, backups, restore, upgrade</td></tr>
+<tr><td>Store id: the store's identity, which an incremental backup requires to be equal</td><td>random (128 bits)</td><td>(made by the create)</td><td><code>GRAPH</code> offset 100 (<a href="format.html">format spec</a> 5.5)</td><td>every write of <code>GRAPH</code>; rollback, attic restore, compact, every backup (full, increment, ZIP, from memory), restore (a restored backup IS the store), upgrade (copy and in place: the upgraded store IS the store in the new format). RENEWED (a new store) by fork, attic fork, repair and convert</td></tr>
+<tr><td>Creation time</td><td>the time of the create</td><td>(the clock)</td><td><code>GRAPH</code> offset 32</td><td>convert, backups, restore, rollback, upgrade (a fork or repair is a new store with its own time)</td></tr>
+<tr><td>Backend: a directory, one container file (<code>.gstore</code>), memory</td><td>by the path (<code>store_dir_at</code>): an existing file or a new <code>.gstore</code> path is a single file</td><td>the path; CLI <code>--single-file</code>; Rust <code>SingleFileDir</code>, <code>MemDir</code>; Python <code>Store.create_file</code></td><td>the location itself; a single file's preamble holds its container version (14.1)</td><td>compact (same file), upgrade in place; <code>store convert</code> and <code>store upgrade &lt;old&gt; &lt;new&gt;</code> make a NEW store, in any backend</td></tr>
+<tr><td>Store format version</td><td>the build's (3)</td><td>(the build)</td><td><code>GRAPH</code> offset 8 (the file format version, 2, is in every other file header; a store created from a 0.1.x packed snapshot keeps that snapshot's version 1 files)</td><td>everything; a newer version is refused; an older released one (2, Graphersal 0.1.x) is refused until <code>graphersal store upgrade</code> converts it, the only change of this parameter, which carries every other one (<a href="store_versions.html#upgrading-a-store-of-an-older-version">Format Versions</a>); the pre-release version 1 moves through a <a href="../users_guide/command_cheat_sheet.html#migrate-a-store-from-an-older-format">packed snapshot</a></td></tr>
+</tbody></table>
+</div>
+<p>The <strong>graph id</strong> is not a parameter: it identifies the current lineage. It is set when the store is
+created, an in-place rollback starts a new one in the same store, and a fork or repair has its own
+(its lineage chain names the parent). The <strong>store id</strong> identifies the store itself: a fork,
+repair or conversion is another store (a new id), so it never continues the original's
+incremental backups (<a href="store_backups.html#incremental-backups">Backups</a>).</p>
+<h3 id="damage-policy"><a class="header" href="#damage-policy">Damage policy</a></h3>
+<p>Damage can appear on disk while a store is open. A backup (it reads every checksum of what it
+copies), a checkpoint (its merge reads the last snapshot and the WAL after it) and <code>verify</code> find
+it; the damage policy decides what happens then:</p>
+<ul>
+<li><strong><code>maintenance</code></strong> (the default): the open store turns <strong>read-only</strong> with the damage as the
+reason. Commits, marks, checkpoints, prune, rollback and compaction are refused
+(<code>PersistError::DamageFound</code>); queries go on; a backup from memory saves the intact graph; the
+store writes nothing more to the damaged disk.</li>
+<li><strong><code>continue</code></strong>: the store keeps accepting commits; the damage stays reported (store info, the
+Store menu, a warning in the log) for as long as it is open.</li>
+</ul>
+<p>It does not apply to damage found when the store is <strong>opened</strong>: a store that cannot be loaded
+intact always opens in maintenance mode. See <a href="store_damage.html#damage-found-while-the-store-is-open">Damage, Maintenance and
+Repair</a>.</p>
+<p>Why fixed: the policy is a decision about the data (may it change while its files are known to be
+damaged?), not about one process. A fork, a repair or a backup is the same data, so it keeps the
+decision; an open never overrides it. An open given another policy ignores it
+(<code>StoreOptions::with_damage_policy</code> is used only when a store is created), and the CLI refuses
+<code>--on-damage</code> for an existing store with another policy instead of ignoring it silently. A store
+whose <code>GRAPH</code> files are both lost cannot tell its policy: a repair of it gets the default.</p>
+<p>The storage type of the graph (<code>Store&lt;TraversalGraph&gt;</code> or a host's <code>Store&lt;S&gt;</code>,
+<a href="store_own_storage.html">Your Own Storage</a>) is NOT a creation parameter: the files do not depend on
+it, so any storage type opens any store.</p>
+<h2 id="open-options-per-open-stored-nowhere"><a class="header" href="#open-options-per-open-stored-nowhere">Open options (per open, stored nowhere)</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Option</th><th>Default</th><th>Rust (<code>StoreOptions</code>)</th></tr></thead><tbody>
+<tr><td>Durability: fsync per commit, at most once per interval, or left to the OS</td><td>per commit</td><td><code>with_durability</code></td></tr>
+<tr><td>WAL segment size</td><td>16 MiB</td><td><code>with_wal_segment_bytes</code></td></tr>
+<tr><td>Automatic checkpoint after this much WAL</td><td>256 MiB (4 MiB in the browser)</td><td><code>with_checkpoint_after_bytes</code></td></tr>
+<tr><td>Merge checkpoint bound</td><td>1 GiB (64 MiB in the browser)</td><td><code>with_checkpoint_merge_bytes</code></td></tr>
+<tr><td>Snapshot segment target</td><td>64 MiB</td><td><code>with_snapshot_segment_bytes</code></td></tr>
+<tr><td>Compression codec of chunks and large WAL records</td><td>LZ4</td><td><code>with_codec</code></td></tr>
+<tr><td>Checkpoint on close</td><td>off</td><td><code>with_checkpoint_on_close</code></td></tr>
+<tr><td>Read options (memory limit, value depth)</td><td>defaults</td><td><code>with_read_options</code></td></tr>
+<tr><td>Compaction policy and automatic compaction after prune</td><td>defaults, off</td><td><code>with_compaction_policy</code>, <code>with_auto_compact</code></td></tr>
+<tr><td>Workload statistics level (<code>off</code>, <code>memory</code>, <code>persisted</code>: the sidecar <code>WORKLOAD</code>)</td><td><code>persisted</code></td><td><code>with_workload_level</code></td></tr>
+</tbody></table>
+</div>
+<p>A new creation parameter is added to the first table (and to <code>store info</code>); see <code>CLAUDE.md</code>.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../persistence/store_own_storage.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../persistence/workload_statistics.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../persistence/store_own_storage.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../persistence/workload_statistics.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

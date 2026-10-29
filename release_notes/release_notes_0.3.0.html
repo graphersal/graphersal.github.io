@@ -1,0 +1,313 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Release Notes 0.3.0 - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/release_notes/release_notes_0.3.0.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="release-030"><a class="header" href="#release-030">Release 0.3.0</a></h1>
+<p>A minor release. The engine learns what its graph holds and how it is used, and acts on it:
+<strong>workload statistics</strong>, <strong>scheduled jobs</strong>, a <strong>memory report</strong> and a <strong>storage advisor</strong> with an
+<strong>Optimize</strong> panel in the playground. Dates and times reach nanosecond resolution, the in-memory
+graph takes markedly less memory, and the DSL spells Graphersal's own extensions in snake_case
+only.</p>
+<p>It is not a drop-in update for every caller: read "Upgrading from 0.2" first.</p>
+<h2 id="upgrading-from-02"><a class="header" href="#upgrading-from-02">Upgrading from 0.2</a></h2>
+<ul>
+<li><strong>Graphersal's own DSL functions are snake_case only.</strong> The camelCase twins of 63 extensions are
+removed (<code>createIndex</code>, <code>defineQuery</code>, <code>memoryReport</code>, <code>removeProperty</code>, <code>globPath</code>, <code>addLabel</code>,
+<code>setLabel</code>, <code>dropLabel</code>, <code>toJson</code>, <code>toTable</code>, <code>toMermaid</code>, <code>toPlantUML</code>, <code>firstName</code>, <code>dateTrunc</code>,
+<code>localDateTime</code>, ...). TinkerPop's steps and functions keep both spellings (<code>hasLabel</code> and
+<code>has_label</code>), as do five names of the Java API (<code>containsKey</code>, <code>isEmpty</code>, <code>toMap</code>, <code>Set.ofList</code>,
+<code>UUID.fromString</code>). A script that still calls a removed name fails with a help that names the
+snake_case function (<a href="../dsl/writing_queries.html">Writing Queries</a>). Rendering in camelCase
+(<code>render.spelling</code>) keeps these names in snake_case, so the text still runs.</li>
+<li><strong>File format version 3.</strong> Every file this version writes (snapshots, journal segments, <code>.gsnap</code>,
+backups) is of format version 3, which holds the new temporal values. 0.3.0 reads every older
+file; 0.2.x refuses a version 3 file with a clear "unsupported version" error (never as damage).
+Keep a backup made by 0.2.x if you may need to go back. The store format version is unchanged
+(<a href="../persistence/store_versions.html">Format Versions and Upgrade</a>).</li>
+<li><strong>Temporal values hold nanoseconds</strong> (were microseconds); see "Dates and times" below.</li>
+<li><strong>Rust API:</strong> the <code>DT</code> token gained <code>DT::Nanosecond</code> as its first unit, so the numeric values of
+its variants moved (only code casting a <code>DT</code> with <code>as</code> sees it; <code>cargo-semver-checks</code> reports
+nothing else). Every other change is an addition: new modules <code>advisor</code>, <code>jobs</code> and <code>workload</code>,
+new methods (<code>Graph::advise</code>, <code>Graph::attach_workload_stats</code>, <code>memory_report</code>, ...) and
+<code>#[non_exhaustive]</code> structs.</li>
+</ul>
+<h2 id="added"><a class="header" href="#added">Added</a></h2>
+<ul>
+<li><strong>Memory report</strong> (<a href="../users_guide/memory_and_profiling.html">Memory and Profiling</a>):
+<code>g.memory_report()</code> (REPL <code>/memory</code>, MCP <code>memory_report</code>, dev server <code>POST /api/memory/report</code>,
+Python <code>memory_report()</code>): one row per label and property with the bytes it takes, value types,
+a size histogram, distinct strings, what is compressed or indexed, and the structure's own share
+(slots, ids, labels, shapes, indexes). Sampled on large labels.</li>
+<li><strong>Workload statistics</strong> (<a href="../persistence/workload_statistics.html">Workload Statistics</a>): a store
+counts what its queries do, per minute, hour and day (kept for 60 minutes, 48 hours and 90 days,
+persisted in the sidecar file <code>WORKLOAD</code>): queries by normalized plan (a <code>pg_stat_statements</code>
+analogue), how each property is used (filtered by a scan or an index, read, ordered, compared by
+similarity, written), the graph lock's wait and hold times, and the scheduled jobs; per channel
+(playground, MCP, CLI, Python, job, host). The playground's own drawing and panels are not
+counted. Read through <code>GET /api/workload[?history=minutes|hours|days]</code>, the MCP tool
+<code>workload_statistics</code>, REPL <code>/workload</code>, Python <code>workload_report()</code>; their memory shows as
+<code>workload_bytes</code> in <code>g.memory_usage()</code>.</li>
+<li><strong>Scheduled jobs</strong> (<a href="../persistence/scheduled_jobs.html">Scheduled Jobs</a>): a cron scheduler the
+host ticks (no thread in the engine; the dev server and the browser playground tick it). System
+jobs (<code>stats_flush</code>, <code>compact</code>) whose schedule and switch can be changed, and <strong>jobs of users</strong>
+as catalog definitions (kind <code>job</code>): <code>g.define_job(#{name, schedule, action, ...})</code> runs a saved
+query with fixed arguments, a checkpoint or a backup, with the definer's rights checked once and
+stored as the job's effects; limits per run (timeout, memory); every run recorded. Managed in
+the playground's <strong>Catalog ▸ Scheduled jobs</strong>, over <code>/api/jobs*</code>, MCP <code>list_jobs</code>.</li>
+<li><strong>Storage advisor and the Optimize panel</strong> (<a href="../persistence/optimize.html">Optimize</a>):
+recommendations from the memory report, the workload statistics and the catalog: create an index
+for a key filtered often by a full scan, drop an index no query used, compress or deduplicate
+large strings (savings measured on the data), stop compressing a key read often. Each names the
+catalog command that applies it; <strong>Apply</strong> runs it, <strong>Snooze</strong> and <strong>Dismiss</strong> hide it, and an
+applied one reports what it changed for 30 days. The playground's <strong>Optimize</strong> panel also shows
+the workload statistics as tables with sparklines and charts, and the memory report. Over HTTP
+<code>/api/advise*</code>, MCP <code>advise</code>, Rust <code>Graph::advise</code> (module <code>graphersal::advisor</code>).</li>
+<li><strong>Process memory</strong> in the statistics: <code>process.memory</code> (resident set size where the system
+reports it, the live heap, WebAssembly memory), loaded models and the AI Chat history, beside the
+graph's own footprint (playground Profile ▸ Statistics).</li>
+<li><strong>Dates and times</strong> (<a href="../dates/index.html">Dates and Times</a>): nanosecond resolution for <code>time</code>,
+<code>localdatetime</code>, <code>datetime</code> and <code>duration</code>; <code>offsettime</code>; a zone name given to a <code>datetime</code> is
+kept; the whole <code>java.time.Duration</code> range; ISO GQL temporal literals and clocks; Python returns
+nanosecond values as <code>pandas.Timestamp</code> / <code>pandas.Timedelta</code> where pandas is installed.</li>
+<li><strong>Playground</strong>: a filter for the drawn graph (labels and property conditions), a compact Graph
+toolbar with a Display menu (vertex size by degree), in/out degree in the inspector, reloads
+throttled while the graph changes fast, shape bytes on the Statistics tab, four <code>subgraph()</code>
+examples; the Share link is hidden with the dev server (it cannot carry a server's graph).</li>
+<li><strong>OpenAPI description of the dev server's HTTP API</strong> (EXPERIMENTAL,
+<a href="../persistence/dev_server.html#the-http-api-experimental">The HTTP API</a>):
+<code>crates/graphersal-cli/openapi.json</code> in the repository, served by <code>graphersal --server</code> at
+<code>GET /openapi.json</code>, its version the release's; a test keeps it in step with the router.</li>
+<li><strong>CLI and dev server</strong>: <code>--args-file FILE</code> / <code>@FILE</code> (a JSON file of arguments),
+<code>--mcp-instructions FILE</code> (operator notes in the MCP instructions); MCP answers are compact JSON,
+cut at whole results, with <code>offset</code> paging; the AI Chat accepts a custom <code>system_prompt</code>, reports
+lenient keys with hints, and shows each answer's time.</li>
+</ul>
+<h2 id="changed"><a class="header" href="#changed">Changed</a></h2>
+<ul>
+<li><strong>Less memory for the same graph.</strong> Stored property maps share their key lists (property
+shapes), the id index keeps no second copy of an id, vertex and edge slots are an own topology
+(petgraph is no longer a dependency) with interned label sets, and a load leaves no spare
+capacity. On the project's own knowledge graph (40k vertices, 190k edges) the graph took about
+half the memory of 0.2.3.</li>
+<li><strong>GQL <code>MERGE</code> without an index</strong> finds its match through a scan lookup, about ten times faster.</li>
+<li>The MCP instructions and tool descriptions prefer GQL for reading and writing data.</li>
+</ul>
+<h2 id="format"><a class="header" href="#format">Format</a></h2>
+<ul>
+<li>File format version 3 (format spec, section 3): new value tags for the nanosecond temporal
+values; versions 1 and 2 stay readable.</li>
+<li>The workload statistics sidecar <code>WORKLOAD</code> (format spec, section 4.4, version 2): instance data,
+never in the journal, a snapshot or a backup; an unreadable or newer file means the statistics
+start anew. It also keeps the system jobs' settings and the advisor's marks.</li>
+<li>Catalog kind 4: a scheduled job of a user (format spec, section 6.3).</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../release_notes/release_notes_0.4.0.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../release_notes/release_notes_0.2.3.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../release_notes/release_notes_0.4.0.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../release_notes/release_notes_0.2.3.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

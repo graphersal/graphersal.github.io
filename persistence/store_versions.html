@@ -1,0 +1,348 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Format Versions and Upgrade - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/persistence/store_versions.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="format-versions-and-upgrade"><a class="header" href="#format-versions-and-upgrade">Format Versions and Upgrade</a></h1>
+<p>Every file of the format starts with a magic and a version. There are two axes (and the
+single-file container has its own container version):</p>
+<ul>
+<li>the <strong>store format version</strong>, in the store's <code>GRAPH</code> file: this release writes and reads
+<strong>version 3</strong> (<code>graphersal::persist::STORE_FORMAT_VERSION</code>); <code>graphersal store info</code> prints it
+(<code>backend  directory (format version 3)</code>, <code>format  version 3</code>);</li>
+<li>the <strong>file format version</strong> of snapshot manifests and segments, WAL segments and packed
+snapshots (<code>.gsnap</code>): this release writes <strong>version 3</strong> (<code>graphersal::persist::FORMAT_VERSION</code>)
+and reads versions 1, 2 and 3.</li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Version</th><th>What changed</th></tr></thead><tbody>
+<tr><td>store 1</td><td>the first store format</td></tr>
+<tr><td>store 2 (0.1.0)</td><td>the store identity <code>store_id</code> in <code>GRAPH</code> (offset 100), which incremental backups check</td></tr>
+<tr><td>store 3 (0.2.0)</td><td>the same <code>GRAPH</code> layout; marks a store whose files are of file format version 2, so that 0.1.x refuses it as newer instead of taking its files for damage</td></tr>
+<tr><td>file 1 (0.1.x)</td><td>the first file format</td></tr>
+<tr><td>file 2 (0.2.0)</td><td>the value tags of the date and time types (<code>date</code>, <code>localdatetime</code>, <code>datetime</code>, <code>time</code>, <code>duration</code>) and of vectors (<code>vector</code>); a version 1 file is read as it is</td></tr>
+<tr><td>file 3 (0.3.0)</td><td>nanosecond value tags for <code>localdatetime</code>, <code>datetime</code> (with or without a zone name), <code>time</code>, <code>offsettime</code> and <code>duration</code> (the whole <code>java.time.Duration</code> range); every such value is written with them. Version 1 and 2 files are read as they are</td></tr>
+</tbody></table>
+</div>
+<p><strong>File format version 3 needs no upgrade.</strong> The store format version stays 3, so a store
+written by 0.2.x opens as it is: its version 2 snapshots and WAL segments stay and are read
+as they are, and everything written from then on (a new WAL segment, new snapshots, backups,
+<code>.gsnap</code> exports) is of file format version 3. From the first such file on, Graphersal 0.2.x
+refuses the store, its backups and those packed snapshots as written by a newer version
+(<code>PersistError::UnsupportedVersion</code>, the row below), never as damage. To hand data back to
+0.2.x, export it as GraphSON. Files of version 2 never hold a value with digits below the
+microsecond, an <code>offsettime</code> or a zone name: 0.2.x could not write them.</p>
+<div class="table-wrapper"><table><thead><tr><th>The store or file is</th><th>Then</th></tr></thead><tbody>
+<tr><td>the current version</td><td>read and written as usual</td></tr>
+<tr><td><strong>newer</strong> than this build</td><td>refused with <code>PersistError::UnsupportedVersion</code> ("written by a newer Graphersal") by every operation (open, read-only open, <code>store info</code>, <code>verify</code>, backup, restore, fork, repair, conversion, upgrade, ...), before any lock, read of data or write: never guessed at, never reported as damage, never repaired. This holds for a newer <code>GRAPH</code> (either copy), for any snapshot manifest, snapshot segment or WAL segment of a newer file format version inside an otherwise current or older store (attic entries included), for a single-file container of a newer container version, and for a packed snapshot. Use a newer Graphersal</td></tr>
+<tr><td>a store of an <strong>older</strong> released store format version (2: Graphersal 0.1.x)</td><td>refused with <code>PersistError::OlderFormat</code> by every operation but the converter and <code>repair</code> (open, read-only open, <code>store info</code>, <code>verify</code>, backup, restoring a backup directory, fork, convert; a ZIP backup is upgraded as it is restored); nothing is changed, never reported as damage. Its help names the command that upgrades it</td></tr>
+<tr><td>a store of store format version 1 (never released)</td><td>refused with <code>PersistError::OlderFormat</code> everywhere; the migration is a packed snapshot exported by the build that wrote it (below)</td></tr>
+</tbody></table>
+</div>
+<p>Two rules bind every release (<a href="format.html#15-versioning">format specification, section 15</a>):</p>
+<ul>
+<li><strong>A version from the future is not damage, and a store holding one is never worked on.</strong> A
+file of a newer version (intact magic and header checksum, a version word above this
+build's) MUST NOT be taken for damage, and a store, backup or single-file store that holds
+even one such file MUST NOT be worked on in any way: no write, no lock, no repair, no
+salvage, no maintenance mode, no upgrade, no checkpoint, no backup into or out of it. It is
+refused as a whole, so this build can never corrupt what a newer one wrote.</li>
+<li><strong>Format versions move only with a release that needs them.</strong> A patch release (x.y.Z)
+never changes any format version (store, file or container). A format version changes only
+with a release whose new features need it; a release that changes no format reads and writes
+the stores of the release before it as they are, with no upgrade.</li>
+</ul>
+<h2 id="the-upgrade-table"><a class="header" href="#the-upgrade-table">The upgrade table</a></h2>
+<p>Which older store format versions this build upgrades, and how, is one table in the code
+(<code>UPGRADES</code>, <code>persist/store/upgrade.rs</code>); this copy, and those in the
+<a href="format.html#151-upgrading-a-store">format specification 15.1</a> and the
+<a href="store_cli.html#upgrade"><code>store upgrade</code> command</a>, are generated from it and checked by a test.
+An upgrade is done only as its row says: "version word" rows only rewrite <code>GRAPH</code> and
+<code>GRAPH.copy</code> and are safe in place; "into a copy only" rows refuse <code>--in-place</code>
+(<code>StoreFailure::UpgradeNeedsCopy</code>) before anything is written; an unsupported version (or one
+without a row) is refused with <code>PersistError::OlderFormat</code>, whose help is the migration through
+a packed snapshot (below). A bump of a format version fails that test until the table has a
+row for the previous version.</p>
+<!-- upgrades:begin -->
+<div class="table-wrapper"><table><thead><tr><th>From store format version</th><th>Written by</th><th>To</th><th>Upgrade</th></tr></thead><tbody>
+<tr><td>1</td><td>never released (no store id)</td><td>3</td><td>unsupported (packed snapshot)</td></tr>
+<tr><td>2</td><td>Graphersal 0.1.x</td><td>3</td><td>in place or into a copy (version word)</td></tr>
+<tr><td>3</td><td>Graphersal 0.2.x and later</td><td>3</td><td>nothing to do</td></tr>
+</tbody></table>
+</div><!-- upgrades:end -->
+<h2 id="upgrading-a-store-of-an-older-version"><a class="header" href="#upgrading-a-store-of-an-older-version">Upgrading a store of an older version</a></h2>
+<p><strong>Every build reads every released format.</strong> A release keeps the readers of every store and
+file format version released before it (from 0.1.0 on), and the converter that upgrades such a
+store needs no older Graphersal: <code>graphersal store upgrade</code> reads the older store with this
+build. The golden fixtures written by the released 0.1.0 binary
+(<code>crates/graphersal/tests/data/v0.1.0/</code>: a store with history, marks, an attic entry, schema and catalog; a single-file store;
+a backup directory; a ZIP backup) are upgraded by every test run.</p>
+<pre><code class="language-bash">graphersal store upgrade old_store/ new_store/      # into a NEW store; old_store/ is not changed
+graphersal store upgrade old.gstore new.gstore      # the same for a single-file store (any backend: new.gstore, a directory, --single-file)
+graphersal store upgrade old_store/ --in-place      # the store itself (back it up first)
+graphersal store upgrade old_backup/ new_backup/    # a backup directory: it stays a backup
+graphersal store restore old_backup.zip new_store/  # a ZIP backup is upgraded as it is restored
+</code></pre>
+<p>In Rust <code>Store::upgrade(from, to)</code> and <code>Store::upgrade_in_place(dir)</code> (any <code>StoreDir</code>: a path, a
+<code>.gstore</code> file, a <code>MemDir</code>), in Python <code>graphersal.Store.upgrade(source, target)</code> or
+<code>graphersal.Store.upgrade(source, in_place=True)</code>; each returns what it did (<code>UpgradeReport</code>).</p>
+<p>What it does:</p>
+<ul>
+<li><strong>Everything is carried, exactly</strong>: the graph, its schema and catalog (saved queries,
+compression rules), the whole history (snapshots and WAL: every point in time stays a recovery
+target), the marks, the lineage, the attic entries (they stay restorable or forkable) and every
+<a href="creation_parameters.html">creation parameter</a>, the store id included: the upgraded store is the
+SAME store in the new format, so an upgraded backup of it continues to take increments.</li>
+<li><strong>Only <code>GRAPH</code> and <code>GRAPH.copy</code> are rewritten</strong> (the store format version word); every
+snapshot, WAL segment, the <code>marks</code> file and the attic stay byte for byte. This build reads them
+as they are (each file names its own file format version), so nothing is decoded and encoded
+again and the history stays exactly what was written. The first commit after the upgrade goes
+into a NEW WAL segment of the current file format version: a record of the new version is
+never appended to a segment of the older one.</li>
+<li><strong>The older store is verified first</strong> (every checksum, as <code>store verify</code> does). A damaged store
+is refused before anything is written (<code>StoreFailure::DamagedSource</code>); repair it instead:
+<code>graphersal store repair old_store/ --to new_store/</code> reads a store of an older released
+version and writes the repaired store in the current format.</li>
+<li><strong>Into a copy</strong> (the default) the older store is only read; its writer lock is held while it is
+copied, so a store still open by a writer (an older Graphersal, a server) is refused as in use.
+The copy is verified before its <code>GRAPH</code> is written: an interrupted upgrade never leaves
+something that opens as a store in the target, and running the upgrade again into it clears
+what was left and completes.</li>
+<li><strong>In place</strong> the store is verified, then <code>GRAPH.copy</code> and <code>GRAPH</code> are replaced, each
+atomically: whatever moment a crash hits, the store is either still the older one (run the
+upgrade again) or already the upgraded one (a reader takes the intact copy), never lost. No
+other file changes, so no <code>INTENT</code> is needed. Back the store up before (a file copy of the
+closed store will do): afterwards the older Graphersal refuses it as newer.</li>
+<li>A store that already has the current format is left alone in place (<code>already_current</code>); a copy
+of it is refused with <code>StoreFailure::AlreadyCurrent</code> (use <code>store convert</code> or a backup).</li>
+</ul>
+<p><strong>Packed snapshots need no converter.</strong> A <code>.gsnap</code> written by 0.1.x (file format version 1)
+loads as it is (<code>--graph graph.gsnap</code>, <code>TraversalGraph::read_snapshot</code>), and <code>graphersal store create new_store/ --from graph.gsnap</code> makes a current store from it (its version 1 segment files
+are kept byte for byte). That route carries only the graph state, its schema and its catalog.</p>
+<p><strong>Store format version 1</strong> was never released. A store of it (no store id) keeps the migration
+through a packed snapshot: the build that wrote it exports the current state (<code>graphersal --graph old_store/ -e 'g.export_snapshot("graph.gsnap")'</code>), and this build creates a new store from the
+file. The full recipe:
+<a href="../users_guide/command_cheat_sheet.html#migrate-a-store-from-an-older-format">Command Cheat Sheet</a>.</p>
+<p>What counts as a format change, and the compatibility promises for third-party readers and
+writers, are in the <a href="format.html#15-versioning">format specification, section 15</a>.</p>
+<h2 id="growing-without-a-new-version"><a class="header" href="#growing-without-a-new-version">Growing without a new version</a></h2>
+<p>New kinds of definitions in the catalog (saved queries, property indexes and compression rules
+today; procedures and others later), new keys of a definition, and new kinds of snapshot files do <strong>not</strong> change the
+format version (<a href="format.html#16-extensibility">format specification, section 16</a>). A build that
+meets something it does not know:</p>
+<div class="table-wrapper"><table><thead><tr><th>It finds</th><th>Then</th></tr></thead><tbody>
+<tr><td>a definition of an unknown kind</td><td>kept byte for byte and written back unchanged at every checkpoint, fork, backup and repair</td></tr>
+<tr><td>an unknown key of a saved query</td><td>kept and written back</td></tr>
+<tr><td>a <strong>critical</strong> definition of an unknown kind (one that must stay consistent with the data, such as an index), or a snapshot file of a critical unknown kind</td><td>the store opens <strong>read-only</strong> (<code>Store::read_only_reason</code>, <code>PersistError::ReadOnly</code>): reading, <code>verify</code>, export, fork and backups work; writes need the newer version that wrote it</td></tr>
+</tbody></table>
+</div>
+<p>Stores written before the catalog existed open unchanged: their catalog is empty, the first
+saved query goes into the WAL and the next checkpoint writes it into the snapshot.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../persistence/store_damage.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../persistence/store_backends.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../persistence/store_damage.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../persistence/store_backends.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

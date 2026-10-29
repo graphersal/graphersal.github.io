@@ -1,0 +1,286 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Execution Options Reference - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/users_guide/execution_options_reference.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="execution-options-reference"><a class="header" href="#execution-options-reference">Execution Options Reference</a></h1>
+<p>This page is the single, canonical list of every <code>g.with(key, value)</code> option Graphersal
+recognises. Query authors: this is where to find every key that exists. Hosts embedding this
+engine (a CLI, a web playground, a multi-tenant backend): this is where to find every key an
+<a href="#host-controlled-execution-policy"><code>ExecutionPolicy</code></a> can lock down.</p>
+<div class="table-wrapper"><table><thead><tr><th>Key</th><th>Type</th><th>Engine default</th><th>Host-lockable</th><th>What it does</th></tr></thead><tbody>
+<tr><td><code>evaluationTimeout</code></td><td>non-negative integer milliseconds</td><td><code>0</code> (no timeout)</td><td>yes</td><td>Wall-clock budget of the whole execution, nested traversals included. See <a href="query_limits.html">Query Limits</a>.</td></tr>
+<tr><td><code>repeat.order</code></td><td><code>"bfs"</code> | <code>"dfs"</code> (case-insensitive)</td><td><code>"bfs"</code></td><td>yes</td><td>The order a <code>repeat()</code> loop walks its frontier in. See <a href="recursive_traversals.html">Recursive Traversals</a>.</td></tr>
+<tr><td><code>repeat.max_loops</code></td><td>integer, 1 to 4 294 967 295</td><td><code>10 000</code></td><td>yes</td><td>Iteration limit of a <code>repeat()</code> without <code>times()</code>, so an unbounded loop on a cyclic graph fails instead of running forever. See <a href="query_limits.html">Query Limits</a> and <a href="recursive_traversals.html">Recursive Traversals</a>.</td></tr>
+<tr><td><code>optimizer.disabled</code></td><td>array of rule-name strings</td><td><code>[]</code> (every rule on by default runs)</td><td>yes</td><td>Names of on-by-default optimizer rules to leave out of this execution's plan, or <code>["all"]</code> to disable every rule at once. See <a href="../optimizer/index.html#toggle-rules-for-one-query">Query Optimizer</a>.</td></tr>
+<tr><td><code>optimizer.enabled</code></td><td>array of rule-name strings</td><td><code>[]</code></td><td>yes</td><td>Names of off-by-default optimizer rules to force into this execution's plan (a no-op today; no shipped rule defaults to off). See <a href="../optimizer/index.html#toggle-rules-for-one-query">Query Optimizer</a>.</td></tr>
+<tr><td><code>path.analysis</code></td><td>boolean</td><td><code>true</code></td><td>yes</td><td><code>true</code> records only the path positions a step actually reads; <code>false</code> records every position unconditionally. See <a href="../optimizer/path_analysis.html">Path Requirement Analysis</a>.</td></tr>
+<tr><td><code>bulk.one</code></td><td>boolean</td><td><code>false</code></td><td>yes</td><td><code>true</code> is <code>g.withBulk(false)</code> (TinkerPop <code>ONE_BULK</code>): a merge at an explicit <code>barrier()</code> keeps bulk 1, so duplicates are emitted once; a traverser with a sack and no merge operator never merges; the automatic merge points (<code>repeat()</code> frontier, <code>lazy_barrier()</code>) pass through. <code>withBulk(true)</code> sets it back to <code>false</code>. Any other value fails with <code>InvalidOption</code>. See <a href="sack_and_operators.html#withbulkfalse">Sack and Operators</a>.</td></tr>
+<tr><td><code>bulk.merge</code></td><td>boolean</td><td><code>true</code></td><td>yes</td><td><code>true</code> lets merge points (<code>barrier()</code>, the <code>repeat()</code> frontier, <code>lazy_barrier()</code>) merge equal traversers into one with a bulk; <code>false</code> turns them into pass-throughs. Never changes the result multiset. Merging is also off when the plan mutates. See <a href="bulk_and_barriers.html">Bulk and Barriers</a>.</td></tr>
+<tr><td><code>bulk.max_expansion</code></td><td>integer, at least 1</td><td><code>10 000 000</code></td><td>yes</td><td>The most values a step (<code>fold()</code>, <code>aggregate()</code>, <code>store()</code>, <code>group()</code> value lists, a terminal list) may produce when it expands merged traversers into single items; more fails with <code>BulkExpansionLimit</code>. A second line behind <code>traversal.max_materialized_bytes</code>. See <a href="bulk_and_barriers.html">Bulk and Barriers</a>.</td></tr>
+<tr><td><code>traversal.max_materialized_bytes</code></td><td>integer, at least 1</td><td><code>1 073 741 824</code> (1 GiB; <code>268 435 456</code> on wasm32)</td><td>yes</td><td>The largest estimated size, in bytes, of one value or buffer a step materializes: a bulk expansion (as for <code>bulk.max_expansion</code>) and a value a <code>repeat()</code> body builds up again on every iteration (<code>repeat(__.path())</code>, <code>repeat(__.group())</code>, checked once per traverser per iteration together with the values the path records keep). Checked before the expansion allocates. Exceeding it fails with <code>ResourceLimitExceeded</code>. Administrative. See <a href="resource_limits.html#memory-materialized-bytes-and-expansions">Resource Limits</a>.</td></tr>
+<tr><td><code>traversal.max_string_bytes</code></td><td>integer, at least 1</td><td><code>16 777 216</code> (16 MiB)</td><td>yes</td><td>The longest string, in bytes, a step builds: <code>replace()</code>, <code>concat()</code>, <code>conjoin()</code>, <code>format()</code>, <code>as_string()</code>, <code>to_upper()</code>/<code>to_lower()</code>, <code>substring()</code>, <code>reverse()</code>, the trims and the elements of <code>split()</code>. <code>replace()</code>, <code>concat()</code> and <code>conjoin()</code> check before they allocate. Exceeding it fails with <code>ResourceLimitExceeded</code>. Administrative. See <a href="resource_limits.html#strings-built-by-steps">Resource Limits</a>.</td></tr>
+<tr><td><code>memory.limit</code></td><td>integer bytes, at least 1, or <code>"auto"</code></td><td>none (no budget)</td><td>yes</td><td>The memory budget of the execution: what is in use (the process's live heap with a tracking allocator, else the graph's footprint at the start of the run plus what the run holds and adds) must stay below it, checked at every step boundary and before every bulk expansion, bucket push of copies and <code>repeat()</code> iteration. <code>"auto"</code> is the cgroup memory limit of the process minus <code>memory.headroom</code> (no budget without a cgroup limit, and always on wasm32). Exceeding it fails with <code>ResourceLimitExceeded</code> and rolls the run back. Administrative; meant as a host setting (<code>ExecutionPolicy</code> default or session preset). See <a href="resource_limits.html#memory-budget">Resource Limits</a>.</td></tr>
+<tr><td><code>memory.headroom</code></td><td>non-negative integer bytes</td><td>a tenth of the cgroup limit, at least 64 MiB, at most half</td><td>yes</td><td>What <code>memory.limit = "auto"</code> keeps free below the cgroup limit; ignored for an explicit byte budget. Administrative. See <a href="resource_limits.html#memory-budget">Resource Limits</a>.</td></tr>
+<tr><td><code>traversal.max_traversers</code></td><td>integer, at least 1</td><td><code>10 000 000</code></td><td>yes</td><td>The most traversers one step may leave alive (the stream between two steps, which is also what a terminal list materializes). Exceeding it fails with <code>ResourceLimitExceeded</code>. Pass <code>9223372036854775807</code> for no limit. See <a href="resource_limits.html">Resource Limits</a>.</td></tr>
+<tr><td><code>random.seed</code></td><td>integer (int64)</td><td>none (seeded from the operating system's entropy)</td><td>yes</td><td>The seed of the execution's random number generator, which <code>coin()</code>, <code>sample()</code> and <code>order().by(Order.shuffle)</code> draw from (child traversals included, in plan order). The same seed gives the same draws on every run of the same query with the same Graphersal version, also in the browser. Graphersal's counterpart of TinkerPop's <code>SeedStrategy</code>, whose scenarios stay out of scope with <code>withStrategies()</code>; the draws are not those of TinkerPop's Java <code>Random</code>. A non-integer fails with <code>InvalidOption</code>. See <a href="../traversal/steps/sample.html#reproducible-samples">sample</a>.</td></tr>
+<tr><td><code>traversal.max_value_depth</code></td><td>integer, at least 1</td><td><code>128</code></td><td>yes</td><td>The deepest nesting of arrays, maps and paths one value may reach inside the engine: checked once per traverser per <code>repeat()</code> iteration (a body that wraps its value again, such as <code>repeat(__.fold())</code>) and on every property write (a <code>jpath(..)</code> path counts one level per segment below the property). Exceeding it fails with <code>ResourceLimitExceeded</code>. Deeply nested values are read recursively, so keep it in the hundreds. See <a href="resource_limits.html#value-depth">Resource Limits</a>.</td></tr>
+<tr><td><code>render.max_rows</code></td><td>positive integer</td><td>none (unlimited)</td><td>no</td><td>Script DSL only: how many top-level results a <em>displayed</em> result shows. <code>graphersal</code> and the playground set it to <code>100</code> for the session. Never affects data terminals. See <a href="displaying_results.html">Displaying Results</a>.</td></tr>
+<tr><td><code>render.max_items</code></td><td>positive integer</td><td>none (unlimited)</td><td>no</td><td>Script DSL only: how many items of each nested collection a displayed result shows. <code>graphersal</code> and the playground set it to <code>100</code>. See <a href="displaying_results.html">Displaying Results</a>.</td></tr>
+<tr><td><code>render.spelling</code></td><td><code>"snake"</code> | <code>"camel"</code> (case-insensitive)</td><td><code>"snake"</code></td><td>yes</td><td>The spelling of step names in diagnostics: <code>.profile()</code> step names, error step locations and the <code>help()</code> rewrites of the failing query. <code>"snake"</code> renders <code>has_label("person")</code>, <code>group_count()</code>; <code>"camel"</code> renders the Gremlin spelling <code>hasLabel("person")</code>, <code>groupCount()</code>. Never affects results. <code>graphersal --spelling camel</code>, the REPL <code>/set spelling camel</code> and the playground setting set it for the session. Any other value fails with <code>InvalidOption</code>. See <a href="profiling_and_execute.html#step-names">Profiling and execute()</a>.</td></tr>
+</tbody></table>
+</div>
+<p>Every key above changes a query's <em>behavior</em>, its <em>safety bound</em>, or its <em>plan</em> — never its
+result, except <code>evaluationTimeout</code>/<code>repeat.max_loops</code> themselves failing the query when a bound is
+hit. Setting a key again replaces its previous value; an unrecognised key is silently ignored.</p>
+<p>An invalid <em>value</em> for a recognised key (wrong shape, out of range, an unknown rule name) fails
+with <code>TraverserError::InvalidOption</code> when the traversal is <strong>executed</strong> — <code>with()</code> itself has no
+error channel and always returns <code>Self</code>.</p>
+<h2 id="host-controlled-execution-policy"><a class="header" href="#host-controlled-execution-policy">Host-Controlled Execution Policy</a></h2>
+<p><code>evaluationTimeout</code> and <code>repeat.max_loops</code> exist specifically to bound a runaway query's resource
+use. But by themselves, both are just ordinary options: a query is free to set
+<code>g.with("evaluationTimeout", 999999999).with("repeat.max_loops", 999999999)</code> and defeat them. A
+host that runs untrusted queries against a shared graph — a public web playground, a multi-tenant
+backend — needs a way to fix a ceiling on any option above, <strong>outside the query's reach</strong>.</p>
+<p><code>ExecutionPolicy</code> is that ceiling. It is built once, by the trusted host, and attached to a
+<code>TraversalGraph</code> at construction time — before the graph is ever wrapped for sharing
+(<code>Graph</code>/<code>Arc&lt;TraversalGraph&gt;</code>) and handed to code that might run an untrusted query against it:</p>
+<pre><code class="language-rust">use graphersal::prelude::*;
+use graphersal::exec::ExecutionPolicy;
+
+let policy = ExecutionPolicy::permissive()
+    // A query can no longer touch evaluationTimeout at all; every execution gets 2000 ms.
+    .with_default("evaluationTimeout", 2000)
+    .with_locked("evaluationTimeout")
+    // Same for repeat.max_loops: no query-supplied value is ever honored.
+    .with_default("repeat.max_loops", 500)
+    .with_locked("repeat.max_loops");
+
+let graph = TraversalGraph::tinkerpop_modern().with_execution_policy(policy);
+let g = Graph::new(graph);</code></pre>
+<p>There is no setter after this point — not <code>&amp;mut self</code>, not one gated behind a write lock. Once a
+<code>TraversalGraph</code> is constructed, its policy cannot change for the rest of its life; a host that
+wants different limits for a different session constructs a different graph instance.</p>
+<p>Two independent knobs, settable per key:</p>
+<ul>
+<li><strong><code>with_default(key, value)</code></strong> — applied when the query's own <code>g.with()</code> doesn't set <code>key</code>.
+Takes precedence over the engine's own hardcoded default, but the query can still override it
+unless the key is also locked.</li>
+<li><strong><code>with_locked(key)</code></strong> — a query's own <code>g.with(key, ..)</code> attempt fails immediately with
+<code>TraverserError::LockedOption</code>, regardless of the value it tried to set. The policy's default
+(or, absent one, the engine's hardcoded default) always applies instead.</li>
+</ul>
+<p><code>ExecutionPolicy::permissive()</code> — no key locked, no default overridden — is the implicit policy of
+any <code>TraversalGraph</code> built without <code>with_execution_policy(..)</code>: every option takes its engine
+default unless the query sets it.</p>
+<p>Every key in the table above is checked against the policy the same, generic way, so a future
+option automatically participates in locking and defaulting without special-cased code.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../users_guide/query_limits.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../persistence/overview.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../users_guide/query_limits.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../persistence/overview.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

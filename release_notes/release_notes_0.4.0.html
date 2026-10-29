@@ -1,0 +1,546 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Release Notes 0.4.0 - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/release_notes/release_notes_0.4.0.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="release-040"><a class="header" href="#release-040">Release 0.4.0</a></h1>
+<p>A minor release about <strong>errors that are never swallowed</strong> and <strong>readers that keep reading</strong>. Every
+public method that touches shared state (the graph's lock, a storage, a Store, files, embedders)
+now returns a <code>Result</code> and never answers a failure with an empty or default value; a host's own
+storage reports a backend failure through every method of <code>GraphStorage</code>, and the engine fails
+the query with it. A whole-script unit and a playground run no longer block other readers while
+they only read, and a checkpoint taken while a run is open no longer persists data the run later
+rolls back. A Store can keep the <strong>embedding models</strong> it needs inside it.</p>
+<p>It is not a drop-in update for Rust callers: read "Upgrading from 0.3" first. The DSL, GQL, the
+schema format and the storage formats are unchanged; scripts and stores of 0.3 work as they are.</p>
+<h2 id="upgrading-from-03"><a class="header" href="#upgrading-from-03">Upgrading from 0.3</a></h2>
+<ul>
+<li><strong>Result for shared state (Rust API).</strong> Reads of <code>AnyGraph</code>, <code>Graph</code>, <code>Store</code> and
+<code>GraphTraversalSource</code> (<code>statistics()</code>, <code>memory_usage()</code>) that answered a plain value now
+return a <code>Result</code> with a <code>#[non_exhaustive]</code> error type (<code>GraphError</code>, <code>PersistError</code>,
+<code>TraverserError</code>). The upgrade step for each is "handle the <code>Result</code>" (<code>?</code>, or <code>.unwrap()</code>
+where the caller knows better). Every changed signature is listed under "Breaking changes in
+detail" below.</li>
+<li><strong>Storage implementers (EXPERIMENTAL <code>GraphStorage</code>, <code>PersistentStorage</code>, <code>StoreDir</code>).</strong> Every
+method of <code>GraphStorage</code> returns <code>Result&lt;_, GraphError&gt;</code>, the element reads included
+(<code>vertex_count</code>, <code>vertices</code>, <code>out_edges</code>, <code>get_vertex_by_id</code>, <code>vertex_properties</code>, ...: one
+<code>Result</code> per call, never per item); the defaults return <code>Ok</code> of the old default. Wrap a
+backend failure with <code>GraphError::storage_failed</code>; the engine fails the reading query with it,
+located at its step. Return <code>Err</code> from <code>rollback_unit</code> only when the storage really is in an
+unknown state: a failed rollback now <strong>poisons</strong> the <code>Graph</code> that holds the storage (below). A
+wrapper storage over a storage held elsewhere forwards the new
+<code>GraphStorage::storage_identity()</code>. <code>TraversalGraph</code> never fails these reads and its impls are
+inlined, so the <code>Result</code> costs nothing on the hot paths. The guide is
+<a href="../for_developers/custom_storage.html">Custom Storages</a>; <code>graphersal-storage-tests</code> gains the
+<code>failing::Failing</code> storage, which fails each group of methods on purpose.</li>
+<li><strong>A failed rollback poisons the graph</strong> (behaviour). When a host storage's <code>rollback_unit</code>
+(or <code>discard_unit</code>) fails in a unit the engine closes on a <code>Graph</code>, that graph refuses every
+later data operation with the new <code>GraphError::Poisoned</code>; <code>try_read</code>/<code>try_write</code> answer
+<code>None</code>, <code>read()</code>/<code>write()</code> panic. There is no unpoison: drop the graph and reopen the storage
+(<code>Graph::is_poisoned</code>, <code>Graph::poison_cause</code>). Exactly the graph whose storage failed is
+poisoned, never another one. <code>TraversalGraph</code> and the Store cannot get there (their rollback
+cannot fail) (<a href="../users_guide/transactions.html">Transactions</a>).</li>
+<li><strong>Errors that surface now.</strong> Failures that used to read as "no data" are errors: an
+unreadable store directory or single-file store (<code>Store::is_store</code>,
+<code>SingleFileDir::is_single_file</code>), an unreadable attic or models directory (<code>Store::info</code>), a
+failing compression estimate (<code>Graph::advise</code>), a read the current thread may not have
+(<code>GraphError::GraphViewHeld</code> instead of an empty answer), a poisoned internal lock of a Store
+(<code>StoreFailure::LockPoisoned</code> instead of a default answer). The CLI, the dev server, MCP and
+Python report them.</li>
+<li><strong><code>graphersal-session</code></strong> (internal) returns the typed <code>SessionError</code> instead of <code>String</code>;
+<code>graphersal-wasm</code>'s JS methods throw instead of answering an empty value.</li>
+<li><strong>Python</strong>: <code>Store.close()</code> raises on a poisoned store lock (was "already closed"),
+<code>Graph.execute</code> raises on a poisoned limits lock (was the default limits). Everything else is
+unchanged.</li>
+<li><strong>DSL</strong>: a predicate whose operand is a list, map or traversal (<code>P.gt(["a"])</code>) is an error
+now; it used to compare with the operand's text (issue #14, under "Fixed").</li>
+</ul>
+<h2 id="added"><a class="header" href="#added">Added</a></h2>
+<ul>
+<li><strong>Embedding models inside a Store</strong>
+(<a href="../persistence/store_models.html">Embedding Models in a Store</a>, issue #10):
+<code>graphersal embed-model download &lt;repo&gt; --into &lt;store&gt;</code> and
+<code>embed-model import &lt;dir&gt; --into &lt;store&gt;</code> put a Model2Vec model into a store, with its model
+card, its licence files (a standard licence text when the model ships none, and the texts of
+its base models' licences) and a manifest with a SHA-256 per file. Opening the store registers
+its models, so a text query embeds with the model the schema recorded wherever the store goes.
+Every copy carries them (backups, ZIP backups, fork, attic fork, repair, convert, upgrade,
+restore, packed snapshots); <code>store verify</code> checks every file. <code>graphersal store models</code> lists
+and removes them, <code>store info</code> shows them, <code>store export</code> and <code>store backup --zip</code> take
+<code>--without-models</code>. Rust <code>Store::add_model</code>/<code>models</code>/<code>remove_model</code>, Python <code>Store.models()</code>
+and <code>Store.export(without_models=)</code>, the playground's Store menu (downloads with or without
+models).</li>
+<li><strong>Units held across locks</strong> (<a href="../users_guide/transactions.html">Transactions</a>):
+<code>Graph::begin_unit</code>/<code>commit_unit</code>/<code>commit_unit_with</code>/<code>rollback_unit</code>/<code>discard_unit</code>/
+<code>unit_changes</code>/<code>holds_unit</code> keep one unit over several locks on the opening thread. Other
+threads read on while the unit has only read and wait from its first write until it closes,
+so nobody sees uncommitted changes. Whole-script units (<code>eval_value_atomic</code>, dry runs, writing
+saved queries, query jobs) and the playground's and dev server's runs use them: readers are no
+longer blocked by a script that only reads. <code>Graph::try_write_checked</code> tells "busy" from
+"forbidden on this thread"; <code>Graph::read_checked</code>/<code>write_checked</code>/<code>try_read</code> report an
+aliasing view as <code>GraphError::GraphViewHeld</code> instead of panicking.</li>
+<li><strong>AI Chat export</strong>: the AI Chat tab's <strong>Export</strong> menu downloads the transcript as Markdown or
+JSON (<a href="../persistence/dev_server.html#ai-chat">AI Chat</a>, issue #18). The AI Chat keeps its
+history compressed, shows the input, output and cached token counts of each answer, and
+answers from what it has when it reaches the tool-call limit.</li>
+<li><strong>Storage advisor</strong>: every recommendation has an impact (low, medium, high: its share of the
+graph's memory, or the scans and reads it saves) beside its confidence, and the list is
+ordered by it (<a href="../persistence/optimize.html">Optimize</a>).</li>
+<li><strong>Dev server on any address, and in Docker</strong>
+(<a href="../persistence/dev_server.html#listening-address-and-docker">Listening address and Docker</a>):
+the dev server (<code>graphersal --server</code>, with <code>--mcp</code> and <code>--ai</code>) has a new <code>--host &lt;ADDR&gt;</code>
+option to listen on any address (for example <code>--host 0.0.0.0</code>), and inside a Docker or Podman
+container it now listens on <code>0.0.0.0</code> by default, so
+<code>docker run -p 8080:8080 ... graphersal --server --port 8080</code> works without flags. A
+non-loopback address prints a warning that the server has no authentication; on the loopback
+the Host/Origin checks stay as strict as before, and on a network address they still refuse
+DNS-rebinding requests. A Kubernetes pod (<code>KUBERNETES_SERVICE_HOST</code>) counts as a container.</li>
+<li><strong>Running in Docker and Kubernetes</strong> (<a href="../persistence/docker.html">Running in Docker</a>): a
+<code>Dockerfile</code> in the repository builds the static <code>graphersal</code> binary into a small
+distroless image (non-root, <code>HEALTHCHECK</code>, <code>STOPSIGNAL SIGTERM</code>) whose default command serves
+<code>/data/graph.gstore</code> read-only with a read-only MCP endpoint.
+<ul>
+<li><strong>Health endpoints</strong>: <code>GET</code>/<code>HEAD /healthz</code> (liveness: 200 while the process answers HTTP)
+and <code>/readyz</code> (readiness: 200 when the graph is loaded, 503 while it loads or the server
+stops). They take no lock, never wait for a running query and are exempt from the
+Host/Origin checks, so Kubernetes probes and Docker health checks work in every bind mode.
+The server listens before the graph loads: during a long Store open <code>/healthz</code> answers 200,
+<code>/readyz</code> and the API 503.</li>
+<li><strong><code>graphersal health [--ready] [--host ADDR] [--port N] [--timeout MS]</code></strong>: the probe for
+images without curl or wget (exit 0 when the endpoint answers 200, 1 otherwise).</li>
+<li><strong>SIGTERM</strong>: the dev server always stops on SIGINT/SIGTERM, also as PID 1 of a container
+(where a process without a handler ignores SIGTERM and <code>docker stop</code> waits for its kill):
+the running query is cancelled, <code>/readyz</code> turns 503, a Store is closed cleanly, and the
+process exits with 0. As PID 1, a one-shot script and the REPL exit with 130 on them too.</li>
+<li><strong><code>--read-only</code></strong>: the served graph refuses every write (queries, schema, catalog, "Save to
+file"; MCP offers only reading tools), and a Store is loaded without its lock and without
+writing anything, so a <code>:ro</code> mount, a read-only root file system or a file without write
+permission works, models included. A Store that cannot be opened for writing falls back to
+it with a note. Rust: <code>Store::stored_embedders_dir</code> (the models of a store loaded with
+<code>Store::open_read_only</code>); a single-file store on a read-only file system now reads like
+one without write permission.</li>
+</ul>
+</li>
+<li><strong>Dev server</strong>: the start output is grouped in sections (Store, Graph, Embedding models,
+Server) and names every embedding model with its repository, licence and source; the
+playground shows no Examples menu with the dev server (the examples are written for the sample
+graphs).</li>
+<li><strong>New Rust items</strong> (additive): <code>Graph::begin_unit</code> and its closes, <code>Graph::try_write_checked</code>,
+<code>Graph::is_poisoned</code>, <code>Graph::poison_cause</code>, <code>GraphError::StorageFailed</code>, <code>RollbackFailed</code>,
+<code>Poisoned</code>, <code>GraphViewHeld</code> and <code>UnitNotHeld</code> (with constructors such as
+<code>GraphError::storage_failed</code>), <code>GraphStorage::storage_identity</code> and
+<code>storage::StorageIdentity</code>, <code>GraphStorage::next_unit_started_at</code>/<code>begin_unit_at</code> (defaulted),
+<code>UserJobs</code> and <code>NotScheduledJob</code>, <code>RepairReport::marks_unreadable</code>,
+<code>StoreFailure::AutoCheckpointFailed</code>, and the model API of the Store.</li>
+<li><strong>Benchmarks</strong>: the Divan bench gains mutation cases (bulk writes through traversals, small
+write queries through the <code>Graph&lt;S&gt;</code> lock, Rhai scripts per statement and as one unit, GQL
+writes).</li>
+</ul>
+<h2 id="fixed"><a class="header" href="#fixed">Fixed</a></h2>
+<ul>
+<li><strong>A checkpoint while a run is open no longer persists rolled-back data.</strong> A playground or dev
+server run kept its unit open between per-traversal locks, so a Store checkpoint taken in that
+window could write data the run later rolled back. Runs now hold their unit across the locks,
+so a checkpoint never sees a run's uncommitted changes.</li>
+<li><strong>Predicates take single values</strong> (issue #14): <code>P.gt(["a"])</code> compared with the text <code>["a"]</code>.
+Every step that takes a predicate now refuses a list, map or traversal operand with a help
+naming the predicate (<a href="../users_guide/predicates.html">Predicates</a>); <code>P.within()</code> and
+<code>P.without()</code> without arguments are the empty set.</li>
+<li><strong>Saved queries with closures</strong> (issue #16): a closure in a saved query's body is part of its
+one function, and a capturing closure no longer makes a writing body dynamic.</li>
+<li><strong><code>define_query</code> takes the <code>params</code> list <code>get_query</code> returns</strong> (issue #17), so get, change and
+define round-trip (<a href="../users_guide/saved_queries.html">Saved Queries</a>).</li>
+<li><strong>Swallowed errors</strong>: a session run's commit or rollback, the Store menu's compaction advice
+(now <code>compactionError</code>), an unknown job time zone, a failed system job, the workload and memory
+report answers, a stored model or embedder a store cannot load, and an AI Chat saved query
+whose entry cannot be read (now treated as writing) report their error.</li>
+<li>A storage read that fails while the engine builds the message of another error no longer
+replaces that error.</li>
+</ul>
+<h2 id="performance"><a class="header" href="#performance">Performance</a></h2>
+<ul>
+<li>The <code>Result</code> of the element reads costs nothing measurable: the Divan bench of 0.4.0 against
+0.3.0 is within noise overall (geometric mean -0.4 %); the <code>glob_path()</code> walk, which first got
+4-9 % slower, reads the storage through a plain match again and is back at its 0.3.0 speed.</li>
+</ul>
+<h2 id="format"><a class="header" href="#format">Format</a></h2>
+<ul>
+<li>No format version changes: the store format and the file format stay at version 3. Embedding
+models live in a new optional <code>models/</code> area of a store (format spec, section 4.5) and as
+ignorable rows of kind 3 in a packed snapshot's segment table (section 8). Graphersal 0.3.0
+opens a store with models and ignores them, loads a <code>.gsnap</code> with models, and refuses a ZIP
+backup with models as written by a newer version (make one with <code>--without-models</code> for it).</li>
+</ul>
+<h2 id="project"><a class="header" href="#project">Project</a></h2>
+<ul>
+<li>Contributions are accepted under a Contributor License Agreement
+(<a href="../for_developers/version_control.html">Version Control and Contributions</a>) instead of the DCO.</li>
+</ul>
+<h2 id="breaking-changes-in-detail"><a class="header" href="#breaking-changes-in-detail">Breaking changes in detail</a></h2>
+<p>One user decision (2026-10-28) drives them: a public method that touches shared state (the
+graph's lock, the storage, a Store, files, embedders) returns a <code>Result</code> with a
+<code>#[non_exhaustive]</code> error type, even where it cannot fail today, and never answers a failure with
+an empty or default value.</p>
+<p><code>graphersal</code>:</p>
+<ul>
+<li>
+<p><code>AnyGraph</code> (EXPERIMENTAL): <code>capabilities() -&gt; Result&lt;StorageCapabilities, GraphError&gt;</code>,
+<code>last_commit_seq() -&gt; Result&lt;u64, GraphError&gt;</code>,
+<code>statistics() -&gt; Result&lt;Option&lt;GraphStatistics&gt;, GraphError&gt;</code>,
+<code>memory_usage() -&gt; Result&lt;Option&lt;MemoryStats&gt;, GraphError&gt;</code>,
+<code>get_schema() -&gt; Result&lt;Option&lt;GraphSchema&gt;, GraphError&gt;</code>,
+<code>definitions(kind) -&gt; Result&lt;Vec&lt;Definition&gt;, GraphError&gt;</code>,
+<code>definition(kind, name) -&gt; Result&lt;Option&lt;Definition&gt;, GraphError&gt;</code>,
+<code>compression_stats(name) -&gt; Result&lt;Option&lt;CompressionStats&gt;, GraphError&gt;</code>,
+<code>property_indexes() -&gt; Result&lt;Vec&lt;PropertyIndexInfo&gt;, GraphError&gt;</code> (were the plain values; a
+read the current thread may not have was answered as "no data", now <code>GraphError::GraphViewHeld</code>).</p>
+</li>
+<li>
+<p><code>Graph::advise</code> fails when a compression estimate fails for another reason than
+<code>GraphError::Unsupported</code> (was: advice without compression recommendations).</p>
+</li>
+<li>
+<p><code>Store</code>: <code>read_only_reason() -&gt; Result&lt;Option&lt;String&gt;, PersistError&gt;</code>,
+<code>stopped_reason() -&gt; Result&lt;Option&lt;String&gt;, PersistError&gt;</code>,
+<code>damage_policy() -&gt; Result&lt;DamagePolicy, PersistError&gt;</code>,
+<code>store_id() -&gt; Result&lt;u128, PersistError&gt;</code>,
+<code>damage_found() -&gt; Result&lt;Vec&lt;FoundDamage&gt;, PersistError&gt;</code>,
+<code>last_auto_checkpoint_error() -&gt; Result&lt;Option&lt;Arc&lt;PersistError&gt;&gt;, PersistError&gt;</code> (was
+<code>Option&lt;String&gt;</code>), <code>user_jobs() -&gt; Result&lt;UserJobs, PersistError&gt;</code> (was <code>Vec&lt;Job&gt;</code>;
+<code>UserJobs { jobs, not_scheduled }</code> lists the definitions it does not schedule with the reason),
+<code>stored_embedders(&amp;registered) -&gt; Result&lt;StoredEmbedders, PersistError&gt;</code>,
+<code>Store::is_store(dir) -&gt; Result&lt;bool, PersistError&gt;</code> and
+<code>SingleFileDir::is_single_file(path) -&gt; Result&lt;bool, PersistError&gt;</code> (an unreadable directory or
+file is <code>PersistError::Io</code>, not <code>false</code>). A poisoned internal lock is
+<code>StoreFailure::LockPoisoned</code> (was a default answer).</p>
+</li>
+<li>
+<p><code>Store::info</code> (and <code>StoreInfo</code> everywhere) fails when the attic or the models directory cannot
+be read (was an empty list); a fork or attic fork fails before writing when the marks it does not
+carry cannot be listed.</p>
+</li>
+<li>
+<p><code>GraphStorage</code> (EXPERIMENTAL; implementers and callers): the methods beyond single elements
+return <code>Result&lt;_, GraphError&gt;</code> (defaults: <code>Ok</code> of the old default): <code>statistics</code>,
+<code>infer_schema</code>, <code>get_schema</code>, <code>declared_property_schema</code>, <code>definitions</code> (<code>Result&lt;impl Iterator&gt;</code>), <code>definition</code>, <code>compression_stats</code>, <code>property_indexes</code>, the four property index
+lookups (<code>Result&lt;Option&lt;Box&lt;dyn Iterator&gt;&gt;&gt;</code>), <code>shrink_to_fit</code>, <code>memory_usage</code>,
+<code>memory_structure</code>, <code>memory_footprint_bytes</code>, <code>execution_policy</code>, <code>begin_unit</code>,
+<code>begin_unit_at</code>, <code>next_unit_started_at</code>, <code>rollback_unit</code>, <code>unit_changes</code>, <code>set_unit_metadata</code>,
+<code>capabilities</code>, <code>last_commit_seq</code>. A failed <code>rollback_unit</code> still closes the unit; the engine
+reports <code>GraphError::RollbackFailed</code>.</p>
+</li>
+<li>
+<p>Behaviour (user decision 2026-10-28): a failed rollback POISONS the <code>Graph</code> (was: "the graph
+stays usable"). When a host storage's <code>rollback_unit</code> (or <code>discard_unit</code>, other than the
+<code>Unsupported</code> of a storage without change capture) fails in any unit the engine closes on a
+<code>Graph</code> (a traversal, a transaction or dry run on a write view, an import, a change-set apply,
+a held unit's close, a panic unwinding through a unit), the graph refuses every later data
+operation with the new <code>GraphError::Poisoned { cause }</code> (<code>read_checked</code>, <code>write_checked</code>,
+<code>try_write_checked</code>, <code>begin_unit</code>, the closes of a held unit, the <code>AnyGraph</code> methods, sessions;
+<code>try_read</code>/<code>try_write</code> answer <code>None</code>) and <code>Graph::read()</code>/<code>write()</code> panic. No unpoison: drop the
+graph and reopen the storage. <code>TraversalGraph</code> and the Store cannot get there (their rollback
+cannot fail). Upgrade step for a host storage: return <code>Err</code> from <code>rollback_unit</code> only when the
+storage really is in an unknown state. The poison is isolated per graph: the failing storage is
+named by the new <code>GraphStorage::storage_identity() -&gt; StorageIdentity</code> (opaque; default
+<code>StorageIdentity::of(self)</code>; a wrapper over a storage held elsewhere forwards it, as the shipped
+wrapper impls do; the pinned clock of a held unit is now found the same way, also for
+<code>Graph&lt;Box&lt;TraversalGraph&gt;&gt;</code> and wrapper storages), so a failure never
+poisons another graph on the same thread, and a bare storage poisons nothing.</p>
+</li>
+<li>
+<p>Behaviour: a storage read that fails while the engine builds the diagnostic of another error
+(the value origin of cast, numeric and incomparable-value errors, the type a string step, a
+list function or <code>T.value</code> names) no longer replaces that error with the storage's: the
+original error is reported without the unreadable detail.</p>
+</li>
+<li>
+<p><code>GraphStorage</code>, the element reads too: <code>vertex_count</code>/<code>edge_count</code> -&gt; <code>Result&lt;usize, _&gt;</code>,
+<code>vertices</code>/<code>edges</code>/<code>out_edges</code>/<code>in_edges</code> -&gt; <code>Result&lt;impl Iterator, _&gt;</code> (one <code>Result</code> per
+call, never per item), <code>vertices_by_label</code>/<code>edges_by_label</code> -&gt; <code>Result&lt;Box&lt;dyn Iterator&gt;, _&gt;</code>
+(their defaults now collect the matches first, so a failing label read is the call's error),
+<code>get_vertex_by_id</code>/<code>get_edge_by_id</code>/<code>vertex_id</code>/<code>edge_id</code>/<code>vertex_label</code>/<code>edge_label</code>/
+<code>vertex_properties</code>/<code>edge_properties</code>/<code>edge_endpoints</code> -&gt; <code>Result&lt;Option&lt;_&gt;, _&gt;</code>,
+<code>vertex_labels</code> -&gt; <code>Result&lt;&amp;[CompactString], _&gt;</code>, <code>vertex_has_label</code>/<code>contains_vertex</code>/
+<code>contains_edge</code> -&gt; <code>Result&lt;bool, _&gt;</code>, <code>unit_started_at</code> -&gt; <code>Result&lt;Option&lt;i128&gt;, _&gt;</code>. The
+engine fails the reading query with the error, located at its step. <code>TraversalGraph</code>'s own
+inherent <code>vertex_count()</code>/<code>edge_count()</code> stay plain <code>usize</code> (an in-memory count that cannot
+fail).</p>
+</li>
+<li>
+<p><code>CreateContext::for_storage</code> and <code>GraphStatistics::from_storage</code> return
+<code>Result&lt;_, GraphError&gt;</code> (they read the storage).</p>
+</li>
+<li>
+<p><code>PersistentStorage</code> (EXPERIMENTAL): <code>set_graph_id</code>, <code>raise_position</code>, <code>reserve_load</code>,
+<code>finish_load</code>, <code>clear</code> return <code>Result&lt;(), GraphError&gt;</code>.</p>
+</li>
+<li>
+<p><code>StoreDir</code> (EXPERIMENTAL): <code>space_usage() -&gt; io::Result&lt;Option&lt;SpaceUsage&gt;&gt;</code>,
+<code>free_space() -&gt; io::Result&lt;Option&lt;u64&gt;&gt;</code>, <code>check() -&gt; io::Result&lt;DirCheck&gt;</code>. A failing
+<code>free_space</code> fails the compaction advice (<code>PersistError::Io</code>) instead of reading as unknown; a
+failing <code>check</code> opens the Store in maintenance mode with that damage (as <code>SingleFileDir</code> did
+for an unreadable file).</p>
+</li>
+<li>
+<p><code>GraphTraversalSource::statistics() -&gt; TraverserResult&lt;Option&lt;&amp;GraphStatistics&gt;&gt;</code> and
+<code>memory_usage() -&gt; TraverserResult&lt;Option&lt;MemoryStats&gt;&gt;</code> (were the plain values).</p>
+</li>
+<li>
+<p>Added (not breaking): <code>Graph::try_write_checked</code>, <code>UserJobs</code>, <code>NotScheduledJob</code>,
+<code>RepairReport::marks_unreadable</code>, <code>StoreFailure::AutoCheckpointFailed</code>,
+<code>GraphError::StorageFailed</code> (<code>GraphError::storage_failed</code>), <code>GraphError::RollbackFailed</code>
+(<code>GraphError::rollback_failed</code>), <code>GraphError::Poisoned</code> (<code>GraphError::poisoned</code>),
+<code>Graph::is_poisoned</code>, <code>Graph::poison_cause</code>, <code>GraphStorage::storage_identity</code> (with a
+default) and <code>storage::StorageIdentity</code>, <code>graphersal-storage-tests</code>' <code>failing::Failing</code> (with the <code>discard_unit</code>,
+<code>element_identity</code> and <code>fail_element_reads_after</code> faults).</p>
+</li>
+</ul>
+<p><code>graphersal-session</code> (internal, listed for the CLI and the wasm crate):</p>
+<ul>
+<li><code>SessionError</code> replaces <code>String</code> as the error of every public method that returned
+<code>Result&lt;_, String&gt;</code> (session methods, <code>SessionGraph</code>, <code>GraphFactory</code>, the generic helpers of
+<code>views</code>, <code>filter</code>, <code>selection</code>, <code>create</code>, <code>edit</code>, <code>queries</code>, <code>compression</code>, <code>layout</code>, <code>advisor</code>,
+<code>store::parse_time</code>).</li>
+<li>Now <code>Result&lt;_, SessionError&gt;</code>: <code>Session::info</code>, <code>statistics</code>, <code>get_schema</code>, <code>get_schema_text</code>,
+<code>infer_schema</code>, <code>infer_schema_text</code>, <code>load_shared</code>, <code>attach_store</code>, <code>list_queries</code>, <code>get_query</code>,
+<code>query_count</code>, <code>save_catalog_text</code>, <code>list_compressions</code>, <code>get_compression</code>,
+<code>compression_count</code>, <code>list_indexes</code>, <code>get_index</code>, <code>index_count</code>, <code>jobs_view</code>, <code>job_entry</code>,
+<code>workload_report</code>, <code>tick_jobs</code>, <code>read_only_reason</code>.</li>
+<li><code>SessionGraph</code>: <code>vertex_count</code>, <code>edge_count</code>, <code>inferred_schema</code>, <code>schema_view</code>,
+<code>schema_view_of</code>, <code>graph_view</code>, <code>add_degrees</code>, <code>statistics_view</code>, <code>memory_view</code>, <code>element</code>,
+<code>subgraph</code>, <code>element_view</code>, <code>drawn</code>, <code>incident_edges</code>, <code>queries</code>, <code>query</code>, <code>count_kind</code>,
+<code>catalog_text</code>, <code>compressions</code>, <code>compression</code>, <code>indexes</code>, <code>index</code>, <code>run_changes</code>, <code>rollback_run</code>
+return <code>Result&lt;_, GraphError&gt;</code>.</li>
+<li>The generic helpers over a storage's element reads return <code>Result&lt;_, GraphError&gt;</code> too:
+<code>CompactGraph::build</code>, <code>CompactGraph::add_degrees</code>, <code>display::element_of</code>
+(<code>Result&lt;Option&lt;_&gt;, _&gt;</code>), <code>display::node_of</code>, <code>display::edge_of</code>, <code>display::collect_subgraph</code>
+(<code>Result&lt;Option&lt;_&gt;, _&gt;</code>), <code>views::graph_view</code>, <code>create::drawn_in</code>, <code>create::incident_edges</code>
+(<code>Result&lt;Option&lt;usize&gt;, _&gt;</code>), <code>edit::element_view</code>.</li>
+<li><code>SessionStore</code>: <code>read_only_reason</code>, <code>damage_found</code>, <code>damage_policy</code>,
+<code>last_auto_checkpoint_error</code>, <code>user_jobs</code> return <code>Result&lt;_, PersistError&gt;</code> like <code>Store</code>; the
+trait gains <code>models</code>, <code>import_models_from_packed</code> and <code>export_packed_with</code> (embedding models
+in a Store), implemented for every <code>Store&lt;S&gt;</code>.</li>
+<li>The generic helpers <code>compressions_in</code>, <code>compression_in</code>, <code>indexes_in</code>, <code>index_in</code>,
+<code>queries_in</code>, <code>query_in</code>, <code>count_kind</code>, <code>catalog_text</code>, <code>views::schema_view</code>,
+<code>schema_view_of</code>, <code>statistics_view</code>, <code>memory_usage</code> return <code>Result&lt;_, GraphError&gt;</code> (they read
+through the <code>GraphStorage</code> methods that now return one).</li>
+<li><code>store::found_damage_value -&gt; Result&lt;Value, PersistError&gt;</code>; <code>StoreError</code> is
+<code>#[non_exhaustive]</code> (build it with <code>StoreError::new</code>, <code>bad_request</code>, <code>conflict</code>, <code>refused</code>,
+<code>internal</code>, <code>with_data</code>, or <code>From</code> a <code>SessionError</code>, <code>PersistError</code> or <code>GraphError</code>).</li>
+<li>The Store menu's JSON gains <code>compactionError</code> (beside <code>compaction: null</code> when the advice
+cannot be computed).</li>
+</ul>
+<p><code>graphersal-wasm</code> (internal JS API): <code>info</code>, <code>getSchema</code>, <code>inferSchema</code>, <code>schema</code>, <code>graphView</code>,
+<code>memoryUsage</code>, <code>statistics</code>, <code>tickJobs</code>, <code>jobs</code>, <code>listQueries</code>, <code>getQuery</code>, <code>saveCatalog</code>,
+<code>listCompressions</code>, <code>listIndexes</code> throw the error instead of answering an empty value.</p>
+<p>Python: <code>Store.close()</code> raises on a poisoned store lock (was "already closed"), <code>Graph.execute</code>
+raises on a poisoned limits lock (was the default limits).</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../for_developers/version_control.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../release_notes/release_notes_0.3.0.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../for_developers/version_control.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../release_notes/release_notes_0.3.0.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

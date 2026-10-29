@@ -1,0 +1,1061 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Dev Server and MCP - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/persistence/dev_server.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="dev-server-and-mcp"><a class="header" href="#dev-server-and-mcp">Dev Server and MCP</a></h1>
+<blockquote>
+<p><strong>DEV mode, unstable, local only, temporary. Not for production.</strong> The dev server is a way to try Graphersal "as a
+small server" and watch how it behaves. Its HTTP API is internal to the playground and changes
+without notice; it has no authentication and by default serves only the loopback (<code>127.0.0.1</code>,
+and <code>[::1]</code> when the system has IPv6; inside a container <code>0.0.0.0</code>, see
+<a href="#listening-address-and-docker">Listening address and Docker</a>). Do not expose it to a network
+you do not trust.</p>
+</blockquote>
+<p><code>graphersal --server</code> serves the <a href="../users_guide/web_playground.html">Web Playground</a> UI over
+HTTP, with the CLI process itself as the engine instead of the WebAssembly worker. It is the same single-page app:
+the page asks the serving origin <code>GET /api/info</code> at start, and when a Graphersal dev server
+answers, every engine call goes to it over HTTP. Served from GitHub Pages or any static file
+server, the page stays the WebAssembly playground.</p>
+<h2 id="start-it"><a class="header" href="#start-it">Start it</a></h2>
+<pre><code class="language-bash">cargo run -p graphersal-cli -- --graph modern --server            # or: graphersal --graph ... --server
+# Graphersal dev server: http://127.0.0.1:8080/
+graphersal --graph ./mygraph.json --server --port 9000            # a GraphSON or GraphML file
+graphersal --graph large --server --port 0                        # 0 picks a free port
+graphersal --graph data/ --server                                 # a Store: every commit is durable
+graphersal --graph new/ --create-store --server                   # create the store when missing
+graphersal --graph g.graphml --schema schema.json --server        # a graph file loaded against its schema
+</code></pre>
+<ul>
+<li>
+<p><code>--graph</code> takes the same sources as the CLI: <code>modern</code> (default), <code>empty</code>, <code>large</code>, <code>tree</code>, a
+GraphSON (<code>.json</code>, <code>.jsonl</code>, <code>.graphson</code>) or GraphML (<code>.xml</code>, <code>.graphml</code>) file, a packed
+snapshot (<code>.gsnap</code>), or a <strong>Store</strong> (a directory or a <code>.gstore</code> file; see
+<a href="#on-a-store">On a Store</a>).</p>
+</li>
+<li>
+<p><code>--port</code> (default <code>8080</code>; <code>0</code> picks a free one). The address is the only line on stdout; the
+"dev mode, unstable, local only" banner goes to stderr.</p>
+</li>
+<li>
+<p><code>--host &lt;ADDR&gt;</code> (default <code>127.0.0.1</code>, inside a container <code>0.0.0.0</code>): the address to listen on,
+see <a href="#listening-address-and-docker">Listening address and Docker</a>.</p>
+</li>
+<li>
+<p><code>--read-only</code>: every write is refused (queries, schema, catalog, "Save to file"; MCP offers
+only its reading tools) and a Store is loaded without its lock and without writing anything,
+so a read-only file or file system works (<a href="docker.html#read-only">Running in Docker</a>). A Store
+the process may not write is served that way anyway, with a note.</p>
+</li>
+<li>
+<p><code>GET /healthz</code> (liveness) and <code>GET /readyz</code> (readiness: 503 while the graph loads or the
+server stops) answer without a lock and under any <code>Host</code>, for container health checks;
+<code>graphersal health [--ready]</code> probes them (<a href="docker.html#health-checks">Health checks</a>). The
+server listens before the graph loads and answers every other request with 503 until then.</p>
+</li>
+<li>
+<p>Ctrl+C or SIGTERM stops the server: the running query is cancelled, a Store is closed
+cleanly, the exit code is 0 (<a href="docker.html#stopping">Stopping</a>).</p>
+</li>
+<li>
+<p>The playground UI is <strong>embedded in the binary</strong> (its static files: <code>index.html</code>, <code>css/</code>, <code>js/</code>,
+<code>assets/</code>, <code>reset/</code>), so <code>graphersal</code> serves it on its own, from any working directory.
+<code>--ui-dir &lt;DIR&gt;</code> names a directory whose files win over the embedded copy (for working on the
+UI); a file missing there comes from the embedded copy. Without <code>--ui-dir</code>, <code>./playground</code> is
+used that way when it exists (a repository checkout), else the embedded UI alone. An explicit
+<code>--ui-dir</code> that does not exist is a usage error. The stderr banner says where the UI comes from:
+<code>UI: embedded</code> or <code>UI: &lt;dir&gt; (embedded fallback)</code> (in its Server section). A path leaving the UI root (<code>..</code>) is a 404.</p>
+</li>
+<li>
+<p>After the graph is in memory, stderr shows <strong>what was loaded and how the server runs</strong>, in
+sections under the warning box, one <code>key: value</code> row per fact (long values wrap under their
+column; the <code>claude mcp add</code> command never wraps, so it copies in one piece):</p>
+<ul>
+<li><strong>Store</strong> (a Store only): its path, the commit and the number of snapshots, its state
+(durable, a read-only backup, or maintenance mode), and the load time (snapshot load + WAL
+replay, with the number of WAL commits replayed);</li>
+<li><strong>Graph</strong>: for a sample or a file its source and load time; the vertex and edge totals, the
+ten largest vertex and edge labels (<code>+N more</code> for the rest), the graph's memory (structure,
+indexes, properties, and the <a href="../users_guide/property_indexes.html">property indexes</a> when
+there are any), the memory of its <a href="workload_statistics.html">workload statistics</a>
+(<code>0 B</code> until queries ran, unless a Store brought its saved ones), the loaded embedding models
+(when there are any) and the process heap, and the compressed and deduplicated values when there
+are any (the same data as the playground's Profile -&gt; Statistics tab);</li>
+<li><strong>Embedding models</strong> (when there are any): every model besides the built-in <code>hash-ngram/1</code>,
+with the name queries call it by, its repository and licence, and where it comes from
+(<code>--embedder</code>, stored in the Store, or both), and every model the schema names that nobody
+provides (<a href="store_models.html">Embedding Models in a Store</a>);</li>
+<li><strong>Server</strong>: the limits of every query, where the UI comes from, the MCP endpoint and the
+command that connects Claude Code, the AI Chat, and the addresses it listens on.</li>
+</ul>
+<pre><code class="language-text">── Store ─────────────────────────────────────────────────────────────────────
+  path:      data
+  commit:    7021, 1 snapshot
+  state:     durable: every commit is in the write-ahead log before the query
+             answers; Ctrl+C stops the server and closes the store cleanly
+  loaded:    2.02 s (snapshot, no WAL commits to replay)
+
+── Graph ─────────────────────────────────────────────────────────────────────
+  size:      193,947 vertices, 923,752 edges
+  vertices:  45 labels: Method 91,098, Field 39,155, Type 16,306, DocChunk
+             13,018, File 12,814, Bean 3,293, LogMessage 3,129, ConfigKey 2,989,
+             Package 2,602, ExternalArtifact 1,278, +35 more
+  edges:     78 labels: CALLS 251,991, USES_TYPE 142,362, DECLARES 122,073, ...
+  memory:    graph 703.2 MiB (structure 144.7 MiB, indexes 64.0 MiB, properties
+             486.8 MiB, property indexes 7.6 MiB)
+             workload statistics 182.4 KiB
+             model 506.4 MiB (potion 506.4 MiB)
+             process heap 1.6 GiB
+
+── Embedding models ──────────────────────────────────────────────────────────
+  model:     potion = minishlab/potion-multilingual-128M, licence MIT
+             --embedder; also stored in data
+
+── Server ────────────────────────────────────────────────────────────────────
+  limits:    none (start with --timeout, --memory-limit, --safe-limits,
+             --max-* to bound queries)
+  UI:        embedded
+  MCP:       http://127.0.0.1:9010/mcp
+  connect:   claude mcp add --transport http graphersal http://127.0.0.1:9010/mcp
+  listening: http://127.0.0.1:9010/ and http://[::1]:9010/ (IPv6 loopback)
+</code></pre>
+</li>
+<li>
+<p>The <strong>limit options</strong> of the CLI apply to every query of the server (see <a href="#limits">Limits</a>).
+The display options (<code>--format</code>, <code>--max-rows</code>, <code>--max-items</code>, <code>--no-limit</code>, <code>--spelling</code>) are
+refused with a usage error, because the UI sets the display per query; <code>-e</code>/<code>--in</code> cannot be
+combined with <code>--server</code> either.</p>
+</li>
+<li>
+<p><strong>Stop</strong> the server with Ctrl+C (SIGINT) or SIGTERM: a running query is cancelled (it rolls
+back) and an open store is closed cleanly; the exit code is 0. A second Ctrl+C exits at once.</p>
+</li>
+</ul>
+<p>The server needs no WebAssembly build: <code>playground/pkg/</code> is not used in this mode.</p>
+<h3 id="arguments-from-a-file"><a class="header" href="#arguments-from-a-file">Arguments from a file</a></h3>
+<p><code>--args-file FILE</code> (or <code>@FILE</code>) reads arguments from a JSON file, so a server with many flags
+starts with one. The keys are the long flag names without dashes:</p>
+<pre><code class="language-json">{
+  "_comment": "keys starting with _ are comments",
+  "graph": "data/",
+  "server": true,
+  "port": 8080,
+  "mcp": true,
+  "mcp-read-only": true,
+  "mcp-instructions": "operator-notes.md",
+  "embedder": ["potion=minishlab/potion-base-8M"],
+  "timeout": 30000
+}
+</code></pre>
+<pre><code class="language-bash">graphersal --args-file args.json                 # everything from the file
+graphersal @args.json --port 9000                # the command line wins: port 9000
+graphersal --args-file args.json --embedder b=./m   # a repeatable flag adds to the file's
+</code></pre>
+<ul>
+<li>A switch (<code>server</code>, <code>mcp</code>, <code>no-limit</code>, ...) is <code>true</code>; <code>false</code> is the same as leaving it out.
+A number is written as a number (<code>"port": 8080</code>), a string as a string. <code>eval</code> and <code>embedder</code>
+repeat: a string or an array of strings. Every flag of <code>graphersal --help</code> is a key except
+<code>help</code>, <code>version</code> and <code>args-file</code>.</li>
+<li><strong>Relative paths</strong> (<code>graph</code>, <code>schema</code>, <code>ui-dir</code>, <code>ai</code>, <code>mcp-instructions</code>, and the path of an
+<code>embedder</code>) resolve against the directory of the args file, not the working directory. The
+sample names (<code>modern</code>, <code>empty</code>, <code>large</code>, <code>tree</code>) and model repositories stay as written.</li>
+<li><strong>The command line wins.</strong> The file's arguments come first, as if typed before the others: a flag
+given on the command line replaces the file's, a repeatable flag (<code>--eval</code>, <code>--embedder</code>) adds to
+it. The usual validation runs on the merged arguments, so a file with <code>"server": true</code> plus
+<code>-e</code> on the command line fails as <code>--server -e</code> does.</li>
+<li>A file may not name another args file, and <code>--args-file</code> may appear once. An unreadable file,
+invalid JSON, a value of the wrong type or an unknown key is a usage error (exit code 2) that
+names the key; values are never echoed. Unlike the <a href="#the-configuration-file"><code>--ai</code> file</a>,
+where an unknown key only warns, an unknown key here is an error (a near-typo adds
+<code>did you mean "server"?</code>): a flag that is silently dropped could switch off <code>mcp-read-only</code>
+or <code>mcp-token</code>. Only a key starting with <code>_</code> is a silent comment.</li>
+</ul>
+<p>The file holds no secrets by design (give <code>--mcp-token</code> on the command line or keep the file
+private); the repository has an example, <code>crates/graphersal-cli/examples/args-dev-server.json</code>.</p>
+<h2 id="limits"><a class="header" href="#limits">Limits</a></h2>
+<p>The limit options become <strong>session presets</strong>: every query sent to the server runs under them, as
+every script of the one-shot runner does (the <a href="../users_guide/resource_limits.html">resource limits</a>
+page explains each limit).</p>
+<div class="table-wrapper"><table><thead><tr><th>Option</th><th>What every query gets</th></tr></thead><tbody>
+<tr><td><code>--timeout &lt;MS&gt;</code></td><td><code>evaluationTimeout</code> on every traversal, and the budget of a query as a whole (a <code>loop {}</code> between traversals stops too, with "Script exceeded evaluationTimeout of N ms")</td></tr>
+<tr><td><code>--memory-limit &lt;BYTES|auto&gt;</code>, <code>--memory-headroom &lt;BYTES&gt;</code></td><td><code>memory.limit</code> / <code>memory.headroom</code>: a query that would take the server's live heap over the budget fails with "Resource limit 'memory.limit'" and rolls back, instead of the process being killed</td></tr>
+<tr><td><code>--max-traversers &lt;N&gt;</code></td><td><code>traversal.max_traversers</code></td></tr>
+<tr><td><code>--max-string-size &lt;N&gt;</code></td><td>the script's string limit and <code>traversal.max_string_bytes</code></td></tr>
+<tr><td><code>--max-value-depth &lt;N&gt;</code></td><td>the script's value depth and <code>traversal.max_value_depth</code></td></tr>
+<tr><td><code>--max-operations</code>, <code>--max-array-size</code>, <code>--max-map-size</code></td><td>the Rhai limits of the server's script engine</td></tr>
+<tr><td><code>--safe-limits</code></td><td>the library's SAFE script limits and the engine's traversal defaults</td></tr>
+</tbody></table>
+</div>
+<p>A query overrides a traversal option with <code>g.with(..)</code> (for example
+<code>g.with("evaluationTimeout", 0)</code>), as in the CLI. The values in force are listed on stderr at
+start (the <code>limits</code> row of the Server section: "of every query: ...", or "none (...)" without
+limit options) and in
+<code>GET /api/info</code> (<code>presets</code>). Without limit options the
+server runs like the playground: no script limits, the engine's traversal defaults, no time
+budget; Stop is the way to end a runaway query.</p>
+<pre><code class="language-bash">graphersal --graph large --server --timeout 5000 --memory-limit auto
+</code></pre>
+<h2 id="embedding-models"><a class="header" href="#embedding-models">Embedding models</a></h2>
+<p><code>--embedder NAME=PATH|REPO</code> (repeatable) and <code>--default-embedder NAME</code> work with <code>--server</code> as
+with every other mode: the Model2Vec models are loaded once at start (a model that does not
+load stops the start with exit code 2), and every query of the server, the MCP <code>query</code> tool and
+the AI Chat's tools call the same registry (<code>embed()</code>, the <code>embed</code> step, <code>g.embedders()</code>).
+<code>GET /api/info</code> lists it as <code>embedders</code>. Running a model is local; only <code>graphersal embed-model download</code> connects to Hugging Face (<a href="../getting_started/embeddings.html#real-models-model2vec">Embeddings</a>).</p>
+<pre><code class="language-bash">graphersal embed-model download minishlab/potion-base-8M
+graphersal --graph data/ --server --mcp --embedder potion=minishlab/potion-base-8M --default-embedder potion
+</code></pre>
+<h2 id="what-the-ui-does-in-this-mode"><a class="header" href="#what-the-ui-does-in-this-mode">What the UI does in this mode</a></h2>
+<ul>
+<li>A red <strong>DEV SERVER · unstable</strong> badge in the top bar. There is no start page and no graph choice:
+the server serves the one graph it was started with. To use another graph, restart the server.</li>
+<li>Queries, results, profiles, the graph drawing, the schema views and the schema editor work as
+in the WebAssembly playground: both run the same session code (the internal crate
+<code>graphersal-session</code>), so the answers are the same structures. The <strong>Examples</strong> menu is not
+shown: its queries are written for the sample graphs, and the server serves its own.</li>
+<li>The <strong>Statistics</strong> tab of the Profile panel shows the limits the server applies (its presets,
+from the options above) beside the engine's defaults for the rest, next to the graph's counts and
+memory footprint.</li>
+<li>Several browser tabs share the one graph. Queries run one after the other. A change made in
+another tab (or by an AI agent, see <a href="#mcp-an-ai-agent-on-the-same-graph">MCP</a> and
+<a href="#ai-chat">AI Chat</a>) reloads the
+page by itself within about 2 seconds and shows "changed: commit N". While the graph changes
+fast (a bulk load: changes from elsewhere in three polls within 10 seconds), the page reloads at
+most every 30 seconds instead and a banner says so, with <strong>Refresh now</strong> and <strong>Pause auto
+refresh</strong> (no automatic reloads until <strong>Resume</strong>); 10 seconds after the last change it reloads
+once more and goes back to normal.</li>
+<li><strong>Stop</strong> cancels the running query on the server: it stops at its next check (where
+<code>evaluationTimeout</code> is checked, plus the script loop), fails with "cancelled", and everything it
+changed is rolled back. The graph stays as it was before the query; nothing restarts. Stop
+cancels whatever query runs, also one started from another tab.</li>
+<li><strong>Save ▾</strong> downloads the graph data (GraphSON or GraphML), the schema (JSON) or a snapshot, one
+file per entry, as in the playground. <strong>Save to file</strong> appears when the server was started with a graph file: it writes
+the graph back to that file in its format (GraphSON, GraphML or a packed snapshot), atomically (a
+temporary file next to it, then a rename). The stored schema is not part of a GraphSON or GraphML
+file: with <code>--schema FILE</code> Save to file writes the schema back to that file too (atomically, both
+temporary files are written before either is renamed; a cleared schema is written as <code>{}</code>).
+Without <code>--schema</code>, saving a graph that has a schema shows a warning (<em>the schema is not part of a
+GraphML/GraphSON file: download it with Save schema, or start the server with --schema FILE</em>);
+no file is ever written beside the graph implicitly. A snapshot (<code>.gsnap</code>) is lossless: schema and
+saved queries included.</li>
+<li>Without a Store directory nothing is saved automatically, and nothing survives a restart of the
+server. On a Store directory every commit is persisted (below).</li>
+</ul>
+<h2 id="listening-address-and-docker"><a class="header" href="#listening-address-and-docker">Listening address and Docker</a></h2>
+<p>Without <code>--host</code> the server binds the loopback, <code>127.0.0.1</code> and, when the system has IPv6, <code>[::1]</code>
+on the same port (the <code>listening</code> row on stderr then names both addresses; if that bind fails the
+server stays on IPv4, silently). Only programs on the same machine reach it.</p>
+<p>Inside a container the loopback is useless: a published port (<code>docker run -p 8080:8080</code>) arrives
+on the container's network interface. So when the server finds <code>/.dockerenv</code> (Docker),
+<code>/run/.containerenv</code> (Podman) or the variable <code>KUBERNETES_SERVICE_HOST</code> (a Kubernetes pod), its
+default is <code>0.0.0.0</code>, every interface of the container, and <code>docker run -p</code> works without flags.
+The repository's <code>Dockerfile</code>, health checks, read-only serving, SIGTERM and Kubernetes probes:
+<a href="docker.html">Running in Docker</a>.</p>
+<pre><code class="language-bash"># an image that has the graphersal binary; the Store lives in a volume
+docker run --rm -p 8080:8080 -v "$PWD/data:/data" my-graphersal-image \
+  graphersal --graph /data --create-store --server --port 8080
+# the same with the address spelled out (it also works where the container is not detected)
+docker run --rm -p 8080:8080 my-graphersal-image \
+  graphersal --graph modern --server --port 8080 --host 0.0.0.0
+# then open http://localhost:8080/ on the host
+</code></pre>
+<p><code>docker run -p 127.0.0.1:8080:8080 ...</code> publishes the port on the host's loopback only, which
+keeps the server private to the host machine.</p>
+<p><code>--host &lt;ADDR&gt;</code> names the address explicitly, on any machine: an IP address (<code>0.0.0.0</code> every
+IPv4 interface, <code>::</code> every IPv6 interface, <code>192.168.1.5</code> one interface, <code>127.0.0.1</code> the loopback,
+which also overrides the container default) or a host name that resolves on the machine
+(<code>localhost</code> is the loopback default). An address that is not valid or does not resolve is an
+invocation error (exit code <code>2</code>). For a wildcard address the URL on stdout is
+<code>http://127.0.0.1:&lt;port&gt;/</code> (<code>http://[::1]:&lt;port&gt;/</code> for <code>::</code>), the one a browser on the same
+machine opens, and the <code>listening</code> row adds <code>(all interfaces: 0.0.0.0:&lt;port&gt;)</code>; otherwise it is
+the address or name given.</p>
+<blockquote>
+<p><strong>Warning.</strong> On any address other than a loopback one the server is <strong>reachable from the
+network and has no authentication</strong>: whoever reaches the port can read and change the graph,
+write Store checkpoints and backups, and, with <code>--ai</code>, spend the AI provider key. The banner
+says so, and a one-line warning on stderr names the address. Publish the port only to networks
+you trust, and use <code>--mcp-token</code> for the MCP endpoint.</p>
+</blockquote>
+<h2 id="safety"><a class="header" href="#safety">Safety</a></h2>
+<p>The server is a local development tool: it binds the loopback unless <code>--host</code> or a container
+says otherwise (<a href="#listening-address-and-docker">above</a>). It has no authentication, and checks
+the <code>Host</code> and <code>Origin</code> headers of every request against DNS rebinding and cross-site requests:</p>
+<ul>
+<li>On the loopback, <code>Host</code> must name the server itself (<code>127.0.0.1</code>, <code>localhost</code> or <code>[::1]</code>, or the
+<code>--host</code> name, with the server's port), and an <code>Origin</code> must be one of them.</li>
+<li>On any other address the port of <code>Host</code> is not checked (a container's port mapping changes it)
+and its name must be an IP address, <code>localhost</code> (or a <code>*.localhost</code> name), a name without a dot
+(a machine name, a Docker Compose service name such as <code>http://graphersal:8080</code>), or the
+<code>--host</code> name. Any other fully qualified name is refused (<code>403</code>): a DNS rebinding attack sends
+the attacker's domain. To open the server by a domain name, start it with <code>--host &lt;that name&gt;</code>.
+An <code>Origin</code> must be the request's own origin (<code>http://</code> followed by its <code>Host</code>), so a page of
+another site is refused even when it names an IP address.</li>
+</ul>
+<p>Beyond the headers, every write needs <code>Content-Type: application/json</code>, which a page of
+another site cannot send without a CORS preflight that the server never answers. Scripts cannot
+read or write files (as in the playground: file access is denied), so a file is written only by
+the explicit Save to file. Request bodies are limited to 16 MiB; a malformed request gets a 4xx
+answer with a JSON error. A request that declares a body larger than 64 MiB (<code>Content-Length</code>) is
+ignored without an answer: the HTTP library would otherwise reserve memory for the whole declared
+size.</p>
+<h2 id="on-a-store"><a class="header" href="#on-a-store">On a Store</a></h2>
+<pre><code class="language-bash">graphersal store create data/ --from modern      # once (or: --graph data/ --create-store --server)
+graphersal --graph data/ --server                # then open http://127.0.0.1:8080/
+graphersal --graph new/ --create-store --on-damage continue --server   # a new store, its damage policy
+</code></pre>
+<p>The server opens the <a href="store.html">Store</a> read-write (its
+lock is held while it runs) and serves its graph: <strong>every commit is written to the store's
+write-ahead log before the query answers</strong>, so writes survive a restart of the server, also a
+crash or <code>kill -9</code> (the next start replays the WAL; stderr then notes that the store was not
+closed cleanly, which is harmless). Stopping the server with Ctrl+C is such a stop: everything
+committed is already on disk.</p>
+<p>The store's warnings go to stderr as <code>WARN graphersal::persist::store: ...</code> lines: a failed
+automatic checkpoint, damage found while it runs, a read-only open (also when the store is used
+with <code>-e</code>, <code>--in</code> or the REPL); an open that rewrote a damaged <code>GRAPH</code> copy notes it on stderr
+before the start banner. <code>GRAPHERSAL_LOG</code> sets the
+level (<code>off</code>, <code>error</code>, <code>warn</code> = the default, <code>info</code>, <code>debug</code>, <code>trace</code>; <code>info</code> also notes a
+checkpoint that encodes the loaded graph because the WAL since the last snapshot exceeds the
+merge bound). A whole script is ONE commit here, and one commit is at most 1 GiB of
+uncompressed WAL record: a script that drops and re-creates a large graph can be refused as a
+whole; run the drop on its own and load in several runs
+(<a href="../users_guide/resource_limits.html#the-size-of-one-commit-journal">The size of one commit</a>).</p>
+<p>The UI shows a <strong>Store</strong> menu in the top bar (its <strong>↻</strong> button in the top right corner reloads
+it): the position (commit number and last commit time), the WAL size, <strong>Checkpoint</strong> (write a
+snapshot now, optionally named) and <strong>Mark</strong> (name the current position), and the history:</p>
+<ul>
+<li>
+<p><strong>Marks</strong>: "a name for a position in the history; any commit can be restored, not only
+snapshots". <strong>Snapshots</strong>: "a full copy of the graph at a commit (fast start)", each with a
+<code>.gsnap</code> download. The menu lists the newest five of each; <strong>Calendar…</strong> (<strong>See all…</strong> when
+there are more) opens the history calendar below. The table in
+<a href="store_marks.html#snapshots-and-marks">Snapshots and marks</a> compares them.</p>
+</li>
+<li>
+<p>Every snapshot and mark has three actions, and <strong>Go to commit...</strong> / <strong>Go to time...</strong> (a
+date and time in your browser's time zone) offer the same for any other point:</p>
+<ul>
+<li><strong>Open read-only here</strong> (View): the server serves the state at that point instead of the
+live graph. A banner says "Read-only view of commit N (mark X)" and offers <strong>Back to the live
+graph</strong>. Queries, the graph drawing, the schema and the statistics show that state; every
+write is refused ("the served state is a read-only view at commit N ...: writes are
+refused"; its help points to <strong>Back to the live graph</strong> and to a fork), and so are
+Checkpoint and Mark. The live graph is not changed; Download current state saves the view.</li>
+<li><strong>Fork to a new directory...</strong>: asks for a directory (empty: <code>&lt;store&gt;-fork-&lt;target&gt;</code> next to
+the store; a relative path is next to the store; it must not exist) and makes a new store
+there. The answer says where it is and how to open it (<code>graphersal --graph &lt;new&gt; --server --port 0</code>, another server). This store is not changed; to undo, delete the new directory.</li>
+<li><strong>Roll back here...</strong>: a confirmation explains the effect: everything after commit N moves
+to the <strong>attic</strong> (restorable as long as nothing new is committed or marked), the live graph
+switches to commit N. The option "delete instead of keeping in the attic" (off by default)
+deletes it for good. The server cancels the running query, rolls the store back in place and
+serves the result at once; the Graph, Schema and Statistics panels reload and every tab's
+result is marked as possibly stale.</li>
+</ul>
+</li>
+<li>
+<p><strong>Attic</strong>: one entry per rollback (when, commit range, size) with <strong>Show changes</strong> (per
+commit: time, author, counts by kind, examples), <strong>Restore</strong> (undo the rollback; disabled with
+the reason once something was committed or marked since, then use Fork), <strong>Fork...</strong> (the
+rolled-back history as a new store) and <strong>Remove...</strong> (delete it for good, asks first).</p>
+</li>
+<li>
+<p><strong>Disk space</strong>: the <a href="store_prune.html#is-it-worth-it-the-compaction-advice">compaction advice</a>,
+refreshed with the menu (cheap, nothing is read): "Compact recommended" or "No compaction
+needed" with the reason (which threshold decided), the file's size, live and free-inside bytes
+for a single-file store, what a prune would free first, and the free disk space a compaction
+needs. <strong>Compact</strong> (always enabled, except in a read-only view, in maintenance mode or on a
+store frozen by damage; when the advice does not recommend it, it asks first, showing what it
+would free and the reason; when marks would become unreachable it ALWAYS asks first,
+recommended or not, naming them and saying they cannot be opened afterwards) prunes up to the
+current commit and, for a single file, rewrites it without its free space; queries wait while
+it runs. On a directory store Compact is the prune.</p>
+</li>
+<li>
+<p><strong>Backup</strong>: a directory (empty: <code>&lt;store&gt;-backup</code> next to the store, which takes increments
+from then on; a relative path is next to the store) and <strong>full</strong>; <strong>Back up</strong> copies the store
+while queries and commits go on, reading every checksum in the store and again in the copy.
+The answer says how much was copied and how to restore it.</p>
+</li>
+<li>
+<p>The store's <strong>creation parameters</strong>: when it was created and its <strong>damage policy</strong> ("on
+damage: maintenance (turns read-only; fixed at creation)").</p>
+</li>
+<li>
+<p><strong>Damage found on disk</strong> while the server runs (a Back up, a Checkpoint, Verify, the automatic
+checkpoint found it): a red block with what found it, every problem, and what the policy did
+(with <code>maintenance</code> the store is READ-ONLY now: Checkpoint and Mark are gone, writes are
+refused); <strong>Back up from memory</strong> writes the intact graph in memory into a new directory
+without touching the damaged store, then repair the store with <code>graphersal store repair</code>. A
+banner at the top says the same in every tab (through the change feed), and MCP's
+<code>graph_info</code> carries it (<code>damageFound</code>), so an agent learns why writes fail.</p>
+</li>
+</ul>
+<p>The server runs on a <strong>single-file store</strong> the same way (<code>graphersal --graph graph.gstore --server</code>, <code>--create-store</code> creates it); a fork of it becomes a <code>.gstore</code> file next to it
+(<code>graph-fork-&lt;target&gt;.gstore</code>).</p>
+<p>Opening a view, going back to live, a rollback and an attic restore change the graph the session
+serves, so they cancel a running query first (it rolls back). Several browser tabs share the one
+server: a view opened in one tab is the view of all (the other tabs follow through the
+<a href="#live-refresh-in-the-browser">change feed</a> within two seconds: banner, graph, Schema and
+Statistics; an MCP agent's <code>graph_info</code> says so too and its writes are refused). The CLI's <code>graphersal store</code> commands that only read (<code>list</code>, <code>fork</code>, <code>verify</code>, ...)
+work while the server runs; <code>rollback</code> and <code>attic restore</code> from the CLI report "in use" then,
+use the menu.</p>
+<p>On a <strong>backup</strong> directory (<code>graphersal --graph backup/ --server</code>) the server serves the backup
+read-only: a banner says "Backup: read-only" with its position and the command that makes it the
+live store (<code>graphersal store restore backup/</code>, after stopping the server); the Store menu shows
+the backup's snapshots and marks with View and Fork only (no Checkpoint, Mark or Roll back), and
+every write is refused. See <a href="store_backups.html">Backup and Restore</a>.</p>
+<h3 id="the-history-calendar"><a class="header" href="#the-history-calendar">The history calendar</a></h3>
+<p>A store keeps hundreds or thousands of snapshots and marks; the Store menu shows only the newest
+five of each. <strong>Calendar…</strong> opens a dialog with a month calendar of all of them: each day shows
+two badges, the number of marks (M) and of snapshots (S) on that day in your browser's time zone
+(a snapshot counts on the day of the commit it holds), their colour deeper the more there are.
+‹ › and the month and year selectors (each month with its counts) move through the history;
+<strong>Today</strong>, <strong>Newest</strong> and <strong>Oldest</strong> jump. A click on a day (or Enter) lists all its marks and
+snapshots with time and commit and the same actions as the menu (View, Fork…, Roll back…,
+<code>.gsnap</code>). The filter keeps marks and/or snapshots and matches a name or <code>#commit</code>. Keyboard: the
+arrows move between days (across months), PageUp/PageDown change the month, Home/End go to the
+start or end of the week, Esc closes. The WebAssembly playground's store in memory has the same
+calendar.</p>
+<h2 id="mcp-an-ai-agent-on-the-same-graph"><a class="header" href="#mcp-an-ai-agent-on-the-same-graph">MCP: an AI agent on the same graph</a></h2>
+<p>With <code>--mcp</code> the server also offers a <a href="https://modelcontextprotocol.io">Model Context Protocol</a>
+endpoint at <code>http://127.0.0.1:&lt;port&gt;/mcp</code>. An AI agent such as Claude Code then works with the
+<strong>same graph and session</strong> as the browser: you watch and query in the playground while the agent
+queries, changes the graph or evolves the schema through MCP tools, and the page reloads by
+itself when the agent changed something. MCP works with the <strong>graph only</strong>: persistence
+(checkpoints, marks, views of past states, rollback, the attic, backups, compaction) stays in the
+browser's <a href="#on-a-store">Store menu</a>, so the agent's tool list stays short.</p>
+<h3 id="start-the-server-with-mcp"><a class="header" href="#start-the-server-with-mcp">Start the server with MCP</a></h3>
+<pre><code class="language-bash">graphersal --graph modern --server --port 9000 --mcp
+# Graphersal dev server: http://127.0.0.1:9000/        (stdout)
+#   MCP:       http://127.0.0.1:9000/mcp               (stderr, Server section; the next row,
+#   connect:   claude mcp add --transport http ...      is the command that connects Claude Code)
+</code></pre>
+<p>Any <code>--graph</code> source works, a Store directory too (the agent gets the same graph tools; the
+commits it makes are journaled like the browser's):</p>
+<pre><code class="language-bash">graphersal --graph data/ --server --port 9000 --mcp
+</code></pre>
+<p>Read-only for the agent (only the reading tools are offered, and a query that would create,
+change or delete data, the schema or a catalog definition (a saved query, a compression rule, a
+property index) is refused; the browser can still write):</p>
+<pre><code class="language-bash">graphersal --graph modern --server --port 9000 --mcp --mcp-read-only
+</code></pre>
+<p>With a token (every MCP request must send <code>Authorization: Bearer &lt;token&gt;</code>, otherwise <code>401</code>):</p>
+<pre><code class="language-bash">graphersal --graph modern --server --port 9000 --mcp --mcp-token my-secret-token
+</code></pre>
+<p>With every <a href="../users_guide/saved_queries.html">saved query</a> as a tool of its own (besides
+<code>list_saved_queries</code> and <code>run_saved_query</code>, which are always there), for a small, curated catalog:</p>
+<pre><code class="language-bash">graphersal --graph data/ --server --port 9000 --mcp --mcp-query-tools
+</code></pre>
+<p>With a note of the operator that every connecting agent reads in the <code>instructions</code> of
+<code>initialize</code> (what the graph holds, which queries to prefer, house rules):</p>
+<pre><code class="language-bash">graphersal --graph data/ --server --mcp --mcp-instructions operator-notes.md
+</code></pre>
+<p>The file is UTF-8 text of at most 20000 characters; it is appended under the line "Notes from the
+operator of this server about this graph:" after the built-in instructions (and the read-only
+note). It is trusted text of the operator. A missing, non-UTF-8 or empty file, or the option
+without <code>--mcp</code>, is a usage error. The <a href="#ai-chat">AI Chat</a> does not use it (its system prompt
+has the built-in MCP instructions, but not these notes): give the chat its own text with
+<code>system_prompt</code> or <code>system_prompt_file</code>, so nothing is added twice.</p>
+<p>The largest tool answer is 60000 characters by default; <code>--mcp-max-chars N</code> (at least 1000)
+sets another limit (see <a href="#answer-size-and-paging">Answer size and paging</a>):</p>
+<pre><code class="language-bash">graphersal --graph data/ --server --mcp --mcp-max-chars 30000
+</code></pre>
+<p>The options combine (<code>--mcp --mcp-read-only --mcp-token ... --mcp-query-tools</code>), and the
+<a href="#limits">limit options</a> apply to the agent's queries as to the browser's.</p>
+<h3 id="connect-claude-code"><a class="header" href="#connect-claude-code">Connect Claude Code</a></h3>
+<pre><code class="language-bash">claude mcp add --transport http graphersal http://127.0.0.1:9000/mcp
+</code></pre>
+<p>With a token:</p>
+<pre><code class="language-bash">claude mcp add --transport http graphersal http://127.0.0.1:9000/mcp \
+  --header "Authorization: Bearer my-secret-token"
+</code></pre>
+<p>Check the connection, and remove the entry when you are done:</p>
+<pre><code class="language-bash">claude mcp list                  # graphersal: http://127.0.0.1:9000/mcp (HTTP) - ✔ Connected
+claude mcp remove graphersal
+</code></pre>
+<p><code>claude mcp add</code> stores the server for the current project directory (<code>-s user</code> makes it
+available everywhere). <strong>A newly added MCP server is picked up by a NEW Claude Code session</strong>:
+start <code>claude</code> again (or start it after adding). Use the same port as the running server; when
+you restart the server on another port, remove and add the entry again. The server must be
+running when Claude Code starts, or <code>claude mcp list</code> shows it as failed (start the server, then
+a new session).</p>
+<h3 id="try-it"><a class="header" href="#try-it">Try it</a></h3>
+<ol>
+<li><code>graphersal --graph modern --server --port 9000 --mcp</code>, and open
+<code>http://127.0.0.1:9000/</code> in the browser: the top bar shows an <strong>MCP</strong> badge.</li>
+<li><code>claude mcp add --transport http graphersal http://127.0.0.1:9000/mcp</code>, then start <code>claude</code>.</li>
+<li>Ask: <em>"Use the graphersal tools: who does marko know?"</em>. The agent calls <code>query</code> with a
+traversal such as <code>g.v().has("name", "marko").out("knows").values("name")</code>. The badge's
+tooltip now names the agent (<code>claude-code</code>).</li>
+<li>Ask: <em>"Add a person ada, 36 years old, who knows marko."</em> The browser reloads its graph by
+itself and shows "changed: commit N"; results you ran before are marked "possibly stale".</li>
+<li>Ask: <em>"Infer the schema, store it in mode open and add an optional string property email to
+person."</em> (<code>infer_schema</code>, <code>set_schema</code>, <code>patch_schema</code>); the Schema panel follows.</li>
+</ol>
+<h3 id="what-the-agent-gets"><a class="header" href="#what-the-agent-gets">What the agent gets</a></h3>
+<p>The server introduces itself as <code>graphersal-dev</code> with instructions that explain the query
+language. Tools (each one queues on the server's session like a browser call; read-only tools
+are marked <code>readOnlyHint</code>, <code>query</code>, <code>set_schema</code>, <code>drop_compression</code> and <code>drop_index</code>
+<code>destructiveHint</code>).
+The list is the same on every <code>--graph</code> source; there are no persistence tools:</p>
+<div class="table-wrapper"><table><thead><tr><th>Tool</th><th>What it does</th></tr></thead><tbody>
+<tr><td><code>query</code> <code>{script, profile?, offset?, max_rows?, max_items?}</code></td><td>Runs a script (Gremlin in Rhai syntax) as one transaction: the results as compact JSON, <a href="#answer-size-and-paging">paged</a> (100 results after the first <code>offset</code>, 100 items of every nested list by default, with a note when something was cut and the next page's offset), whether it changed the graph and the new commit number, the per-step profile with <code>profile: true</code>; a failing script is a tool error carrying the diagnostic and its <code>Help:</code> line, and changes nothing</td></tr>
+<tr><td><code>get_schema</code>, <code>infer_schema</code></td><td>The stored schema (or null), the schema the data satisfies</td></tr>
+<tr><td><code>validate_schema</code> <code>{schema, mode?}</code>, <code>validate_schema_patch</code> <code>{patch}</code>, <code>diff_schema</code> <code>{schema}</code></td><td>Check a proposed schema or a JSON Merge Patch against the data, without applying</td></tr>
+<tr><td><code>set_schema</code> <code>{schema, mode?}</code>, <code>patch_schema</code> <code>{patch}</code></td><td>Store a schema, patch the stored one (validated against the data)</td></tr>
+<tr><td><code>list_compressions</code></td><td>The <a href="../users_guide/compressed_properties.html">compression rules</a> with their stats (also in read-only mode)</td></tr>
+<tr><td><code>estimate_compression</code> <code>{label, path, element?, codec?, minBytes?, dictionary?}</code></td><td><a href="../users_guide/compressed_properties.html#estimating-the-gain">Estimates</a> what rules for that label and path would save on the current data, without changing the graph (also in read-only mode)</td></tr>
+<tr><td><code>define_compression</code> <code>{name, label, path, element?, minBytes?, dictionary?, replaces?}</code>, <code>drop_compression</code> <code>{name}</code>, <code>recompress</code> <code>{name}</code></td><td>Define, drop or re-run a compression rule (refused in read-only mode); a refused rule answers its field errors</td></tr>
+<tr><td><code>list_indexes</code></td><td>The <a href="../users_guide/property_indexes.html">property indexes</a> with their <code>type</code> and stats (<code>entries</code>, <code>distinctValues</code>, <code>bytes</code>; <code>served: false</code> with a <code>reason</code> when the storage serves none or the index type is unknown to this version) (also in read-only mode)</td></tr>
+<tr><td><code>create_index</code> <code>{label, key, element?, name?, type?}</code>, <code>drop_index</code> <code>{name}</code></td><td>Create (built from the data in the same commit) or drop a property index; <code>type</code> is an enum of the known <a href="../users_guide/property_indexes.html#index-types">index types</a> (<code>memory-ordered</code>, the default); refused in read-only mode, where <code>query</code> also refuses <code>g.create_index</code>/<code>g.drop_index</code>; a refused index answers its field errors (an unknown type, a key the schema declares as a vector, a list or a map)</td></tr>
+<tr><td><code>list_saved_queries</code> <code>{folder?, search?}</code></td><td>The <a href="../users_guide/saved_queries.html">saved queries</a> stored in the graph: name, folder, description, parameters (JSON Schema, default, required, description), status (<code>error</code> with the reason when it cannot run), <code>writes</code> and <code>effects</code> (<code>true</code> and what it changes, for a query that writes); <code>folder</code> keeps a folder and those below it, <code>search</code> a text in the name or description (case-insensitive). With <code>--mcp-read-only</code> the queries that write are left out</td></tr>
+<tr><td><code>run_saved_query</code> <code>{name, params?, offset?, max_rows?, max_items?}</code></td><td>Runs <code>g.query(name, #{..})</code> like <code>query</code> (paged answer, the call text on its first line): the arguments are checked against the parameter schemas, omitted ones take their default, a wrong one is a tool error with its <code>Help:</code> line. A query that writes changes only its effects, as one transaction; with <code>--mcp-read-only</code> it is refused</td></tr>
+<tr><td><code>workload_statistics</code></td><td>The <a href="workload_statistics.html">workload statistics</a> of a Store's graph: queries by normalized plan, property uses, lock times and jobs per channel (<code>max_rows</code> per list, default 50; <code>history</code>: <code>minutes</code>, <code>hours</code> or <code>days</code> adds every row's buckets; also in read-only mode)</td></tr>
+<tr><td><code>list_jobs</code></td><td>The <a href="scheduled_jobs.html">scheduled jobs</a> of a Store's graph: system jobs and jobs of users with schedule, switch, next time, last run, run counts, a user job's action and effects (reading; also in read-only mode; defining and changing jobs stays the user's)</td></tr>
+<tr><td><code>statistics</code>, <code>graph_info</code></td><td>Counts per label, memory and limits; what the server serves (name, counts, schema mode, source file or Store directory, <code>view</code> and a <code>note</code> while a read-only view is open, <code>damageFound</code>, <code>mcpReadOnly</code>, <code>answerLimitChars</code>)</td></tr>
+</tbody></table>
+</div>
+<h3 id="answer-size-and-paging"><a class="header" href="#answer-size-and-paging">Answer size and paging</a></h3>
+<p>Tool answers are compact JSON (no indentation), on one line after the status lines (<code>call: ...</code>
+of a saved query, <code>ok: 443 results (2.1 ms)</code>), followed by notes. <code>query</code>, <code>gql</code>,
+<code>run_saved_query</code> and the tools of <code>--mcp-query-tools</code> take three paging arguments:</p>
+<ul>
+<li><code>offset</code> (default 0): the first <code>offset</code> top-level results are skipped. The query itself is
+not changed and computes every result again; only the answer shows a later page.</li>
+<li><code>max_rows</code> (default 100): the most top-level results of one page.</li>
+<li><code>max_items</code> (default 100): the most items of every nested list or map; a cut list ends with the
+item <code>"… N more"</code>, a cut map with the key <code>"…"</code>, and a note says so.</li>
+</ul>
+<p>On top of that the whole answer stays within the server's answer limit (<code>--mcp-max-chars</code>, default
+60000 characters; <code>graph_info</code> shows it as <code>answerLimitChars</code>). The limit never cuts inside a
+result, so the JSON stays valid:</p>
+<ul>
+<li>A list of results keeps its leading <strong>whole</strong> results that fit, and the note names what is
+shown and where to go on: <code>note: shown results 101-160 of 443, cut at a whole result to fit the answer limit of 60000 characters (...); more results follow: next page offset 160</code>. A page cut
+by <code>max_rows</code> alone says <code>... (max_rows sets the page size); more results follow: next page offset 200</code>; the last page says <code>no more results</code>, an offset past the end says so too.</li>
+<li>A result that alone is longer than the limit is left out with a note that names the offset that
+skips it.</li>
+<li>A single value (such as a map from <code>.next()</code>) that is too long keeps its leading whole
+entries with a note; <code>offset</code> pages only a list of results (GQL rows are one).</li>
+<li>Every other tool keeps the leading whole items of its JSON (a note says how many of how many),
+or the leading whole lines of a text answer.</li>
+</ul>
+<p>Clients limit tool output as well: Claude Code caps one MCP tool answer at about 25000 tokens
+by default (the environment variable <code>MAX_MCP_OUTPUT_TOKENS</code> changes it). Raising <code>--mcp-max-chars</code>
+alone may not help; bound large answers in the query (LIMIT, <code>values(..)</code>) or page them.</p>
+<p><strong>A read-only view opened in the browser</strong> is server-wide: the agent's queries read that past
+state too. <code>graph_info</code> then carries a <code>note</code> ("the served state is a read-only view at commit N
+..."), and every tool error carries it as a last line, so a refused write says why. The agent
+cannot close the view; the user does (<strong>Back to the live graph</strong>).</p>
+<p>Resources (read with <code>resources/read</code>): <code>graphersal://schema</code> (the stored schema),
+<code>graphersal://statistics</code>, <code>graphersal://dsl-reference</code> (every step and function of the language
+with its signatures, both spellings, a one-line description and a runnable example with its result,
+generated from the engine's function docs, about 55 KB),
+<code>graphersal://examples</code> (the playground's examples, about 8 KB) and <code>graphersal://saved-queries</code>
+(the list of <code>list_saved_queries</code>).</p>
+<p><strong>Saved queries first.</strong> The server's instructions and the <code>query</code> tool's description tell the
+agent to look for a saved query (<code>list_saved_queries</code>) before it writes a new query, and to run
+it with <code>run_saved_query</code>: the queries a user stored for recurring questions are reused instead of
+rewritten. A query listed with <code>writes: true</code> changes data (its <code>effects</code> say what), and the
+instructions tell the agent to run one only when the user asked for that change. Both tools are
+offered with <code>--mcp-read-only</code> too, which lists only the queries that do not write and refuses a
+call of one that does. With <code>--mcp-query-tools</code>, <code>tools/list</code> also lists every saved query as a
+tool named like the query, with its description (and folder; a query that writes says so and
+names its effects), an <code>inputSchema</code> built from its parameter schemas (defaults included,
+required parameters in <code>required</code>, no other properties) and annotations from its effects
+(<code>readOnlyHint</code> false for a query that writes, <code>destructiveHint</code> when it updates or deletes);
+calling it is <code>run_saved_query</code> with those arguments. <code>tools/list</code> reflects the catalog at the time of the
+call; the endpoint has no event stream, so it announces <code>tools.listChanged: false</code> and a client
+lists the tools again to see a changed catalog. A saved query named like a built-in tool
+(<code>statistics</code>, ...) is not listed as a tool of its own; <code>run_saved_query</code> reaches it.</p>
+<p>The agent's queries share everything with the browser: one query runs at a time, <strong>Stop</strong> in the
+browser also cancels a running agent query (it rolls back), a read-only view opened by either side
+is what both see, and the <a href="#limits">limits</a> apply.</p>
+<h3 id="live-refresh-in-the-browser"><a class="header" href="#live-refresh-in-the-browser">Live refresh in the browser</a></h3>
+<p>Every page polls <code>GET /api/changes</code> every 2 seconds while it is visible (it pauses in a hidden
+tab and checks at once when it becomes visible again). When the graph changed because of
+something this page did not do (an agent over MCP, or another browser tab on the same server),
+the page reloads the graph info, the Graph, Schema and Statistics panels and the Store menu,
+marks every tab's result as possibly stale and shows "changed: commit N". Its own queries do not
+trigger the notice.</p>
+<h3 id="protocol-details"><a class="header" href="#protocol-details">Protocol details</a></h3>
+<p>The endpoint implements MCP's Streamable HTTP transport of the protocol revisions <code>2025-11-25</code>,
+<code>2025-06-18</code> and <code>2025-03-26</code> (the initialize-based ones; <code>initialize</code> negotiates one of them)
+with JSON answers and no server-sent event stream: <code>POST /mcp</code> with one JSON-RPC message
+(<code>initialize</code>, <code>ping</code>, <code>tools/list</code>, <code>tools/call</code>, <code>resources/list</code>, <code>resources/read</code>; a
+notification is answered <code>202 Accepted</code>), <code>GET /mcp</code> is <code>405</code>, <code>DELETE /mcp</code> ends the session.
+<code>initialize</code> returns an <code>Mcp-Session-Id</code>; a request that names an unknown session (after a
+restart of the server) is <code>404</code>, so the client initializes again. A request whose
+<code>MCP-Protocol-Version</code> header names another revision is <code>400</code>, which tells a client that also
+speaks newer, stateless revisions to fall back to <code>initialize</code>. The <code>Host</code>/<code>Origin</code> checks of the
+<a href="#safety">Safety</a> section apply (another site's <code>Origin</code> is <code>403</code>). On the loopback
+<code>--mcp-token</code> protects against other local users and programs; on a network address
+(<a href="#listening-address-and-docker"><code>--host</code>, or a container</a>) it is the only thing that keeps other
+machines from the MCP tools. The printed MCP URL uses the host of the stdout URL (<code>127.0.0.1</code> for a
+wildcard address); a client on another machine uses the server's address instead.</p>
+<h2 id="ai-chat"><a class="header" href="#ai-chat">AI Chat</a></h2>
+<blockquote>
+<p><strong>EXPERIMENTAL</strong>, like the dev server. The configuration file, the endpoints and the tab change
+without notice.</p>
+</blockquote>
+<p>With <code>--ai FILE</code> the playground's Query panel can open an <strong>AI Chat</strong> tab: you ask questions in
+plain language and an LLM agent answers them by working on the served graph. The agent uses the
+same tools as an <a href="#mcp-an-ai-agent-on-the-same-graph">MCP</a> client (<code>query</code>, the schema tools,
+saved queries, compression rules, <code>statistics</code>, <code>graph_info</code>), but the agent loop runs <strong>inside
+the dev server process</strong>: the server calls the LLM provider, runs the tool calls the model asks
+for on the session (they queue like every browser and MCP call), sends the results back and
+repeats until the model answers. The browser only shows the conversation; the API key never
+reaches the page. <code>--ai</code> does not need <code>--mcp</code> (both may be on).</p>
+<pre><code class="language-bash">export ANTHROPIC_API_KEY=...                           # the key stays in the server process
+graphersal --graph modern --server --ai ai.json
+# Graphersal dev server: http://127.0.0.1:8080/                              (stdout)
+# AI Chat (EXPERIMENTAL): model ... over the Anthropic API; data the agent queries is sent to api.anthropic.com   (stderr)
+</code></pre>
+<p>Open the page, click <strong>+</strong> in the Query panel's tab strip and choose <strong>AI Chat</strong> (the tab has its
+own colour). Ask, for example, <em>"Who does marko know?"</em> or <em>"Which software was created by more
+than one person?"</em>. The transcript shows:</p>
+<ul>
+<li>your messages and the agent's answers (Markdown: tables, lists, code);</li>
+<li>per question, the steps that led to the answer in ONE collapsed group above it (e.g. "Worked:
+2 tool calls (list_saved_queries, query)", "Working: running query" while the turn runs,
+"Stopped after 1 tool call: list_saved_queries" when it failed); opened, it lists the agent's
+interim texts and every tool call in order, each collapsible with its arguments, a result
+summary and the result text; a <code>query</code> call has <strong>Open in a query tab</strong> and <strong>Run</strong>;</li>
+<li>a query the agent proposes in its answer (a fenced block) with <strong>Copy</strong> and <strong>Run</strong> (Run opens
+a new query tab and runs it there);</li>
+<li>errors with their help text (a refused key, an unknown model, the provider's rate limit, ...).</li>
+</ul>
+<p>A <a href="../users_guide/saved_queries.html#queries-that-read-and-queries-that-write">saved query that writes</a>
+(<code>writes: true</code>) runs only after you confirmed it: the agent's first <code>run_saved_query</code> of it in a
+turn is not run but answered "ask the user first", so the agent asks you in the chat what it is
+about to change; when it calls the query again in the turn of your next message, it runs (once).</p>
+<p><strong>Stop</strong> ends the agent's turn: the pending provider call is abandoned (the client is synchronous,
+so the answer is dropped when it arrives) and the query the agent runs is cancelled and rolled
+back. It stops only this chat; another chat tab, the browser's own query and an MCP client keep
+running (and the browser's query <strong>Stop</strong> does not stop the agent's query). <code>/clear</code> (the whole
+message) starts over: it stops a running turn and deletes the conversation on the server; <code>/help</code>
+lists the commands. Each chat tab is its own conversation, and a conversation belongs to the page
+that created it: after a reload the transcript stays as history and the next message starts a new
+conversation. Conversations live in the server's memory only (at most 64; a restart ends them).</p>
+<p><strong>Export ▾</strong> in the chat's header downloads the transcript of this chat tab as a file named after
+the tab and the time (<code>graphersal-chat-2-20261027-090507.md</code>): <strong>Markdown (.md)</strong> (a title, the
+export time, model, server and graph, then per turn your question, the steps with each tool call's
+arguments as a JSON block, its result summary and result text, the answer as the model wrote it,
+errors with their help and the timing line) or <strong>JSON (.json)</strong> (<code>{"format": "graphersal-ai-chat", "version": 1, "exportedAt", "meta": {chat, provider, model, readOnly, server, graph}, "preamble": [...], "turns": [{question, state, steps, answer, tail, done, timing}]}</code>, where <code>steps</code> are <code>{type: "text", text}</code> and <code>{type: "tool", id, name, args, ok, summary, result, resultTruncated}</code>, <code>tail</code> holds <code>error {message, help}</code>, <code>notice {text}</code>, <code>text {text}</code> and <code>stopped</code>, and <code>done</code> the turn's figures <code>elapsedMs</code>, <code>toolMs</code>, <code>llmCalls</code>,
+<code>inputTokens</code>, <code>outputTokens</code>, <code>cachedTokens</code>, <code>toolCalls</code>, <code>limitReached</code>, <code>stopped</code>). It holds
+what the page holds: a transcript restored after a reload keeps the newest 300 items and each tool
+result text shortened to 2000 characters (marked "shortened" in Markdown, <code>resultTruncated</code> in
+JSON).</p>
+<p>When the agent changes the graph, the page reloads it like after an MCP change: the change feed
+names the client <code>ai</code> (with the conversation id), and the other tabs' results are marked
+"possibly stale".</p>
+<p>In the <strong>WebAssembly playground</strong> (no server), an AI Chat tab can be opened but is read-only: it
+says "AI Chat is available when you run Graphersal locally: graphersal --server --ai ai.json".</p>
+<h3 id="the-configuration-file"><a class="header" href="#the-configuration-file">The configuration file</a></h3>
+<p><code>--ai FILE</code> names a JSON object. It is read once, at the start of the server. A value of the wrong type
+or a missing environment variable stops the start with a message that names the key. Unknown keys
+are lenient: a key starting with <code>_</code> (for example <code>"_comment"</code>) is ignored silently; any other
+unknown key is ignored with a startup warning that lists the keys; but an unknown key that is
+within two edits of a known one (<code>"readonly"</code>, <code>"max_token"</code>) stops the start with a <code>did you mean "read_only"?</code> hint, so a typo cannot silently drop a safety setting.</p>
+<div class="table-wrapper"><table><thead><tr><th>Key</th><th>Default</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>provider</code></td><td>required</td><td><code>"anthropic"</code> (the Messages API with tool use; the static system prompt is cached by the provider) or <code>"openai"</code> (Chat Completions with tools: OpenAI, and every compatible server through <code>base_url</code>: Google Gemini, Azure OpenAI, OpenRouter, Groq, Ollama, LM Studio, vLLM, ...)</td></tr>
+<tr><td><code>model</code></td><td>required</td><td>The model id, passed to the provider as is. There is no default model: the file names it. Choose a model that supports tool calls</td></tr>
+<tr><td><code>base_url</code></td><td>the provider's (<code>https://api.anthropic.com</code>, <code>https://api.openai.com/v1</code>)</td><td>An <code>http://</code> or <code>https://</code> URL; the adapter appends <code>/v1/messages</code> (anthropic) or <code>/chat/completions</code> (openai), so an OpenAI-compatible URL ends in <code>/v1</code> (Ollama: <code>http://localhost:11434/v1</code>)</td></tr>
+<tr><td><code>api_key_env</code></td><td>none</td><td>The name of the environment variable that holds the API key (<code>"ANTHROPIC_API_KEY"</code>, <code>"OPENAI_API_KEY"</code>, ...). The variable must be set and not empty when the server starts</td></tr>
+<tr><td><code>api_key</code></td><td>none</td><td>The key inline. Accepted with a startup warning (the file may end up shared or committed); prefer <code>api_key_env</code>. Not together with <code>api_key_env</code></td></tr>
+<tr><td><code>read_only</code></td><td><code>false</code></td><td><code>true</code>: the agent may only read (see below)</td></tr>
+<tr><td><code>max_tool_calls_per_turn</code></td><td><code>20</code></td><td>The most tool calls one turn (one question) may make. The prompt states this budget, and the last results before the limit tell the model how many calls are left. At the limit the calls beyond it are not run, and the model is asked once more, without tools (<code>tool_choice</code> "none"), to answer from what it has; the answer is marked "tool-call limit reached". A provider that ignores <code>tool_choice</code> and keeps asking for tools ends the turn with a message that says so. "go on" continues it either way</td></tr>
+<tr><td><code>max_tokens</code></td><td><code>4096</code></td><td>The answer length bound of one provider call; an answer cut there ends with an error that says so</td></tr>
+<tr><td><code>system_prompt</code></td><td>none</td><td>Your own text for the agent's system prompt (at most 20 000 characters), see <a href="#custom-system-prompt">Custom system prompt</a>. Not together with <code>system_prompt_file</code></td></tr>
+<tr><td><code>system_prompt_file</code></td><td>none</td><td>The same text from a UTF-8 file; a relative path is relative to the directory of the config file. An unreadable or non-UTF-8 file, or too long a text, stops the start</td></tr>
+</tbody></table>
+</div>
+<p>A key is required, except for an <code>openai</code> provider with a custom <code>base_url</code> (a local server such as
+Ollama needs none). The key is never logged, never written to a file by the server and never sent
+to the page (<code>GET /api/info</code> shows provider, model, read-only and the host data is sent to, never
+the key). A key sent over plain <code>http://</code> to a host that is not this machine gets a startup
+warning.</p>
+<p>Examples (the repository holds them as <code>crates/graphersal-cli/examples/ai-*.json</code>; the model ids
+are examples, use a current model of your provider):</p>
+<p>Anthropic:</p>
+<pre><code class="language-json">{
+  "provider": "anthropic",
+  "model": "claude-sonnet-4-5",
+  "base_url": null,
+  "api_key_env": "ANTHROPIC_API_KEY",
+  "read_only": false,
+  "max_tool_calls_per_turn": 20,
+  "max_tokens": 4096
+}
+</code></pre>
+<p>OpenAI (and, with another <code>base_url</code> and key variable, OpenRouter, Groq, Azure, ...):</p>
+<pre><code class="language-json">{
+  "provider": "openai",
+  "model": "gpt-4.1-mini",
+  "api_key_env": "OPENAI_API_KEY"
+}
+</code></pre>
+<p>Google Gemini, through Google's OpenAI-compatible endpoint (a key from Google AI Studio in
+<code>GEMINI_API_KEY</code>; the adapter appends <code>/chat/completions</code> to the <code>base_url</code>):</p>
+<pre><code class="language-json">{
+  "provider": "openai",
+  "model": "gemini-3.8-flash",
+  "base_url": "https://generativelanguage.googleapis.com/v1beta/openai",
+  "api_key_env": "GEMINI_API_KEY"
+}
+</code></pre>
+<p>Thinking models (Gemini 3) work too: the thought signatures Gemini attaches to its tool calls
+(<code>extra_content</code>) are sent back unchanged with the next request, as Google requires.</p>
+<p>Ollama on this machine (<code>ollama pull qwen2.5:7b</code> first; no key, no data leaves the machine):</p>
+<pre><code class="language-json">{
+  "provider": "openai",
+  "model": "qwen2.5:7b",
+  "base_url": "http://localhost:11434/v1"
+}
+</code></pre>
+<h3 id="custom-system-prompt"><a class="header" href="#custom-system-prompt">Custom system prompt</a></h3>
+<p><code>system_prompt</code> (inline) or <code>system_prompt_file</code> tells the agent what it cannot read from the
+graph: units, the meaning of labels, house rules, the language to answer in.</p>
+<pre><code class="language-json">{
+  "provider": "anthropic",
+  "model": "claude-sonnet-4-5",
+  "api_key_env": "ANTHROPIC_API_KEY",
+  "_comment": "ages are years; the notes live next to this file",
+  "system_prompt_file": "graph-notes.md"
+}
+</code></pre>
+<p>The text is placed in the system prompt after the agent's rules and before the DSL reference,
+under the line "Notes from the operator of this server about this graph:". It is trusted text of
+the operator, but it comes after the rules and does not lift them: tool results stay data, never
+instructions. It applies to the AI Chat only; the <a href="#mcp-an-ai-agent-on-the-same-graph">MCP</a>
+instructions are unchanged (and the <code>--mcp-instructions</code> notes are not added). The prompt prefix stays fixed for the conversation, so the provider's
+prompt cache still works.</p>
+<h3 id="what-data-leaves-the-machine"><a class="header" href="#what-data-leaves-the-machine">What data leaves the machine</a></h3>
+<p>Everything the agent sees goes to the provider: your messages, the system prompt (the MCP
+instructions, the agent's rules, your <a href="#custom-system-prompt">custom system prompt</a> text if any, the <a href="#what-the-agent-gets">DSL reference</a> and a short summary of
+the graph taken at the first question: counts, labels, schema mode, number of saved queries), and <strong>every tool result</strong>:
+query results, schemas, statistics, saved queries. The tab's header says so: "Data you query is
+sent to api.anthropic.com (Anthropic API)"; with <code>provider: "openai"</code> it names the
+OpenAI-compatible API, whoever runs it (Gemini's host, for example). When <code>base_url</code> points at
+this machine (<code>localhost</code>, <code>127.*</code>, <code>[::1]</code>), nothing leaves it and the header says "The model
+runs on this machine". Use a local provider for
+data that must not leave it.</p>
+<p>Graph data is untrusted input: a property value can contain text that looks like an instruction.
+The agent's system prompt says that tool results are data, never instructions, and only your own
+messages instruct it; that lowers the risk, it does not remove it. Use <code>read_only</code> when the agent
+should not change anything.</p>
+<h3 id="read-only"><a class="header" href="#read-only">Read-only</a></h3>
+<p>With <code>"read_only": true</code> the agent gets only the reading tools, and its <code>query</code> runs under the
+same read-only rule as <a href="#start-the-server-with-mcp"><code>--mcp-read-only</code></a>: a query that would create,
+change or delete data, the schema or a catalog definition is refused. The tab shows a
+<strong>read-only</strong> badge. The browser can still write.</p>
+<h3 id="limits-1"><a class="header" href="#limits-1">Limits</a></h3>
+<ul>
+<li><code>max_tool_calls_per_turn</code> bounds the tool calls of one question; <code>max_tokens</code> the length of one
+answer.</li>
+<li>The server's <a href="#limits">limit options</a> (<code>--timeout</code>, <code>--memory-limit</code>, <code>--max-traversers</code>, ...)
+apply to every query the agent runs, as to the browser's and MCP's; a query result is cut at
+the display limits (100 rows and 100 nested items) before it goes to the model, with a note.</li>
+<li>A message is at most 100 000 characters. One turn runs at a time per conversation; several
+conversations run at the same time.</li>
+<li>The provider's own limits (rate, context length, cost) are yours: a long conversation sends the
+whole history with every call. The line under an answer shows the tokens the turn's provider
+calls read (every request token, the cached ones included, with the cached part named) and
+wrote, summed over the turn, beside its time.</li>
+<li>The server keeps the conversations in memory only, each finished turn compressed (LZ4); a
+restart forgets them.</li>
+</ul>
+<h2 id="the-http-api-experimental"><a class="header" href="#the-http-api-experimental">The HTTP API (EXPERIMENTAL)</a></h2>
+<p>The API follows the playground's engine boundary (<code>playground/js/engine/engine.js</code>) and is
+<strong>EXPERIMENTAL</strong>: it may change in any release, minor or patch. Answers are JSON; errors are
+<code>{"error": "..."}</code> with a 4xx status (422 for a failing schema operation).</p>
+<p>An <strong>OpenAPI 3.1 description</strong> of every endpoint below is part of each release:
+<a href="https://github.com/graphersal/graphersal/blob/main/crates/graphersal-cli/openapi.json"><code>crates/graphersal-cli/openapi.json</code></a>
+in the repository, and a running server answers it at <code>GET /openapi.json</code> (also
+<code>GET /api/openapi.json</code>; <code>GET /api/info</code> names it as <code>openapi</code>), with the server's own version in
+<code>info.version</code>. Generate a client from it, or open it in any OpenAPI viewer; pin the Graphersal
+version you read it from. The schemas in it are deliberately loose (objects with the documented
+keys); the table below and the linked pages describe every answer.</p>
+<div class="table-wrapper"><table><thead><tr><th>Endpoint</th><th>Engine method</th></tr></thead><tbody>
+<tr><td><code>GET /api/info</code></td><td><code>info()</code> (<code>server: "graphersal-dev"</code>, <code>version</code>, <code>saveable</code>, <code>source</code>, <code>presets</code>: the limits in force, <code>mcp</code>: <code>{endpoint, readOnly, client}</code> or null, <code>ai</code>: <code>{provider, model, readOnly, sendsDataTo, maxToolCallsPerTurn}</code> or null (never the key; <code>sendsDataTo</code> is the provider's host, null for one on this machine), <code>damageFound</code>: <code>{text, frozen, foundBy, policy, problems}</code> or null, <code>embedders</code>: <code>[{name, model, dimension, default}]</code>, the built-in <code>hash-ngram/1</code> and every <code>--embedder</code>)</td></tr>
+<tr><td><code>GET /api/changes</code></td><td><code>changes()</code>: the change feed <code>{version, commitSeq, recent: [{version, by, commitSeq, detail?}], view, mcp, damageFound}</code>; <code>by</code> is the page's <code>X-Graphersal-Client</code> header (every request of the page sends it), <code>mcp</code>, or <code>ai</code> (an AI Chat conversation, its id in <code>detail</code>)</td></tr>
+<tr><td><code>POST /mcp</code></td><td>the MCP endpoint (with <code>--mcp</code>, <a href="#mcp-an-ai-agent-on-the-same-graph">above</a>)</td></tr>
+<tr><td><code>POST /api/ai/conversations</code></td><td>with <code>--ai</code> (EXPERIMENTAL): a new AI Chat conversation <code>{id}</code> (random, 128 bits) owned by the page's <code>X-Graphersal-Client</code> (required); every other client gets <code>403</code> for it, an unknown id is <code>404</code>, and without <code>--ai</code> every <code>/api/ai/*</code> is <code>404</code></td></tr>
+<tr><td><code>POST /api/ai/conversations/&lt;id&gt;/messages</code> <code>{text}</code></td><td>starts a turn on the server (<code>{turn}</code>; <code>409</code> while one runs): the provider is called, the tools it asks for run on the session like MCP tool calls (commits in the change feed as <code>ai</code>), until it answers without a tool call or reaches <code>max_tool_calls_per_turn</code></td></tr>
+<tr><td><code>GET /api/ai/conversations/&lt;id&gt;/events?after=N</code></td><td><code>{events, running, last}</code>: the events after <code>N</code>, each with <code>seq</code>: <code>user {text}</code>, <code>assistant {text}</code>, <code>tool_call {id, name, args}</code>, <code>tool_result {id, name, ok, summary, text}</code>, <code>error {message, help}</code>, <code>done {stopped, toolCalls, elapsedMs, toolMs, llmCalls, inputTokens, outputTokens, cachedTokens, limitReached}</code> (the turn's wall time and the part of it spent in tool calls, in milliseconds; its answered provider calls and their tokens summed: <code>inputTokens</code> counts every request token, the cached ones included, <code>cachedTokens</code> the part read from the prompt cache; whether the turn reached <code>max_tool_calls_per_turn</code>; the page shows them under the answer, e.g. "12.4 s · tools 3.1 s · tokens 15.2k in (12k cached) / 830 out")</td></tr>
+<tr><td><code>POST /api/ai/conversations/&lt;id&gt;/stop</code></td><td><code>{stopped}</code>: ends this conversation's turn only: its pending provider call is abandoned, the query it runs is cancelled and rolled back; other conversations are not affected (and <code>POST /api/cancel</code> does not stop the agent's query)</td></tr>
+<tr><td><code>DELETE /api/ai/conversations/&lt;id&gt;</code></td><td>drops the conversation (history, pending call, running query)</td></tr>
+<tr><td><code>GET /api/graph</code></td><td><code>graphInfo()</code></td></tr>
+<tr><td><code>POST /api/execute</code> <code>{script, options}</code></td><td><code>execute(script, options)</code></td></tr>
+<tr><td><code>POST /api/cancel</code></td><td><code>stop()</code>: <code>{cancelled}</code></td></tr>
+<tr><td><code>GET /api/schema</code></td><td><code>schema()</code> (the schema views)</td></tr>
+<tr><td><code>GET /api/schema/stored</code>, <code>GET /api/schema/infer</code></td><td><code>getSchema()</code>, <code>inferSchema()</code></td></tr>
+<tr><td><code>POST /api/schema/view</code> (body: a schema)</td><td><code>schemaViewOf(schema)</code>: the schema views of that schema (the editor's draft) with the graph's label counts, <code>source: "given"</code>; nothing stored</td></tr>
+<tr><td><code>POST /api/schema/set</code>, <code>/patch</code>, <code>/validate</code>, <code>/validate-patch</code>, <code>/diff</code></td><td>the schema methods (body: the schema or patch; <code>schema/set?mode=open|closed|none</code> replaces the schema's mode)</td></tr>
+<tr><td><code>GET /api/graph-view?maxNodes=&amp;maxEdges=</code></td><td><code>graphView()</code>: the drawing as columns (ids, label indices, captions, edge endpoints as indices), no properties</td></tr>
+<tr><td><code>POST /api/graph-view</code> <code>{maxNodes?, maxEdges?, degrees?, filter?}</code></td><td><code>graphView(limits, filter)</code>: the same columns with the Graph panel's filter applied BEFORE the limits (<code>filter</code>: <code>{vertices?: {label: [{key, op, value?}]}, edges?: {..}, hideIsolated?}</code>; <code>op</code> <code>eq</code>, <code>neq</code>, <code>lt</code>, <code>lte</code>, <code>gt</code>, <code>gte</code>, <code>between</code> (low inclusive, high exclusive), <code>contains</code>, <code>starts_with</code>, <code>ends_with</code>, <code>regex</code>, <code>exists</code>, <code>missing</code>; values of keys the schema declares are coerced like a write) plus <code>matchedNodes</code>/<code>matchedEdges</code> (everything that passes, counted exactly); <code>degrees: true</code> adds <code>vertexInDegree</code>/<code>vertexOutDegree</code> (edges in the whole graph). An invalid filter is a 422 naming the label, key and operator. <code>POST /api/neighbourhood</code> and <code>/api/sample</code> take <code>degrees</code> too, the neighbourhood also <code>filter</code> (a display filter: the neighbourhood is computed as without it, then what it hides is dropped)</td></tr>
+<tr><td><code>POST /api/graph-filter-query</code> (body: a filter)</td><td><code>graphFilterQuery(filter)</code>: <code>{query}</code>, the Rhai query selecting the same vertices and edges (<code>#{vertices: g.v()..., edges: g.e()...}</code>)</td></tr>
+<tr><td><code>POST /api/neighbourhood</code></td><td><code>neighbourhood(request)</code>: the vertices within <code>hops</code> (the depth, 1-5) along <code>direction</code> (<code>both</code>, <code>out</code>, <code>in</code>) of the centre <code>ids</code>, plus the vertices <code>keep</code> (a drawing being expanded), and the edges between them, bounded by <code>maxNodes</code>/<code>maxEdges</code>: the drawing's columns plus <code>seeds</code>, <code>missing</code>, <code>hiddenEdges</code> and, when the limits cut it, <code>leftOut: {vertices, edges, complete}</code>; 422 for an unknown id or a depth above 5</td></tr>
+<tr><td><code>POST /api/sample</code></td><td><code>labelSample(request)</code>: the first vertices of some primary labels (<code>{vertices: {labels, exclude?}}</code>) or the first edges of one label pair (<code>{edge: {label, from?, to?}}</code>), with <code>sample: {kind, shown, total, complete}</code></td></tr>
+<tr><td><code>GET /api/meta-graph</code></td><td><code>metaGraph()</code>: vertex labels with their vertex counts (the 40 largest, the rest as <code>other</code>) and label pairs with their edge counts (the 200 largest)</td></tr>
+<tr><td><code>GET /api/element?kind=vertex|edge&amp;id=</code></td><td><code>element(kind, id)</code>: one element with its properties (the inspector), <code>null</code> when it no longer exists</td></tr>
+<tr><td><code>GET /api/element/edit?kind=vertex|edge&amp;id=</code></td><td><code>elementForEdit(kind, id)</code>: the element for the property editor, its values in the typed form (<code>{type, value}</code>: <code>int64</code> as decimal text, <code>uuid</code>, <code>object</code> as <code>[key, value]</code> pairs, ...): <code>{kind, id, label, labels, source?, target?, properties: [[key, typed]], readOnly}</code> (<code>readOnly</code>: why the graph cannot be written now, e.g. a read-only view or a store in maintenance mode, else <code>null</code>)</td></tr>
+<tr><td><code>POST /api/element/update</code> <code>{kind, id, set: [[key, typed]], remove: [key], validateOnly?}</code></td><td><code>updateElement(request)</code>: writes the changed and removed top-level properties as ONE commit, validated by the engine (schema, required properties); any failing key refuses the whole update: <code>{ok: true, changed, element}</code> or <code>{ok: false, errors: [{field, message, help?}]}</code> (<code>field</code> the key, or <code>general</code>; always 200). <code>validateOnly</code> runs it as a dry run (no commit)</td></tr>
+<tr><td><code>POST /api/element/labels</code> <code>{kind: "vertex"}</code> or <code>{kind: "edge", from, to}</code></td><td><code>labelChoices(request)</code>: the labels the Graph panel's edit mode offers for a new element: <code>{kind, mode, free, labels: [{label, declared, count, connects}], readOnly}</code>. Vertices: the schema's declared labels, then the graph's other labels by count. An edge between the vertices <code>from</code> and <code>to</code>: the declared edge labels whose <code>connections</code> allow the pair (any label of an endpoint matches, <code>*</code> matches all, no connections allow every pair), then the graph's other edge labels, then (outside mode <code>closed</code>, where topology is not enforced) the declared labels that connect other labels (<code>connects: false</code>). In mode <code>closed</code> only declared, connecting labels and <code>free: false</code> (no label typed by hand). A missing endpoint is a 422</td></tr>
+<tr><td><code>POST /api/element/create</code> <code>{kind: "vertex", labels, id?, properties: [[key, typed]], validateOnly?}</code> or <code>{kind: "edge", label, from, to, id?, properties, validateOnly?}</code></td><td><code>createElement(request)</code>: creates the element as ONE commit, validated by the engine (labels, connections, required properties, types); every property is tried, so all bad values come back at once: <code>{ok: true, created, element, drawn: {kind, id, label, caption, source?, target?}}</code> or <code>{ok: false, errors: [{field, message, help?}]}</code> (<code>field</code> a property key, <code>label</code>, <code>id</code>, <code>from</code>/<code>to</code> or <code>general</code>; always 200). <code>validateOnly</code> runs it as a dry run (no commit, no automatic id used up)</td></tr>
+<tr><td><code>POST /api/element/delete</code> <code>{kind, id, validateOnly?}</code></td><td><code>deleteElement(request)</code>: deletes a vertex with its edges, or an edge, as ONE commit: <code>{ok: true, deleted, edges}</code> (<code>edges</code>: the edges removed with the vertex; with <code>validateOnly</code> they are counted and nothing is deleted) or <code>{ok: false, errors}</code>. Creating and deleting are refused, like <code>element/update</code>, while the graph is read-only (a past state's view, a backup, maintenance mode)</td></tr>
+<tr><td><code>POST /api/layout</code></td><td><code>layoutStart(input, options)</code>: starts the engine's force layout of a drawing (<code>{vertexCount, edgeSource, edgeTarget, seed?, iterations?, budgetMs?}</code>) and runs its first slice; answers the job's status <code>{job, state, iterations, totalIterations, progress, elapsedMs, vertexCount, cached}</code>, with <code>positions</code> (<code>x, y</code> per vertex) once <code>state</code> is <code>done</code> or <code>cancelled</code>. A drawing laid out recently comes from the cache at once</td></tr>
+<tr><td><code>POST /api/layout/step</code></td><td><code>layoutStep(job, budgetMs)</code>: the next slice (<code>{job, budgetMs?}</code>, default 100 ms, at most 500); Stop (<code>POST /api/cancel</code>) ends a running slice as <code>cancelled</code></td></tr>
+<tr><td><code>POST /api/layout/cancel</code></td><td><code>layoutCancel(job)</code>: ends the job, keeping the positions reached so far</td></tr>
+<tr><td><code>GET /api/completions</code>, <code>GET /api/token-values</code>, <code>GET /api/memory</code></td><td><code>completions()</code>, <code>tokenValues()</code>, <code>memoryUsage()</code></td></tr>
+<tr><td><code>GET /api/statistics</code></td><td><code>statistics()</code>: <code>{statistics, memory, process, limits: {presets, defaults}}</code>. <code>process</code> is the memory the process holds beside the graph (<code>GraphStatistics</code> stays data counts): <code>memory</code> is the whole process (<code>liveHeapBytes</code>: the bytes the Rust allocator holds, from the CLI's tracking allocator; <code>rssBytes</code> and <code>peakRssBytes</code>: the resident set size, from <code>/proc/self/status</code> <code>VmRSS</code>/<code>VmHWM</code> on Linux and from <code>ps -o rss=</code> on macOS, where the peak is the highest value any report of this server has seen; no RSS on Windows or other platforms; each member is left out when unknown; <code>source</code> is <code>proc</code>, <code>ps</code>, <code>allocator</code> or <code>none</code>; the WebAssembly playground adds <code>wasmMemoryBytes</code>, the linear memory size, <code>source</code> <code>wasm</code>), <code>models</code> lists every loaded embedding model that reports its size (<code>name</code>, <code>model</code>, <code>dimension</code>, <code>bytes</code>, <code>default</code>; an estimate of the weights and the tokenizer), and <code>aiChat {conversations, historyBytes, historyUncompressedBytes}</code> (the bytes the stored chat history takes, compressed per finished turn, and the bytes it would take uncompressed) is added when the server runs with <code>--ai</code>. The MCP <code>statistics</code> tool returns the same</td></tr>
+<tr><td><code>GET /api/workload[?history=minutes|hours|days]</code></td><td><code>workloadReport(history)</code>: the <a href="workload_statistics.html">workload statistics</a> of the served graph (<code>{level, queries, properties, locks, jobs}</code>; level <code>off</code> outside a Store); with <code>history</code> every row's buckets of that tier (chart data; an unknown tier is a 422). Only the queries a page or an agent runs count (under <code>playground</code> / <code>mcp</code>); the page's drawing and panels are not counted</td></tr>
+<tr><td><code>GET /api/jobs</code>, <code>POST /api/jobs/define|drop|enable|schedule|run</code>, <code>GET /api/jobs/history?name=..&amp;tier=..</code></td><td><code>jobs()</code>, <code>defineJob(spec)</code>, <code>dropJob(name)</code>, <code>setJobEnabled(name, on)</code>, <code>setJobSchedule(name, cron)</code>, <code>runJobNow(name)</code>, <code>jobHistory(name, tier)</code>: the <a href="scheduled_jobs.html">scheduled jobs</a> (list, define with field errors, switch, a system job's schedule, run now, the runs per minute/hour/day); a backup job may name any directory here, never in the browser</td></tr>
+<tr><td><code>GET /api/export?format=graphson|graphml</code></td><td><code>saveGraph(format)</code> (download)</td></tr>
+<tr><td><code>GET /api/export?format=gsnap</code></td><td><code>saveGraph('snapshot')</code>: the current state as a packed snapshot (binary download)</td></tr>
+<tr><td><code>POST /api/save</code></td><td>Save to file: <code>{path, format, bytes, warnings}</code>, plus <code>schemaPath</code> when the schema was written to the <code>--schema</code> file, or <code>warning</code> when a stored schema could not be saved (GraphML/GraphSON without <code>--schema</code>)</td></tr>
+<tr><td><code>GET /api/store</code></td><td><code>storeInfo()</code>: <code>{store: null}</code> without a Store, else position, snapshots, marks, WAL, the creation parameters (<code>storeId</code>, <code>damagePolicy</code>, <code>createdText</code>, <code>chunkBytes</code>), <code>damageFound</code> (<code>[{foundBy, atText, problems}]</code>), <code>frozenByDamage</code>, <code>damageText</code>, <code>backupFromMemory</code>, <code>models</code> (the <a href="store_models.html">embedding models</a> with their licences and <code>usedBySchema</code>) and <code>missingModels</code></td></tr>
+<tr><td><code>POST /api/store/checkpoint</code> <code>{name}</code>, <code>POST /api/store/mark</code> <code>{name}</code></td><td><code>checkpoint(name)</code>, <code>mark(name)</code> (422 with the diagnostic on failure; 409 without a Store)</td></tr>
+<tr><td><code>GET /api/store/snapshot?commit=N[&amp;models=without]</code></td><td>a stored snapshot as <code>.gsnap</code> (no <code>commit</code>: the latest), with the store's <a href="store_models.html">embedding models</a> unless <code>models=without</code></td></tr>
+<tr><td><code>POST /api/store/view</code> <code>{target}</code></td><td><code>openView(target)</code>: serve the state at the target read-only: <code>{view: {commitSeq, label, timeText, target}, graph}</code>; <code>GET /api/info</code> and <code>GET /api/store</code> report <code>view</code></td></tr>
+<tr><td><code>POST /api/store/live</code></td><td><code>closeView()</code>: back to the live graph</td></tr>
+<tr><td><code>POST /api/store/fork</code> <code>{target, dir}</code></td><td><code>fork(target, dir)</code>: <code>{fork: {dir, commitSeq, graphId, open, undo}}</code> (409: the directory exists)</td></tr>
+<tr><td><code>POST /api/store/rollback</code> <code>{target, delete}</code></td><td><code>rollback(target, delete)</code>: <code>{rollback: {target, previousCommitSeq, attic, undo, ...}, graph, store}</code></td></tr>
+<tr><td><code>GET /api/store/attic/changes?id=&amp;offset=&amp;limit=</code></td><td><code>atticChanges(id, offset, limit)</code>: one page of commits (<code>limit</code> default 100, at most 500) and the totals over all of them: <code>{commitCount, mutationCount, totals, offset, limit, commits: [{commitSeq, timeText, principal, counts, samples}], hasMore}</code></td></tr>
+<tr><td><code>POST /api/store/verify</code></td><td><code>verifyStore()</code>: <code>{verify: {ok, problems, notes, snapshotsChecked, segmentsChecked, recordsChecked}}</code></td></tr>
+<tr><td><code>POST /api/store/backup</code> <code>{dir, full, from_memory}</code></td><td><code>backupStore(body)</code>: a backup into <code>dir</code> (default <code>&lt;store&gt;-backup</code> next to the store; a relative path is next to it; an existing backup of the store takes an increment): <code>{backup: {dir, incremental, fromMemory, commitSeq, bytesText, warnings, restore}, store}</code>; 422 with the report on damage (nothing kept; the store's damage policy applies) and for a refused backup; <code>from_memory</code> only after damage was found</td></tr>
+<tr><td><code>GET /api/store/compaction</code></td><td><code>compactionAdvice()</code>: <code>{compaction: {recommended, reason, decidedBy, compactable, totalBytes, liveBytes, garbageBytes, pruneBytes, pruneFirst, reclaimableBytes, spaceNeeded, freeSpace, policy, ...}}</code> (also in <code>GET /api/store</code> as <code>compaction</code>, with <code>kind</code> and <code>space</code>)</td></tr>
+<tr><td><code>POST /api/store/compact</code></td><td><code>compactStore({dropMarks})</code>, optional body <code>{"dropMarks": true}</code> (an empty body is <code>{}</code>): <code>{compact: {keptFrom, snapshotsRemoved, segmentsRemoved, marksUnreachable, compacted, bytesBefore, bytesAfter, bytesFreed}, compaction}</code>; 409 in a read-only view; 409 <code>{"error", "marksUnreachable": [...]}</code> with nothing changed when the prune would make marks unreachable and <code>dropMarks</code> is not <code>true</code> (the playground sends it after the user confirmed)</td></tr>
+<tr><td><code>POST /api/store/attic/restore</code>, <code>/fork</code> (<code>{id, dir}</code>), <code>/remove</code> (<code>{id}</code>)</td><td><code>atticRestore(id)</code>, <code>atticFork(id, dir)</code>, <code>atticRemove(id)</code></td></tr>
+<tr><td><code>GET /api/queries?folder=</code></td><td><code>listQueries(folder)</code>: the saved queries <code>[{name, folder, description, params, status, error?, writes, effects, denied_writes}]</code> (an effect <code>{action, element, label, text}</code>)</td></tr>
+<tr><td><code>GET /api/queries/get?name=</code></td><td><code>getQuery(name)</code>: one with its <code>body</code>, <code>dialect</code>, <code>meta</code>; <code>null</code> when there is none</td></tr>
+<tr><td><code>POST /api/queries/define</code> <code>{name, folder?, description?, params?: [{name, schema, default?}], body, replaces?}</code></td><td><code>defineQuery(spec)</code>: <code>{ok: true, query}</code> or <code>{ok: false, errors: [{field, message, help?}]}</code> (always 200); <code>replaces</code> renames in the same commit</td></tr>
+<tr><td><code>POST /api/queries/drop</code> <code>{name}</code>, <code>POST /api/queries/move</code> <code>{name, folder}</code></td><td><code>dropQuery(name)</code>: <code>{dropped}</code>; <code>moveQuery(name, folder)</code>: the entry</td></tr>
+<tr><td><code>POST /api/queries/call-text</code> <code>{name, args}</code></td><td><code>queryCallText(name, args)</code>: <code>{text}</code>, the call <code>g.query("name", #{..})</code> with the arguments as Rhai literals</td></tr>
+<tr><td><code>POST /api/queries/preview</code> <code>{name, args}</code></td><td><code>previewQuery(name, args)</code>: the call run as a dry run and rolled back, <code>{ok: true, changes: {vertices_added, vertices_dropped, edges_added, edges_dropped, properties_set, properties_removed, labels_changed, other}}</code> or <code>{ok: false, error}</code>; the run form shows it before it runs a query that writes</td></tr>
+<tr><td><code>GET /api/catalog/export</code>, <code>POST /api/catalog/load?replace=true</code></td><td><code>saveCatalog()</code>: the catalog file (<code>{"definitions": [..]}</code>: saved queries, compression rules, every kind); <code>loadCatalog(file)</code>: stores a catalog file in one commit (<code>replace=true</code>: drops what the file does not have; a compression rule compresses its values), <code>{loaded, graph}</code></td></tr>
+<tr><td><code>GET /api/compression</code></td><td><code>listCompressions()</code>: the <a href="../users_guide/compressed_properties.html">compression rules</a> <code>[{name, element, label, path, codec, minBytes, dictionary, stats: {compressedValues, plainBytes, storedBytes, dictionaryBytes}}]</code></td></tr>
+<tr><td><code>POST /api/compression/define</code> <code>{name, label, path, element?, codec?, minBytes?, dictionary?, replaces?}</code></td><td><code>defineCompression(spec)</code>: <code>{ok: true, rule}</code> or <code>{ok: false, errors: [{field, message, help?}]}</code> (always 200); <code>replaces</code> renames in the same commit</td></tr>
+<tr><td><code>POST /api/compression/drop</code> <code>{name}</code>, <code>POST /api/compression/recompress</code> <code>{name}</code></td><td><code>dropCompression(name)</code>: <code>{dropped}</code>; <code>recompress(name)</code>: the rule's entry (422 when there is none)</td></tr>
+<tr><td><code>POST /api/compression/estimate</code> <code>{label, path, element?, codec?, minBytes?, dictionary?}</code></td><td><code>estimateCompression(spec)</code>: <code>{ok: true, estimate}</code> or <code>{ok: false, errors: [{field, message, help?}]}</code> (always 200); <a href="../users_guide/compressed_properties.html#estimating-the-gain">changes nothing</a></td></tr>
+<tr><td><code>GET /api/indexes</code></td><td><code>listIndexes()</code>: the <a href="../users_guide/property_indexes.html">property indexes</a> <code>[{name, element, label, key, type, transform, served, reason, stats: {entries, distinctValues, skipped, bytes} | null}]</code> (<code>transform</code> is <code>null</code> or <code>"to_lower"</code>; <code>stats</code> is <code>null</code>, <code>served</code> false and <code>reason</code> a text when the storage keeps the definition but serves no index, or the index type or transform is unknown to this version; <code>reason</code> is <code>null</code> otherwise)</td></tr>
+<tr><td><code>POST /api/indexes/create</code> <code>{label, key, element?, name?, type?, transform?}</code></td><td><code>createIndex(spec)</code>: <code>{ok: true, index}</code> or <code>{ok: false, errors: [{field, message, help?}]}</code> (always 200; <code>field</code> is <code>name</code>, <code>element</code>, <code>label</code>, <code>key</code>, <code>type</code>, <code>transform</code> or <code>general</code>; an unknown <code>type</code> is an error of <code>type</code>, an unknown <code>transform</code> of <code>transform</code>, a key the schema declares as values the index cannot hold one of <code>key</code>); <code>name</code> defaults to <code>&lt;label&gt;_&lt;key&gt;</code> (<code>&lt;label&gt;_&lt;key&gt;_edge</code> for an edge index, then <code>_to_lower</code> with that transform), <code>type</code> to <code>memory-ordered</code>, <code>transform</code> to none (<code>"to_lower"</code>: case-insensitive search with <code>has(key, __.to_lower().is(..))</code>); an existing name is refused (drop it first)</td></tr>
+<tr><td><code>POST /api/indexes/drop</code> <code>{name}</code></td><td><code>dropIndex(name)</code>: <code>{dropped}</code></td></tr>
+<tr><td><code>POST /api/memory/report</code> (a spec, <code>{}</code>: a full report)</td><td><code>memoryReport(spec)</code>: the <a href="../users_guide/memory_and_profiling.html">memory report</a>, <code>{ok, report}</code> or <code>{ok: false, error}</code></td></tr>
+<tr><td><code>POST /api/advise</code> (thresholds, <code>{}</code>: the defaults), <code>POST /api/advise/apply</code> <code>{id, spec}</code>, <code>POST /api/advise/dismiss</code> <code>{id, days?}</code>, <code>POST /api/advise/restore</code> <code>{id}</code></td><td><code>advise(spec)</code>, <code>applyRecommendation(id, spec)</code>, <code>dismissRecommendation(id, days)</code>, <code>restoreRecommendation(id)</code>: the <a href="optimize.html">storage advisor</a></td></tr>
+<tr><td><code>GET /openapi.json</code>, <code>GET /api/openapi.json</code></td><td>the OpenAPI description of this API, with this server's version</td></tr>
+</tbody></table>
+</div>
+<p>A <code>target</code> is <code>{"commit": N}</code>, <code>{"mark": "name"}</code> or <code>{"time": T}</code> with <code>T</code> an RFC 3339 date-time
+(as the CLI's <code>--at-time</code>) or microseconds. <code>GET /api/store</code> lists every attic entry with
+<code>bytes</code>, <code>restorable</code> and <code>restoreBlocked</code> (the reason a restore is refused now). A change of the
+catalog (a saved query or a compression rule defined, replaced or dropped, a property index
+created or dropped) is a commit like any other: the change feed records it, and on a Store it is journaled. A <code>recompress</code> changes no data
+and commits nothing. Any other path is a static file of the UI (<code>--ui-dir</code> first, then the embedded copy).</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../users_guide/web_playground.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../persistence/docker.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../users_guide/web_playground.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../persistence/docker.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

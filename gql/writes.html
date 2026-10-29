@@ -1,0 +1,640 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Writing with GQL - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/gql/writes.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="writing-with-gql"><a class="header" href="#writing-with-gql">Writing with GQL</a></h1>
+<p><code>gql()</code> writes too. This version supports <strong><code>INSERT</code></strong> (Cypher <code>CREATE</code> is its
+<a href="aliases.html">alias</a>), which creates nodes and edges, and <strong><code>SET</code></strong> and <strong><code>REMOVE</code></strong>, which change
+the properties and labels of existing ones, and <strong><code>DELETE</code></strong> / <strong><code>DETACH DELETE</code></strong>, which remove
+them; each runs once for each row that reaches it. Cypher's <strong><code>MERGE</code></strong>, which finds a pattern
+or creates it when it is missing, is accepted as a <a href="aliases.html#merge">compatibility form</a>
+(<a href="#merge">MERGE</a>).</p>
+<p>A writing query is one unit, like every traversal: it commits when it succeeds, and a query that
+fails, on any row, changes nothing (<a href="#one-query-is-one-unit">Units</a>).</p>
+<h2 id="insert"><a class="header" href="#insert">INSERT</a></h2>
+<p><code>INSERT</code> takes one or more comma-separated patterns. A node pattern creates a node with the
+labels written (none, one, or several joined by <code>&amp;</code>; Cypher's <code>:A:B</code> is the alias) and the
+properties of its map. An edge pattern creates an edge between the nodes beside it: it needs a
+direction (<code>-[:T]-&gt;</code> or <code>&lt;-[:T]-</code>) and exactly one label.</p>
+<pre><code class="language-rhai graph=modern script">g.gql("INSERT (:city {name: 'Berlin', population: 3.7})").iterate();
+g.gql("INSERT (a:person {name: 'ann'})-[:knows {since: 2020}]-&gt;(b:person&amp;admin {name: 'bob'})").iterate();
+g.gql("MATCH (a {name: 'ann'})-[e:knows]-&gt;(b) RETURN e.since AS since, labels(b) AS labels").to_list()   // #{"labels": ["person", "admin"], "since": 2020}
+</code></pre>
+<p>The same in Gremlin:</p>
+<pre><code class="language-rhai graph=modern">g.add_v("person").property("name", "ann").as("a").add_v(["person", "admin"]).property("name", "bob").add_e("knows").from("a").property("since", 2020).count().next()   // 1
+</code></pre>
+<p>A query may end with the <code>INSERT</code>: it then returns <strong>no rows</strong>. GQL's <code>FINISH</code> ends a query
+without a result too. <code>RETURN</code> after an <code>INSERT</code> reads the new elements, and <code>RETURN *</code> includes
+the variables the <code>INSERT</code> named:</p>
+<pre><code class="language-rhai graph=modern">g.gql("INSERT (c:city {name: 'Berlin'}) RETURN c.name AS name").to_list()   // #{"name": "Berlin"}
+g.gql("CREATE (c:city:capital {name: 'Rome'}) RETURN labels(c) AS l").to_list()   // #{"l": ["city", "capital"]}
+g.gql("INSERT (:city {name: 'Paris'})").to_list()   // no rows
+g.gql("INSERT (:city {name: 'Paris'}) FINISH").to_list()   // no rows
+</code></pre>
+<p><strong>Property values</strong> are expressions: literals, <code>$parameters</code>, functions and the variables of the
+row. A property whose value is <code>NULL</code> is <strong>not stored</strong> (GQL has no stored <code>NULL</code>; a Gremlin
+<code>property(k, ())</code> stores one). Lists and maps are stored as they are, also lists of mixed kinds
+(a <a href="semantics.html#writes">difference from Neo4j</a>); a node, an edge or a path cannot be a property
+value (<code>22G03</code>).</p>
+<pre><code class="language-rhai graph=modern">g.gql("INSERT (n:x {k: NULL, tags: ['a', 1], address: {city: 'Rome'}}) RETURN keys(n) AS keys, n.address.city AS city").to_list()   // #{"city": "Rome", "keys": ["tags", "address"]}
+</code></pre>
+<p><strong>Pattern rules.</strong> A variable bound before the <code>INSERT</code> is written alone, <code>(p)</code>: it connects the
+existing node and may not carry labels or properties (<code>42002</code>; change an existing node with
+<a href="#set"><code>SET</code></a>, as in <code>MATCH (p:person) SET p:admin</code>). An edge without a direction, an edge with
+a label expression (<code>:r|s</code>), a node label expression other than a conjunction, a path variable
+(<code>p = ...</code>) and <code>WHERE</code> or a quantifier inside the pattern are errors before the run; the help
+shows the accepted form.</p>
+<pre><code class="language-rhai graph=modern">g.gql("INSERT (a:x)-[:r]-(b:y)")   // error: INSERT needs a direction
+g.gql("MATCH (p:person) INSERT (p:admin)")   // error: the variable `p` is already bound
+</code></pre>
+<h2 id="set"><a class="header" href="#set">SET</a></h2>
+<p><code>SET</code> takes one or more comma-separated items and applies them to the elements of each row that
+reaches it, left to right, so a later item sees the earlier ones:</p>
+<div class="table-wrapper"><table><thead><tr><th>Item</th><th>Effect</th></tr></thead><tbody>
+<tr><td><code>SET n.k = expr</code> (also <code>SET (n).k = expr</code>)</td><td>sets one property of the node or edge <code>n</code></td></tr>
+<tr><td><code>SET n = {k: expr, ...}</code></td><td>replaces every property: the keys missing from the map are removed</td></tr>
+<tr><td><code>SET n += {k: expr, ...}</code></td><td>merges the map in (a Cypher <a href="aliases.html#set-and-remove">compatibility form</a>): other keys stay</td></tr>
+<tr><td><code>SET n:A</code> / <code>SET n IS A</code></td><td>adds the label <code>A</code> to the node <code>n</code>; <code>SET n:A:B</code> and <code>SET n IS A &amp; B</code> add both</td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person {name: 'marko'}) SET p.age = p.age + 1, p.checked = true RETURN p.age AS age, p.checked AS checked").to_list()   // #{"age": 30, "checked": true}
+g.gql("MATCH (p:person {name: 'marko'}) SET p:admin:staff RETURN labels(p) AS labels").to_list()   // #{"labels": ["person", "admin", "staff"]}
+g.gql("MATCH (p:person {name: 'marko'}) SET p += {city: 'Rome'} RETURN properties(p) AS props").to_list()   // #{"props": #{"age": 29, "city": "Rome", "name": "marko"}}
+g.gql("MATCH (p:person {name: 'marko'}) SET p = {name: 'marko', city: 'Rome'} RETURN properties(p) AS props").to_list()   // #{"props": #{"city": "Rome", "name": "marko"}}
+g.gql("MATCH (a {name: 'marko'})-[e:knows]-&gt;(b) SET e.checked = true RETURN b.name AS b, e.checked AS checked ORDER BY b").to_list()   // josh true, vadas true
+</code></pre>
+<p><strong><code>NULL</code> removes.</strong> GQL stores no <code>NULL</code>, so <code>SET n.k = NULL</code> removes the property, and a <code>NULL</code>
+value in the map of <code>SET n = {..}</code> or <code>SET n += {..}</code> removes its key. A <code>NULL</code> <strong>target</strong> (a
+variable an <code>OPTIONAL MATCH</code> left <code>NULL</code>) is skipped: the item does nothing for that row. A
+<code>NULL</code> map on the right of <code>=</code> or <code>+=</code> is an error (<code>22004</code>): write <code>SET n = {}</code> to remove every
+property, or <code>coalesce($map, {})</code> for a parameter that may be <code>NULL</code>.</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person {name: 'marko'}) SET p.age = NULL RETURN keys(p) AS keys").to_list()   // #{"keys": ["name"]}
+g.gql("MATCH (p:person {name: 'marko'}) SET p += {age: NULL, city: 'Rome'} RETURN properties(p) AS props").to_list()   // #{"props": #{"city": "Rome", "name": "marko"}}
+g.gql("OPTIONAL MATCH (p:person {name: 'nobody'}) SET p.seen = true RETURN p").to_list()   // #{"p": ()}
+g.gql("MATCH (p:person {name: 'marko'}) SET p = $props", #{props: ()})   // error: the right side of SET p = .. is NULL, not a map
+</code></pre>
+<p><strong>Values</strong> follow the rules of <code>INSERT</code>: literals, <code>$parameters</code>, functions and the row's
+variables; lists and maps are stored as they are; a node, an edge or a path cannot be a property
+value (<code>22G03</code>). Every value of a map is checked before the item writes anything. On the right of
+<code>=</code> and <code>+=</code> a node or an edge stands for its properties (<code>SET n = m</code> copies them, <code>SET n = n</code>
+changes nothing); any other value that is not a map is an error (<code>22G03</code>). An aggregate cannot be
+a value: aggregate in a <code>WITH</code> first.</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person {name: 'marko'}), (q:person {name: 'josh'}) SET p = q RETURN properties(p) AS props").to_list()   // #{"props": #{"age": 32, "name": "josh"}}
+g.gql("MATCH (p:person) OPTIONAL MATCH (p)-[:created]-&gt;(s) WITH p, count(s) AS n SET p.projects = n RETURN p.name AS name, p.projects AS n ORDER BY name").to_list()
+// josh 2, marko 1, peter 1, vadas 0
+g.gql("MATCH (p:person {name: 'marko'}) SET p.self = p")   // error: a property cannot hold a graph element
+</code></pre>
+<p><strong>Labels.</strong> A label item changes a node's label set: adding a label it has, like removing one it
+lacks, is no change. An edge has exactly one label, its type, so a label item on an edge is an
+error: <code>42002</code> before the run when the variable is an edge of a pattern, <code>22G03</code> when a row
+holds an edge (Gremlin's <code>set_label()</code> changes an edge's label). The item names labels joined by
+<code>:</code> or <code>&amp;</code>; <code>|</code>, <code>!</code> and <code>%</code> are syntax errors.</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (a)-[e:knows]-&gt;(b) SET e:friend")   // error: an edge has exactly one label
+</code></pre>
+<p><strong>Targets.</strong> The target of an item is a variable of the row: <code>n.k</code>, <code>(n).k</code> or <code>n</code>. A deeper
+target (<code>n.address.city = ..</code>, <code>head(list).k = ..</code>) is not supported yet (<code>0A000</code>); name the
+element first, as in <code>WITH head(list) AS x SET x.k = ..</code>. The variable must be bound before the
+<code>SET</code> (<code>42002</code>).</p>
+<h2 id="remove"><a class="header" href="#remove">REMOVE</a></h2>
+<p><code>REMOVE</code> takes comma-separated items like <code>SET</code>: <code>REMOVE n.k</code> removes a property of a node or an
+edge, <code>REMOVE n:A</code> (also <code>REMOVE n IS A</code>, <code>REMOVE n:A:B</code>) removes labels from a node, and the
+last label may go too. Removing what is not there changes nothing, and a <code>NULL</code> target is
+skipped.</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person {name: 'marko'}) REMOVE p.age RETURN keys(p) AS keys").to_list()   // #{"keys": ["name"]}
+g.gql("MATCH (s:software {name: 'ripple'}) SET s:product REMOVE s:software RETURN labels(s) AS labels").to_list()   // #{"labels": ["product"]}
+g.gql("MATCH (p:person {name: 'marko'}) REMOVE p.nothing, p:nothing RETURN labels(p) AS labels, keys(p) AS keys").to_list()   // #{"keys": ["name", "age"], "labels": ["person"]}
+</code></pre>
+<p>The same in Gremlin:</p>
+<pre><code class="language-rhai graph=modern">g.v().has("name", "marko").property("age", 30).add_label("admin").values("age").next()   // 30
+g.v().has("name", "marko").remove_property("age").properties().key().to_list()   // "name"
+g.v().has("name", "ripple").add_label("product").drop_label("software").label().next()   // "product"
+</code></pre>
+<h2 id="delete"><a class="header" href="#delete">DELETE</a></h2>
+<p><code>DELETE</code> takes one or more comma-separated expressions and removes the nodes and edges they
+give, for every row that reaches it. <strong><code>DETACH DELETE</code></strong> removes a node together with all its
+edges. A plain <code>DELETE</code> (GQL's default, also written <strong><code>NODETACH DELETE</code></strong>) removes only nodes
+without edges: a node that still has an edge fails the query (<code>G1001</code>) and nothing is removed.
+Edges the same clause deletes do not count, so <code>DELETE e, n</code> removes a node and the edge that
+held it in one clause.</p>
+<pre><code class="language-rhai graph=modern script">g.gql("MATCH (p:person {name: 'marko'}) DETACH DELETE p").iterate();
+[g.v().count().next(), g.e().count().next()]   // [5, 3]
+</code></pre>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (a {name: 'marko'})-[e:knows]-&gt;(b {name: 'vadas'}) DELETE e RETURN b.name AS still_here").to_list()   // #{"still_here": "vadas"}
+g.gql("MATCH (s:software {name: 'ripple'})&lt;-[e]-() DELETE e, s RETURN count(*) AS n").to_list()   // #{"n": 1}
+g.gql("MATCH (p:person {name: 'marko'}) DELETE p")   // error: `p` is a node that still has edges (G1001)
+</code></pre>
+<p>The NODETACH check runs for the <strong>whole clause</strong> before it removes anything: the help of the
+error names the <code>DETACH DELETE</code> that works, built from the failing query.</p>
+<p><strong>Targets</strong> are expressions: a node or an edge variable, a <strong>path</strong> (<code>MATCH p = .. DETACH DELETE p</code> removes its nodes and edges), a <strong>list</strong> of them (also nested, such as <code>collect(n)</code>), or an
+expression that gives one (a map member, <code>head(list)</code>). A <code>NULL</code> target (an <code>OPTIONAL MATCH</code>
+that found nothing) is skipped, and an element already removed (by an earlier row or clause) is
+not removed twice. A target that gives another value fails the query: before the run when the
+text shows it (<code>DELETE 1 + 1</code>, <code>42002</code>), on the row otherwise (<code>22G03</code>). A label test is not a
+target: <code>DELETE n:L</code> is a syntax error whose help names <code>REMOVE n:L</code>, which removes the label and
+keeps the node.</p>
+<pre><code class="language-rhai graph=modern script">g.gql("MATCH p = (:person {name: 'marko'})-[:knows]-&gt;(:person {name: 'vadas'}) DETACH DELETE p").iterate();
+[g.v().count().next(), g.e().count().next()]   // [4, 3]
+</code></pre>
+<pre><code class="language-rhai graph=modern">g.gql("OPTIONAL MATCH (p:person {name: 'nobody'}) DELETE p RETURN p").to_list()   // #{"p": ()}
+g.gql("MATCH (p:person) WITH collect(p) AS people DETACH DELETE people RETURN size(people) AS n").to_list()   // #{"n": 4}
+g.gql("MATCH (n:person) DELETE n:person")   // error: a label test is not an element; REMOVE n:person removes the label
+</code></pre>
+<p><strong>After a <code>DELETE</code>.</strong> A deleted element is gone for the rest of the query: reading its
+properties, labels, <code>element_id()</code> or endpoints is an <strong>error</strong>, never a silent <code>NULL</code>, and so
+is returning it (<code>RETURN n</code>, also with <code>LIMIT 0</code> after it, and <code>RETURN p</code> of a path holding it).
+Read what you need <strong>before</strong> the <code>DELETE</code> and carry it in a <code>WITH</code>; <code>count(n)</code> and <code>n IS NULL</code>
+still work, and <code>type(e)</code> of a deleted edge still gives its label (as in the openCypher tests).
+A walk from a deleted node (<code>MATCH (n)--&gt;(m)</code> after deleting <code>n</code>) finds nothing.</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person {name: 'vadas'}) WITH p, properties(p) AS props DETACH DELETE p RETURN props").to_list()   // #{"props": #{"age": 27, "name": "vadas"}}
+g.gql("MATCH (p:person {name: 'vadas'}) DETACH DELETE p RETURN count(p) AS deleted").to_list()   // #{"deleted": 1}
+g.gql("MATCH (a)-[e:created]-&gt;(s:software {name: 'lop'}) DELETE e RETURN type(e) AS t, a.name AS who ORDER BY who").to_list()   // three rows, t "created"
+g.gql("MATCH (p:person {name: 'vadas'}) DETACH DELETE p RETURN p")   // error: the node was deleted earlier in this query
+g.gql("MATCH (p:person {name: 'vadas'}) DETACH DELETE p RETURN p.name AS name")   // error: the node was deleted earlier in this query
+</code></pre>
+<p>Returning a deleted node is an error in <code>gql()</code> where Neo4j returns a value of it; the reasons
+are on <a href="semantics.html#delete">Semantics</a>.</p>
+<p>A query that fails after its <code>DELETE</code> changed nothing (<a href="#one-query-is-one-unit">Units</a>): the
+removed elements come back with their ids, labels, properties and edges. In Rust they are new
+elements: a <code>VertexId</code> / <code>EdgeId</code> handle taken before the failed run is stale and must be looked
+up again by id (<a href="../users_guide/transactions.html#what-a-rollback-restores">What a rollback restores</a>),
+exactly as after a failing Gremlin <code>drop()</code>. A Rhai vertex or edge value finds the element by its
+id and stays usable.</p>
+<p>The same in Gremlin:</p>
+<pre><code class="language-rhai graph=modern">g.v().has("name", "marko").drop().count().next()   // 0
+g.v().has("name", "marko").out_e("knows").where(__.in_v().has("name", "vadas")).drop().iterate()
+</code></pre>
+<p><code>drop()</code> of a vertex always removes its edges (it is <code>DETACH DELETE</code>); the NODETACH check has no
+Gremlin twin.</p>
+<h2 id="merge"><a class="header" href="#merge">MERGE</a></h2>
+<p><code>MERGE</code> is Cypher's "find or create": for each row it looks for its <strong>one pattern</strong>, and every
+match becomes a row; when nothing matches, it <strong>creates the whole pattern</strong> and the row goes on
+with the new elements. ISO GQL has no <code>MERGE</code> statement; <code>gql()</code> accepts it as a
+<a href="aliases.html#merge">compatibility form</a> with Cypher's meaning, so a query written for Neo4j runs
+as it is. The second <code>MERGE</code> of the first block finds the city the first one created:</p>
+<pre><code class="language-rhai graph=modern script">g.gql("MERGE (c:city {name: 'Berlin'}) RETURN c.name AS name").to_list();   // #{"name": "Berlin"}: created
+g.gql("MERGE (c:city {name: 'Berlin'}) RETURN c.name AS name").to_list();   // #{"name": "Berlin"}: found
+g.v().has_label("city").count().next()   // 1
+</code></pre>
+<pre><code class="language-rhai graph=modern">g.gql("MERGE (p:person {name: 'marko'}) RETURN p.age AS age").to_list()   // #{"age": 29}: found, nothing created
+g.gql("MERGE p = (:person {name: 'marko'})-[:knows]-&gt;(f:person) RETURN f.name AS friend, path_length(p) AS hops ORDER BY friend").to_list()   // josh and vadas: two matches, two rows
+</code></pre>
+<p><strong>The pattern.</strong> One path pattern (a second one after <code>,</code> is a syntax error: write one <code>MERGE</code>
+per pattern). Its nodes have the labels written (<code>:A:B</code> or <code>:A&amp;B</code>; a found node carries all of
+them and may have more) and a property map compared with GQL <code>=</code>; its edges have exactly one
+label and no quantifier, and the pattern has no <code>WHERE</code>. A path variable (<code>MERGE p = ..</code>) gives
+the found or the created path.</p>
+<p><strong>A variable bound before</strong> stands for its element: write it alone, as <code>(a)</code>, and <code>MERGE</code>
+reuses it in both cases, so an edge between matched nodes is created only when it is missing.
+Labels or properties on a bound node (<code>MERGE (a:admin)</code>), a bound edge variable, and a pattern
+that is only a bound node (<code>MATCH (a) MERGE (a)</code>) are refused before the run (<code>42002</code>); change a
+bound node with <code>SET</code>. An unbound variable is new: the <code>MERGE</code> finds or creates its element.</p>
+<pre><code class="language-rhai graph=modern script">g.gql("MATCH (a:person {name: 'marko'}), (b:person {name: 'peter'}) MERGE (a)-[e:knows]-&gt;(b) RETURN b.name AS to").to_list();   // #{"to": "peter"}: created
+g.gql("MATCH (a:person {name: 'marko'}), (b:person {name: 'peter'}) MERGE (a)-[e:knows]-&gt;(b) RETURN b.name AS to").to_list();   // found
+g.e().has_label("knows").count().next()   // 3: marko's two edges and the new one
+</code></pre>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (a:person) MERGE (a)")   // error: a bound variable alone has nothing to find or create
+g.gql("MATCH (a:person) MERGE (a:admin)")   // error: a bound node carries no new labels in MERGE; SET a:admin does
+g.gql("MERGE (a:person {name: 'x'}), (b:person {name: 'y'})")   // error: MERGE takes exactly one pattern
+</code></pre>
+<p><strong>Either direction.</strong> An edge without a direction, <code>-[:T]-</code>, matches an edge in either
+direction; when it is created, it points from left to right, from the node written first:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (a:person {name: 'josh'}), (b:person {name: 'marko'}) MERGE (a)-[e:knows]-(b) RETURN startNode(e).name AS from").to_list()   // #{"from": "marko"}: the stored edge marko -&gt; josh
+g.gql("MATCH (a:person {name: 'vadas'}), (b:person {name: 'josh'}) MERGE (a)-[e:knows]-(b) RETURN startNode(e).name AS from").to_list()   // #{"from": "vadas"}: created left to right
+</code></pre>
+<p><strong>Per row, and each row sees the rows before it.</strong> <code>MERGE</code> runs once for each row, in order,
+and a row finds what an earlier row created: a repeated item is created once, so <code>MERGE</code> is
+idempotent within a query as across queries. The whole pattern is matched or created: <code>MATCH (p:person) MERGE (p)-[:in]-&gt;(g:group {name: 'x'})</code> creates a group for every person without
+such an edge, because the pattern with the edge does not match for them; to share one group,
+<code>MERGE</code> the group first and the edge second:</p>
+<pre><code class="language-rhai graph=modern">g.gql("FOR n IN ['Rome', 'Rome', 'Oslo'] MERGE (c:city {name: n}) RETURN count(*) AS rows, count(DISTINCT c) AS cities").to_list()   // #{"cities": 2, "rows": 3}
+g.gql("MATCH (p:person) WHERE p.age &gt; 30 MERGE (g:group {name: 'over30'}) MERGE (p)-[:in]-&gt;(g) RETURN count(DISTINCT g) AS groups").to_list()   // #{"groups": 1}
+</code></pre>
+<p><strong>ON CREATE SET and ON MATCH SET.</strong> After the pattern, <code>ON CREATE SET &lt;items&gt;</code> changes the
+elements of a row that the <code>MERGE</code> created, and <code>ON MATCH SET &lt;items&gt;</code> those of a row it found.
+The items are the items of <a href="#set"><code>SET</code></a> and may read every variable of the row (the pattern's
+and the earlier ones). Both may be written several times and in any order; they apply in the
+order written, each in its own case.</p>
+<pre><code class="language-rhai graph=modern script">g.gql("FOR name IN ['marko', 'ann'] MERGE (p:person {name: name}) ON CREATE SET p.visits = 1 ON MATCH SET p.visits = coalesce(p.visits, 0) + 1").iterate();
+g.gql("FOR name IN ['marko', 'ann'] MERGE (p:person {name: name}) ON CREATE SET p.visits = 1 ON MATCH SET p.visits = coalesce(p.visits, 0) + 1 RETURN p.name AS name, p.visits AS visits ORDER BY name").to_list()   // ann 2, marko 2
+</code></pre>
+<pre><code class="language-rhai graph=modern">g.gql("MERGE (p:person {name: 'marko'}) ON CREATE SET p.new = true ON MATCH SET p.new = false RETURN p.new AS new").to_list()   // #{"new": false}
+g.gql("MERGE (p:person {name: 'marko'}) ON MATCH SET p.seen = 1 ON MATCH SET p.seen = p.seen + 1 RETURN p.seen AS seen").to_list()   // #{"seen": 2}
+</code></pre>
+<p><strong>NULL in the pattern.</strong> <code>MERGE</code> cannot look for or create a <code>NULL</code> property value: a property
+of the pattern that is <code>NULL</code> on a row (a missing parameter, an <code>OPTIONAL MATCH</code> that found
+nothing) fails the query with <code>22004</code> when that row runs, and nothing of the query is kept.
+Keep such rows away with <code>FILTER x IS NOT NULL</code>, or give a default with <code>coalesce()</code>:</p>
+<pre><code class="language-rhai graph=modern">g.gql("FOR x IN [1, NULL] MERGE (n:num {v: x})")   // error: MERGE cannot match or create `{v: NULL}` (22004)
+g.gql("FOR x IN [1, NULL] FILTER x IS NOT NULL MERGE (n:num {v: x}) RETURN count(*) AS n").to_list()   // #{"n": 1}
+</code></pre>
+<p><strong>A <code>MERGE</code> that only finds changes nothing.</strong> It commits no change: a commit hook and the
+journal see nothing, and the dev server's answer reports no change summary and no commit. An
+<code>ON MATCH SET</code> that runs is a change, as a <code>SET</code> is.</p>
+<p>The same in Gremlin: <a href="../traversal/steps/merge_v.html"><code>merge_v()</code></a> finds or creates a vertex,
+<a href="../traversal/steps/merge_e.html"><code>merge_e()</code></a> an edge between given vertices, and the
+<code>fold().coalesce(__.unfold(), __.add_v(..))</code> idiom does it by hand. Their <code>onCreate</code> option map
+replaces the creation map, while <code>ON CREATE SET</code> changes the created element afterwards.</p>
+<pre><code class="language-rhai graph=modern">g.merge_v(#{"T.label": "city", name: "Berlin"}).values("name").to_list()   // "Berlin"
+g.v().has_label("city").has("name", "Berlin").fold().coalesce(__.unfold(), __.add_v("city").property("name", "Berlin")).values("name").to_list()   // "Berlin"
+</code></pre>
+<p>The same in plain GQL, without the compatibility form: a <code>CALL</code> body that inserts only when
+nothing exists yet, then a <code>MATCH</code> that reads the result:</p>
+<pre><code class="language-rhai graph=modern">g.gql("CALL { FILTER NOT EXISTS { MATCH (:city {name: 'Berlin'}) } INSERT (:city {name: 'Berlin'}) } MATCH (c:city {name: 'Berlin'}) RETURN count(c) AS cities").to_list()   // #{"cities": 1}
+</code></pre>
+<h2 id="once-per-row"><a class="header" href="#once-per-row">Once per row</a></h2>
+<p>A write clause runs once for each row that reaches it, so the clauses before it decide how many
+elements an <code>INSERT</code> creates and how often a <code>SET</code> applies (<code>SET n.c = n.c + 1</code> over two rows of
+the same node adds 2). A <code>MATCH</code> gives one row per match, <code>FOR</code> (Cypher <code>UNWIND</code>) one per list
+item, and a variable of the row connects the new elements to what it matched:</p>
+<pre><code class="language-rhai graph=modern script">g.gql("MATCH (p:person {name: 'marko'}) INSERT (p)-[:likes]-&gt;(f:fruit {name: 'apple'}) RETURN f.name AS fruit").to_list();   // #{"fruit": "apple"}
+g.gql("FOR n IN $names INSERT (:person {name: n, born: $year})", #{names: ["ann", "bob"], year: 1990}).iterate();
+g.gql("MATCH (p:person) WHERE p.born = 1990 RETURN p.name AS name ORDER BY name").to_list()   // #{"name": "ann"}, #{"name": "bob"}
+</code></pre>
+<p>A write clause may stand after <code>MATCH</code>, <code>OPTIONAL MATCH</code>, <code>FOR</code>, <code>WITH</code>, <code>LET</code>, <code>FILTER</code> and
+another write clause, and further clauses may follow it: a <code>MATCH</code> after the <code>INSERT</code> sees the new
+elements, and a new node can be connected to every row a later <code>MATCH</code> finds:</p>
+<pre><code class="language-rhai graph=modern">g.gql("INSERT (c:city {name: 'Berlin'}) MATCH (p:person) INSERT (p)-[:lives_in]-&gt;(c) RETURN count(*) AS n").to_list()   // #{"n": 4}
+g.gql("MATCH (p:person) WITH p, p.age + 1 AS later INSERT (p)-[:turns]-&gt;(:age {years: later}) RETURN p.name AS name, later ORDER BY name").to_list()
+// #{"later": 33, "name": "josh"}, #{"later": 30, "name": "marko"}, #{"later": 36, "name": "peter"}, #{"later": 28, "name": "vadas"}
+</code></pre>
+<p>A node an <code>OPTIONAL MATCH</code> left <code>NULL</code> cannot be an edge's endpoint: the query fails (<code>22004</code>)
+and changes nothing. Keep only the bound rows with <code>FILTER x IS NOT NULL</code> first:</p>
+<pre><code class="language-rhai graph=modern">g.gql("OPTIONAL MATCH (p:person {name: 'nobody'}) INSERT (p)-[:knows]-&gt;(:person)")   // error: the source node `p` of the inserted `:knows` edge is NULL
+g.gql("MATCH (p:person) OPTIONAL MATCH (p)-[:created]-&gt;(s) FILTER s IS NOT NULL INSERT (p)-[:made]-&gt;(s) RETURN count(*) AS n").to_list()   // #{"n": 4}
+</code></pre>
+<p><strong>Inside <code>CALL</code>.</strong> A <code>CALL</code> body may end with its write instead of <code>RETURN</code> (a unit subquery): it
+runs once per incoming row and passes the row on unchanged, also when the body found nothing:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) CALL (p) { INSERT (p)-[:likes]-&gt;(:fruit {name: p.name}) } RETURN count(*) AS c").to_list()   // #{"c": 4}
+</code></pre>
+<p>A subquery expression (<code>EXISTS { }</code>, <code>COUNT { }</code>, <code>COLLECT { }</code>) and a comprehension cannot
+write (<code>42001</code>), and a write in an operand of <code>UNION</code> is not supported yet.</p>
+<h2 id="what-a-row-sees"><a class="header" href="#what-a-row-sees">What a row sees</a></h2>
+<p>Each clause sees every write of the clauses before it, for all rows; within one clause the rows
+are processed in order, and each row sees the writes of the rows before it. A query never sees
+its own writes while it is still finding the rows of an earlier clause: <code>MATCH (n) INSERT (:X)</code>
+creates exactly one node per node that existed before, and <code>MATCH (a)-[e]-&gt;(b) INSERT (a)-[:copy]-&gt;(b)</code> copies each existing edge once, never the copies.</p>
+<pre><code class="language-rhai graph=modern script">g.gql("MATCH (n) INSERT (:X)").iterate();
+g.v().has_label("X").count().next()   // 6
+</code></pre>
+<pre><code class="language-rhai graph=modern">g.gql("FOR i IN range(1, 3) INSERT (:n {i: i}) WITH count(*) AS made MATCH (m:n) RETURN made, count(m) AS seen").to_list()   // #{"made": 3, "seen": 3}
+</code></pre>
+<p>A value a row carried before a <code>SET</code> keeps the value it had: <code>WITH p.age AS old SET p.age = 0</code>
+still returns the old age in <code>old</code>, while <code>p.age</code> reads the new one.</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person {name: 'marko'}) WITH p, p.age AS old SET p.age = 0 RETURN old, p.age AS now").to_list()   // #{"now": 0, "old": 29}
+</code></pre>
+<p>The details, and how this follows from the executor, are on
+<a href="semantics.html#writes">Semantics</a>.</p>
+<h2 id="one-query-is-one-unit"><a class="header" href="#one-query-is-one-unit">One query is one unit</a></h2>
+<p>A <code>gql()</code> query is one traversal and so one unit (<a href="../users_guide/transactions.html">Transactions</a>):
+when any row fails (a data error on the last row, a schema violation, a permission, a resource
+limit, cancellation), nothing the query wrote stays. Here the second item divides by zero, and
+the node of the first item is rolled back with it (<code>execute()</code> keeps the error instead of
+raising it, so the script goes on):</p>
+<pre><code class="language-rhai graph=modern script">let run = g.gql("FOR x IN [1, 0] INSERT (:n {v: 1 / x})").execute();   // fails: division by zero
+g.v().has_label("n").count().next()   // 0
+</code></pre>
+<p>A <code>SET</code> that fails on one row leaves the rows before it unchanged too:</p>
+<pre><code class="language-rhai graph=modern script">let set = g.gql("MATCH (p:person) SET p.score = 100 / (p.age - 27)").execute();   // fails on vadas (27)
+g.v().has("score").count().next()   // 0
+</code></pre>
+<p>Commit hooks see the query's <code>ChangeSet</code> and may veto it, a dry run shows its changes without
+keeping them, and a Store's journal records it like any Gremlin write
+(<a href="../users_guide/transactions.html#change-capture-changeset">Change capture</a>).</p>
+<h2 id="schema"><a class="header" href="#schema">Schema</a></h2>
+<p>An <code>INSERT</code> creates each element in one storage call with all its properties, so a schema sees
+the whole element (<a href="../users_guide/schema_enforcement.html">Schemas</a>): defaults on create are
+filled in, a <code>required</code> property is satisfied by the map, write-time coercion applies, and a
+closed schema refuses undeclared labels and properties. <code>SET</code> and <code>REMOVE</code> are checked like the
+Gremlin steps that do the same: a value of the wrong type, removing a <code>required</code> property (also
+with <code>SET n.k = NULL</code> or a <code>SET n = {..}</code> without it) and a label the schema does not allow fail
+the query. A violation fails the query (and changes nothing), with a help line written for
+GQL:</p>
+<pre><code class="language-rhai graph=empty script">g.set_schema(#{mode: "open", vertices: #{person: #{schema: #{type: "object", properties: #{
+    name: #{type: "string"}, age: #{type: "integer"}, active: #{type: "boolean", default: true}},
+    required: ["name"]}}}});
+g.gql("INSERT (:person {name: 'alice'})").iterate();
+g.gql("MATCH (p:person) RETURN p.name AS name, p.active AS active").to_list()   // #{"active": true, "name": "alice"}
+</code></pre>
+<pre><code class="language-text">Caused by: Missing required property 'name' on vertex 'person'
+Help: Give 'name' a value in the property map of the INSERT, as in g.gql("INSERT (:person {name: 'value'})"); a NULL value (such as a property the matched element lacks) is not stored and so is missing too: give it a fallback, as in {name: coalesce(n.name, 'unknown')}. Or remove it from the label's "required" in the schema, or give it a "default" (or "defaultFunction") in the schema: it is stored when an element is created without the property.
+</code></pre>
+<p>A <code>MERGE</code> that creates creates like an <code>INSERT</code> of its pattern: the schema's defaults are filled
+in and the pattern's map must satisfy <code>required</code>. Its <code>ON CREATE SET</code> items run afterwards, as a
+second write in the same query, so a <code>required</code> property given only there is missing when the
+element is created and fails the query; put it into the pattern's map instead (where it is also
+part of what <code>MERGE</code> looks for):</p>
+<pre><code class="language-rhai graph=empty script">g.set_schema(#{mode: "open", vertices: #{person: #{schema: #{type: "object", properties: #{
+    name: #{type: "string"}, active: #{type: "boolean", default: true}}, required: ["name"]}}}});
+g.gql("MERGE (p:person {name: 'ann'}) RETURN p.active AS active").to_list()   // #{"active": true}
+</code></pre>
+<p>A value of the wrong type is not converted, and GQL never infers a type from text. Convert it where
+the <code>INSERT</code> writes it:</p>
+<pre><code class="language-text">Caused by: Type mismatch on vertex 'person.age': expected int64, got string
+Help: Convert the value to the type 'int64' where the INSERT writes it, with toInteger(), as in g.gql("INSERT (:person {age: toInteger($v)})", #{v: "29"}). toInteger() gives NULL for a value it cannot convert, and a NULL value is not stored; CAST(x AS ..) fails the query for it instead.
+</code></pre>
+<h2 id="permissions"><a class="header" href="#permissions">Permissions</a></h2>
+<p>The <a href="../users_guide/permissions.html">permission</a> check sees the lowered plan before anything
+runs: an <code>INSERT</code> asks <code>Create</code> on <code>Data(vertex "label")</code> per label of each new node and <code>Create</code>
+on <code>Data(edge "label")</code> per new edge, exactly as <code>add_v(labels)</code> and <code>add_e(label)</code> do, plus
+the reads of its <code>MATCH</code> clauses. <code>SET</code> and <code>REMOVE</code> ask <code>Update</code>, as <code>property()</code>,
+<code>remove_property()</code>, <code>add_label()</code> and <code>drop_label()</code> do: on <code>Data(vertex)</code> for a node (any
+label, since a node's label set is not fixed by the pattern), on <code>Data(edge "label")</code> for an
+edge whose pattern names its labels, and on any element when the kind is not known before the
+run (an item of a <code>FOR</code> list). It asks nothing for the properties: they are part of creating
+the element. <code>DELETE</code> asks <code>Delete</code>, as <code>drop()</code> does: on <code>Data(vertex)</code> for a node, on
+<code>Data(edge "label")</code> for an edge whose pattern names its labels, and on any element for a path,
+a list or a value whose kind is known only at run time; <code>DETACH</code> asks nothing more (as <code>drop()</code>
+of a vertex, which removes its edges too). <code>MERGE</code> asks what its two halves need, whether a
+row will find or create: <code>Read</code> for the search (as a <code>MATCH</code> of its pattern), <code>Create</code> per label
+of every element the pattern can create (as the <code>INSERT</code> of it), and, only when it has
+<code>ON CREATE SET</code> / <code>ON MATCH SET</code> items, their <code>Update</code>s (as <code>SET</code>). The step's own <code>Create</code> and
+<code>Update</code> requests are checked first, then the <code>Read</code>s of its search; a policy that denies
+<code>Create</code> refuses a <code>MERGE</code> even where every row would only find. <code>merge_v()</code> and <code>merge_e()</code>
+ask <code>Read</code> on what they search first, then <code>Create</code> and <code>Update</code> on any vertex or edge (no
+labels, and <code>Update</code> even without <code>on_create</code> / <code>on_match</code> options). (Gremlin's <code>add_v(..).property(..)</code> asks <code>Create</code> and <code>Update</code>, because the check
+runs before the optimizer folds the property into the creation; a policy that denies only
+<code>Update</code> allows the <code>INSERT</code> and refuses its Gremlin twin.) A read-only host
+(<code>AccessPolicy::read_only()</code>, the MCP server's <code>--mcp-read-only</code>, a read-only view of a past
+state) refuses a GQL write before it runs.</p>
+<h2 id="saved-queries-and-the-dsl"><a class="header" href="#saved-queries-and-the-dsl">Saved queries and the DSL</a></h2>
+<p>A saved query may be written in GQL itself (<a href="../users_guide/saved_queries.html#saved-queries-in-gql">Saved queries in
+GQL</a>): the body is the plain query text,
+its <code>$parameters</code> are the declared ones, and an <code>INSERT</code>, <code>SET</code>, <code>REMOVE</code>, <code>DELETE</code> or <code>MERGE</code> makes it
+a query that writes, whose <code>effects</code> name what its plan creates, changes and deletes. A call
+writes in one unit and returns the rows. A GQL query calls it with <code>CALL hire('lop', 'ann') YIELD name</code> (the arguments in the order the body first reads them: <code>$company</code>, then <code>$name</code>); its writes then belong to the calling query's unit (<a href="subset.html#calling-saved-queries">Calling saved
+queries</a>):</p>
+<pre><code class="language-rhai graph=modern script">g.define_query(#{name: "hire", language: "gql", params: #{name: "string", company: "string"},
+    body: "MATCH (c:software {name: $company}) INSERT (p:person {name: $name})-[:created]-&gt;(c) RETURN p.name AS name"});
+g.get_query("hire")["effects"].map(|e| e.text);   // ["Create Data(vertex \"person\")", "Create Data(edge \"created\")"]
+g.query("hire", #{name: "ann", company: "lop"}).select("name").to_list()   // "ann"
+</code></pre>
+<pre><code class="language-rhai graph=modern script">g.define_query(#{name: "birthday", language: "gql", params: #{name: "string"},
+    body: "MATCH (p:person {name: $name}) SET p.age = p.age + 1 RETURN p.age AS age"});
+g.get_query("birthday")["effects"].map(|e| e.text);   // ["Update Data(vertex)"]
+g.query("birthday", #{name: "vadas"}).select("age").to_list()   // 28
+</code></pre>
+<pre><code class="language-rhai graph=modern script">g.define_query(#{name: "unlink", language: "gql", params: #{}, body: "MATCH ()-[e:knows]-&gt;() DELETE e"});
+g.get_query("unlink")["effects"].map(|e| e.text)   // ["Delete Data(edge \"knows\")"]
+</code></pre>
+<pre><code class="language-rhai graph=modern script">g.define_query(#{name: "visit", language: "gql", params: #{name: "string"},
+    body: "MERGE (p:person {name: $name}) ON MATCH SET p.visits = coalesce(p.visits, 0) + 1 RETURN p.name AS name"});
+g.get_query("visit")["effects"].map(|e| e.text)   // ["Create Data(vertex \"person\")", "Update Data(vertex)"]
+</code></pre>
+<p>A <a href="../users_guide/saved_queries.html">saved query</a> in Rhai whose body runs <code>g.gql("INSERT ...")</code>
+with a literal query text is a writing query too: its <code>effects</code> name what it creates, changes
+and deletes. A computed query text claims every write; pass values as <code>$parameters</code> instead.</p>
+<p>In a script, a writing <code>gql()</code> takes the write lock like a Gremlin write (<code>is_mutating()</code> is
+true), and the playground asks before running it again. Gremlin steps may follow:</p>
+<pre><code class="language-rhai graph=modern">g.gql("INSERT (c:city {name: 'Berlin'}) RETURN c").select("c").values("name").to_list()   // "Berlin"
+</code></pre>
+<h2 id="in-rust"><a class="header" href="#in-rust">In Rust</a></h2>
+<p>Run a writing query on the writing source, <code>traversal_mut()</code>, under the write lock. The read
+source refuses it with the error a Gremlin write gets there:</p>
+<pre><code class="language-rust ignore">use graphersal::prelude::*;
+
+let graph = Graph::new(TraversalGraph::tinkerpop_modern());
+graph
+    .write()
+    .traversal_mut()
+    .gql("MATCH (p:person {name: 'marko'}) INSERT (p)-[:likes]-&gt;(:fruit {name: 'apple'})")
+    .iterate()?;
+
+// The read source cannot write:
+let error = graph.read().traversal().gql("INSERT (:x)").iterate().unwrap_err();
+assert_eq!(
+    error.root_cause().to_string(),
+    "Invalid element state: Cannot mutate immutable graph reference"
+);</code></pre>
+<h2 id="the-plan"><a class="header" href="#the-plan">The plan</a></h2>
+<p>An <code>INSERT</code> lowers to the internal steps <code>gql:insert_node</code> and <code>gql:insert_edge</code>, one per
+element of the pattern, in text order (<a href="plans.html#writes">Plans and Performance</a>); a <code>SET</code> clause
+to one <code>gql:set</code> step and a <code>REMOVE</code> clause to one <code>gql:remove</code> step with its items, which pass
+the row on unchanged. A <code>DELETE</code> clause lowers to one <code>gql:delete</code> step: it collects the targets
+of all its rows first (the NODETACH check sees the whole clause), removes the edges, then the
+nodes, and passes the rows on unchanged. A <code>MERGE</code> lowers to one <code>gql:merge</code> step with two
+children: the search (the plan of a <code>MATCH</code> of the pattern, starting from a bound node or using
+a <a href="plans.html">property index</a> where one serves it) and the creation (the <code>gql:insert_node</code> /
+<code>gql:insert_edge</code> chain of the pattern); <code>.profile()</code> shows both under the step. Because the plan writes, its traversers are never merged into one with a
+higher bulk: each row creates its own elements and applies its own changes.</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person {name: 'marko'}) SET p.age = 1 RETURN p").profile()
+g.gql("MERGE (c:city {name: 'Rome'}) RETURN c").profile()
+</code></pre>
+<h2 id="not-yet"><a class="header" href="#not-yet">Not yet</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Construct</th><th>Until then</th></tr></thead><tbody>
+<tr><td><code>FOREACH (x IN list | ...)</code></td><td><code>FOR x IN list INSERT ...</code></td></tr>
+<tr><td>a write in a <code>UNION</code> operand, a path variable in <code>INSERT</code></td><td>run the write on its own; name the nodes and edges</td></tr>
+<tr><td>a deeper <code>SET</code> / <code>REMOVE</code> target (<code>n.a.b</code>, <code>head(l).k</code>), Cypher's dynamic <code>n[key]</code></td><td>name the element with <code>WITH .. AS x</code> and write the item on <code>x</code>; for a nested value Gremlin <code>property()</code> with a <a href="../users_guide/jpath_keys.html">jpath key</a></td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person {name: 'marko'}) SET p.address.city = 'Rome'")   // error: `p.address.city` as a SET target is not yet supported
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../gql/result_shape.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../gql/rhai_strings.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../gql/result_shape.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../gql/rhai_strings.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

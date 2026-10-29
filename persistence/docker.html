@@ -1,0 +1,397 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Running in Docker - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/persistence/docker.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="running-in-docker"><a class="header" href="#running-in-docker">Running in Docker</a></h1>
+<blockquote>
+<p><strong>The dev server has no authentication.</strong> Whoever reaches its port can run every query the
+server allows (all of them without <code>--read-only</code>), and with <code>--ai</code> spend the AI provider key.
+Keep the port on a private network, publish it on the host's loopback only
+(<code>-p 127.0.0.1:8080:8080</code>), or put it behind a reverse proxy that authenticates. It is a
+<a href="dev_server.html">dev server</a>: its HTTP API is EXPERIMENTAL.</p>
+</blockquote>
+<p>The repository has a <code>Dockerfile</code> that builds the <code>graphersal</code> command line into a small image:
+the static Linux binary (the same build as the release binaries: default features, so the dev
+server, MCP, the AI Chat and <a href="store_models.html">embedding models</a> are in) on
+<code>gcr.io/distroless/static</code>, running as a non-root user (uid 65532), with a <code>HEALTHCHECK</code>,
+<code>STOPSIGNAL SIGTERM</code> and port 8080. No image is published; build it from a checkout.</p>
+<h2 id="serve-a-single-file-database-read-only-with-mcp"><a class="header" href="#serve-a-single-file-database-read-only-with-mcp">Serve a single-file database read-only with MCP</a></h2>
+<p>The default command of the image serves the <a href="single_file_store.html">single-file Store</a>
+<code>/data/graph.gstore</code> read-only, with a read-only MCP endpoint for an AI agent:</p>
+<pre><code class="language-text">graphersal --graph /data/graph.gstore --read-only --server --host 0.0.0.0 --port 8080 --mcp --mcp-read-only
+</code></pre>
+<p>Build the image, then either mount the file or bake it into an image of your own:</p>
+<pre><code class="language-bash">docker build -t graphersal .                       # in the repository checkout
+
+# (1) the file mounted read-only from the host
+docker run --rm -p 127.0.0.1:8080:8080 \
+  -v "$PWD/my.gstore:/data/graph.gstore:ro" graphersal
+
+# (2) the file inside an image of your own
+cat &gt; Dockerfile.mygraph &lt;&lt;'EOF'
+FROM graphersal
+COPY my.gstore /data/graph.gstore
+EOF
+docker build -f Dockerfile.mygraph -t mygraph .
+docker run --rm -p 127.0.0.1:8080:8080 mygraph
+</code></pre>
+<p>Then <code>http://localhost:8080/</code> is the playground and <code>http://localhost:8080/mcp</code> the MCP endpoint
+(<code>claude mcp add --transport http graphersal http://localhost:8080/mcp</code>). An embedding model
+kept in the store (<a href="store_models.html">Embedding Models in a Store</a>) is loaded from the file, so
+text queries (<code>nearest("emb", "some text", 5)</code>) work without a network. Make the store with the
+command line first, for example:</p>
+<pre><code class="language-bash">graphersal --graph my.gstore --create-store -e 'g.add_v("doc").property("text", "a cat on the mat").iterate()'
+graphersal embed-model download minishlab/potion-base-8M --into my.gstore
+graphersal --graph my.gstore -e '{ g.set_schema(g.infer_schema(), SchemaMode.open); g.embed_property(#{label: "doc", from: "text", to: "emb", embedder: "minishlab/potion-base-8M"}).model }'
+</code></pre>
+<p>Pass other arguments after the image name to replace the command (<code>docker run ... graphersal --graph /data/graph.gstore --server --host 0.0.0.0 --port 8080</code>); the entry point is the
+<code>graphersal</code> binary.</p>
+<h3 id="read-only"><a class="header" href="#read-only">Read-only</a></h3>
+<p>With <code>--read-only</code> the served graph refuses every write: queries, schema changes, saved
+queries, indexes and compression rules, "Save to file", and the MCP endpoint offers only its
+reading tools. A Store is <strong>loaded without its lock and nothing in it is written</strong>: no recovery
+cut of an interrupted last write (it is ignored), no checkpoint, no
+<a href="workload_statistics.html">workload statistics</a> file, no temporary file beside it. So all of
+these work:</p>
+<ul>
+<li>a <code>:ro</code> bind mount or volume;</li>
+<li>a read-only root file system (<code>docker run --read-only</code>);</li>
+<li>a file the container's user may not write (the image runs as uid 65532, a file copied into an
+image belongs to root).</li>
+</ul>
+<p>The server shows no Store panel and no history then (it serves the latest state as a graph).
+Without <code>--read-only</code>, a Store that cannot be opened for writing (no permission, a read-only
+file system) is served read-only anyway, with a note on stderr saying so.</p>
+<h2 id="health-checks"><a class="header" href="#health-checks">Health checks</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Endpoint</th><th>Answer</th><th>Use</th></tr></thead><tbody>
+<tr><td><code>GET /healthz</code></td><td><code>200 {"status":"ok"}</code> while the process answers HTTP: also while the graph loads, a long query runs or the server stops</td><td>liveness</td></tr>
+<tr><td><code>GET /readyz</code></td><td><code>200 {"status":"ready"}</code> once the graph is loaded; <code>503 {"status":"loading"}</code> before, <code>503 {"status":"stopping"}</code> after SIGTERM</td><td>readiness</td></tr>
+</tbody></table>
+</div>
+<p>Both also answer <code>HEAD</code>. They take no lock, never wait for a running query (a long write never
+fails liveness), reveal nothing of the graph and are exempt from the Host/Origin checks, so a
+Kubernetes probe (<code>Host: &lt;pod IP&gt;:8080</code>) and a Docker health check work in every bind mode. The
+server listens before it loads its graph: while a large Store opens, <code>/healthz</code> answers 200 and
+<code>/readyz</code> and every other endpoint 503. Probe requests are not logged.</p>
+<p>The image has no curl or wget; the binary is its own probe:</p>
+<pre><code class="language-bash">graphersal health                 # GET /healthz on 127.0.0.1:8080; exit 0 when it answers 200
+graphersal health --ready         # GET /readyz
+graphersal health --host 10.0.0.5 --port 9000 --timeout 1000
+</code></pre>
+<p>It prints nothing on success and the reason on stderr otherwise (exit code <code>1</code>; <code>2</code> for an
+invalid invocation). The image's health check:</p>
+<pre><code class="language-dockerfile">HEALTHCHECK --interval=10s --timeout=3s --start-period=30s --retries=3 \
+    CMD ["/usr/local/bin/graphersal", "health"]
+</code></pre>
+<h2 id="kubernetes"><a class="header" href="#kubernetes">Kubernetes</a></h2>
+<pre><code class="language-yaml">apiVersion: apps/v1
+kind: Deployment
+metadata: { name: graphersal }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: graphersal } }
+  template:
+    metadata: { labels: { app: graphersal } }
+    spec:
+      terminationGracePeriodSeconds: 30
+      securityContext: { runAsNonRoot: true, runAsUser: 65532, fsGroup: 65532 }
+      containers:
+        - name: graphersal
+          image: mygraph:0.4.0            # an image of your own (see above)
+          ports: [{ containerPort: 8080 }]
+          securityContext: { readOnlyRootFilesystem: true, allowPrivilegeEscalation: false }
+          livenessProbe:
+            httpGet: { path: /healthz, port: 8080 }
+            periodSeconds: 10
+          readinessProbe:
+            httpGet: { path: /readyz, port: 8080 }
+            periodSeconds: 5
+          startupProbe:                   # a large Store takes time to load
+            httpGet: { path: /readyz, port: 8080 }
+            periodSeconds: 2
+            failureThreshold: 150
+          resources:
+            limits: { memory: 2Gi }
+</code></pre>
+<p>Every pod serves its own copy of the graph in memory; with <code>--read-only</code> replicas are
+independent and can scale. A read-write Store belongs to one pod (<code>replicas: 1</code>, a
+<code>ReadWriteOnce</code> volume): its lock refuses a second writer.</p>
+<p>The server counts a Kubernetes pod (<code>KUBERNETES_SERVICE_HOST</code> set) as a container and listens
+on <code>0.0.0.0</code>; the image passes <code>--host 0.0.0.0</code> anyway. Requests must name the server by an IP
+address, <code>localhost</code>, a name without a dot (a Service name such as <code>graphersal</code>) or the
+<code>--host</code> name: a fully qualified name such as <code>graphersal.default.svc.cluster.local</code> or an
+Ingress host is refused with 403 (DNS-rebinding protection, see
+<a href="dev_server.html#listening-address-and-docker">Listening address and Docker</a>). A reverse proxy in
+front of it sets <code>Host</code> to an accepted name (nginx: <code>proxy_set_header Host localhost;</code>) and must
+not forward a foreign <code>Origin</code>. <code>--memory-limit auto</code> bounds every query by the container's
+memory limit (<a href="../users_guide/resource_limits.html">Resource Limits</a>).</p>
+<h2 id="stopping"><a class="header" href="#stopping">Stopping</a></h2>
+<p><code>docker stop</code> and Kubernetes send SIGTERM. The server is PID 1 in the container, where a process
+without a signal handler ignores SIGTERM (and is killed after the grace period); the server
+handles it:</p>
+<ul>
+<li>without a Store (or read-only): the running query is cancelled, <code>/readyz</code> turns 503, and the
+process exits at once with exit code 0;</li>
+<li>with a read-write Store: the same, then the store is closed cleanly (its write-ahead log
+synced, marked closed) before the exit; a second signal exits at once (code 130).</li>
+</ul>
+<p><code>docker stop</code> returns in well under a second. Give a large read-write Store a grace period that
+covers its close (<code>docker stop -t 30</code>, <code>terminationGracePeriodSeconds</code>). A one-shot script or
+the REPL running as PID 1 exits with 130 on SIGINT/SIGTERM.</p>
+<h2 id="a-read-write-store-in-a-volume"><a class="header" href="#a-read-write-store-in-a-volume">A read-write Store in a volume</a></h2>
+<pre><code class="language-bash">docker volume create graphdata
+docker run --rm -p 127.0.0.1:8080:8080 -v graphdata:/data graphersal \
+  --graph /data/graph.gstore --create-store --server --host 0.0.0.0 --port 8080
+</code></pre>
+<ul>
+<li>A <strong>named volume</strong> mounted at <code>/data</code> takes the ownership of the image's <code>/data</code> (uid 65532),
+so the non-root server can write it. A <strong>bind mount</strong> of a host directory keeps the host's
+ownership: make it writable for uid 65532 (<code>chown 65532:65532 dir</code>) or run with
+<code>--user $(id -u):$(id -g)</code>.</li>
+<li>Put the store <strong>inside</strong> the mounted directory (<code>/data/graph.gstore</code>, or <code>/data/graph/</code> for a
+directory store), not as the mount point itself: a fork of the store (Store panel) is written
+next to it, in the same directory.</li>
+<li>The writer lock is an OS file lock (<code>flock</code> on Linux). It works on local volumes and bind
+mounts; Docker Desktop's file sharing (macOS, Windows) and network file systems may not honour
+it between machines. Open a store from one container at a time.</li>
+<li>Without <code>--read-only</code> the server writes only into the store (and a <code>--graph</code> file on "Save to
+file"): there are no temporary files elsewhere, so <code>docker run --read-only</code> works with the
+volume as the one writable place. A tmpfs (<code>--tmpfs /tmp</code>) is not needed.</li>
+</ul>
+<h2 id="logs-and-configuration"><a class="header" href="#logs-and-configuration">Logs and configuration</a></h2>
+<p>Everything goes to stdout and stderr, nothing to log files: the address line on stdout (written
+and flushed once the server serves, so <code>docker logs</code> shows it at once), the start banner,
+warnings and store messages on stderr. <code>GRAPHERSAL_LOG=off|error|warn|info|debug|trace</code> sets the
+level of the library's messages (default <code>warn</code>): <code>docker run -e GRAPHERSAL_LOG=info ...</code>.
+<code>TZ</code> sets the time zone of <a href="scheduled_jobs.html">scheduled jobs</a> (distroless has no
+<code>/etc/localtime</code>, so they run in UTC without it).</p>
+<p>Options come from the command line, or from a JSON file with <code>--args-file FILE</code> (or <code>@FILE</code>;
+<a href="dev_server.html#arguments-from-a-file">Arguments from a file</a>), which fits a ConfigMap or a
+mounted file:</p>
+<pre><code class="language-bash">docker run --rm -p 127.0.0.1:8080:8080 -v "$PWD/my.gstore:/data/graph.gstore:ro" \
+  -v "$PWD/server.json:/config/server.json:ro" graphersal @/config/server.json
+</code></pre>
+<pre><code class="language-json">{"graph": "/data/graph.gstore", "read-only": true, "server": true, "host": "0.0.0.0",
+ "port": 8080, "mcp": true, "mcp-read-only": true, "timeout": 30000, "memory-limit": "auto"}
+</code></pre>
+<h2 id="building-the-image"><a class="header" href="#building-the-image">Building the image</a></h2>
+<pre><code class="language-bash">docker build -t graphersal .
+docker build --build-arg RUST_VERSION=1.91 -t graphersal .     # another toolchain
+</code></pre>
+<p>The build stage is <code>rust:&lt;RUST_VERSION&gt;-alpine</code> (musl, a static binary; profile <code>dist</code>, symbols
+stripped). It links with thin LTO by default: the fat LTO of the release binaries needs more
+memory than the 8 GB of a default Docker Desktop VM (the linker is killed);
+<code>--build-arg LTO=fat</code> builds exactly the release binary where the builder has the memory.
+Dependencies and the target directory live in BuildKit cache mounts, so a source change
+rebuilds only the workspace crates. The base image tags in the <code>Dockerfile</code> are
+examples: bump them when you build. <code>docker builder prune</code> removes the build cache.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../persistence/dev_server.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../users_guide/graphson.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../persistence/dev_server.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../users_guide/graphson.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

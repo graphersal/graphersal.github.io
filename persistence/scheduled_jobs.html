@@ -1,0 +1,354 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Scheduled Jobs - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/persistence/scheduled_jobs.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="scheduled-jobs"><a class="header" href="#scheduled-jobs">Scheduled Jobs</a></h1>
+<p>The engine runs background work on a schedule: <strong>jobs</strong> with a standard 5-field cron schedule
+(<code>minute hour day-of-month month day-of-week</code>, e.g. <code>*/5 * * * *</code> for every five minutes,
+<code>0 3 * * *</code> for 03:00 every day; ranges <code>1-5</code>, steps <code>*/15</code>, lists <code>1,15</code>, names <code>jan</code>/<code>mon</code>).
+Times are wall-clock times in the instance's local time zone.</p>
+<h2 id="who-drives-the-clock"><a class="header" href="#who-drives-the-clock">Who drives the clock</a></h2>
+<p>The engine owns no thread: the <strong>host</strong> calls the scheduler's <code>tick</code> periodically with the
+current time, and the scheduler runs the jobs that are due.</p>
+<div class="table-wrapper"><table><thead><tr><th>Host</th><th>Ticks</th></tr></thead><tbody>
+<tr><td>Dev server (<code>graphersal --server</code>)</td><td>a thread, every 5 seconds, in the machine's time zone (<code>TZ</code> or <code>/etc/localtime</code>)</td></tr>
+<tr><td>Browser playground</td><td>a timer in the engine's worker, every 5 seconds, in the browser's time zone</td></tr>
+<tr><td>Your own program</td><td>call <code>Scheduler::tick(now)</code> yourself</td></tr>
+</tbody></table>
+</div>
+<p>The CLI (a script or the REPL on a store) and the Python binding do not tick: a store opened
+there runs no jobs (its workload statistics are still written when it closes). Open the store
+with the dev server, or tick a <code>Scheduler</code> in your own program, to run them.</p>
+<p><strong>Daylight saving time.</strong> A schedule is read in the local wall clock. A time that does not exist
+on the day the clocks go forward (02:30 in most of Europe) runs right after the gap (03:00); a
+time that happens twice when they go back runs once, at its first occurrence.</p>
+<p>A job never overlaps itself: due jobs run one after another. A time missed while nothing ticked
+(the process was stopped) is skipped: the job runs at its next scheduled time. A failing job
+(an error, a panic) is recorded and runs again at its next time.</p>
+<h2 id="limits-per-run"><a class="header" href="#limits-per-run">Limits per run</a></h2>
+<p>A job may limit each of its runs: a <strong>timeout</strong> and a <strong>memory limit</strong> (<code>JobLimits</code>, both
+optional). The engine cannot interrupt arbitrary code, so the limits reach the checks every
+traversal already makes: while the job runs, its remaining time caps each traversal's
+<code>evaluationTimeout</code> and its memory limit caps <code>memory.limit</code> (a query's own stricter value
+stays). A breach fails the traversal as any timeout or memory limit does, its work is rolled
+back, and the run is recorded as failed with the reason. An action doing long work of its own
+checks <code>limits.timeout</code> itself; if it finishes past its timeout anyway, the run is recorded as
+over time.</p>
+<h2 id="system-jobs"><a class="header" href="#system-jobs">System jobs</a></h2>
+<p>A Store brings its system jobs (<code>Store::system_jobs()</code>):</p>
+<div class="table-wrapper"><table><thead><tr><th>Job</th><th>Schedule</th><th>Default</th><th>What it does</th></tr></thead><tbody>
+<tr><td><code>stats_flush</code></td><td>every minute</td><td>on</td><td>writes the <a href="workload_statistics.html">workload statistics</a> to the sidecar</td></tr>
+<tr><td><code>compact</code></td><td>03:00 daily</td><td>off</td><td>releases spare capacity of the in-memory structure</td></tr>
+</tbody></table>
+</div>
+<p>System jobs cannot be removed; their schedule and switch can be changed (the playground's and
+the dev server's job list, <code>POST /api/jobs/schedule</code> and <code>/api/jobs/enable</code>, or
+<code>WorkloadStats::set_job_override</code> in your own program). The change is a setting of the
+instance, not of the graph: it is kept in the store's workload sidecar (at the level
+<code>persisted</code>, the default), so it survives a restart but is not carried by a backup or a fork.
+Every run (start, duration, error) is recorded in the workload statistics.</p>
+<h2 id="jobs-of-users"><a class="header" href="#jobs-of-users">Jobs of users</a></h2>
+<p>A user's job is a catalog definition (kind <code>job</code>, beside saved queries, compression rules and
+property indexes): it is versioned with the graph, written to the journal, carried by
+checkpoints, backups and the catalog file. Its action is one of</p>
+<div class="table-wrapper"><table><thead><tr><th>Action</th><th>What a run does</th></tr></thead><tbody>
+<tr><td><code>query</code></td><td>calls a <a href="../users_guide/saved_queries.html">saved query</a> with fixed arguments</td></tr>
+<tr><td><code>checkpoint</code></td><td>writes a checkpoint of the store</td></tr>
+<tr><td><code>backup</code></td><td>backs the store up into a directory (the first run a full backup, the next ones increments)</td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-rhai graph=modern script">g.define_query(#{name: "purge", params: #{label: "string"},
+    body: "fn purge(label) { g.v().has_label(label).drop() }"});
+g.define_job(#{name: "nightly_purge", schedule: "0 3 * * *", action: "query",
+    query: "purge", args: #{label: "software"}, timeout_ms: 30000});
+g.jobs().map(|j| [j.name, j.schedule, j.action])
+</code></pre>
+<p><code>g.define_job(#{name, schedule, action, query?, args?, path?, enabled?, timeout_ms?, memory_limit?, run_on?, description?})</code> defines or replaces a job, <code>g.jobs()</code> lists them,
+<code>g.drop_job(name)</code> removes one. The arguments are checked against the query's parameters when
+the job is defined.</p>
+<p><strong>Rights.</strong> A job runs with the rights of whoever defined it. When it is defined, the definer's
+authorizer is asked for everything the job will do: <code>Execute</code> on the saved query and every data
+write the query may make, <code>Create</code> on the backup directory; the allowed requests are stored with
+the job as its <strong>effects</strong>, and every run may do exactly them (and read). If the query is
+changed later to write more, its runs are refused until the job is defined again. Revoking the
+definer's rights later does not stop a job until it is redefined (the engine has no identities;
+an embedding server that has them re-checks on every run). A browser playground cannot define a
+backup job: its pages have no files.</p>
+<p>A job of a newer version (an action this version does not know) is kept as it was written and
+never run; <code>g.jobs()</code> lists it with <code>served: false</code> and the reason.</p>
+<p><strong>Running.</strong> The jobs of a store's catalog run on the store's scheduler beside its system jobs:
+the dev server and the playground pick up a defined, changed or dropped job at their next tick.
+A <code>query</code> job's run is one transaction whose commit metadata carries <code>job: &lt;name&gt;</code> (the change
+feed and the history name the job), its queries count under the channel <code>job</code> of the
+<a href="workload_statistics.html">workload statistics</a>, and its limits per run apply. A run that fails
+(a write outside its effects, a timeout, an error of the query) changes nothing and is recorded
+with its error; the job runs again at its next time. A job on a graph outside a store is kept but
+not run (there is no scheduler). In your own program, give the scheduler the store's user jobs
+and sync them whenever the catalog's jobs changed. <code>Store::user_jobs</code> lists the job definitions it
+does not schedule beside them, each with the reason (an action or <code>run_on</code> this version does not
+know, <code>run_on: "replica"</code> on a single instance, a stored schedule that does not parse), so none is
+dropped silently:</p>
+<pre><code class="language-rust ignore">let found = store.user_jobs()?;
+for skipped in &amp;found.not_scheduled {
+    eprintln!("job {} is not scheduled: {}", skipped.name, skipped.reason);
+}
+scheduler.sync_user_jobs(found.jobs);</code></pre>
+<p><strong>In the playground</strong>, <strong>Catalog ▸ Scheduled jobs</strong> lists every job (the system jobs first) with
+its schedule, the next and the last run (with its error), the runs of the last two days and a
+switch; a job of yours has <strong>Run now</strong>, <strong>Edit</strong> and <strong>Drop</strong>, a system job <strong>Run now</strong> and
+<strong>Schedule</strong> (empty: its built-in schedule again). <strong>New job</strong> opens the form: the name, what it
+does (a saved query with its arguments as JSON, a checkpoint, a backup directory), the schedule
+(5-field cron, with presets), on or off, a timeout and a description; a refused job shows the
+engine's message next to the field.</p>
+<p><strong>History.</strong> Every run (start, duration, error) is counted in the
+<a href="workload_statistics.html">workload statistics</a> as series <code>job</code> per minute, hour and day: the job
+list shows the runs of the last two days, <strong>Optimize ▸ Workload ▸ Jobs</strong> draws them over time,
+<code>GET /api/jobs/history?name=..&amp;tier=..</code> answers the buckets.</p>
+<p><strong>Front ends.</strong> The dev server and the playground share one job API (<code>graphersal-session</code>):</p>
+<div class="table-wrapper"><table><thead><tr><th>Dev server</th><th>What it does</th></tr></thead><tbody>
+<tr><td><code>GET /api/jobs</code></td><td>every job: the system jobs, then the jobs of users: schedule, on or off, next time, last run, the run counts of the last hour, two days and 90 days, whether it runs (and why not), a user job's action, arguments and effects</td></tr>
+<tr><td><code>POST /api/jobs/define</code></td><td>defines or replaces a job from the keys of <code>g.define_job</code>; a refused job answers the wrong fields</td></tr>
+<tr><td><code>POST /api/jobs/drop</code></td><td><code>{name}</code>: removes a job of a user</td></tr>
+<tr><td><code>POST /api/jobs/enable</code></td><td><code>{name, enabled}</code>: switches a job on or off (a user job's definition keeps its effects)</td></tr>
+<tr><td><code>POST /api/jobs/schedule</code></td><td><code>{name, schedule}</code>: a system job's schedule (<code>null</code>: the built-in one); a user job is defined again instead</td></tr>
+<tr><td><code>POST /api/jobs/run</code></td><td><code>{name}</code>: runs a job now, whatever its schedule</td></tr>
+<tr><td><code>GET /api/jobs/history?name=..&amp;tier=minutes|hours|days</code></td><td>the job's runs per minute, hour or day: count, failures, total and longest time</td></tr>
+</tbody></table>
+</div>
+<p>The dev server's user owns the machine's files, so a backup job defined there may name any
+directory; the browser playground has no files and refuses backup jobs.</p>
+<h2 id="in-your-own-program"><a class="header" href="#in-your-own-program">In your own program</a></h2>
+<pre><code class="language-rust">use graphersal::jobs::{Job, JobKind, JobLimits, Scheduler};
+use graphersal::persist::{MemDir, Store, StoreOptions};
+
+let dir = MemDir::named("memory:jobs");
+let store = Store::create(&amp;dir, StoreOptions::new()).unwrap();
+let mut scheduler = Scheduler::new()
+    .with_time_zone("Europe/Berlin")
+    .unwrap()
+    .with_stats(store.workload_stats());
+for job in store.system_jobs() {
+    scheduler.add(job).unwrap();
+}
+scheduler
+    .add(
+        Job::new("hello", JobKind::User, "0 * * * *".parse().unwrap(), |run| {
+            let _started = run.started_at; // your work; traversals here get the limits below
+            Ok(())
+        })
+        .with_limits(JobLimits::new().with_timeout(std::time::Duration::from_secs(30))),
+    )
+    .unwrap();
+let now = 1_800_000_000_000_000; // microseconds since the Unix epoch
+scheduler.tick(now); // plans the first runs; call it again every few seconds
+assert_eq!(scheduler.jobs().len(), 3);</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../persistence/optimize.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../persistence/store_models.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../persistence/optimize.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../persistence/store_models.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

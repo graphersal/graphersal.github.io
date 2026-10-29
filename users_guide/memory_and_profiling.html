@@ -1,0 +1,545 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Memory Inspection and Profiling - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/users_guide/memory_and_profiling.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="memory-inspection-and-memory-aware-profiling"><a class="header" href="#memory-inspection-and-memory-aware-profiling">Memory Inspection and Memory-Aware Profiling</a></h1>
+<p>The structured result of <code>profile()</code> and the <code>execute()</code> terminal are described in
+<a href="profiling_and_execute.html">Profiling and execute()</a>; this page covers the memory figures.</p>
+<p>Graphersal has two related tools for answering "how much memory is this using": an on-demand
+snapshot of a graph's own footprint, and a per-step memory figure inside <code>.profile()</code>.</p>
+<h2 id="graphmemory_usage"><a class="header" href="#graphmemory_usage"><code>graph.memory_usage()</code></a></h2>
+<pre><code class="language-rhai graph=modern">g.memory_usage()
+</code></pre>
+<p>Returns a map with <code>structure_bytes</code>, <code>index_bytes</code>, <code>property_bytes</code> (with its part
+<code>shape_bytes</code>), <code>total_bytes</code>, and <code>total_mb</code> — an on-demand, opt-in-by-call snapshot of the
+graph's own vertex/edge storage, its label/ID indexes, and its property store. It is entirely separate from traversal execution: it
+never touches a running query and cannot regress query performance.</p>
+<p>With <a href="compressed_properties.html">compression rules</a> it also reports <code>compressed_values</code> (strings
+kept compressed), <code>compressed_plain_bytes</code> and <code>compressed_stored_bytes</code> (their plain and stored
+sizes) and <code>compression_dictionary_bytes</code> (the rules' dictionaries, each shared one once; part of
+<code>total_bytes</code>). <code>property_bytes</code> counts the stored, compressed size, so a rule's saving shows there
+directly. All four are <code>0</code> without rules. The <code>dedup</code> rules add <code>deduped_values</code> (strings shared
+through their tables), <code>deduped_plain_bytes</code> (their plain size) and <code>dedup_table_bytes</code> (every
+shared text once, part of <code>property_bytes</code>); all three are <code>0</code> without <code>dedup</code> rules.</p>
+<p>With <a href="property_indexes.html">property indexes</a> it reports <code>property_index_bytes</code>, an estimate of
+their entries (part of <code>total_bytes</code>; <code>0</code> without indexes).</p>
+<p>A graph in a store also reports <code>workload_bytes</code>: the memory of its
+<a href="../persistence/workload_statistics.html">workload statistics</a>, held beside the graph and NOT part
+of <code>total_bytes</code> (which is the graph's own data); <code>0</code> for a graph without statistics. The
+playground's Profile ▸ Statistics tab shows it as <strong>Workload statistics</strong> below the total.</p>
+<h3 id="how-property-memory-works"><a class="header" href="#how-property-memory-works">How property memory works</a></h3>
+<p>Element properties share their key names. Every distinct sequence of keys (a "shape", say
+<code>name, age</code> in that order) is stored once per graph, and each vertex or edge keeps only its values,
+in that order. A property slot therefore costs one value (32 bytes on a 64-bit target) plus
+whatever heap the value owns (a string longer than 24 bytes, an array, a nested object, a vector),
+no matter how long the key name is or how many elements carry it. <code>shape_bytes</code> reports the shared
+key lists: the key names, a lookup index for shapes of more than 16 keys, and the graph's table of
+shapes. It is part of <code>property_bytes</code>, never added to <code>total_bytes</code> a second time.
+Insertion order stays what every step reports (<code>valueMap()</code>, <code>elementMap()</code>, <code>properties()</code>). The
+playground's Statistics tab shows the figure under Properties as "of which key lists (shapes)".</p>
+<p>Two elements share a shape only when they have the same keys <strong>in the same order</strong>. Adding the
+properties of a label in one consistent order (always <code>name</code> then <code>age</code>, never sometimes <code>age</code>
+then <code>name</code>) keeps the number of shapes small. Elements that differ (optional properties, a key
+added later to some elements) are fine; they just make a few more shapes:</p>
+<pre><code class="language-rhai graph=empty script">g.add_v("person").property("name", "ann").property("age", 31).iterate();
+let one = g.memory_usage().shape_bytes;
+g.add_v("person").property("name", "bob").property("age", 42).iterate();
+let same_order = g.memory_usage().shape_bytes;      // unchanged: the second vertex shares the shape
+g.add_v("person").property("age", 27).property("name", "cid").iterate();
+let other_order = g.memory_usage().shape_bytes;     // grows: age, name is another shape
+[one, same_order, other_order]
+</code></pre>
+<p>Dropping a property moves the element to the shape without that key; its value slot stays
+allocated until the element gains a key again (so a drop followed by an add, or a rollback of
+either, allocates nothing). A key list no element uses any more is not released right away: it
+goes when the graph has twice as many shapes as after the last release, after a load (opening a
+Store, reading a snapshot, a GraphSON or GraphML file read into a new graph), or on
+<code>shrink_to_fit()</code> (Rust: <code>TraversalGraph::shrink_to_fit</code>, also <code>GraphStorage::shrink_to_fit</code>). Until then <code>shape_bytes</code> still counts it. A shape is never
+released while anything still refers to it, such as a rollback image of an open transaction or a
+copied property map.</p>
+<p>On a test graph of 1 million vertices and 3 million edges with UUID ids, six properties per vertex
+and two per edge, shared key lists took the live heap from about 2.2 GB to 1.4 GB.</p>
+<h3 id="ids-and-the-id-index"><a class="header" href="#ids-and-the-id-index">IDs and the ID index</a></h3>
+<p>Each element's id is stored once, with the element. The ID index (part of <code>index_bytes</code>) keeps
+only a handle and a 32-bit hash of the id per element (12 bytes plus one control byte per bucket),
+and confirms a lookup by comparing the id stored with the element. Long ids such as UUID strings
+therefore cost their length once, not twice: choose ids for your data, not for memory. On a
+1M/3M test graph with UUID ids and one property per vertex, dropping the index's second copy of
+every id saved about 20 % of the live heap. How both structures work inside is described in
+<a href="../for_developers/storage_internals.html">In-Memory Storage Internals</a>.</p>
+<h3 id="accuracy"><a class="header" href="#accuracy">Accuracy</a></h3>
+<p>All figures are <strong>estimates</strong>: they sum <code>std::mem::size_of</code>/capacity-based arithmetic over the
+structures that back the graph, not a true allocator-level accounting. Every hash map (a nested
+object, a free-standing map, the ID and label indexes) counts both of its allocations: the entries
+(per slot a cached hash, the key and the value; 64 bytes on a 64-bit target) and the hash index (a
+pointer-sized slot and a control byte per bucket, at most 7/8 full). Allocator rounding and
+bookkeeping are not counted. Two caveats worth knowing:</p>
+<ul>
+<li><strong><code>structure_bytes</code> can be a loose bound on a heavily churned graph.</strong> The underlying storage
+never releases a removed vertex/edge's slot immediately (it keeps the slot to preserve other
+indices' stability), so a graph that has added and removed many elements can retain more memory
+than its current live element count would suggest. <code>structure_bytes</code> accounts for this using the
+storage's actual retained capacity, not just the live count, but no operation today reclaims that
+space (<code>shrink_to_fit()</code> only compacts the index, not the underlying graph storage).</li>
+<li><strong><code>property_bytes</code> is an O(n) walk.</strong> It visits every vertex, every edge, and every property, so
+its cost scales with graph size. On a graph of ~110k elements it completes in roughly a
+millisecond (see the crate's benchmarks for a current number) — fine for interactive use, not
+something to call in a hot loop.</li>
+</ul>
+<p><code>memory_usage()</code> is reachable through the <code>GraphStorage</code> trait, so any storage backend plugged into
+a <code>GraphTraversalSource</code> gets it uniformly — not just <code>TraversalGraph</code>. A backend that doesn't
+support introspection returns <code>None</code>.</p>
+<h2 id="the-memory-report"><a class="header" href="#the-memory-report">The memory report</a></h2>
+<p><code>memory_usage()</code> says how much; the memory report says <strong>where</strong>: per element kind and label and
+per top-level property, with the property indexes, the compression rules and the slots. It
+reports facts, not advice: what a key holds, how big its values are, how many distinct strings it
+has, which vectors. It is computed on demand by one walk over the elements and changes nothing.</p>
+<pre><code class="language-rhai graph=modern">g.memory_report().properties.filter(|p| p.path == "$.name").map(|p| [p.label, p.elements, p.bytes])
+</code></pre>
+<p>The answer is a map:</p>
+<ul>
+<li><code>properties</code>: one row per <code>(element, label, path)</code>, most bytes first. <code>elements</code> have the key
+out of <code>label_elements</code> (sparsity); <code>value_types</code> counts the values per logical type (<code>string</code>,
+<code>int64</code>, <code>date</code>, <code>vector</code>, <code>object</code>, <code>null</code>, ...); <code>bytes</code> = <code>slot_bytes</code> (one 32-byte slot per
+value) + <code>heap_bytes</code> (what the values own: strings above 24 bytes, compressed blocks, vectors,
+arrays, nested objects with everything in them); <code>sizes</code> is a histogram of the values by their
+heap bytes (<code>max_bytes</code> 0 = no heap, then 32 B up to 1 MiB, <code>null</code> = above 1 MiB; each bucket
+with <code>values</code> and <code>bytes</code>, so "how many bytes sit in values above 2 KiB" is a sum);
+<code>max_value_bytes</code>; <code>strings</code> (<code>values</code>, <code>inline_values</code>, <code>heap_bytes</code>, <code>plain_bytes</code> and a
+<code>distinct_estimate</code> from a HyperLogLog sketch, about 6.5 % standard error); <code>vectors</code> per element
+kind and dimension; <code>compressed_*</code> and <code>deduped_*</code> values with the <code>rules</code> and <code>indexes</code> on the
+key. <code>leaf</code> is <code>false</code> when some value is an object: the row then aggregates the nested keys
+(<code>nested_values</code> counts them). <code>path</code> is a jpath (<code>$.name</code>); rows are top-level keys today.</li>
+<li><code>labels</code>: per <code>(element, label)</code> the <code>elements</code>, <code>id_heap_bytes</code> (ids above 24 bytes),
+<code>label_bytes</code> (a vertex's label list), <code>slot_bytes</code> (for edges this is the adjacency),
+<code>property_bytes</code> (its rows plus <code>map_overhead_bytes</code>: value slots kept for reuse after a key was
+dropped) and, for vertices, <code>degree</code> (<code>max_out</code>, <code>max_in</code>, <code>max</code>, <code>p95</code>: supernodes).</li>
+<li><code>shapes</code>: the number of key sequences met and a histogram of elements per shape.</li>
+<li><code>indexes</code> (each property index with its <code>entries</code> and <code>bytes</code>) and <code>compression_rules</code> (each
+rule with its values and plain, stored and dictionary bytes).</li>
+<li><code>structure</code>: what only the storage knows: <code>vertex_slots</code>/<code>edge_slots</code> (<code>live</code>, <code>tombstoned</code>:
+vacant slots of removed elements below the highest live one, <code>spare</code>: allocated above it,
+<code>slot_bytes</code>), <code>id_index_bytes</code>, <code>label_index_bytes</code>, <code>shape_table_shapes</code> and the <code>totals</code> of
+<code>memory_usage()</code>. <code>null</code> for a storage that does not report one; everything else is computed
+for any storage.</li>
+<li><code>property_bytes</code> (equal to <code>memory_usage().property_bytes</code> for a full report),
+<code>estimated_total_bytes</code>, <code>tracked_live_bytes</code> (the process heap where a tracking allocator is
+installed: the CLI, the playground, Python) and <code>unattributed_bytes</code> (that heap minus the
+estimate: allocator overhead and the rest of the process), <code>sampled</code>, <code>sample_every</code>,
+<code>visited_elements</code>, <code>commit_seq</code>, <code>elapsed_ms</code>.</li>
+</ul>
+<p>A vertex with several labels counts once, under its <strong>first</strong> (primary) label.</p>
+<p>Options, all optional: <code>#{max_elements: n}</code> or <code>#{sample_every: k}</code> sample a large graph,
+<code>#{max_rows: n}</code> and <code>#{max_labels: n}</code> keep the rows with the most bytes (<code>rows_omitted</code>,
+<code>labels_omitted</code> count the rest; the totals stay complete). A sample is stratified by label: the
+walk still passes every element and counts it under its label, but reads the properties of only
+every k-th element of each label (always the first), and scales each label by its exact count. So
+a small label is never missed; distinct counts from a sample are flagged <code>distinct_reliable: false</code>. A graph with very many labels reads about one element per label.</p>
+<pre><code class="language-rhai graph=modern">g.memory_report(#{sample_every: 2, max_rows: 3, max_labels: 2}).sampled   // true
+</code></pre>
+<p>The walk runs under a read lock: writers wait while it runs. A full report of about 1 million
+elements took about 0.9 s in a release build, a sample of 20 000 elements about 50 ms.</p>
+<p>Elsewhere: Rust <code>g.memory_report(&amp;MemoryReportRequest::new())</code> (a <code>MemoryReport</code> with typed
+rows, <code>Display</code> as a terminal summary, <code>to_property()</code>/<code>to_json()</code> as this map; a
+<code>CancelToken</code> stops it); the REPL's <code>/memory [max_elements]</code> prints the summary; the dev server
+<code>POST /api/memory/report</code> and the MCP tool <code>memory_report</code> (at most 50 property and label rows
+unless <code>max_rows</code>/<code>max_labels</code> say otherwise); Python <code>graph.memory_report(max_elements=..)</code>.</p>
+<pre><code class="language-rust">use graphersal::prelude::*;
+use graphersal::storage::{ElementKind, MemoryReportRequest, PropertyTarget};
+
+let graph = TraversalGraph::tinkerpop_modern();
+let report = graph.traversal().memory_report(&amp;MemoryReportRequest::new()).unwrap();
+let name = report
+    .property(&amp;PropertyTarget::top_level(ElementKind::Vertex, Some("person"), "name"))
+    .unwrap();
+assert_eq!(name.elements, 4);
+assert_eq!(report.property_bytes(), graph.memory_usage().unwrap().unwrap().property_bytes);
+println!("{report}");</code></pre>
+<p>A storage of your own gets every part except <code>structure</code> without any work; it fills that one by
+overriding <code>GraphStorage::memory_structure</code> (default <code>None</code>).</p>
+<h2 id="graph-statistics"><a class="header" href="#graph-statistics">Graph statistics</a></h2>
+<pre><code class="language-rhai graph=modern">g.statistics()
+</code></pre>
+<p>Returns the element counts the graph keeps up to date as it changes: <code>vertex_count</code>,
+<code>edge_count</code>, and three label maps:</p>
+<div class="table-wrapper"><table><thead><tr><th>Key</th><th>Counts</th></tr></thead><tbody>
+<tr><td><code>vertex_labels</code></td><td>vertices carrying a label anywhere in their label set (a multi-label vertex counts under every label, like <code>has_label</code>)</td></tr>
+<tr><td><code>primary_vertex_labels</code></td><td>vertices whose primary (first) label it is, what <code>label()</code> returns; every labeled vertex counts once</td></tr>
+<tr><td><code>edge_labels</code></td><td>edges per label</td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-console">$ graphersal -e 'g.statistics()'
+"edge_count": 6
+"edge_labels": #{"created": 4, "knows": 2}
+"primary_vertex_labels": #{"person": 4, "software": 2}
+"vertex_count": 6
+"vertex_labels": #{"person": 4, "software": 2}
+</code></pre>
+<p>In Rust, <code>GraphStorage::statistics()</code> (and <code>GraphTraversalSource::statistics()</code>) returns
+<code>Option&lt;&amp;GraphStatistics&gt;</code>, with getters such as <code>vertex_label_count(label)</code> and
+<code>primary_vertex_label_counts()</code>. Unlike <code>memory_usage()</code> this costs nothing to read: the counts are
+maintained incrementally by every mutation (O(labels involved), no allocation except for a label
+seen for the first time) and restored exactly by a rollback. A storage backend that keeps no
+statistics returns <code>None</code>; <code>GraphStatistics::from_storage(&amp;storage)</code> computes them with one scan,
+and a backend that does report statistics must report exactly that. The optimizer reads label
+counts only through this method (<a href="../optimizer/group_count_pushdown.html">Group Count Pushdown</a>) and
+scans when it gets <code>None</code>.</p>
+<p>The statistics are the place for everything the engine knows <em>about</em> the data. Planned
+extensions: degree statistics, property statistics (counts, distinct values), histograms, and
+persisted statistics stamped with the commit sequence they describe. Everything kept today is
+recomputable from the data, so nothing is persisted: loading a graph (GraphML, a change-set
+replay) rebuilds the statistics. A serialized form (behind the <code>serde</code> feature) will come with
+the first statistic that cannot be derived cheaply on load.</p>
+<p>In the playground the same counts, the memory footprint and the limits a query runs under are the
+<strong>Statistics</strong> tab of the Profile panel:</p>
+<p><img src="../images/playground/statistics.png" alt="The Statistics tab: counts per vertex and edge label, memory footprint and the query limits" /></p>
+<h2 id="profile_withprofiletypememorys-memretainedallocs-columns"><a class="header" href="#profile_withprofiletypememorys-memretainedallocs-columns"><code>.profile_with(ProfileType::Memory)</code>'s <code>Mem</code>/<code>Retained</code>/<code>Allocs</code> columns</a></h2>
+<p>A bare <code>.profile()</code> (no argument) collects no memory data: it renders the plain
+<code>Step | Call | In | Out | Time | % Dur</code> table, at no extra measurement cost. Memory collection and
+its columns are opt-in through the <code>ProfileType</code> bitmask: <code>.profile_with(ProfileType::Memory)</code>
+(Rust) or <code>g.profile(ProfileType::Memory)</code> / <code>g.profile(ProfileType.Memory)</code> (Rhai, both token
+forms). <code>.profile()</code> is <code>.profile_with(ProfileType::none())</code>.</p>
+<pre><code class="language-rhai graph=modern">g.v().group().by(T.label).profile(ProfileType::Memory)
+</code></pre>
+<p>In the playground, tick <strong>Memory</strong> next to <strong>Profile</strong> in the Query toolbar: the Steps tab gets
+the <code>Mem</code>, <code>Retained</code> and <code>Allocs</code> columns (shown here on the dev server, whose timings are native;
+the browser rounds its timer to 0.1 ms):</p>
+<p><img src="../images/playground/profile-memory.png" alt="A profile with the memory columns, the figures tracked by the allocator" /></p>
+<pre><code class="language-text">Traversal Metrics
+Step                                                         Call      In     Out       Time       Mem Retained Allocs    % Dur
+===============================================================================================================================
+v()                                                             1       0       6   13.208µs      480B     480B      1     6.30
+group().by(T.label)                                             1       6       1   50.042µs    1.37KB     588B      7    23.87
+                                                      TOTAL:             execute:  209.625µs                              30.17
+                                                      TOTAL: memory materialized:               1.84KB                         
+                                                      TOTAL:        net retained:                        1.04KB                
+===============================================================================================================================
+</code></pre>
+<p>(real output, captured via <code>graphersal</code>.) Compare with a bare <code>.profile()</code> on the same query — no <code>Mem</code>/
+<code>Retained</code>/<code>Allocs</code> columns, no <code>TOTAL: memory materialized:</code>/<code>TOTAL: net retained:</code> rows:</p>
+<pre><code class="language-text">Traversal Metrics
+Step                                                         Call      In     Out       Time    % Dur
+=====================================================================================================
+v()                                                             1       0       6    1.750µs     5.01
+group().by(T.label)                                             1       6       1    7.041µs    20.14
+                                                      TOTAL:             execute:   34.958µs    25.15
+=====================================================================================================
+</code></pre>
+<p>Every step in a memory-profiled traversal reports <code>bytes_materialized</code>: how much heap data that
+step <em>newly owns</em>, beyond the lazy handles it passes through. Most steps (filters, <code>has_label</code>,
+<code>out()</code>/<code>in()</code>/<code>both()</code>, <code>values()</code> before a terminal materializes them, ...) never own new heap
+data at all — they carry lazy vertex/edge handles — so they report <code>0</code> at no measurement cost.
+Steps that build something new (<code>group()</code>, <code>fold()</code>, <code>sum()</code>, <code>mean()</code>, <code>median()</code>, <code>path()</code>,
+<code>element_map()</code>) report their aggregation/materialization buffer's size in the <code>Mem</code> column, next
+to <code>Retained</code> (net bytes kept) and <code>Allocs</code> (allocator call count) — see the next section for how
+to read all three together.</p>
+<p>A <code>~</code> prefix on a <code>Mem</code> figure means it is <strong>estimated</strong>; a plain number means it is <strong>tracked</strong>
+(exact). Which one you get depends on how the binary was built — see below. As data, the figures
+are the optional <code>memory</code> section of every step's <a href="profiling_and_execute.html"><code>Metrics</code></a>
+(<code>MemoryMetrics</code>: <code>bytes_materialized</code>, <code>bytes_retained</code>, <code>alloc_count</code>, <code>source</code>); a
+<code>Retained</code>/<code>Allocs</code> value of <code>-</code> means that figure simply isn't tracked for this run
+(<code>source: "estimated"</code>, which has no allocator-level figures to show).</p>
+<h3 id="no-memory-section-vs-estimated-vs-tracked"><a class="header" href="#no-memory-section-vs-estimated-vs-tracked">No <code>memory</code> section vs. <code>Estimated</code> vs. <code>Tracked</code></a></h3>
+<ul>
+<li><strong>No <code>memory</code> section</strong> (a bare <code>.profile()</code>, no <code>ProfileType</code> argument): memory profiling wasn't
+asked for. No allocator thread-local is read, no estimate is computed — the executor skips the
+work entirely, not just its display. Every step's <code>memory</code> is absent (<code>None</code> in Rust, no key in
+the Rhai map and the JSON): "never measured," not "measured and found zero."</li>
+<li><strong><code>Estimated</code></strong> (<code>.profile_with(ProfileType::Memory)</code> without the <code>alloc-tracking</code> feature): a
+<code>size_of</code>/capacity-based estimate over the data the step already built, computed inside
+<code>.profile_with()</code>'s timing-collection gate. Expect roughly 10-30% divergence from true bytes for
+structures dominated by many small, separately-heap-allocated values, and it cannot see temporary
+allocation churn (memory allocated and freed again within a single step's own execution).</li>
+<li><strong><code>Tracked</code></strong> (<code>.profile_with(ProfileType::Memory)</code> with <code>alloc-tracking</code>): a real allocator-level
+measurement, via the <code>alloc-tracking</code> feature's <code>TrackingAllocator</code>. This requires two things: the
+feature compiled in, <em>and</em> the binary installing <code>TrackingAllocator</code> as its own
+<code>#[global_allocator]</code> (a library crate cannot do this for you — the attribute can only be set
+once, by the final binary). The CLI (<code>graphersal</code>), the web playground's WebAssembly module
+(<code>graphersal-wasm</code>) and the Python extension (<code>py-graphersal</code>, a <code>cdylib</code> that installs it for
+its own Rust heap; Python objects are not counted) all do this by default.</li>
+</ul>
+<p><strong>The trade <code>alloc-tracking</code> makes:</strong> once a binary installs <code>TrackingAllocator</code>, <em>every</em>
+allocation in that process pays a small, constant bookkeeping cost (a thread-local counter
+increment), whether or not the query in flight is profiled. This is the accepted cost in the <code>graphersal</code> command
+line, the web playground and the Python extension, for always-exact numbers in the reference
+binaries this project ships; the <code>graphersal</code> library without the feature, and any other consumer
+that doesn't opt in, stay exactly zero-cost. <code>ProfileType::Memory</code> gates a further, finer-grained cost on top of that: even in an
+<code>alloc-tracking</code> build, a query profiled without <code>ProfileType::Memory</code> (or not profiled at all)
+skips <code>AllocSnapshot::capture</code>/<code>step_memory_metrics</code> completely for every step.</p>
+<h2 id="the-bulk-column"><a class="header" href="#the-bulk-column">The <code>Bulk</code> column</a></h2>
+<p>When equal traversers were merged (<code>barrier()</code>, the <code>repeat()</code> frontier, the optimizer's
+<code>lazy_barrier()</code>), <code>.profile()</code> shows a <code>Bulk</code> column after <code>Out</code>. <code>Out</code> counts traverser objects
+(TinkerPop's "Traversers"); <code>Bulk</code> is the sum of their bulks, i.e. how many logical traversers the
+step's output stands for (TinkerPop's "Count"). A <code>lazy_barrier()</code> row that reads <code>In 8049, Out 562, Bulk 8049</code> merged 8049 traversers into 562 without losing any. A query where nothing merged has no
+<code>Bulk</code> column at all.</p>
+<h2 id="gross-vs-net-reading-mem-alongside-retainedallocs"><a class="header" href="#gross-vs-net-reading-mem-alongside-retainedallocs">Gross vs. net: reading <code>Mem</code> alongside <code>Retained</code>/<code>Allocs</code></a></h2>
+<p>Under <code>Tracked</code>, a step whose <code>Mem</code> figure looks alarmingly large is not automatically a bug. The
+<code>Mem</code> column (<code>bytes_materialized</code>) is <strong>gross</strong> allocation traffic: it sums every byte the step
+<em>ever asked the allocator for</em> during its execution, including a buffer that was grown by
+reallocation and then partly (or wholly) freed again before the step finished. It answers "how much
+allocator work did this cost," not "how much memory does this step's output now occupy."</p>
+<p>For that second question, a <code>Tracked</code> step's row also carries real <code>Retained</code>/<code>Allocs</code> columns:</p>
+<pre><code class="language-text">Step                                                         Call      In     Out       Time       Mem Retained Allocs    % Dur
+===============================================================================================================================
+v(labels: ["company"])                                          1       0   88000   29.126ms   11.25MB  10.00MB     33    12.62
+in()                                                             1   88000  747988  136.318ms   80.00MB  70.00MB     19    59.04
+has_label("country")                                            1  747988   88000   65.371ms       80B  -80.00MB      1    28.31
+count()                                                          1   88000       1      375ns        0B        0B      0     0.00
+</code></pre>
+<p>(real figures from a 110k-element dataset, <code>.profile_with(ProfileType::Memory)</code>: <code>in()</code> has a
+large fan-out, each input vertex expanding to 8-9 output vertices on average, written into one
+amortized-growth output buffer. <code>has_label("country")</code>'s <code>-80.00MB</code> <code>Retained</code> is a genuine
+negative delta: it drops <code>in()</code>'s large intermediate output as it filters, so it frees far more
+than it allocates.)</p>
+<ul>
+<li><strong><code>Retained</code></strong> is the <strong>net</strong> figure: live bytes at the step's exit minus live bytes at its
+entry. It is <code>MemoryMetrics::bytes_retained</code>, and it can be <strong>smaller</strong> than <code>Mem</code> (gross)
+whenever the step freed more than it kept (the reallocation churn described below), and it can
+even be <strong>negative</strong> — a step that frees more than it allocates (for instance, one that drops a
+large intermediate the <em>previous</em> step built) genuinely shows a negative delta, and this is
+reported honestly rather than clamped to <code>0</code>, as <code>has_label("country")</code>'s <code>-80.00MB</code> above shows.
+For <code>in()</code>, gross (80.00MB) is only modestly larger than retained (70.00MB): about 10MB of that
+80MB was allocated and freed again within the step's own execution (the shared output buffer's
+amortized-doubling growth), not memory the step's output still holds by the time it hands off to
+the next step — a tight <code>Mem</code>/<code>Retained</code> gap like this, together with a low <code>Allocs</code> count
+relative to output size, is the signature of a step writing into one reused buffer rather than
+allocating per item.</li>
+<li><strong><code>Allocs</code></strong> is <code>MemoryMetrics::alloc_count</code>: the number of distinct calls the step made to
+the allocator (<code>alloc</code>/<code>alloc_zeroed</code>, plus any <code>realloc</code> that grew a buffer). A step that does a
+handful of large, deliberate allocations (<code>reserve()</code>d once, filled once, or grown by a shared
+buffer's own amortized doubling — 19 allocations for 747,988 output items above) has a low
+<code>Allocs</code> relative to its output size — efficient and expected. A step whose <code>Allocs</code> count runs
+into the hundreds of thousands for tens of thousands of output items is very likely allocating
+per-item or per-small-batch, which is exactly the structural symptom a large <code>Mem</code>/<code>Retained</code>
+gap usually traces back to.</li>
+</ul>
+<p>Together, <code>Retained</code> and <code>Allocs</code> turn "this step's <code>Mem</code> figure looks huge" into a diagnosable
+statement: high <code>Mem</code>, low <code>Retained</code>, high <code>Allocs</code> reads as "high churn, low net retention" —
+a step reallocating a growing buffer many times over — rather than a flat, unexplained number.</p>
+<p>Both columns read <code>-</code> under <code>Estimated</code> (the <code>size_of</code>-based path has no allocator to draw them
+from), and neither column exists at all — not even as <code>-</code> — under a bare <code>.profile()</code>, since the
+<code>Mem</code> column itself isn't rendered without <code>ProfileType::Memory</code>.</p>
+<p><strong>This is a lightweight, always-available, in-process diagnostic, not a replacement for external
+profiling tools.</strong> It tells you <em>that</em> a step is churning and roughly <em>how much</em>, at the whole-step
+granularity; it does not attribute any individual allocation to a call site (e.g. "this came from
+<code>Vec::push</code> at line 107"), and it has no peak/high-water-mark figure (the maximum live bytes at any
+point <em>during</em> a step, as opposed to just at its entry and exit). For that level of detail, reach
+for <code>valgrind --tool=massif</code>, <code>heaptrack</code>, or a sampling allocator profiler — this feature exists so
+you rarely need to reach for those tools for a first-pass diagnosis, not so you never do.</p>
+<h2 id="summary"><a class="header" href="#summary">Summary</a></h2>
+<div class="table-wrapper"><table><thead><tr><th></th><th>Scope</th><th>Cost when unused</th><th>Accuracy</th></tr></thead><tbody>
+<tr><td><code>graph.memory_usage()</code></td><td>The whole graph's storage</td><td>N/A — never runs on the query path</td><td>Estimate (capacity-based)</td></tr>
+<tr><td>A bare <code>.profile()</code> (no <code>memory</code> section)</td><td>One query's steps, timing only</td><td>Zero — no memory collection at all</td><td>N/A — no memory data</td></tr>
+<tr><td><code>.profile_with(ProfileType::Memory)</code>, <code>Estimated</code></td><td>One query's steps</td><td>Zero when <code>ProfileType::Memory</code> isn't requested</td><td>Estimate, ~10-30% divergence possible</td></tr>
+<tr><td><code>.profile_with(ProfileType::Memory)</code>, <code>Tracked</code></td><td>One query's steps</td><td>A small, constant, always-on cost per allocation once <code>alloc-tracking</code> is installed, plus the per-call cost of requesting <code>ProfileType::Memory</code></td><td>Exact (<code>Mem</code>, gross); <code>Retained</code>/<code>Allocs</code> add net and churn figures</td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../users_guide/profiling_and_execute.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../traversal/step_reference.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../users_guide/profiling_and_execute.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../traversal/step_reference.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

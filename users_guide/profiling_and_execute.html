@@ -1,0 +1,434 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Profiling and execute() - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/users_guide/profiling_and_execute.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="profiling-and-execute"><a class="header" href="#profiling-and-execute">Profiling and execute()</a></h1>
+<p>Two terminals tell you how a traversal ran:</p>
+<ul>
+<li><code>profile()</code> runs the traversal and returns <strong>only its metrics</strong>, like TinkerPop's <code>profile()</code>.</li>
+<li><code>execute()</code> runs it and returns an <strong>execution object</strong>: the results, the error (as data, never
+thrown) and, when you ask for it, the metrics of the same run.</li>
+</ul>
+<p>Both report the <em>optimized</em> plan, the one that actually ran: fused steps appear under their real
+names (<code>v(labels: ["person"]).count()</code>). What a step records into traverser paths is the separate
+<code>path_recording</code> field (<code>"full"</code>, <code>"labels(a,b)"</code>); only the table renders it after the name, as
+<code> [path: ...]</code>.
+Profiling instruments every step, so a profiled run is slightly slower; its results are identical.</p>
+<h2 id="profile"><a class="header" href="#profile">profile()</a></h2>
+<pre><code class="language-rhai graph=modern">g.V().hasLabel("person").where(__.out("knows")).profile()
+</code></pre>
+<p>As the final value of a session (the CLI, the REPL, the playground) it renders as the familiar
+table:</p>
+<pre><code class="language-text">Traversal Metrics
+Step                                                                   Call      In     Out       Time    % Dur
+===============================================================================================================
+v(labels: ["person"])                                                     1       0       4    3.708µs     0.44
+where(__.out("knows"))                                                    1       4       1  131.291µs    15.72
+  \&gt; out("knows")                                                         4       4       2  128.000µs    15.33
+     [min: 41ns, avg: 32.000µs, max: 127.542µs]
+                                                                TOTAL:             execute:  835.000µs    16.17
+===============================================================================================================
+Optimizer rules applied: source_filter_pushdown
+</code></pre>
+<p>The <code>Step</code> column is as wide as the longest step text, annotations such as <code>[index: ..]</code> and
+<code>[path: ..]</code> included (at least 60 characters, 70 with nested steps); only a step text longer
+than 160 characters is cut with <code>...</code>.</p>
+<p>In a script it is data, a <code>TraversalMetrics</code> value:</p>
+<pre><code class="language-rhai">let p = g.V().hasLabel("person").out("knows").profile();
+p.duration_ns                       // the whole run, integer nanoseconds
+p.metrics[0].name                   // "v(labels: [\"person\"])"
+p.metrics[1].counts.traverser_count // 2
+p.optimizer_rules_applied           // ["source_filter_pushdown"]
+p.to_map()                          // the whole tree as a map
+p.to_json()                         // ... as compact JSON text
+p.to_table()                        // the text table above
+</code></pre>
+<p><code>profile(ProfileType.Memory)</code> (also <code>ProfileType::Memory</code>, and <code>profile_with(..)</code>) adds a <code>memory</code>
+section to every step; see <a href="memory_and_profiling.html">Memory Inspection and Profiling</a>.</p>
+<p>A traversal that fails inside <code>profile()</code> is a <strong>script error</strong> with the full diagnostic, exactly
+like <code>to_list()</code>. Use <code>execute(#{profile: true})</code> to get the profile up to the failing step.</p>
+<p>In Rust, <code>profile()</code> / <code>profile_with(flags)</code> return <code>TraverserResult&lt;TraversalMetrics&gt;</code>; its
+<code>Display</code> impl renders the table.</p>
+<h2 id="step-names"><a class="header" href="#step-names">Step names</a></h2>
+<p>Every step has one rendering, used by <code>.profile()</code>, by the step location of an error
+(<code>at #2: ...</code> with its caret) and by the <code>help()</code> text that rewrites the failing query. It reads
+like the DSL call that builds the step:</p>
+<ul>
+<li>snake_case step names: <code>has_label("person")</code>, <code>group_count()</code>, <code>side_effect(__.out())</code>;</li>
+<li>Rhai literals for arguments: <code>"x"</code>, <code>1</code>, <code>2.5</code>, <code>()</code>, <code>[1, 2]</code>, <code>#{name: "marko"}</code>,
+<code>UUID.from_string("...")</code>, <code>jpath("$.a.b")</code>;</li>
+<li>predicates and tokens as you write them: <code>P.gt(30).and(P.lt(40))</code>, <code>TextP.starting_with("m")</code>,
+<code>Order.desc</code>, <code>T.label</code>, <code>Scope.local</code>, <code>Pop.first</code>, <code>Column.keys</code>, <code>GType.LONG</code>,
+<code>Operator.sum</code>, <code>Cardinality.list</code>;</li>
+<li>child traversals as <code>__.out().has("name", "x")</code>; a <code>where()</code> child shows its start and end
+labels where you wrote them: <code>where(__.as("a").out().as("b"))</code>;</li>
+<li>nothing for an argument you left out (<code>v()</code>, <code>out()</code>), and the default <code>Order.asc</code> of a sort
+key is left out too (<code>order().by("age")</code>).</li>
+</ul>
+<p>A step the optimizer fused or inserted shows under the name of what it does:
+<code>v(labels: ["person"]).count()</code>, <code>v(ids: ["1"], labels: ["person"])</code>,
+<code>e().group_count().by(T.label)</code>, <code>add_v("person", properties: ["name"])</code>, <code>lazy_barrier()</code>.
+An empty intersection of id filters (<code>g.V("1").hasId("2")</code>) is <code>v([])</code>, a scan of nothing.
+Profile annotations stay after the name in brackets: <code>[path: full]</code>, <code>[lookup: label]</code>.</p>
+<p><code>g.with("render.spelling", "camel")</code> switches the whole rendering to the Gremlin camelCase
+spelling for one query (<code>"snake"</code> is the default):</p>
+<pre><code class="language-text">$ graphersal -e 'g.with("render.spelling", "camel").V().hasLabel("person").outE().groupCount().profile()'
+Traversal Metrics
+Step                                                         Call      In     Out       Time    % Dur
+=====================================================================================================
+v(labels: ["person"])                                           1       0       4    3.958µs     5.86
+outE()                                                          1       4       6    2.542µs     3.76
+groupCount()                                                    1       6       1    4.667µs     6.91
+                                                      TOTAL:             execute:   67.541µs    16.54
+=====================================================================================================
+Optimizer rules applied: source_filter_pushdown
+</code></pre>
+<p>Front ends set it for a session: <code>graphersal --spelling camel</code> (REPL: <code>/set spelling camel</code>), the
+playground's Settings dialog, and in Rust <code>RenderOptions::with_spelling(Spelling::Camel)</code> passed on
+through <code>graphersal::script::render_scope_options</code>. A query's own <code>g.with(..)</code> wins. The camelCase
+names are the ones the DSL registers for each step (<code>hasLabel</code> for <code>has_label</code>), so a step that
+was not fused can be pasted back into a query in either spelling. Error messages and <code>help()</code> follow the same
+spelling, also for an error raised before the run (a denied step, an invalid option, a plan-time
+check); results never depend on it. In the Rust API, <code>TraverserError::spelling()</code> tells which
+spelling an error was rendered in; an error without a step frame comes wrapped in
+<code>TraverserError::Spelled</code> under <code>camel</code> (<code>root_cause()</code> unwraps it).</p>
+<p>Long literal arguments are cut in every rendered step: a string after 64 characters
+(<code>replace("aaaa…" (8192 chars), "b")</code>) and a list, a map or the arguments of a variadic step
+after 16 items (a 10 000-item list shows its first 16 items, then <code>, …] (10000 items)</code>), so a
+location stays readable.</p>
+<h2 id="the-metrics"><a class="header" href="#the-metrics">The metrics</a></h2>
+<pre><code class="language-text">TraversalMetrics { duration_ns, metrics: [Metrics], optimizer_rules_applied: [string] }
+Metrics {
+  id, name, duration_ns, percent_duration,
+  path_recording?: "full" | "labels(a,b)",                // what the step records into paths
+  counts: { traverser_count, element_count },
+  calls, count_in,
+  timing?: { min_duration_ns, max_duration_ns },          // once the step completed a call
+  loops?:  { total_loops, max_depth, avg_loops_per_traverser },   // repeat() only
+  memory?: { bytes_materialized, bytes_retained, alloc_count, source },  // ProfileType.Memory
+  nested: [Metrics],                                     // steps of the child traversals
+}
+</code></pre>
+<p>Keys are snake_case everywhere: Rust getters (<code>metrics.counts().traverser_count()</code>), Rhai map keys
+and JSON keys. Durations are <code>Duration</code> in Rust and integer nanoseconds (<code>duration_ns</code>) in Rhai
+and JSON. A key marked <code>?</code> is absent unless it applies.</p>
+<div class="table-wrapper"><table><thead><tr><th>TinkerPop <code>Metrics</code></th><th>Graphersal</th><th>Notes</th></tr></thead><tbody>
+<tr><td><code>dur</code></td><td><code>duration</code> (<code>duration_ns</code>)</td><td>total over all calls of the step</td></tr>
+<tr><td><code>traverserCount</code></td><td><code>counts.traverser_count</code></td><td>traverser objects the step emitted</td></tr>
+<tr><td><code>elementCount</code></td><td><code>counts.element_count</code></td><td>logical traversers they stand for (sum of bulks)</td></tr>
+<tr><td><code>percentDur</code></td><td><code>percent_duration</code></td><td>share of the run's <code>duration</code></td></tr>
+<tr><td>nested metrics</td><td><code>nested</code></td><td>flat list of every child-traversal step, ordered by id</td></tr>
+<tr><td>—</td><td><code>calls</code>, <code>count_in</code></td><td>ours: completed calls, traversers handed in</td></tr>
+<tr><td>—</td><td><code>timing</code>, <code>loops</code>, <code>memory</code></td><td>ours: optional sections</td></tr>
+</tbody></table>
+</div>
+<p><code>traverser_count</code> and <code>element_count</code> differ only when equal traversers were merged
+(<a href="bulk_and_barriers.html">bulk</a>); the table then shows a <code>Bulk</code> column.</p>
+<h3 id="the-extensibility-rule"><a class="header" href="#the-extensibility-rule">The extensibility rule</a></h3>
+<p>The metrics are data that you may store, compare and parse, so they only ever grow one way:
+<strong>a new <code>ProfileType</code> adds a new optional section to <code>Metrics</code></strong> (as <code>memory</code> did), present only
+when that type was requested. The meaning and type of an existing field never change. Rust structs
+are <code>#[non_exhaustive]</code> and read through getters; consumers of the map or JSON form must ignore
+keys they do not know.</p>
+<h2 id="step-ids"><a class="header" href="#step-ids">Step ids</a></h2>
+<p>Every step of the optimized plan has an id, its <strong>static position</strong> in the plan:</p>
+<ul>
+<li>a top-level step is its index: <code>"0"</code>, <code>"1"</code>, ...;</li>
+<li>a step inside a child traversal alternates step index and child-traversal index:
+<code>&lt;step&gt;.&lt;child&gt;.&lt;step&gt;...</code>. <code>"3.1.0"</code> is top-level step 3, its child traversal 1, step 0 in it.</li>
+</ul>
+<p>The children of a step are numbered in a fixed order: the step's <strong>own traversal arguments
+first, in argument order</strong> (the <code>union()</code>/<code>coalesce()</code>/<code>and()</code>/<code>or()</code> branches, the body of
+<code>where()</code>/<code>not()</code>/<code>filter()</code>/<code>local()</code>/<code>optional()</code>/<code>sideEffect()</code>, the <code>repeat()</code> body, the
+<code>choose()</code>/<code>branch()</code> selector, the key of <code>select(traversal)</code>), <strong>then the modulator children in
+attachment order</strong> (<code>by(__...)</code>, every <code>option()</code>'s key traversal and branch, the <code>until()</code> and
+<code>emit()</code> conditions of <code>repeat()</code>). A modulator without a traversal (<code>by("name")</code>, <code>times(2)</code>)
+takes no number.</p>
+<pre><code class="language-rhai graph=modern">g.V().union(__.out("knows"), __.in("created").values("name"))
+// 0: v()   1: union(..)   1.0.0: out("knows")   1.1.0: in("created")   1.1.1: values("name")
+</code></pre>
+<p>Ids come from the plan, not from execution: a branch that never runs leaves no gap, and a step
+called once per traverser keeps one id (its <code>calls</code> counts the calls). The same numbering locates
+errors (below), so a partial profile and an error join by id.</p>
+<h2 id="execute"><a class="header" href="#execute">execute()</a></h2>
+<pre><code class="language-rhai">let r = g.V().hasLabel("person").out("knows").execute();
+r.results     // what to_list() returns
+r.error       // () on success, else a map (below)
+r.profile     // () unless requested
+r.is_ok       // also isOk
+
+let r = g.V().hasLabel("person").execute(#{profile: true});
+let r = g.V().hasLabel("person").execute(#{profile_types: [ProfileType.Memory]});  // implies profile
+r.to_map()    // #{results, error, profile}
+r.to_json()
+</code></pre>
+<p><code>execute()</code> <strong>never throws</strong>. Every error is in <code>r.error</code>: a runtime error (with the profile up
+to the failing step when profiling was on), an error that prevents the run from starting (an
+invalid <code>with()</code> option, a plan check, a locked option), and a malformed options map
+(<code>execute(#{colour: 1})</code>). The options are <code>profile</code> (bool) and <code>profile_types</code> (a list of
+<code>ProfileType</code> values or their names, <code>"memory"</code>).</p>
+<p>The error map:</p>
+<pre><code class="language-rhai">#{
+  message: "Step #1.1.1 'sum()' execution failed: Cast exception: ...",
+  help: "...",                 // how to fix the query, when there is advice
+  step_id: "1.1.1",            // the failing step, numbered like Metrics.id
+  step_path: [#{id: "1", name: "union(...)"}, #{id: "1.1.1", name: "sum()"}],
+  diagnostic: "Error: ...",    // the full text the CLI prints
+}
+</code></pre>
+<p><code>step_id</code>/<code>step_path</code> are absent for an error that has no step (an invalid option). An error
+found before the run (a rejected <code>by()</code>/<code>from()</code>/<code>to()</code>, an invalid constant argument such as
+<code>merge_v(1)</code> or <code>math("_ +")</code>, an undeclared step label, a denied step) carries the location of
+the step it is about, like a run-time failure. The names in <code>step_path</code> are the same plain step
+names as <code>Metrics.name</code>.</p>
+<p>As the final value of a session an execution renders as its results (in the traversal's
+visualizer format, within the display limits) followed by the profile table; a failed execution
+renders as its diagnostic, followed by the partial profile, and counts as a failure (the CLI exits
+with code <code>1</code>).</p>
+<h3 id="in-rust"><a class="header" href="#in-rust">In Rust</a></h3>
+<pre><code class="language-rust">use graphersal::prelude::*;
+
+let graph = GraphSource::tinkerpop_modern();
+let g = graph.read();
+let exec = g
+    .traversal()
+    .v(None::&lt;()&gt;)
+    .has_label("person")
+    .out(None::&lt;()&gt;)
+    .execute_with(ExecOptions::profile(ProfileType::none()));
+assert!(exec.error().is_none());
+assert_eq!(exec.results().len(), 6);
+let profile = exec.profile().unwrap();
+assert_eq!(profile.metrics()[0].id(), "0");
+let results = exec.into_result().unwrap(); // the Result shape, for `?`</code></pre>
+<p>When the run fails, none of its changes are applied: the traversal is rolled back as a whole
+(see <a href="transactions.html">Transactions</a>); <code>results</code> is empty and <code>error</code> and the partial <code>profile</code> are
+kept. <code>exec.error()</code> is <code>Option&lt;&amp;TraverserError&gt;</code>; <code>TraverserError::step_location()</code> returns its
+<code>StepLocation { step_id, step_path }</code> (also usable on any error of <code>to_list()</code> and the other
+terminals). <code>exec.mutated()</code> (Rhai <code>r.mutated</code>) says whether the run changed the graph and kept the
+change: committed on its own, or part of the enclosing unit inside an explicit transaction or a
+whole-script unit (see <a href="transactions.html">Transactions</a>). <code>exec.changes()</code> (Rhai <code>r.changes</code>, a map
+<code>#{data, schema}</code>) says what it changed: <code>UnitChanges { data, schema }</code>, with <code>schema</code> true when the
+run set or patched the schema (<a href="schema_enforcement.html#the-schema-methods">Schemas</a>). <code>Execution</code> is <code>#[non_exhaustive]</code>: later
+per-run data is added to it as new getters.</p>
+<h2 id="tinkerpop-differences"><a class="header" href="#tinkerpop-differences">TinkerPop differences</a></h2>
+<ul>
+<li><code>profile()</code> returns the metrics in the same shape, with snake_case names and our extra fields
+(table above). The TinkerPop key names are not mirrored.</li>
+<li>Step ids are static plan positions with the child-traversal index in them (<code>3.1.0</code>); TinkerPop
+numbers its metrics by internal step ids.</li>
+<li><code>execute()</code> is ours; TinkerPop has no terminal returning results and metrics of one run.</li>
+<li>Step names are the canonical DSL rendering described in <a href="#step-names">Step names</a> (snake_case,
+or camelCase with <code>render.spelling</code>), not TinkerPop's step class names such as
+<code>HasStep([~label.eq(person)])</code>.</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../users_guide/property_indexes.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../users_guide/memory_and_profiling.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../users_guide/property_indexes.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../users_guide/memory_and_profiling.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

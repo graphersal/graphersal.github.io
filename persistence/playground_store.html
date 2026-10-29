@@ -1,0 +1,275 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>The Store in the Playground - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/persistence/playground_store.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="the-store-in-the-playground"><a class="header" href="#the-store-in-the-playground">The Store in the Playground</a></h1>
+<p>The <a href="../users_guide/web_playground.html">web playground</a> runs the engine in the browser
+(WebAssembly), where there is no disk to write to. It still gives every graph the full Store: a
+<a href="store_backends.html#in-memory-memdir"><code>MemDir</code></a> store, with the same byte format as on disk.</p>
+<p>Every graph you load (a sample, the empty graph, a file) is kept as a
+<a href="store.html">Store</a> in memory: the loaded state is commit 0 (its first snapshot), every run
+that changes the graph adds a commit to the store's write-ahead log, and the <strong>Store</strong> menu in the
+top bar works on it exactly as the <a href="dev_server.html#on-a-store">dev server's</a> does on a store directory:</p>
+<ul>
+<li>the position (commit, time of the last commit) and the sizes: the store's bytes in memory next
+to the graph's own footprint;</li>
+<li><strong>Checkpoint</strong> (a snapshot of the current state; one is also written automatically after 4 MiB
+of log since the last one) and <strong>Mark</strong> (a name for the current position);</li>
+<li>the marks and the snapshots (each with a <code>.gsnap</code> download; when the store keeps
+<a href="store_models.html">embedding models</a>, a second download <strong>.gsnap without models</strong> leaves them
+out, the first one carries them with their licences), the newest five of each; <strong>Calendar…</strong>
+(or <strong>See all…</strong> when there are more) opens the <a href="dev_server.html#the-history-calendar">history calendar</a>;</li>
+<li>on every snapshot and mark, and through <strong>Go to commit</strong> / <strong>Go to time</strong>: <strong>Open read-only
+here</strong> (queries read that past state, writes are refused, a banner offers <strong>Back to the live
+graph</strong>), <strong>Fork into a new database</strong> and <strong>Roll back here</strong> (what comes after moves to the
+<strong>attic</strong>);</li>
+<li>the attic: <strong>Show changes</strong> (100 commits per page with Previous/Next, the totals over all of
+them; the dialog scrolls in both directions and has a full-screen toggle, Esc restores its size),
+<strong>Restore</strong>, <strong>Fork</strong>, <strong>Remove</strong>;</li>
+<li><strong>Databases</strong>: the store you loaded and every fork made from it ("fork of Modern (TinkerPop) @
+commit 12"), each a store in memory with its own history, with <strong>Switch to</strong> (the tabs' results
+may be stale afterwards) and <strong>Close</strong> (frees its memory);</li>
+<li><strong>Disk space</strong> with <strong>Compact</strong>: in memory a compaction is a prune up to the current commit
+(the last two snapshots stay), which frees the memory old snapshots and WAL hold; the button is
+always enabled (not while another store action runs); when the
+<a href="store_prune.html#is-it-worth-it-the-compaction-advice">compaction advice</a> does not recommend it,
+it asks first, showing what it would free and why it is not recommended;</li>
+<li><strong>Models</strong> (when the store keeps embedding models, or its schema names one it lacks): each
+model's identity, size, licence and where its text comes from, whether the repository is gated
+and whether the schema uses it. Handing the store or a snapshot with models on redistributes
+them. A <code>.gsnap</code> with models loaded on the start page keeps them in its store in memory (the
+browser cannot run them, but its copies and downloads carry them);</li>
+<li><strong>Verify the store</strong> checks every checksum, and <strong>Download current state (.gsnap)</strong> saves the
+state on screen.</li>
+</ul>
+<p>The menu after a few commits, three marks and three snapshots (the buttons <strong>View</strong>, <strong>Fork…</strong> and
+<strong>Roll back…</strong> are the three actions above):</p>
+<p><img src="../images/playground/store-menu.png" alt="The Store menu of the playground: position, checkpoint and mark, databases, marks, snapshots, any point in time, disk space" /></p>
+<p><strong>Calendar…</strong> shows every mark and snapshot by day, with the same actions:</p>
+<p><img src="../images/playground/store-calendar.png" alt="The history calendar: a month with the days that have marks and snapshots, and the entries of the selected day" /></p>
+<p><strong>A running store action is shown in three places</strong> (the same on the dev server): its button
+switches to the running text in bold accent colour with a spinner and the elapsed time
+("Verifying the store… 0:42"); the <strong>Store</strong> button in the top bar shows it while the menu is closed
+("Store · verifying… 0:42"); and a toast gives the result at the end (a problem found, such as
+Verify's damage, has a <strong>Details</strong> button that opens the menu, where the last Verify's result is
+listed under its item). Meanwhile every other store action is disabled, its tooltip saying which one
+to wait for; screen readers hear the start and the end through a polite live region. The engine
+reports no progress for these actions and none of them can be cancelled: the elapsed time is all
+there is.</p>
+<p><strong>In memory: everything is lost on page reload.</strong> Download a <code>.gsnap</code> to keep a state (load it
+back from the start page). The browser has no disk the playground writes to: syncs are no-ops,
+and the byte format is the same as on disk, so a downloaded snapshot opens anywhere.</p>
+<p><strong>Stop</strong> (next to Run) restarts the engine: the graph is restored as it was last loaded or saved,
+and the store in memory starts over from that state (its history is lost).</p>
+<p>To keep a history across reloads, run the same UI on a store on disk with the
+<a href="dev_server.html">dev server</a>: <code>graphersal --graph data/ --server</code>.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../persistence/store_cli.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../persistence/python.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../persistence/store_cli.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../persistence/python.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

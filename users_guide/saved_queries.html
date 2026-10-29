@@ -1,0 +1,870 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Saved Queries - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/users_guide/saved_queries.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="saved-queries"><a class="header" href="#saved-queries">Saved Queries</a></h1>
+<p>A <em>saved query</em> is a named, parameterized piece of DSL stored IN the database, next to the
+schema: written once, called by name from any front end (the CLI, Python, the playground).</p>
+<pre><code class="language-rhai">g.query("older_than", #{age: 30}).values("name").toList()
+// ["josh", "peter"]
+</code></pre>
+<ul>
+<li>The body is the text of ONE Rhai function, or ONE <a href="#saved-queries-in-gql">GQL query</a>; its
+parameters are named and typed.</li>
+<li>A call returns what the function returns: a <strong>traversal</strong> can be continued by the caller (like a
+SQL view), a <strong>value</strong> (a number, a list, a map) is a value (like a stored procedure).</li>
+<li>A query <strong>reads</strong>, unless its body writes data: then it is saved as a query that <strong>writes</strong>,
+and a call may write exactly what the engine infers from the body (its <em>effects</em>), as one
+transaction. Nobody declares effects, and a query never writes the schema, the saved queries
+or files.</li>
+<li>Queries live in <strong>folders</strong> (an attribute, not part of the name) and carry an optional
+<strong>description</strong>.</li>
+</ul>
+<p>Every example on this page was run with <code>graphersal</code> on the default modern graph; the line after
+<code>//</code> is its real output. Each block starts from a fresh graph.</p>
+<h2 id="defining-a-query"><a class="header" href="#defining-a-query">Defining a query</a></h2>
+<pre><code class="language-rhai">g.define_query(#{
+    name: "older_than",
+    folder: "reports/people",
+    description: "Persons older than the given age.",
+    params: #{
+        age: #{schema: #{type: "integer", minimum: 0, maximum: 150,
+                         description: "Age in years"},
+               default: 30}
+    },
+    body: `fn older_than(age) {
+        g.v().has_label("person").has("age", P.gt(age)).order().by("age")
+    }`
+})
+g.query("older_than").values("name").toList()
+// ["josh", "peter"]
+</code></pre>
+<p><code>g.define_query(#{..})</code> stores a new query or replaces the one of that
+name. The keys:</p>
+<div class="table-wrapper"><table><thead><tr><th>Key</th><th>Required</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>name</code></td><td>yes</td><td>the query's name, also its Rhai function name: <code>[A-Za-z_][A-Za-z0-9_]*</code>, 1 to 128 bytes, not a Rhai keyword; case-sensitive, unique per database</td></tr>
+<tr><td><code>body</code></td><td>yes</td><td>the text of ONE Rhai function named like the query (with <code>language: "gql"</code>: one GQL query)</td></tr>
+<tr><td><code>language</code></td><td>no</td><td><code>"rhai"</code> (the default) or <code>"gql"</code> (see <a href="#saved-queries-in-gql">Saved queries in GQL</a>)</td></tr>
+<tr><td><code>params</code></td><td>when the function has parameters</td><td>parameter name -&gt; its declaration (see <a href="#parameters">Parameters</a>)</td></tr>
+<tr><td><code>folder</code></td><td>no</td><td>a <code>/</code>-separated path such as <code>"reports/sales"</code>; <code>""</code> or <code>()</code> is the root</td></tr>
+<tr><td><code>description</code></td><td>no</td><td>free text (at most 4 KiB); defaults to the function's doc comment</td></tr>
+<tr><td><code>meta</code></td><td>no</td><td>free text, stored and never interpreted</td></tr>
+</tbody></table>
+</div>
+<p>The definition is checked before anything is stored, and refused with an error naming the
+problem:</p>
+<ul>
+<li>the body compiles and is exactly one function named like the query, with nothing beside it
+(closures inside it, such as <code>.filter(|n| n.len() &gt; 3)</code>, are part of that function);</li>
+<li>every parameter of the function is declared in <code>params</code>, and <code>params</code> declares nothing else;</li>
+<li>the catalog rules: name, folder (at most 8 segments, 255 bytes), sizes (source at most 64 KiB),
+parameter names (not a DSL global such as <code>g</code>, <code>P</code> or <code>T</code>), every parameter schema, and every
+default against its schema.</li>
+</ul>
+<p>Saved queries called by the body are not checked at definition: a missing one fails when it is
+called.</p>
+<h3 id="several-queries-at-once"><a class="header" href="#several-queries-at-once">Several queries at once</a></h3>
+<p><code>g.define_queries(folder, source[, params])</code> stores every function of a
+source as a query of its own, named like the function, described by its doc comment (<code>///</code>
+lines or a <code>/** .. */</code> block). <code>params</code> maps each function name to its parameter map. All of
+them are stored in one unit: either every query is stored or none. It returns the names.</p>
+<pre><code class="language-rhai">g.define_queries("reports/sales", `
+    /// Persons, oldest first.
+    fn oldest(n) { g.v().has_label("person").order().by("age", Order.desc).limit(n) }
+
+    /// Software names.
+    fn software() { g.v().has_label("software").values("name") }
+`, #{oldest: #{n: #{schema: #{type: "integer", minimum: 1}, default: 2}}})
+// ["oldest", "software"]
+g.query("oldest").values("name").toList()
+// ["peter", "josh"]
+g.get_query("oldest")["body"]
+// fn oldest(n) { g.v().has_label("person").order().by("age", Order.desc).limit(n) }
+</code></pre>
+<p>Each query stores the text of its own function only.</p>
+<h2 id="parameters"><a class="header" href="#parameters">Parameters</a></h2>
+<p>A parameter is declared as <code>#{schema: &lt;schema node&gt;, default: &lt;value&gt;}</code>, or as a bare type name
+(the short form): <code>"integer"</code>, <code>"number"</code>, <code>"string"</code>, <code>"boolean"</code>, <code>"array"</code>, <code>"object"</code>,
+<code>"null"</code> or <code>"uuid"</code>.</p>
+<ul>
+<li>The <strong>schema</strong> uses the node format of the <a href="schema_enforcement.html">graph schema</a>: <code>type</code>,
+<code>enum</code>, <code>minimum</code>, <code>maximum</code>, <code>pattern</code>, <code>minLength</code>, <code>items</code>, ..., and the annotations
+<code>title</code>, <code>description</code>, <code>examples</code>.</li>
+<li>The <strong>default</strong> sits beside the schema, not inside it: a <code>default</code> keyword inside the
+parameter's schema is an annotation (a data schema's <code>default</code> applies only when a vertex or
+edge is created), while a parameter default IS substituted when the argument is left out. A
+parameter without a default is required. A <code>defaultFunction</code> (<code>uuidv4</code>, <code>now</code>, ...) anywhere
+in a parameter's schema is an error: it fills a property of a created element and means
+nothing for an argument.</li>
+</ul>
+<p><code>params</code> may also be the list <code>g.get_query(name)["params"]</code> returns, one
+<code>#{name, schema, default?, required?}</code> per parameter (<code>required</code> must match the default: a
+parameter is required exactly when it has none), so a stored definition can be read, changed
+and given back:</p>
+<pre><code class="language-rhai">let q = g.get_query("older_than");
+let body = q["body"];
+body.replace("P.gt", "P.gte");
+g.define_query(#{name: "older_than", params: q["params"], body: body})
+</code></pre>
+<p>Arguments are <strong>named</strong>: <code>g.query("x", #{limit: 5})</code>, or <code>g.query("x")</code> when every parameter has
+a default. An argument is a data value (a string, a number, a boolean, a UUID, a date or time, a
+list, a map; never a traversal or a closure), bound to the function's parameter like a
+prepared-statement parameter, never spliced into text. It is checked against its schema before
+the body runs; the only conversion is the schema's write coercion (an <code>int64</code> where a <code>float64</code> is
+declared, a canonical UUID string where a <code>uuid</code> is declared, the ISO 8601 text of a declared
+<a href="../dates/schema.html">date or time format</a> such as <code>date-time</code>). <code>()</code> is a value (null), not an omitted
+argument.</p>
+<pre><code class="language-rhai">g.query("older_than", #{age: 200})
+// Error: Invalid argument 'age' for saved query 'older_than': Constraint violation on 'older_than.age': value &lt;= 150 (actual: 200)
+g.query("older_than", #{years: 30})
+// Error: Saved query 'older_than' has no parameter 'years'
+</code></pre>
+<h2 id="calling-a-query"><a class="header" href="#calling-a-query">Calling a query</a></h2>
+<p><code>g.query(name)</code> / <code>g.query(name, #{..})</code> calls the query at the <strong>start</strong> of a traversal, on <code>g</code>;
+it works anywhere a script can use <code>g</code> (loops, functions, the body of another saved query). It is
+not a step: <code>g.v().query(..)</code> and <code>__.query(..)</code> fail with an error that says so (calling a query
+on incoming traversers is a later feature).</p>
+<p>A traversal result is continued like any other traversal, and the optimizer sees the whole plan:
+the caller's filters are pushed into the body's steps.</p>
+<pre><code class="language-rhai">g.define_query(#{name: "everything", body: "fn everything() { g.v() }"})
+g.query("everything").has_label("person").count().profile()
+// Step                                    Call      In     Out  ...
+// v(labels: ["person"]).count()              1       0       4  ...
+// Optimizer rules applied: source_filter_pushdown, count_pushdown
+</code></pre>
+<p>A value result is returned as it is:</p>
+<pre><code class="language-rhai">g.define_query(#{name: "stats", body: `fn stats() {
+    #{people: g.v().has_label("person").count().next(), software: g.v().has_label("software").count().next()}
+}`})
+g.query("stats")
+// #{"people": 4, "software": 2}
+</code></pre>
+<p>A call does not recompile an unchanged body: a compiled body is cached per thread, keyed by
+the stored text, so a redefined query (or one restored by a rollback) always runs its current
+body, and the plan is made anew on every call (new optimizations apply to old queries).</p>
+<p>Saved queries may call each other up to <strong>16 levels</strong> deep; a deeper call (usually a query that
+calls itself without an end) fails with <code>Saved query calls nested deeper than 16 levels</code>.</p>
+<h2 id="queries-that-read-and-queries-that-write"><a class="header" href="#queries-that-read-and-queries-that-write">Queries that read and queries that write</a></h2>
+<p>Whether a query may write is decided when it is SAVED, from its body: the engine walks the body's
+Rhai syntax tree and infers its <strong>effects</strong>, the data writes its steps can make. A query with no
+effects is saved in the dialect <code>graphersal-rhai/1</code> and only reads; a query with effects is saved
+in <code>graphersal-rhai/2</code> and may write exactly those. Every save (<code>define_query</code>, <code>define_queries</code>,
+a replacement, the playground's editor) sets the dialect again, also back to <code>/1</code> when the body
+no longer writes; moving or describing a query does not.</p>
+<pre><code class="language-rhai">g.define_query(#{name: "add_person", params: #{name: "string", age: "integer"},
+                 body: "fn add_person(name, age) { g.add_v(\"person\").property(\"name\", name).property(\"age\", age).next() }"})
+g.get_query("add_person")["dialect"]
+// graphersal-rhai/2
+g.get_query("add_person")["effects"].map(|e| e.text)
+// "Create Data(vertex \"person\")"
+// "Update Data(vertex \"person\")"
+g.query("add_person", #{name: "ann", age: 41})
+// v[7]
+</code></pre>
+<p>An effect is a request as an <a href="permissions.html">authorizer</a> sees it: an action (<code>Create</code>, <code>Update</code>,
+<code>Delete</code>) on <code>Data</code>, with the element kind and label the chain states before the writing step.
+The inference follows the same rules as the authorization check of a plan, so the run-time
+check can hold every write against it:</p>
+<div class="table-wrapper"><table><thead><tr><th>Body</th><th>Inferred</th></tr></thead><tbody>
+<tr><td><code>add_v("person")</code>, <code>add_e("knows")</code></td><td><code>Create</code> on that label</td></tr>
+<tr><td><code>add_v(label)</code> (a variable)</td><td><code>Create</code> on any vertex</td></tr>
+<tr><td><code>g.e().has_label("knows").drop()</code>, <code>out_e("knows").property(..)</code></td><td><code>Delete</code> / <code>Update</code> on <code>knows</code> edges</td></tr>
+<tr><td><code>g.v().has_label("person").property(..)</code></td><td><code>Update</code> on any vertex: a vertex has a label SET, so <code>has_label("person")</code> says nothing about its other labels</td></tr>
+<tr><td>a chain from a variable or <code>__</code> (<code>t.drop()</code>, <code>side_effect(__.property(..))</code>)</td><td><code>Delete</code> / <code>Update</code> on any data</td></tr>
+<tr><td><code>merge_v(..)</code> / <code>merge_e(..)</code></td><td><code>Create</code> and <code>Update</code> on the kind</td></tr>
+<tr><td><code>g.query("other")</code></td><td>the effects of <code>other</code>, when it writes</td></tr>
+<tr><td><code>g.gql("MATCH (p:person) INSERT (p)-[:owns]-&gt;(:pet)")</code></td><td>the writes of the lowered GQL query: <code>Create</code> on <code>pet</code> vertices and <code>owns</code> edges</td></tr>
+<tr><td><code>g.gql("MATCH (p:person) SET p.age = 1")</code></td><td><code>Update</code> on any vertex, as for <code>property()</code></td></tr>
+<tr><td><code>g.gql(text)</code> with a computed text (a variable, a concatenation)</td><td><code>Create</code>, <code>Update</code> and <code>Delete</code> on any data: pass values as <code>$parameters</code> to keep a GQL read read-only</td></tr>
+<tr><td>a method of the same name on something else (<code>m.drop()</code> on a map)</td><td>counted as a write</td></tr>
+</tbody></table>
+</div>
+<p>The inference may claim more than a body writes, never less. What it cannot see, it refuses:</p>
+<ul>
+<li>a body that writes the <strong>schema, the catalog or files</strong> (<code>set_schema</code>, <code>define_query</code>,
+<code>create_index</code>, <code>export_graphml</code>, <code>import_graphson</code>, <code>mark</code>, ...) is refused when it is saved:
+a saved query writes data only;</li>
+<li>a body that <strong>writes and hides what it calls</strong> (<code>Fn(..)</code>, <code>call</code>, <code>curry</code>, <code>eval</code>, <code>import</code>, or
+<code>g.query(name)</code> with a computed name) is refused when it is saved. A closure passed to a method
+(<code>names.for_each(|n| g.add_v(label).property("name", n).iterate())</code>) hides nothing: its writes
+are inferred like the function's, also when it uses the function's parameters. Without writes such a body is
+saved as a read-only query, and whatever it reaches stays read-only.</li>
+</ul>
+<pre><code class="language-rhai">g.define_query(#{name: "q", params: #{n: "string"}, body: "fn q(n) { g.query(n); g.add_v(\"x\").next() }"})
+// Error: Invalid body of saved query 'q': it writes data (Create Data(vertex "x")) and uses g.query(name) with a computed name, which hides what it calls, so its effects cannot be inferred; ...
+</code></pre>
+<p>Effects are never stored. They are inferred again when a query is saved, listed or called, so a
+newer version of Graphersal may infer more or less for the same text; a call always uses the
+effects inferred now.</p>
+<h3 id="a-call-of-a-query-that-writes"><a class="header" href="#a-call-of-a-query-that-writes">A call of a query that writes</a></h3>
+<ul>
+<li><strong>Invoker rights.</strong> The whole effect set is asked of the caller's authorizer before the body
+runs (<code>Permission denied for 'query("name")' (Delete Data(edge "knows"))</code>), so a denial comes
+before the first write. The body then runs under the caller's rights restricted to the
+effects: a write the effects do not cover is denied (it would be a bug of the inference, and
+the message says so).</li>
+<li><strong>One unit.</strong> The body runs as one transaction: a failing body rolls back everything it wrote,
+and the commit's <a href="transactions.html"><code>ChangeSet</code></a> carries the query's name and arguments as
+metadata (<code>saved_query</code>, <code>saved_query_args</code>). Inside a running unit (the playground runs a
+whole script as one) the call is a savepoint: a later failure of the script rolls it back
+too. A dry run (<code>eval_value_dry_run</code>) of a call previews its changes; nothing stays.</li>
+<li><strong>Nesting.</strong> A query that writes may call queries that read and queries that write; their
+effects are part of its own. A read-only query that calls one that writes stays read-only:
+that call's writes are denied.</li>
+<li><strong>The result is read-only.</strong> What the query returns is used after the call, outside its
+unit, so it can be continued only by reading; a returned traversal that writes runs INSIDE the
+call (next section).</li>
+</ul>
+<pre><code class="language-rhai">g.define_query(#{name: "unfriend", params: #{name: "string"},
+                 body: "fn unfriend(name) { g.v().has(\"name\", name).out_e(\"knows\").drop().iterate(); g.v().has(\"name\", name).out(\"knows\").count().next() }"})
+g.get_query("unfriend")["effects"].map(|e| e.text)
+// "Delete Data(edge \"knows\")"
+g.query("unfriend", #{name: "marko"})
+// 0
+</code></pre>
+<h3 id="what-a-query-that-writes-returns"><a class="header" href="#what-a-query-that-writes-returns">What a query that writes returns</a></h3>
+<p>A query that writes may end with the writing traversal itself, without a terminal. The call runs
+that traversal inside its unit, as if it ended in <code>toList()</code>, and returns a <strong>read-only
+traversal over what it wrote</strong> (<code>inject(results)</code> on the caller's graph). The caller continues it
+like the result of a read-only query:</p>
+<pre><code class="language-rhai">g.define_query(#{name: "add_person", params: #{p_name: "string"},
+                 body: "fn add_person(p_name) { g.add_v(\"person\").property(\"name\", p_name) }"})
+g.query("add_person", #{p_name: "Bill"}).count().next()
+// 1
+</code></pre>
+<p>Each call writes once, whatever the caller does with the result; the result only reads what
+was written:</p>
+<pre><code class="language-rhai">g.query("add_person", #{p_name: "Bill"}).values("name").toList()
+// ["Bill"]
+g.query("add_person", #{p_name: "Bill"}).id().toList()
+// ["7"]
+g.v().has("name", "Bill").count().next()
+// 1
+</code></pre>
+<p>Without a step after it, the result is shown like any traversal (in the playground and the CLI:
+the written elements as a table). The written elements are the stored ones, so the
+continuation walks the graph from them:</p>
+<pre><code class="language-rhai">g.define_query(#{name: "befriend", params: #{a: "string", b: "string"},
+                 body: "fn befriend(a, b) { g.v().has(\"name\", a).add_e(\"knows\").to(__.v().has(\"name\", b)) }"})
+g.query("befriend", #{a: "vadas", b: "peter"}).in_v().values("name").toList()
+// ["peter"]
+</code></pre>
+<p>The continuation itself may not write: the call's effects end with the call.</p>
+<pre><code class="language-rhai">g.query("add_person", #{p_name: "Bill"}).property("age", 30).iterate()
+// Error: ... Permission denied for 'property' (Update Data): a saved query is read-only: ...
+</code></pre>
+<p>Write the change into the query, or write in a traversal of your own after the call. The rules in
+detail:</p>
+<ul>
+<li><strong>Only the returned traversal is run.</strong> A traversal the body ends with a terminal
+(<code>next()</code>, <code>toList()</code>, <code>iterate()</code>) has already run; its value is returned as a value
+(<code>fn add(n) { g.add_v("person").property("name", n).next() }</code> returns the vertex <code>v[7]</code>, which
+is no traversal: <code>g.query("add", ..).count()</code> fails with <code>Function not found: count</code>). Return
+the traversal, or <code>g.v(written)</code> after <code>let written = ...toList();</code>, to let callers continue.</li>
+<li><strong>Also inside a list or a map</strong>: <code>fn pair() { [g.add_v("a"), g.add_v("b")] }</code> writes both and
+returns two read-only traversals.</li>
+<li><strong>In the call's unit</strong>: a returned traversal that fails rolls back everything the body wrote,
+and a dry run of the call previews its writes too.</li>
+<li><strong>The results are kept in memory</strong> until the caller reads them, like a <code>toList()</code>: a query
+that writes millions of elements should end the writing traversal with <code>iterate()</code> and return
+a count or nothing instead.</li>
+<li><strong>An anonymous writing traversal</strong> (<code>__.add_v("x")</code>) is no query of the graph: returning one
+fails the call (<code>returned a traversal with a writing step</code>).</li>
+</ul>
+<h3 id="read-only-queries"><a class="header" href="#read-only-queries">Read-only queries</a></h3>
+<p>A query of the dialect <code>graphersal-rhai/1</code> never writes. The call runs under a read-only
+restriction on top of the host's authorizer: creating, changing or deleting data, the schema,
+saved queries or files is denied with <code>PermissionDenied</code> (<code>a saved query is read-only</code>) before
+anything runs, and nested queries inherit it. A traversal ANY query returns carries the
+restriction too:</p>
+<pre><code class="language-rhai">g.define_query(#{name: "people", body: "fn people() { g.v().has_label(\"person\") }"})
+g.query("people").property("seen", true).toList()
+// Error: ... Permission denied for 'property' (Update Data(vertex)): a saved query is read-only: ...
+</code></pre>
+<p>Write in a traversal of your own after the call:</p>
+<pre><code class="language-rhai">let ids = g.query("people").id().toList();
+g.v(ids).property("seen", true).toList();
+g.v().has("seen").count().next()
+// 4
+</code></pre>
+<ul>
+<li>A graph the query builds itself (<code>GraphSource::empty()</code>, <code>__</code>) stays writable; it is not the
+database.</li>
+<li>Terminals inside the body (<code>next()</code>, <code>toList()</code>) are allowed: a value-returning query needs
+them.</li>
+<li>Nothing built from a query result is mutating (<code>is_mutating()</code> is false); whether a script that
+calls a query that writes changed the graph is what its run reports (<code>mutated</code>).</li>
+<li><strong>Stored before queries could write.</strong> Opening a database never changes a dialect: a
+<code>graphersal-rhai/1</code> query whose body has writing steps (saved by 0.2.0, or through the Rust API
+or a catalog file, which keep the dialect as given) stays read-only and its writes are denied;
+<code>g.queries()</code> lists them as <code>denied_writes</code>. Saving the query again makes it one that writes.</li>
+</ul>
+<h3 id="unavailable-queries-and-older-versions"><a class="header" href="#unavailable-queries-and-older-versions">Unavailable queries and older versions</a></h3>
+<p>A query that cannot run is listed with <code>status: "error"</code> and the reason, and a call fails with
+<code>Invalid body of saved query</code>: its body does not compile (after an upgrade of the language, or
+stored through the Rust API), it is a <code>graphersal-rhai/2</code> query whose effects cannot be inferred,
+or its dialect is one this version does not know. Such a query never blocks opening a database.</p>
+<p>A database written by this version keeps every read-only query in <code>graphersal-rhai/1</code>, so
+Graphersal 0.2.0 runs them; 0.2.0 lists a query that writes (<code>graphersal-rhai/2</code>) as not runnable
+("its dialect is 'graphersal-rhai/2', this version runs 'graphersal-rhai/1'"). A version without
+saved queries in GQL (0.2.2 and older, or a build without the feature <code>gql</code>) lists a GQL query
+(<code>graphersal-gql/1</code>, <code>graphersal-gql/2</code>) the same way, keeps it unchanged and writes it back byte
+for byte; so does this version with a dialect of a newer one (<code>graphersal-gql/3</code>).</p>
+<h2 id="saved-queries-in-gql"><a class="header" href="#saved-queries-in-gql">Saved queries in GQL</a></h2>
+<p>With <code>language: "gql"</code> the body is one <a href="../gql/index.html">GQL query</a>, written as it is, with no
+<code>g.gql(..)</code> around it and no quotes to escape; <code>$name</code> reads the parameter <code>name</code>:</p>
+<pre><code class="language-rhai">g.define_query(#{
+    name: "older",
+    language: "gql",
+    params: #{min: #{schema: #{type: "integer"}, default: 30}},
+    body: "MATCH (p:person) WHERE p.age &gt; $min RETURN p.name AS name, p.age AS age ORDER BY age"
+})
+g.query("older").toList()
+// [#{"age": 32, "name": "josh"}, #{"age": 35, "name": "peter"}]
+g.query("older", #{min: 26}).select("name").toList()
+// ["vadas", "marko", "josh", "peter"]
+</code></pre>
+<ul>
+<li><strong>Defining</strong> checks the query before anything is stored: it parses, binds and plans like a
+<code>g.gql()</code> call (a GQL error keeps its GQLSTATUS, the caret under the offending text and its
+<code>Help:</code>, with the line <code>in saved query: "name"</code>), every <code>$name</code> it reads is declared in
+<code>params</code> and every declared parameter is read. The parameters are stored in the order the
+query first reads them. The other keys (<code>folder</code>, <code>description</code>, <code>meta</code>) are those of a Rhai
+query; a GQL body has no doc comment, so <code>description</code> has no default.</li>
+<li><strong>Calling</strong> is the same <code>g.query(name, #{..})</code> with the same argument checks; the call runs the
+query like <code>g.gql(body, args)</code> (no Rhai is evaluated) and returns its rows, one map per row, a
+traversal Gremlin steps may continue (<code>select("name")</code> above).</li>
+<li><strong>Reads and writes</strong>: the dialect comes from the query's plan, <code>graphersal-gql/1</code> when it
+writes nothing and <code>graphersal-gql/2</code> when it writes (<code>INSERT</code> / <code>CREATE</code>, <code>SET</code>, <code>REMOVE</code>,
+<code>DELETE</code>, <code>MERGE</code>);
+its effects are the writes of the plan, exact per label (a <code>SET</code> on a node is <code>Update Data(vertex)</code>, as for <code>property()</code>). A call is authorized and limited exactly like a Rhai query
+of the same kind: a read-only query (and any query called from one) cannot write, also not
+through its result; a query that writes asks its whole effect set of the caller's authorizer
+first and runs as ONE transaction whose commit names the query and its arguments, then
+returns a read-only traversal over the rows it produced:</li>
+</ul>
+<pre><code class="language-rhai">g.define_query(#{
+    name: "hire",
+    language: "gql",
+    params: #{name: "string", company: "string"},
+    body: "MATCH (c:software {name: $company}) INSERT (p:person {name: $name})-[:created]-&gt;(c) RETURN p.name AS name"
+})
+g.get_query("hire")["effects"].map(|e| e.text)
+// ["Create Data(vertex \"person\")", "Create Data(edge \"created\")"]
+g.query("hire", #{name: "ann", company: "lop"}).toList()
+// [#{"name": "ann"}]
+g.define_query(#{
+    name: "birthday",
+    language: "gql",
+    params: #{name: "string"},
+    body: "MATCH (p:person {name: $name}) SET p.age = p.age + 1 RETURN p.age AS age"
+})
+g.get_query("birthday")["effects"].map(|e| e.text)
+// ["Update Data(vertex)"]
+</code></pre>
+<ul>
+<li>A Rhai query may call a GQL query (<code>g.query("hire", #{..})</code> in its body); its effects then
+include those of the GQL query, as with any called query. A GQL query calls one with
+<code>CALL folder.name(args)</code> (<a href="#calling-saved-queries-from-gql">Calling saved queries from GQL</a>).</li>
+<li><code>get_query</code> and <code>queries()</code> show <code>language: "gql"</code> and the dialect; the body is the query text.</li>
+<li><code>g.define_queries(folder, source)</code> stays Rhai only: define GQL queries one by one.</li>
+<li>Every front end below works with GQL queries: the playground's editor has a <strong>Rhai / GQL</strong>
+switch, MCP and Python list them with their <code>language</code> and call them like any other.</li>
+</ul>
+<h2 id="calling-saved-queries-from-gql"><a class="header" href="#calling-saved-queries-from-gql">Calling saved queries from GQL</a></h2>
+<p>A GQL query calls a saved query written in GQL with <code>CALL folder.name(args)</code>, the procedure call
+of GQL and Cypher: the segments before the name are the query's folder (joined by <code>/</code>, so
+<code>CALL people.older()</code> calls <code>older</code> of the folder <code>people</code>, and <code>CALL older()</code> one of the root
+folder), the arguments are its parameters in order, and <code>YIELD</code> names the columns of its
+<code>RETURN</code> that the query reads after the call:</p>
+<pre><code class="language-rhai graph=modern script">g.define_query(#{
+    name: "older",
+    folder: "people",
+    language: "gql",
+    params: #{min: #{schema: #{type: "integer"}, default: 30}},
+    body: "MATCH (p:person) WHERE p.age &gt; $min RETURN p.name AS name, p.age AS age"
+});
+g.gql("CALL people.older(26) YIELD name RETURN name ORDER BY name").to_list();
+// [#{"name": "josh"}, #{"name": "marko"}, #{"name": "peter"}, #{"name": "vadas"}]
+g.gql("CALL people.older(26) YIELD name AS who, age WHERE age &lt; 35 RETURN who ORDER BY who").to_list();
+// [#{"who": "josh"}, #{"who": "marko"}, #{"who": "vadas"}]
+g.gql("CALL people.older(26) YIELD age RETURN count(age) AS n, max(age) AS oldest").to_list();
+// [#{"n": 4, "oldest": 35}]
+g.gql("MATCH (s:software) CALL people.older($min) YIELD name RETURN s.name AS sw, name ORDER BY sw, name", #{min: 33}).to_list();
+// [#{"name": "peter", "sw": "lop"}, #{"name": "peter", "sw": "ripple"}]: the call runs once per row
+</code></pre>
+<ul>
+<li><strong>Arguments</strong> are constants or the caller's <code>$parameters</code> (also lists, maps and arithmetic of
+them), evaluated once when the query is compiled; an argument that reads the row
+(<code>CALL people.older(s.age)</code>) is not supported yet. They bind the saved query's parameters
+<strong>in the order its query first reads them</strong> (<code>g.get_query(name)["params"]</code> lists that order):
+a query <code>RETURN $a AS a, $b AS b</code> takes <code>a</code> first. Trailing parameters left out take their
+defaults (<code>CALL people.older()</code> is <code>min: 30</code>). Each argument is checked against its
+parameter's schema like an argument of <code>g.query(..)</code>, with its write coercion (an integer for
+a <code>number</code> parameter arrives as a float: <code>42</code> becomes <code>42.0</code>); a value that does not fit is
+an error before the run.</li>
+<li><strong><code>YIELD</code></strong> names columns of the saved query's <code>RETURN</code>: <code>YIELD a AS x</code> renames one, every
+yielded name must be new in the query, and <code>YIELD .. WHERE &lt;condition&gt;</code> filters the rows.
+Inside a query a call of a saved query that returns columns needs <code>YIELD</code>.</li>
+<li><strong>Standalone:</strong> a call that is the whole query returns every column of the saved query, in
+its order, with no <code>YIELD</code> or with <code>YIELD *</code>; without parentheses it reads its arguments from
+the query's parameters of the same names (a missing one takes its default):</li>
+</ul>
+<pre><code class="language-rhai graph=modern script">g.define_query(#{
+    name: "older",
+    folder: "people",
+    language: "gql",
+    params: #{min: #{schema: #{type: "integer"}, default: 30}},
+    body: "MATCH (p:person) WHERE p.age &gt; $min RETURN p.name AS name, p.age AS age"
+});
+g.gql("CALL people.older()").to_list();
+// [#{"age": 32, "name": "josh"}, #{"age": 35, "name": "peter"}]
+g.gql("CALL people.older YIELD *", #{min: 33}).to_list();
+// [#{"age": 35, "name": "peter"}]
+</code></pre>
+<ul>
+<li><strong>VOID:</strong> a saved query without <code>RETURN</code> (one that ends in a write or in <code>FINISH</code>) returns no
+columns. Called alone it returns no rows; inside a query it runs once per row and keeps each
+row once, so the query goes on after it. A saved query that writes is called like any other;
+its writes are part of the calling query, which is ONE unit (a failure anywhere leaves
+nothing):</li>
+</ul>
+<pre><code class="language-rhai graph=modern script">g.define_query(#{
+    name: "hire",
+    folder: "staff",
+    language: "gql",
+    params: #{name: "string"},
+    body: "MATCH (c:software {name: 'lop'}) INSERT (:person {name: $name})-[:created]-&gt;(c)"
+});
+g.gql("CALL staff.hire('ann')").to_list();   // [] (VOID), and ann is created
+g.gql("FOR n IN ['bob', 'cy'] CALL staff.hire('temp') RETURN n").to_list();
+// [#{"n": "bob"}, #{"n": "cy"}]: two persons named temp, one per row
+g.gql("FOR n IN ['bob', 'cy'] CALL staff.hire('tmp')").to_list();
+// []: like a last clause that writes, a VOID call may end the query (zero rows)
+</code></pre>
+<ul>
+<li>
+<p><strong>Yielded nodes and edges</strong> keep their properties and labels, and a later pattern may start at
+one (<code>CALL sw() YIELD s MATCH (s)--&gt;(x) ..</code>); the kind is checked when a row reaches the
+pattern: <code>NULL</code> gives no row, any other value that is not a node (or edge) is <code>22G03</code>.</p>
+</li>
+<li>
+<p><strong>A body that is only a call</strong> without parentheses (<code>body: "CALL people.older"</code>) reads the
+called query's parameters by name: declare them in the calling query's <code>params</code>.</p>
+</li>
+<li>
+<p><strong>Effects are transitive:</strong> a saved GQL query that calls another is checked against the
+catalog when it is saved (the called query must exist, its arguments fit), and its dialect
+and effects include those of the queries it calls. A query that only reads but calls one
+that writes is saved as a query that writes (<code>graphersal-gql/2</code>):</p>
+</li>
+</ul>
+<pre><code class="language-rhai graph=modern script">g.define_query(#{
+    name: "hire",
+    folder: "staff",
+    language: "gql",
+    params: #{name: "string"},
+    body: "MATCH (c:software {name: 'lop'}) INSERT (:person {name: $name})-[:created]-&gt;(c)"
+});
+g.define_query(#{
+    name: "onboard",
+    folder: "staff",
+    language: "gql",
+    body: "CALL staff.hire('dan') RETURN 'dan' AS hired"
+});
+g.get_query("onboard")["dialect"];   // "graphersal-gql/2"
+g.get_query("onboard")["effects"].map(|e| e.text);
+// ["Create Data(vertex \"person\")", "Create Data(edge \"created\")"]
+g.gql("CALL staff.onboard()").to_list();   // [#{"hired": "dan"}]
+</code></pre>
+<p>A call is checked again when the calling query runs: a read-only saved query
+(<code>graphersal-gql/1</code>) whose plan would write through a call (the called query was changed
+since) is refused, so no read-only query ever writes.</p>
+<ul>
+<li><strong>Permissions:</strong> a call asks <code>Execute</code> on <code>Definition(query "name")</code>, like <code>g.query(..)</code>, and
+every read and write of the called query is asked of the <strong>caller's</strong> authorizer, as part of
+the calling query; under <code>AccessPolicy::read_only()</code> a call of a saved query that writes is
+denied before anything runs (<a href="permissions.html">Permissions</a>).</li>
+<li><strong>One unit, no commit attribute:</strong> unlike <code>g.query(..)</code> of a query that writes, which commits
+as a unit of its own that names the query and its arguments, a GQL call is part of the
+calling query's unit, and its commit names no saved query.</li>
+<li><strong>Only GQL bodies:</strong> a saved query written in Rhai cannot be called from GQL in this version
+(<code>0A000</code>, the help names <code>g.query(name, #{..})</code>); call it with <code>g.query(..)</code> from the DSL, or
+save it again in GQL. Calls nest at most 16 levels deep (and one query resolves at most 1024
+calls in all, <code>54001</code>); a saved query that calls itself, directly or through others, is an
+error (<code>42002</code>), since its arguments are constants and the recursion would never end.</li>
+<li><strong>Names:</strong> saved-query names are unique across all folders, so a name found in another folder
+than the call names gets a "did you mean": <code>CALL older()</code> answers <code>did you mean: CALL people.older</code>. Names are case-sensitive; a folder segment with other characters is
+back-quoted (<code>CALL `my reports`.top()</code>). The vendor namespaces <code>db</code>, <code>dbms</code>, <code>apoc</code> and
+<code>gds</code> stay <a href="../gql/refused.html">refused</a> (<code>CALL db.labels()</code>).</li>
+</ul>
+<p>The errors point at the call:</p>
+<pre><code class="language-rhai graph=modern">g.gql("CALL people.older()")   // error: there is no saved query `older` in the folder `people` (42002)
+g.gql("CALL db.labels()")   // refused: the vendor procedures of db, dbms, apoc and gds (0A000)
+</code></pre>
+<pre><code class="language-text">Error: GQL semantic error at line 1, column 22: too many arguments: people.older(min :: integer) takes 1 argument, 2 given ...
+Error: GQL data exception at line 1, column 19: the argument for `min` of CALL people.older must be integer: Type mismatch on query 'older.min': expected int64, got string ...
+Error: GQL semantic error at line 1, column 25: CALL people.older inside a query names the columns it reads with YIELD: the saved query returns `name`, `age` ...
+Help: add YIELD, as in CALL people.older(..) YIELD name, age. CALL folder.name(args) runs the saved query `name` of the catalog folder `folder` ...
+Error: GQL construct not supported yet at line 1, column 38: an argument of CALL people.older that reads the row is not yet supported (the variable s is not defined) ...
+Help: pass a constant or a $parameter, or write the saved query's pattern in the query itself. CALL folder.name(args) runs ...
+Error: GQL construct not supported yet at line 1, column 6: the saved query `rh` is written in Rhai; CALL runs saved queries written in GQL in this version ...
+Help: run it from the DSL with g.query("rh", #{..}), or save it again in GQL (language: "gql"). CALL folder.name(args) runs ...
+</code></pre>
+<p>The <a href="../gql/errors.html#calls-of-saved-queries">GQL error reference</a> lists every error of a call.</p>
+<h2 id="errors-name-the-query"><a class="header" href="#errors-name-the-query">Errors name the query</a></h2>
+<p>An error inside a body keeps its diagnostic and gains one line per call, innermost first:</p>
+<pre><code class="language-rhai">g.define_query(#{name: "broken", body: "fn broken() { g.v().values(\"name\").as_number(GType.LONG).toList() }"})
+g.query("broken")
+// Error: Step #2 'as_number(GType.LONG)' execution failed
+//   at #2: v().values("name").as_number(GType.LONG)
+// ...
+// Caused by: Cast exception: expected type [int64], got type 'string'
+//   value:  "marko"
+//   origin: vertex id="1" label="person" property="name"
+//   in saved query: "broken" (line 1, position 58 of its body)
+// Help: ...
+</code></pre>
+<p>A missing query, a body that no longer compiles and a call at the wrong position fail with
+errors naming the query and a <code>Help:</code> line with the fix.</p>
+<h2 id="managing-queries"><a class="header" href="#managing-queries">Managing queries</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Call</th><th>Result</th></tr></thead><tbody>
+<tr><td><code>g.queries()</code></td><td>every saved query as a list of maps, by name</td></tr>
+<tr><td><code>g.queries("reports")</code></td><td>the queries in <code>reports</code> and the folders below it (<code>reports/sales</code>, not <code>reportsx</code>)</td></tr>
+<tr><td><code>g.get_query(name)</code> / <code>getQuery</code></td><td>one query as a map, <code>()</code> when there is none</td></tr>
+<tr><td><code>g.drop_query(name)</code> / <code>dropQuery</code></td><td>removes it; <code>false</code> when there was none</td></tr>
+<tr><td><code>g.move_query(name, folder)</code> / <code>moveQuery</code></td><td>moves it (<code>""</code> or <code>()</code>: the root)</td></tr>
+<tr><td><code>g.describe_query(name, text)</code> / <code>describeQuery</code></td><td>sets the description (<code>""</code> or <code>()</code> removes it)</td></tr>
+</tbody></table>
+</div>
+<p>An entry of <code>queries()</code> has <code>name</code>, <code>folder</code> and <code>description</code> (<code>()</code> when absent), <code>params</code> (a
+list in signature order: <code>#{name, schema, default?, required}</code>), <code>status</code>: <code>"ok"</code>, or <code>"error"</code>
+with <code>error</code>, the reason the query cannot run (see
+<a href="#unavailable-queries-and-older-versions">Unavailable queries</a>), <code>writes</code> (a call may write),
+<code>effects</code> (what it may write) and <code>denied_writes</code> (the writes of a read-only query's body that a
+call denies), each effect <code>#{action, element, label, text}</code> (<code>element</code> / <code>label</code> <code>()</code> when open),
+<code>language</code> (<code>"rhai"</code> or <code>"gql"</code>) and <code>dialect</code>. <code>get_query</code> adds <code>body</code> and <code>meta</code>.</p>
+<pre><code class="language-rhai">g.define_query(#{name: "older_than", folder: "reports/people", params: #{age: #{schema: #{type: "integer"}, default: 30}},
+                 body: "fn older_than(age) { g.v().has(\"age\", P.gt(age)) }"})
+g.queries("reports")
+// [#{"denied_writes": [], "description": (), "dialect": "graphersal-rhai/1", "effects": [], "folder": "reports/people", "language": "rhai", "name": "older_than", "params": [#{"default": 30, "name": "age", "required": false, "schema": #{"type": "integer"}}], "status": "ok", "writes": false}]
+</code></pre>
+<p>Moving a query or renaming a folder never breaks a caller: a call uses the name only. Dropping a
+query that others call is allowed (dependencies are not tracked); the callers fail when they call
+it.</p>
+<p>Every change of the catalog (define, replace, move, describe, drop) is a database change like a
+schema change: one unit of its own, or a savepoint inside a running unit (the playground runs a
+script as one unit, so a script that fails leaves no definition behind), rolled back with it,
+visible to commit hooks as a <code>SetDefinition</code> mutation (see <a href="transactions.html">Transactions</a>).</p>
+<h2 id="permissions"><a class="header" href="#permissions">Permissions</a></h2>
+<p>Calling a query asks <code>Execute</code> on <code>Definition(query "name")</code> before the body runs; a query that
+writes then asks its whole effect set; the body's own reads and writes are then asked as usual.
+Listing asks <code>Read</code>, defining <code>Create</code> (<code>Update</code> to replace, move or describe), dropping
+<code>Delete</code>. <code>AccessPolicy::read_only()</code> allows calling and listing, so under it a query that writes
+is denied before it writes anything. A GQL <code>CALL folder.name(..)</code> asks the same <code>Execute</code>, and
+the called query's reads and writes are asked as part of the calling query
+(<a href="#calling-saved-queries-from-gql">Calling saved queries from GQL</a>). See
+<a href="permissions.html">Permissions</a>.</p>
+<h2 id="limits"><a class="header" href="#limits">Limits</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>What</th><th>Limit</th></tr></thead><tbody>
+<tr><td>name</td><td>1 to 128 bytes, <code>[A-Za-z_][A-Za-z0-9_]*</code>, not a Rhai keyword</td></tr>
+<tr><td>folder</td><td>at most 255 bytes and 8 segments</td></tr>
+<tr><td>description</td><td>at most 4 KiB</td></tr>
+<tr><td>body (source)</td><td>at most 64 KiB</td></tr>
+<tr><td>parameters</td><td>at most 64 per query</td></tr>
+<tr><td>definitions</td><td>at most 10 000 per database</td></tr>
+<tr><td>call depth</td><td>16</td></tr>
+</tbody></table>
+</div>
+<h2 id="persistence"><a class="header" href="#persistence">Persistence</a></h2>
+<p>The catalog is part of the database: a <a href="../persistence/overview.html">Store</a> keeps it in its
+snapshots and journal, losslessly (every catalog change is a durable commit; recovery, rollback,
+forks and backups carry it), and a packed snapshot (<code>.gsnap</code>) carries it too. A query is stored as
+its source text (the Rhai function or the GQL query), never as a compiled plan: every call plans
+anew. GraphML and GraphSON carry no
+saved queries, like they carry no schema. The byte layout is in the
+<a href="../persistence/format.html">format spec</a> (sections 6.3, 9.3 and 16).</p>
+<h2 id="front-ends"><a class="header" href="#front-ends">Front ends</a></h2>
+<ul>
+<li><strong>Playground</strong> (WebAssembly and the dev server alike): the <strong>Catalog ▾ ▸ Saved queries</strong> manager
+lists the queries by folder with a badge each (<strong>R/O</strong> reads, <strong>R/W</strong> writes, its tooltip lists
+the effects; <strong>R/O ⚠</strong> read-only with writing steps that a call denies; <strong>unavailable</strong> with the
+reason), creates and edits them in an editor with a parameter list and the body in the code
+editor, deletes them, and runs one from a form built from its parameter schemas, which writes
+the <code>g.query(..)</code> call into a query tab. Running an <strong>R/W</strong> query shows a preview of what the
+call would change first (a dry run, rolled back) and asks. The editor's <strong>Rhai / GQL</strong> switch
+picks the <a href="#saved-queries-in-gql">language</a>: a GQL query is edited with GQL highlighting as the
+whole query text (<strong>+ Add $parameters of the query</strong> declares the <code>$name</code>s it reads), and the
+list shows a <strong>Rhai</strong> or <strong>GQL</strong> badge per query. <strong>Save as query…</strong> in a query tab's <strong>⋯</strong>
+menu opens the editor on the tab's text: a tab holding one <code>g.gql(`...`)</code> call becomes a GQL
+query of its inner text, with every <code>$name</code> as a parameter (typed and defaulted by the values
+the tab passes in <code>#{..}</code>); any other tab becomes a Rhai query whose body is the tab's text.
+Saved queries travel in the catalog file with the other
+definitions (<strong>Catalog ▾ ▸ Save catalog</strong>, <strong>Load catalog</strong>), like the schema. See
+<a href="web_playground.html#saved-queries">Web Playground</a>.</li>
+<li><strong>MCP</strong> (the <a href="../persistence/dev_server.html#what-the-agent-gets">dev server</a> with <code>--mcp</code>): an AI
+agent lists them with <code>list_saved_queries</code>, runs one with <code>run_saved_query</code>, reads
+<code>graphersal://saved-queries</code>, and is told to look for a saved query before writing a new one
+and to run one with <code>writes: true</code> only when the user asked for that change;
+<code>--mcp-query-tools</code> also offers each query as a tool of its own (<code>readOnlyHint</code> /
+<code>destructiveHint</code> from its effects). The listing carries each query's <code>language</code> (<code>rhai</code> or
+<code>gql</code>) and <code>dialect</code>; a GQL query runs the same way and answers rows like the <code>gql</code> tool. MCP
+has no tool that defines queries: the user does that (playground, Python, a script), or the
+agent through the <code>query</code> tool with <code>g.define_query(#{..})</code>. With <code>--mcp-read-only</code> the queries that write are neither
+listed nor run. The <strong>AI Chat</strong> runs a query that writes only after the user confirmed it in the
+chat.</li>
+<li><strong>Python</strong>: <code>graph.queries(folder)</code>, <code>graph.get_query(name)</code>, <code>graph.define_query(spec)</code>,
+<code>graph.drop_query(name)</code> and <code>graph.call_query(name, params)</code> (<code>graph.query</code> stays the alias of
+<code>execute</code>); <code>graph.define_query({"name": .., "language": "gql", "body": "MATCH ..", "params": {..}})</code> stores a GQL query, whose call returns its rows as <code>dict</code>s.</li>
+<li><strong>CLI</strong>: the DSL calls (<code>graphersal -e 'g.queries()'</code>, <code>g.define_query(#{.., language: "gql", ..})</code>); <code>graphersal store info &lt;dir&gt;</code> prints how many definitions a Store's catalog
+holds.</li>
+</ul>
+<p>In the playground, <strong>Catalog ▾ ▸ Saved queries</strong> lists the queries by folder:</p>
+<p><img src="../images/playground/saved-queries-manager.png" alt="The saved queries manager: queries by folder, with Run, Edit and Delete" /></p>
+<p><strong>Edit…</strong> opens the editor: name, folder, description, every parameter with its type, default and
+constraints, and the body in the code editor:</p>
+<p><img src="../images/playground/saved-queries-editor.png" alt="The saved query editor: parameters with type, default and minimum, and the body" /></p>
+<p><strong>Run…</strong> builds a form from the parameter schemas; <strong>Run</strong> writes the <code>g.query(..)</code> call into a
+query tab and runs it there:</p>
+<p><img src="../images/playground/saved-queries-run.png" alt="The run form of a saved query with one integer parameter" /></p>
+<h2 id="in-rust"><a class="header" href="#in-rust">In Rust</a></h2>
+<p>The catalog is reachable without the DSL: <code>GraphTraversalSource::list_definitions</code>,
+<code>get_definition</code>, <code>define_query(name, QueryDefinition)</code>, <code>remove_definition</code>, <code>move_query</code>,
+<code>describe_query</code> (module <code>graphersal::catalog</code>). The Rust API stores a body without
+compiling it (the core has no Rhai) and keeps the dialect as given (<code>QUERY_DIALECT</code> by default,
+<code>WRITING_QUERY_DIALECT</code> for a query that writes); the DSL compiles it on definition and on every
+call. A front end that builds definitions itself runs them through
+<code>graphersal::script::with_inferred_dialect</code> (the body checked like <code>define_query</code> checks it, the
+dialect set from the effects) and lists them with <code>graphersal::script::saved_query_effects</code>.</p>
+<h2 id="host-defined-catalog-kinds"><a class="header" href="#host-defined-catalog-kinds">Host-defined catalog kinds</a></h2>
+<p>Saved queries are one kind of catalog definition; <a href="property_indexes.html">property indexes</a> and
+compression rules are others. An application
+built on the library (a server, say) can keep its own entities in the same catalog, so they are
+stored, journaled, rolled back, forked and backed up with the graph: definition kinds 128 to 255
+are reserved for hosts and never assigned by the library (<code>DefinitionKind::host(n)</code> refuses a
+kind below 128; <code>DefinitionKind::HOST_FIRST</code>/<code>HOST_LAST</code>, <code>is_host()</code>). Kind 2 is the library's
+property index.</p>
+<pre><code class="language-rust ignore">use graphersal::catalog::{decode_payload, encode_payload};
+use graphersal::catalog::{Definition, DefinitionFlags, DefinitionKind};
+
+let kind = DefinitionKind::host(200).unwrap();
+let bytes = encode_payload(&amp;payload)?; // a property map, the codec of the library's own kinds
+graph.set_definition(Definition::opaque(kind, DefinitionFlags::NONE, "person_name", bytes))?;
+let back = decode_payload(graph.definition(kind, "person_name").unwrap().opaque_payload().unwrap())?;</code></pre>
+<p>The library keeps a host definition as opaque bytes: it checks only the name (1 to 1024 bytes)
+and the payload size, writes the bytes back unchanged everywhere, and never reports them as
+damage. <code>encode_payload</code>/<code>decode_payload</code> (feature <code>persist</code>) are optional, but they keep the
+payload a property map like every library kind (decoding is safe on hostile input). The
+<em>critical</em> flag means what it means for any kind the library does not decode: a store holding
+a critical host definition opens read-only, and a Store refuses to write one. The byte rules are in the
+<a href="../persistence/format.html">format spec</a> (sections 6.3 and 16).</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../users_guide/schema_enforcement.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../users_guide/property_indexes.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../users_guide/schema_enforcement.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../users_guide/property_indexes.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

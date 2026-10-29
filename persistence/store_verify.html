@@ -1,0 +1,270 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Verify - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/persistence/store_verify.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="verify"><a class="header" href="#verify">Verify</a></h1>
+<p><code>verify</code> is the store's scrub: it reads every byte the store holds and checks it.
+It also checks every <a href="store_models.html">embedding model</a> the store keeps (each file's size and
+SHA-256 against the model's manifest, <code>VerifyReport::models_checked</code>): a damaged model is a
+problem under <code>models/&lt;id&gt;/</code>, but it never makes an open store read-only (it is no graph data);
+remove it and add it again.</p>
+<pre><code class="language-rust no_run"><span class="boring">use graphersal::persist::{Store, StoreOptions};
+</span>let report = Store::verify_dir("data")?;              // or store.verify() on an open store
+println!("{} snapshot(s), {} WAL record(s), commits {}..{}",
+         report.snapshots_checked, report.records_checked, report.first_commit, report.last_commit);
+for problem in &amp;report.problems {
+    println!("DAMAGE: {} at {:?}: {}", problem.path, problem.offset, problem.reason);
+}
+assert!(report.is_ok());
+<span class="boring">Ok::&lt;(), Box&lt;dyn std::error::Error&gt;&gt;(())</span></code></pre>
+<pre><code class="language-text">$ graphersal store verify data/
+2 snapshot(s), 2 WAL segment(s), 5 record(s), commits 1..3
+ok: no damage found
+</code></pre>
+<p>It checks:</p>
+<ul>
+<li>both <code>GRAPH</code> copies, and the lineage chain;</li>
+<li>every snapshot: the manifest (both copies of its fixed part), <code>schema.json</code>, every segment's
+length and checksum, every chunk's checksum against the manifest's chunk index, and every
+element decoded (ids in order, ranges not overlapping);</li>
+<li>every WAL record's checksums, commit continuity (each commit is the previous + 1, along the
+lineage chain), the set of WAL segments against <code>GRAPH</code> (a missing, emptied or replaced newest
+segment, a segment whose header does not match its name, a clean close the files do not reach);</li>
+<li>every attic entry: its history is rebuilt (its base snapshot and the WAL after it), its
+snapshots verified;</li>
+<li>the <code>marks</code> file;</li>
+<li>the <a href="store_checkpoints.html#the-donor-rule">donor rule</a>: a segment file the newest snapshot
+shares with the previous one is a <strong>warning</strong> (<code>report.without_donor</code>, also a note), not
+damage: that id range has no independent donor until the next checkpoint copies it.</li>
+</ul>
+<p>On damage, the CLI prints every problem and the <a href="store_damage.html">damage report</a> with the donor
+of each damaged item, and exits with <strong>1</strong>:</p>
+<pre><code class="language-text">$ graphersal store verify damaged/
+2 snapshot(s), 2 WAL segment(s), 3 record(s), commits 1..2
+DAMAGE: wal/00000000000000000002.wal: Corrupt journal 1 at byte 188: record of commit 3: checksum mismatch
+DAMAGE: wal: the store was closed cleanly at commit 3, but its files end at commit 2
+2 damaged item(s); readable state: snapshot 1 + WAL at commit 2; a repair LOSES data (see the items without a donor)
+  DAMAGE wal/00000000000000000002.wal at byte 188: record checksum mismatch; 83 bytes up to the next valid record; commits from 3 on; no donor: LOST
+  ...
+Error: 2 problem(s) found. Help: keep the store's files (do not prune); build a repaired copy with `graphersal store repair &lt;dir&gt; --to &lt;new_dir&gt;`, restore a backup, or fork a target before the damage.
+</code></pre>
+<ul>
+<li><code>verify</code> takes no lock and changes nothing: run it while a dev server or another program has the
+store open, and on a backup.</li>
+<li>A normal open checks only what it loads (the latest snapshot, the WAL after it, <code>GRAPH</code>);
+<code>verify</code> checks everything, including the older snapshots that are the donors of a repair.
+<strong>Run it regularly</strong> (a nightly job, before a prune, after copying a store): it finds damage
+while donors still exist.</li>
+<li>Notes (<code>note: ...</code>) are not damage: for example a repaired copy of redundant metadata.</li>
+<li>The dev server's Store menu has <strong>Verify the store</strong>, the playground too (<code>POST /api/store/verify</code>); Python <code>store.verify()</code> returns <code>{"ok", "problems", "notes"}</code>.</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../persistence/store_prune.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../persistence/store_damage.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../persistence/store_prune.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../persistence/store_damage.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

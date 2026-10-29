@@ -1,0 +1,827 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Errors - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/gql/errors.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="errors"><a class="header" href="#errors">Errors</a></h1>
+<p>A GQL error is a <code>TraverserError::Gql</code> (feature <code>gql</code>) with a kind, a message, the position
+(line and column inside the query), a caret under the offending text, the expected tokens, a
+"did you mean" suggestion where one fits, and a <strong>GQLSTATUS</strong> code, the five-character status
+code of ISO GQL (derived from SQL's SQLSTATE). Like every Graphersal error it has a <code>Help:</code> line
+that names the fix.</p>
+<h2 id="errors-before-the-run"><a class="header" href="#errors-before-the-run">Errors before the run</a></h2>
+<p>A query that does not parse or bind fails <strong>before the traversal runs</strong>, even when no traverser
+would ever reach the step, as <a href="../users_guide/math.html#errors"><code>math()</code></a> does with an equation.
+On the empty graph, where nothing matches, the query is still checked:</p>
+<pre><code class="language-rhai graph=empty">g.gql("MATCH (n:person) RETURN n.name +")   // error: unexpected end of input
+</code></pre>
+<pre><code class="language-text">Error: GQL syntax error at line 1, column 33: unexpected end of input (step #1 'gql:error("42001")' refused the query before the traversal ran)
+  at #1: v().gql:error("42001")
+             ^^^^^^^^^^^^^^^^^^
+  query:     MATCH (n:person) RETURN n.name +
+                                             ^
+  expected:  an expression
+  GQLSTATUS: 42001
+Help: Expected an expression at the marked position. Fix the query at the marked position: a GQL read query is MATCH &lt;pattern&gt; [WHERE &lt;condition&gt;], then any further MATCH, OPTIONAL MATCH, WITH, LET or FILTER clauses, then RETURN &lt;items&gt;, for example g.gql("MATCH (p:person) WHERE p.age &gt; 30 RETURN p.name") or g.gql("MATCH (p:person) OPTIONAL MATCH (p)-[:created]-&gt;(s) WITH p, count(s) AS n RETURN p.name, n"). CALL (p) { .. RETURN .. } runs a query for each row, UNION combines the records of two queries and NEXT continues after a RETURN, as in g.gql("MATCH (p:person) RETURN p NEXT MATCH (p)-[:created]-&gt;(s) RETURN p.name, s.name"). FOR x IN &lt;list&gt; (Cypher UNWIND &lt;list&gt; AS x) gives one row per item of a list, and a query may also start with FOR, LET, WITH, FILTER or RETURN, as in g.gql("FOR n IN ['marko', 'josh'] MATCH (p:person {name: n}) RETURN n, p.age").
+</code></pre>
+<p>The plan of a query that failed this way is the marker step <code>gql:error("&lt;GQLSTATUS&gt;")</code>, which
+raises the error before anything runs; the <code>query:</code> line, not the plan, shows the position. In a multi-line query the error names the line and
+shows only that line:</p>
+<pre><code class="language-rhai graph=modern">g.gql(`MATCH (n:person)
+       WHERE n.age &gt;
+       RETURN n`)   // error: unexpected keyword RETURN at line 3
+</code></pre>
+<pre><code class="language-text">Error: GQL syntax error at line 3, column 8: unexpected keyword RETURN (step #1 'gql:error("42001")' refused the query before the traversal ran)
+  at #1: v().gql:error("42001")
+             ^^^^^^^^^^^^^^^^^^
+  line 3:           RETURN n
+                    ^^^^^^
+  expected:  an expression
+  GQLSTATUS: 42001
+</code></pre>
+<p>Misspelt keywords, functions and variables get a suggestion:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (n:person) RETRUN n")   // error: unexpected `RETRUN`, did you mean RETURN
+g.gql("MATCH (n:person) RETURN m.name")   // error: the variable `m` is not defined, did you mean n
+g.gql("MATCH (n:person) WHERE n.age &gt; $min RETURN n.name AS name")   // error: the parameter `$min` has no value
+</code></pre>
+<pre><code class="language-text">Error: GQL syntax error at line 1, column 18: unexpected `RETRUN` (step #1 'gql:error("42001")' refused the query before the traversal ran)
+  at #1: v().gql:error("42001")
+             ^^^^^^^^^^^^^^^^^^
+  query:        MATCH (n:person) RETRUN n
+                                 ^^^^^^
+  expected:     `,`, WHERE, MATCH, OPTIONAL MATCH, WITH, LET, FILTER, FOR, UNWIND, CALL, RETURN
+  did you mean: RETURN
+  GQLSTATUS:    42001
+Help: Did you mean RETURN? Expected `,`, WHERE, MATCH, OPTIONAL MATCH, WITH, LET, FILTER, FOR, UNWIND, CALL, ... at the marked position. ...
+</code></pre>
+<h2 id="errors-while-the-query-runs"><a class="header" href="#errors-while-the-query-runs">Errors while the query runs</a></h2>
+<p>A valid query can still fail on a row of the data: a division by zero, an overflow, an operand
+of the wrong kind. These fail the traversal when the row reaches the expression (kind <code>Data</code>,
+GQLSTATUS class <code>22</code>), with the caret under the expression and the step that ran it:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (n:person) RETURN n.age / 0 AS x")   // error: division by zero
+g.gql("MATCH (n:person) RETURN n.name + 1 AS x")   // error: + joins two strings or adds two numbers, not a string and a number
+g.gql("MATCH (n:person) RETURN type(n) AS x")   // error: type() takes an edge, not a node
+</code></pre>
+<pre><code class="language-text">Error: Step #1 'gql:project("x")' execution failed
+  at #1: v().has_label("person").gql:project("x")
+                                 ^^^^^^^^^^^^^^^^
+  plan:  v(labels: ["person"]).gql:project("x")
+                               ^^^^^^^^^^^^^^^^
+Caused by: GQL data exception at line 1, column 25: division by zero
+  query:     MATCH (n:person) RETURN n.age / 0 AS x
+                                     ^^^^^^^^^
+  GQLSTATUS: 22012
+Help: A row of the data made the marked expression fail. Keep such rows away from it with a WHERE condition or a CASE expression, ...
+</code></pre>
+<p>Comparisons never fail: <code>=</code> of values of different kinds is FALSE (<code>&lt;&gt;</code> TRUE), an ordering
+<code>&lt;</code> of them is <code>NULL</code>, and any comparison with <code>NULL</code> is <code>NULL</code>
+(<a href="semantics.html#comparisons-across-types">Semantics</a>).</p>
+<p><code>+</code> of a string and a number names the explicit conversions in its help:</p>
+<pre><code class="language-text">Help: Convert the number or boolean to text first, with toString(x) or CAST(x AS STRING), and join text with ||, as in g.gql("MATCH (p:person) RETURN p.name || ' is ' || toString(p.age) AS s"); or compute with numbers only, converting text with toInteger(x) or toFloat(x). ...
+</code></pre>
+<h3 id="function-errors"><a class="header" href="#function-errors">Function errors</a></h3>
+<p>A function fails on an argument it cannot take, with a GQLSTATUS that says why and a help line
+that leads with the fix for that function, then the general advice above:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (n:person) RETURN CAST(n.name AS INTEGER) AS x")   // error: invalid character value for cast (22018)
+g.gql("MATCH (n:person) RETURN substring(n.name, -1) AS x")   // error: substring() takes a start of 0 or more (22011)
+g.gql("MATCH (n:person) RETURN TRIM(BOTH 'ab' FROM n.name) AS x")   // error: TRIM(.. FROM ..) removes exactly one character (22027)
+g.gql("MATCH (n:person) RETURN ln(n.age - 29) AS x")   // error: ln() of a number &lt;= 0 (2201E)
+g.gql("MATCH (n:person) RETURN sqrt(27 - n.age) AS x")   // error: sqrt() of a negative number (2201F)
+g.gql("MATCH (n:person) RETURN range(1, n.age, 0) AS x")   // error: range() step 0 (22023)
+g.gql("MATCH (n:person) RETURN toFloat(n.age &gt; 30) AS x")   // error: toFloat() takes a number or a string, not a boolean (22G03)
+</code></pre>
+<pre><code class="language-text">Caused by: GQL data exception at line 1, column 30: invalid character value for cast: 'marko' is not an INTEGER (expected a decimal number, surrounding spaces allowed)
+  query:     MATCH (n:person) RETURN CAST(n.name AS INTEGER) AS x
+                                          ^^^^^^
+  GQLSTATUS: 22018
+Help: CAST is strict: text that is not a value of the target type fails the query. The Cypher conversions are lenient: toInteger(x), toFloat(x) and toBoolean(x) give NULL for such text, and toIntegerOrNull(x), toFloatOrNull(x) and toBooleanOrNull(x) give NULL for a value of any other kind too, as in g.gql("MATCH (p:person) RETURN p.name, toInteger(p.name) AS n"). A row of the data made the marked expression fail. ...
+</code></pre>
+<p>A function <code>gql()</code> knows but does not support gets a message with the reason and the
+alternative instead of "unknown function", and a misspelt name a suggestion:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (n:person) RETURN sin(n.age) AS x")   // error: sin() (a trigonometric function) is not yet supported
+g.gql("MATCH (n:person) RETURN rand() AS x")   // refused: rand() is not supported: a non-deterministic function
+g.gql("MATCH (n:person) RETURN toInt(n.age) AS x")   // error: unknown function toInt(), did you mean toInteger()
+</code></pre>
+<pre><code class="language-text">Error: GQL construct not supported yet at line 1, column 25: sin() (a trigonometric function) is not yet supported in this version (step #1 'gql:error("0A000")' refused the query before the traversal ran)
+  ...
+  GQLSTATUS: 0A000
+Help: Gremlin math() after gql(), for example g.gql("MATCH (n:person) RETURN n.age AS a").select("a").math("sin(_)"). This construct comes in a later version of gql(); until then, write the query without it or as Gremlin steps.
+</code></pre>
+<h3 id="dates-and-times"><a class="header" href="#dates-and-times">Dates and times</a></h3>
+<p>The <a href="subset.html#dates-and-times">temporal functions</a> fail with these codes; the help line shows
+the accepted forms with a runnable example:</p>
+<div class="table-wrapper"><table><thead><tr><th>Code</th><th>When</th></tr></thead><tbody>
+<tr><td><code>22007</code></td><td>text that is no value of the type (<code>date('nonsense')</code>, <code>date('2015-13-01')</code>, an offset in <code>localtime('12:00+01:00')</code>, an offset that is not the zone's in <code>'..+02:00[Europe/London]'</code>); a map with an unknown key or with two groups of date keys; an unknown time zone</td></tr>
+<tr><td><code>22008</code></td><td>a field out of range (<code>month: 13</code>, <code>day: 30</code> in February, <code>hour: 25</code>) or a value outside the years -9999 to 9999, also as the result of arithmetic (<code>date('9999-12-31') + duration('P1D')</code>)</td></tr>
+<tr><td><code>22G03</code></td><td>a component the value's type does not have (<code>date(..).hour</code>; the message lists the components it has); a constructor argument of the wrong kind (<code>date(42)</code>, <code>localdatetime(date(..))</code>); arithmetic without a meaning (<code>date + date</code>, <code>date * 2</code>); a truncation or difference of a value without the part it needs (<code>date.truncate('day', localtime(..))</code>, <code>duration.inDays()</code> of two local times)</td></tr>
+<tr><td><code>22023</code></td><td>a truncation unit the type does not have (<code>date.truncate('hour', ..)</code>) or an unknown unit</td></tr>
+<tr><td><code>22012</code></td><td>a duration divided by zero</td></tr>
+<tr><td><code>0A000</code></td><td><code>X.realtime()</code> (refused)</td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-rhai graph=empty">g.gql("RETURN date('nonsense') AS d")   // error: cannot parse "nonsense" as a date (22007)
+g.gql("RETURN date({year: 2015, mnth: 3}) AS d")   // error: the map has an unknown field mnth (22007)
+g.gql("RETURN datetime({year: 2015, timezone: 'Mars/Olympus'}) AS d")   // error: unknown time zone (22007)
+g.gql("RETURN date({year: 2015, month: 13, day: 1}) AS d")   // error: the field month cannot be 13 (22008)
+g.gql("RETURN date('9999-12-31') + duration('P1D') AS d")   // error: the result is outside the supported range (22008)
+g.gql("RETURN date('2015-01-01').foo AS x")   // error: a date has no component foo; its components are year, quarter, ... (22G03)
+g.gql("RETURN date('2015-01-01') * 2 AS x")   // error: * with a temporal value takes a duration and a number (22G03)
+g.gql("RETURN date.truncate('fortnight', date('2017-10-11')) AS d")   // error: unknown unit 'fortnight' (22023)
+g.gql("RETURN duration('P1D') / 0 AS d")   // error: division by zero (22012)
+g.gql("RETURN datetime.realtime() AS t")   // error: datetime.realtime() is not supported (0A000)
+</code></pre>
+<pre><code class="language-text">Caused by: GQL data exception at line 1, column 13: date(): the field month cannot be 13
+  query:     RETURN date({year: 2015, month: 13, day: 1}) AS d
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  GQLSTATUS: 22008
+Help: Temporal fields stay within their ranges (month 1 to 12, day within its month, week within its week-numbering year, hour 0 to 23, minute and second 0 to 59, millisecond 0 to 999) and every value within the years -9999 to 9999, as in g.gql("RETURN date({year: 1984, month: 10, day: 11}) AS d, localtime({hour: 23, minute: 59, second: 59, millisecond: 999}) AS t"). A row of the data made the marked expression fail. ...
+</code></pre>
+<h2 id="scope-grouping-and-limits"><a class="header" href="#scope-grouping-and-limits">Scope, grouping and limits</a></h2>
+<p>The help of a semantic error explains the rule behind it. A variable that a <code>WITH</code> did not carry
+on, a value read outside an aggregate that is not a grouping key, and a <code>GROUP BY</code> that leaves out
+a grouping key each name the fix:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) WITH p.name AS name RETURN p.age")   // error: the variable `p` is not in scope: the WITH before does not carry it
+g.gql("MATCH (p:person) RETURN p.name AS n, count(p.age) + p.age AS x")   // error: `p` is read outside an aggregate and is not a grouping key
+g.gql("MATCH (p:person) RETURN p.name AS n, p.age AS a, count(*) GROUP BY n")   // error: the RETURN item `a` has no aggregate, so it is a grouping key, and GROUP BY does not list it
+</code></pre>
+<pre><code class="language-text">Help: add `p` to the WITH items, as in WITH ..., p. WITH passes on only its columns: a variable it does not list is out of scope after it (only the WHERE of a WITH without an aggregate still reads it), so list every variable a later clause reads, ...
+Help: add `p` to the RETURN items (it then becomes a grouping key), or read it inside an aggregate, as in collect(p). A RETURN or WITH with an aggregate groups the rows by its other items (the grouping keys): ...
+Help: add it to GROUP BY (GROUP BY ..., a), or remove GROUP BY: grouping is implicit, the items without an aggregate are the keys. ...
+</code></pre>
+<p>A <code>FOR</code> (or <code>UNWIND</code>) defines new names; reusing a name in scope, giving the item and its
+position one name, or using the position as a node is an error whose help says what <code>FOR</code>
+defines:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) FOR p IN [1] RETURN p")   // error: the variable `p` is already defined; FOR defines a new variable
+g.gql("FOR x IN [3, 1, 2] WITH OFFSET x RETURN x")   // error: `x` names both the item and its position
+</code></pre>
+<pre><code class="language-text">Help: choose another name, as in FOR p2 IN &lt;list&gt;. FOR x IN &lt;list&gt; (Cypher UNWIND &lt;list&gt; AS x) gives one row per item of the list, which it reads on the row before the FOR; the item x and, with WITH ORDINALITY i (from 1) or WITH OFFSET i (from 0), its position i are two new variables with names of their own; ...
+</code></pre>
+<p>An unbounded quantifier that reaches <code>repeat.max_loops</code> or <code>traversal.max_traversers</code> fails with
+the ordinary limit error (<code>RepeatLimitExceeded</code>, <code>ResourceLimitExceeded</code>; no GQLSTATUS), never with
+fewer rows. Its help is written for GQL: it names the quantified edge, an upper bound to give it
+and the <code>g.with(..).gql(..)</code> that raises the limit (<a href="semantics.html#quantified-edges">Semantics</a>):</p>
+<pre><code class="language-rhai graph=modern">g.with("traversal.max_traversers", 3).gql("MATCH (a)-[:knows|created]-&gt;{1,}(b) RETURN b.name AS b")   // error: traversal.max_traversers exceeded
+</code></pre>
+<pre><code class="language-text">Caused by: Resource limit 'traversal.max_traversers' exceeded (limit 3, reached 6)
+Help: The gql() query kept more traversers (rows in the making) alive between two steps than 'traversal.max_traversers' allows (3). Each path a quantified edge (-[:knows|created]-&gt;{1,}) matches is a traverser of its own (trail keeps them apart, so they do not merge), ... give it a lower upper bound, as in -[:knows|created]-&gt;{1,5}. ...
+</code></pre>
+<p>A function whose result can be larger than its arguments (<code>range()</code>, <code>split()</code>, <code>replace()</code>,
+<code>toString()</code> of a list or map, <code>||</code>) checks the size of its result before it builds it, against
+<code>traversal.max_materialized_bytes</code> and the memory budget, like <code>collect_list()</code>. A result that is
+too large fails with the ordinary limit error (<code>ResourceLimitExceeded</code>, no GQLSTATUS: the option
+and its lock are the engine's), never with a shortened value; inside <code>gql()</code> its help names the
+growing functions, a bound for them and the <code>g.with(..).gql(..)</code> that raises the limit:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (n:person) RETURN range(0, 9223372036854775807) AS r")   // error: Resource limit 'traversal.max_materialized_bytes' exceeded
+g.with("traversal.max_materialized_bytes", 100).gql("MATCH (n:person) RETURN split(n.name, '') AS s")   // error: Resource limit 'traversal.max_materialized_bytes' exceeded
+</code></pre>
+<pre><code class="language-text">Caused by: Resource limit 'traversal.max_materialized_bytes' exceeded (limit 1073741824, reached 18446744073709551615)
+Help: The gql() query built a value larger than 'traversal.max_materialized_bytes' allows (1073741824 bytes); ... A function whose result can be larger than its arguments (range(), split(), replace(), || and CAST(x AS STRING) of a list or map) and the list of collect_list() are checked before they are built, so the query stops instead of running out of memory; the result is never cut short. Build smaller values: bound range() and replace() by the data, as in g.gql("MATCH (p:person) RETURN range(1, p.age / 10) AS r"), ... or raise the limit for the query, g.with("traversal.max_materialized_bytes", 2147483648).gql(..), ...
+</code></pre>
+<h2 id="subqueries"><a class="header" href="#subqueries">Subqueries</a></h2>
+<p>The errors of an <code>EXISTS</code> subquery or a pattern predicate share one help text that explains
+subqueries: TRUE or FALSE, never <code>NULL</code>; the body reads the variables bound before it, and the
+variables it binds stay inside it; a pattern predicate binds no new variable. Before it, each
+names its own fix:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) WHERE (p)-[:knows]-&gt;(q) RETURN p.name AS name")   // error: the pattern predicate introduces the new variable `q`
+g.gql("MATCH (p:person) RETURN p.name AS name, (p)-[:knows]-&gt;() AS k")   // error: the pattern stands where a value is expected (42001)
+g.gql("MATCH (p:person) WHERE EXISTS { MATCH (p)-[:created]-&gt;(s) } RETURN s.name AS s")   // error: the variable `s` is not in scope: it is bound inside a subquery
+g.gql("MATCH (a:person) WHERE EXISTS { MATCH (a)--&gt;() WHERE b.age &gt; 1 MATCH (b) } RETURN a")   // error: `b` is bound by a later MATCH clause of the subquery
+</code></pre>
+<pre><code class="language-text">Help: write it as EXISTS { MATCH (p)-[:knows]-&gt;(q) }, whose MATCH may bind new variables, or leave `q` out of the pattern. A subquery, EXISTS { MATCH &lt;pattern&gt; [WHERE &lt;condition&gt;] }, EXISTS { &lt;pattern&gt; } or a Cypher pattern predicate such as (p)-[:created]-&gt;(), is TRUE when its body has a match and FALSE otherwise, never NULL; its body reads the variables bound before it, and the variables it binds itself stay inside it. A pattern predicate binds no new variable: name new elements in an EXISTS { MATCH .. }, as in g.gql("MATCH (p:person) WHERE NOT EXISTS { MATCH (p)-[:created]-&gt;(s) WHERE s.lang = 'java' } RETURN p.name"), and bind an element in the MATCH clause of the query to read it after the subquery, as in g.gql("MATCH (p:person)-[:created]-&gt;(s) RETURN p.name, s.name").
+Help: write EXISTS { (p)-[:knows]-&gt;() } for whether it has a match, COUNT { (p)-[:knows]-&gt;() } for the number of matches, or a pattern comprehension such as [(n)--&gt;(m) | m] for the list of what it matches, as in g.gql("MATCH (p:person) RETURN p.name, COUNT { (p)-[:knows]-&gt;() } AS friends, [(p)-[:created]-&gt;(s) | s.name] AS made"). A subquery, ...
+Help: bind `s` in the MATCH clause of the query to use it here, or test it inside the subquery. A subquery, ...
+Help: move the condition to the WHERE of that later MATCH clause inside the subquery. A subquery, ...
+</code></pre>
+<p>A query holds at most 64 subqueries (<code>EXISTS</code>, pattern predicates, pattern comprehensions,
+<code>COUNT { }</code> and <code>COLLECT { }</code>, nested ones included) and runs at most 1024 subquery bodies, where
+a <code>LET</code> or <code>WITH</code> variable holding a subquery counts once for every place that reads it. A
+<code>CALL { }</code> body counts toward neither; <code>CALL</code> bodies and whole-query subquery bodies nest at most
+16 levels (<a href="#union-next-and-call">UNION, NEXT and CALL</a>). Either limit is <code>54001</code> before the run,
+and its help names both bounds and the forms that need fewer subqueries:</p>
+<pre><code class="language-text">Error: GQL limit exceeded at line 1, column 785: the query holds more than 64 subqueries (EXISTS and pattern predicates), pattern comprehensions included, as are COUNT { } and COLLECT { } ...
+Help: join the patterns into fewer subqueries (one EXISTS { MATCH .. } may hold several MATCH clauses and patterns), or add the patterns to the MATCH clause of the query; a pattern comprehension is a subquery too: collect the matches of several patterns with OPTIONAL MATCH and collect_list() instead. The query is larger than gql() accepts: one query holds at most 64 subqueries (EXISTS, pattern predicates, pattern comprehensions, COUNT { } and COLLECT { }, nested ones included) and runs at most 1024 subquery bodies, where a LET or WITH variable holding a subquery counts once for every place that reads it; a CALL { } body counts toward neither (CALL bodies nest at most 16 levels). One EXISTS may hold several MATCH clauses and patterns, as in g.gql("MATCH (p:person) WHERE EXISTS { MATCH (p)-[:knows]-&gt;(f) MATCH (f)-[:created]-&gt;(s) } RETURN p.name"), and one CALL may compute what several COUNT { } and COLLECT { } over the same pattern do, as in g.gql("MATCH (p:person) CALL (p) { OPTIONAL MATCH (p)-[:created]-&gt;(s) RETURN count(s) AS n, collect_list(s.name) AS names } RETURN p.name, n, names").
+</code></pre>
+<p>A quantified edge inside a subquery that reaches <code>repeat.max_loops</code> or
+<code>traversal.max_traversers</code> fails like one outside, and the help says where it stands and why a
+subquery may loop long:</p>
+<pre><code class="language-rhai graph=modern">g.with("repeat.max_loops", 1).gql("MATCH (p:person) WHERE EXISTS { (p)-[:knows|created]-&gt;{1,}(x) } RETURN p.name AS n")   // error: repeat() exceeded the loop limit of 1 iterations
+</code></pre>
+<pre><code class="language-text">Help: The loop of the quantified edge -[:knows|created]-&gt;{1,} inside an EXISTS subquery (or pattern predicate) of the gql() query ran 1 iterations, the limit of repeat.max_loops. ... A subquery stops at its first match, so its loop runs this long on a row that has no match, or only a late one. Give the quantifier an upper bound, as in -[:knows|created]-&gt;{1,5}, ...
+</code></pre>
+<p><code>COUNT { }</code> and <code>COLLECT { }</code> follow the same rules (a variable bound inside one is named as
+bound inside that <code>COUNT { }</code> or <code>COLLECT { }</code>, and the help explains the two forms); a
+<code>COLLECT { }</code> body must end in a <code>RETURN</code> of exactly one column. Cypher 4's <code>exists(n.p)</code> is <a href="refused.html">refused</a>:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) RETURN COLLECT { MATCH (p)-[:knows]-&gt;(f) RETURN f.name, f.age } AS l")   // error: COLLECT { } needs a body that ends in a RETURN of exactly one column
+g.gql("MATCH (p:person) RETURN COUNT { MATCH (p)-[:knows]-&gt;(f) } AS n, f.name AS x")   // error: the variable `f` is not in scope: it is bound inside a COUNT { } subquery
+g.gql("MATCH (p:person) RETURN exists(p.age) AS a")   // refused: exists(value), the Cypher 4 property test, is not supported
+</code></pre>
+<pre><code class="language-text">Help: return the one value to collect, as in MATCH (p:person) RETURN COLLECT { MATCH (p)-[:created]-&gt;(s) RETURN s.name } AS names. A subquery, ...
+Help: bind `f` in the MATCH clause of the query to use it here, or test it inside the COUNT { } body. COUNT { &lt;body&gt; } is the number of matches of its body (or of the records its RETURN gives), and COLLECT { &lt;body&gt; RETURN &lt;expression&gt; } the list of the values it returns; the body reads the variables bound before it, and the variables it binds itself stay inside it, ...
+Help: test a property with n.p IS NOT NULL, here p.age IS NOT NULL; EXISTS tests a graph pattern, as in MATCH (p:person) WHERE EXISTS { (p)-[:created]-&gt;() } RETURN p.name. ...
+</code></pre>
+<h3 id="map-projections-and-comprehensions"><a class="header" href="#map-projections-and-comprehensions">Map projections and comprehensions</a></h3>
+<p>A pattern comprehension is a subquery, so its errors follow the rules above with their own help
+text: the variables it binds stay inside it (read them in its <code>|</code> part), and its <code>|</code> part holds
+no aggregate (aggregate the list, <code>size([..])</code>, or use <code>OPTIONAL MATCH</code> and an aggregate). A
+list-comprehension variable must be a new name, and its <code>WHERE</code> and <code>|</code> parts hold no aggregate
+either. Each help names the form that works:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) RETURN p.name AS n, [(p)-[:knows]-&gt;(f) | f.name] AS l ORDER BY f.name")   // error: `f` is bound inside a pattern comprehension
+g.gql("MATCH (p:person) RETURN [(p)--&gt;(f) | count(f)] AS l")   // error: count() cannot be used inside the | part of a pattern comprehension
+g.gql("MATCH (p:person) RETURN [p IN [1, 2] | p * 2] AS l")   // error: the comprehension variable `p` shadows the variable `p` in scope
+g.gql("MATCH (p:person) RETURN [x IN [1, 2] | count(x)] AS l")   // error: count() cannot be used inside the WHERE or | part of a list comprehension
+g.gql("MATCH (p:person) RETURN [x IN [1, 2] WHERE x:A|B | x] AS a")   // error: unexpected `|`
+</code></pre>
+<pre><code class="language-text">Help: bind `f` in the MATCH clause of the query to use it here, or read it in the | part of the comprehension, as in [(a)--&gt;(f) | f.name]. A pattern comprehension, [(a)-[:knows]-&gt;(f) WHERE &lt;condition&gt; | &lt;expression&gt;], is the list of its | part evaluated for every match of its pattern (the empty list when nothing matches); its pattern reads the variables bound before it, and the variables it binds itself stay inside it. ...
+Help: aggregate the list the comprehension builds, as in MATCH (p) RETURN size([(p)--&gt;(f) | f.age]) AS n, or aggregate in a WITH after an OPTIONAL MATCH, as in MATCH (p) OPTIONAL MATCH (p)--&gt;(f) RETURN p, count(f.age) AS n. ...
+Help: give the comprehension its own variable, as in [p2 IN list WHERE p2 &gt; 0 | p2]. ...
+Help: aggregate in a WITH first and use its column in the comprehension, as in MATCH (p)--&gt;(f) WITH p, count(f.age) AS n RETURN [x IN [1, 2, 3] WHERE x &lt; n]. ...
+Help: a `|` in a comprehension ends its list or its WHERE condition; write a label alternative there in parentheses, as in [x IN l WHERE x:(A|B) | x.name]. ...
+</code></pre>
+<p>A map projection of a value that is not an element or a map, and a list comprehension over a
+value that is not a list, are data errors (<code>22G03</code>) of the row; so is <code>all()</code>, <code>any()</code>,
+<code>none()</code>, <code>single()</code> or <code>reduce()</code> over a value that is not a list, and the message names the
+function. Their variables are new names like a comprehension's (<code>42002</code>), and an aggregate
+inside their condition or <code>|</code> part is <code>42002</code> with a <code>WITH</code> example of the same form. A
+list-comprehension variable read inside an <code>EXISTS</code> or a pattern comprehension of its own
+<code>WHERE</code> or <code>|</code> part is not supported yet (<code>0A000</code>), the variables of the list predicates and
+<code>reduce()</code> neither:</p>
+<pre><code class="language-rhai graph=modern">g.gql("WITH 1 AS m RETURN m {.a} AS x")   // error: a map projection reads a node, an edge or a map, not a number
+g.gql("MATCH (p:person) RETURN [x IN [p] WHERE (x)--&gt;() | x.name] AS l")   // error: reading the comprehension variable `x` inside a subquery is not yet supported
+g.gql("RETURN any(x IN 5 WHERE x &gt; 1) AS a")   // error: any() iterates over a list, not a number (22G03)
+g.gql("MATCH (p:person) RETURN reduce(p = 0, x IN [1] | p + x) AS a")   // error: the accumulator `p` of reduce() shadows the variable `p` in scope
+</code></pre>
+<pre><code class="language-text">Help: test `x` outside the subquery, as in [x IN list WHERE x &gt; 0 AND EXISTS { MATCH (n)--&gt;() }]. ...
+Help: give reduce() an accumulator of its own, as in reduce(p2 = 0, item IN list | p2 + item). ... The same holds for the variable of all(), any(), none() and single() and for both variables of reduce(), as in g.gql("MATCH (p:person) RETURN p.name, all(a IN [p.age] WHERE a &gt; 30) AS old, reduce(s = 0, a IN [p.age, 1] | s + a) AS total").
+</code></pre>
+<p>A resource limit reached inside a pattern comprehension names it. A quantified edge in its
+pattern loops until the row's last match is found (unlike <code>EXISTS</code>, which stops at its first),
+and its list is checked against <code>traversal.max_materialized_bytes</code> and the memory budget before
+it is built, like <code>collect_list()</code>:</p>
+<pre><code class="language-rhai graph=modern">g.with("repeat.max_loops", 1).gql("MATCH (p:person) RETURN p.name AS n, [(p)-[:knows|created]-&gt;{1,}(x) | x.name] AS r")   // error: repeat() exceeded the loop limit of 1 iterations
+g.with("traversal.max_materialized_bytes", 100).gql("MATCH (p:person) RETURN [(p)-[:created]-&gt;(s) | s.name] AS r")   // error: Resource limit 'traversal.max_materialized_bytes' exceeded
+</code></pre>
+<pre><code class="language-text">Help: The loop of the quantified edge -[:knows|created]-&gt;{1,} inside a pattern comprehension [(a)--&gt;(b) | ..] of the gql() query ran 1 iterations, the limit of repeat.max_loops. ... A pattern comprehension collects every match of its pattern for each row, so its loop runs until the row's last match is found. Give the quantifier an upper bound, as in -[:knows|created]-&gt;{1,5}, ...
+Help: ... A function whose result can be larger than its arguments (range(), split(), replace(), || and CAST(x AS STRING) of a list or map) and the list of collect_list() are checked before they are built, as is the list of a pattern comprehension [(a)--&gt;(b) | b.name], so the query stops instead of running out of memory; the result is never cut short. ... count the values instead of collecting them, ... or, for the matches of a pattern, g.gql("MATCH (p:person) OPTIONAL MATCH (p)--&gt;(f) RETURN p.name, count(f) AS n"), ...
+</code></pre>
+<h2 id="union-next-and-call"><a class="header" href="#union-next-and-call">UNION, NEXT and CALL</a></h2>
+<p>The errors of a composite query share one help text that explains <code>UNION</code> and <code>NEXT</code>: the
+operands return the same column names in any order (the result keeps the first operand's order),
+<code>UNION</code> removes duplicates and <code>UNION ALL</code> keeps them, one chain uses one kind, each operand has
+its own variables, <code>ORDER BY</code> and <code>LIMIT</code>, and <code>NEXT</code> passes on only the <code>RETURN</code> columns. The
+column mismatch names both column sets:</p>
+<pre><code class="language-rhai graph=modern">g.gql("RETURN 1 AS x UNION RETURN 2 AS y")   // error: the operands of UNION must return the same column names
+g.gql("RETURN 1 AS x UNION RETURN 2 AS x UNION ALL RETURN 3 AS x")   // error: UNION ALL is mixed with UNION in one query
+g.gql("MATCH (p:person) RETURN p.name AS name NEXT RETURN p.age")   // error: the variable `p` is not in scope: the RETURN before NEXT does not return it
+g.gql("MATCH (p:person) RETURN p MATCH (p)-[:created]-&gt;(s) RETURN s")   // error: MATCH after RETURN: RETURN ends the query
+</code></pre>
+<pre><code class="language-text">Error: GQL semantic error at line 1, column 21: the operands of UNION must return the same column names: the first returns `x`, this one returns `y` (`x` is missing) ...
+Help: name the columns alike with AS in every operand (their order may differ), as in MATCH (p:person) RETURN p.name AS name UNION MATCH (s:software) RETURN s.name AS name. UNION combines the records of queries that return the same column names, in any order (the result keeps the order of the first query): UNION (or UNION DISTINCT) removes duplicate records, UNION ALL keeps them, and one chain of UNIONs uses one kind. Each query of a UNION has its own variables, ORDER BY, OFFSET and LIMIT. NEXT passes the records of the statement before it on by their column names (only those), so it sorts, filters or aggregates a UNION as a whole, as in g.gql("MATCH (p:person) RETURN p.name AS name UNION MATCH (s:software) RETURN s.name AS name NEXT RETURN name ORDER BY name LIMIT 3").
+Help: write the same kind between every operand, or combine the parts with NEXT, as in RETURN 1 AS x UNION ALL RETURN 1 AS x NEXT RETURN x UNION RETURN 2 AS x. UNION combines ...
+Help: add `p` to the RETURN items before NEXT, as in RETURN ..., p NEXT ... UNION combines ...
+Help: put every MATCH before the RETURN, or continue with NEXT, which passes the columns of the RETURN on to the next statement, as in MATCH (p:person) RETURN p NEXT MATCH (p)-[:created]-&gt;(s) RETURN p.name, s.name, or chain Gremlin steps after gql(). ...
+</code></pre>
+<p>The errors of a <code>CALL</code> share a help text on its scope: the body reads only the variables its
+scope clause names (<code>CALL (*)</code> all, <code>CALL { }</code> none, Cypher's <code>CALL { WITH a .. }</code> those of its
+first <code>WITH</code>), returns new names, aggregates per row, and drops a row without records unless the
+<code>CALL</code> is <code>OPTIONAL</code>. Cypher's importing <code>WITH</code> lists plain variables only, as in Neo4j: a first
+<code>WITH</code> with a <code>WHERE</code>, an alias, an expression, <code>DISTINCT</code>, <code>ORDER BY</code>, <code>OFFSET</code> or <code>LIMIT</code> is
+no importing <code>WITH</code>, so the body imports nothing and the error says so. A body without <code>RETURN</code> (a unit subquery, which only a write could use) is
+not supported, and <code>IN TRANSACTIONS</code> is <a href="refused.html">refused</a>:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) CALL (p) { MATCH (p)-[:knows]-&gt;(f) RETURN f AS p } RETURN p")   // error: the CALL body returns `p`, which is already defined outside it
+g.gql("MATCH (p:person) CALL { WITH p AS q MATCH (q)--&gt;(s) RETURN s.name AS sw } RETURN sw")   // error: the variable `p` is not imported into the CALL body: its first WITH is not an importing WITH
+g.gql("MATCH (p:person) CALL { WITH p WHERE p.age &gt; 30 MATCH (p)--&gt;(s) RETURN s.name AS sw } RETURN sw")   // error: the variable `p` is not imported into the CALL body: its first WITH is not an importing WITH
+g.gql("MATCH (p:person) CALL (p) { MATCH (p)-[:created]-&gt;(s) } RETURN p")   // error: a CALL { } body without RETURN (a unit subquery) only makes sense for writes, and this body writes nothing
+g.gql("MATCH (p:person) CALL (p) { MATCH (p)--&gt;(s) RETURN s.name AS sw } IN TRANSACTIONS RETURN sw")   // refused: CALL { } IN TRANSACTIONS commits writes in batches
+</code></pre>
+<pre><code class="language-text">Help: rename the column inside the body, as in RETURN ... AS p2. A CALL subquery, CALL (a, b) { &lt;query ending in RETURN, or in a write (INSERT, SET, REMOVE, DELETE, MERGE / FINISH)&gt; }, runs its query once for each incoming row: the body reads only the variables its scope clause names (CALL (*) imports all of them, CALL { } none, and Cypher's CALL { WITH a .. } those of its first WITH), and passes on only the columns of its RETURN, which must be new names; its aggregates, ORDER BY and LIMIT apply to each row's records, as in g.gql("MATCH (p:person) CALL (p) { MATCH (p)-[:created]-&gt;(s) RETURN count(s) AS made } RETURN p.name, made"). A row whose body returns no record is dropped; OPTIONAL CALL keeps it with NULL columns.
+Help: import `p` with a variable scope clause, as in CALL (p) { MATCH ... WHERE ... }, or in Cypher with a WITH of plain variables first and the rest of the body after it, as in CALL { WITH p MATCH ... WHERE ... }. A CALL subquery, ...
+Help: end the body with RETURN and the columns the query reads after it, for example MATCH (p:person) CALL (p) { MATCH (p)-[:created]-&gt;(s) RETURN count(s) AS made } RETURN p.name, made. A CALL subquery, ...
+Help: remove IN TRANSACTIONS: the whole query commits at once, and a query that fails changes nothing. A CALL subquery, ...
+</code></pre>
+<p><code>CALL</code> bodies and whole-query subquery bodies (<code>EXISTS</code>, <code>COUNT</code> or <code>COLLECT</code> with <code>WITH</code>,
+<code>RETURN</code>, ...) nest at most 16 levels (<code>54001</code>); the help shows how to un-nest them. A resource
+limit reached inside a <code>CALL</code> body names it: the body runs for each incoming row and keeps every
+record, so a quantified edge in it loops until the row's last match:</p>
+<pre><code class="language-rhai graph=modern">g.with("repeat.max_loops", 1).gql("MATCH (p:person) CALL (p) { MATCH (p)-[:knows|created]-&gt;{1,}(x) RETURN count(x) AS n } RETURN p.name AS who, n")   // error: repeat() exceeded the loop limit of 1 iterations
+</code></pre>
+<pre><code class="language-text">Error: GQL limit exceeded at line 1, column 113: the query nests CALL { } and subquery bodies deeper than 16 levels ...
+Help: un-nest the bodies: a CALL body may follow another in the same query, as in CALL { .. RETURN a } CALL (a) { .. RETURN b }, and NEXT passes the result of one query to the next. The query is larger than gql() accepts.
+
+Help: The loop of the quantified edge -[:knows|created]-&gt;{1,} inside a CALL { } subquery of the gql() query ran 1 iterations, the limit of repeat.max_loops. ... A CALL { } subquery runs its body for each incoming row and keeps every record it returns, so its loop runs until the row's last match is found. Give the quantifier an upper bound, as in -[:knows|created]-&gt;{1,5}, ...
+</code></pre>
+<p>A limit inside an operand of a <code>UNION</code> or a block after <code>NEXT</code> at the top level keeps the plain
+text of a top-level clause; inside a subquery the place named is the innermost subquery
+(<code>CALL</code>, <code>COUNT</code>, <code>COLLECT</code>, <code>EXISTS</code> or a pattern comprehension).</p>
+<h2 id="calls-of-saved-queries"><a class="header" href="#calls-of-saved-queries">Calls of saved queries</a></h2>
+<p>The errors of a <code>CALL folder.name(..)</code> of a <a href="subset.html#calling-saved-queries">saved query</a> are
+found before the run and point at the call; they share one help text that explains the call
+(folder and name, positional arguments, <code>YIELD</code>, the standalone form, <code>g.queries()</code>), after a
+fix of their own:</p>
+<div class="table-wrapper"><table><thead><tr><th>GQLSTATUS</th><th>When</th></tr></thead><tbody>
+<tr><td><code>42002</code></td><td>no saved query of that name in that folder (with "did you mean" when it is in another folder); too many arguments, or too few for parameters without a default; a standalone call without parentheses whose parameter has no value; an in-query call without parentheses of a query with parameters; an in-query call of a query with columns without <code>YIELD</code>; <code>YIELD</code> of a column the query does not return, of a name already in scope or twice, <code>YIELD</code> on a query without <code>RETURN</code>; an aggregate in an argument; a saved query that calls itself, directly or through others</td></tr>
+<tr><td><code>42001</code></td><td><code>YIELD *</code> inside a query (only a standalone call takes it)</td></tr>
+<tr><td><code>22G03</code></td><td>an argument that does not fit its parameter's schema (<code>CALL people.older('x')</code> for an <code>integer</code>)</td></tr>
+<tr><td><code>0A000</code></td><td>a saved query written in Rhai (the help names <code>g.query(..)</code>); an argument that reads the row; a call inside <code>EXISTS { }</code>, <code>COUNT { }</code> or <code>COLLECT { }</code>; the vendor namespaces <code>db</code>, <code>dbms</code>, <code>apoc</code>, <code>gds</code> (refused); a read-only saved query that would write through a call</td></tr>
+<tr><td><code>54001</code></td><td>saved queries that call each other more than 16 levels deep, or more than 1024 calls in one query and the queries it calls</td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-rhai graph=modern">g.gql("CALL people.older(26) YIELD name RETURN name")   // error: there is no saved query `older` in the folder `people`
+g.gql("CALL db.labels()")   // refused: procedure calls of the vendor namespaces are vendor extensions
+</code></pre>
+<p>With the saved query <code>people.older($min)</code> of <a href="../users_guide/saved_queries.html#calling-saved-queries-from-gql">Saved
+Queries</a>, returning <code>name</code> and
+<code>age</code>:</p>
+<pre><code class="language-text">Error: GQL semantic error at line 1, column 6: there is no saved query `older` in the folder `people` ...
+Help: save it first with g.define_query(#{name: "older", folder: "people", language: "gql", body: ".."}); g.queries() lists the saved queries. CALL folder.name(args) runs the saved query `name` of the catalog folder `folder` (the segments before the name, joined by /; CALL name() calls one of the root folder), written in GQL. Its arguments are constants or $parameters, in the order its query first reads its parameters (a trailing one left out takes the parameter's default). YIELD names the columns of its RETURN the query reads after the call (YIELD a AS x renames one; each must be a new name), and a call alone is a whole query returning every column, as in g.define_query(#{name: "adults", folder: "people", language: "gql", body: "MATCH (p:person) WHERE p.age &gt;= $min RETURN p.name AS name", params: #{min: "integer"}}); g.gql("CALL people.adults(30) YIELD name RETURN name ORDER BY name"). g.queries() lists the saved queries with their folders and parameters; a saved query written in Rhai runs with g.query(name, #{..}).
+
+Error: GQL semantic error at line 1, column 6: there is no saved query `older` in the root folder: the saved query `older` is in the folder `people` ...
+  did you mean: CALL people.older
+Help: Did you mean CALL people.older? CALL folder.name(args) runs the saved query ...
+
+Error: GQL semantic error at line 1, column 22: too many arguments: people.older(min :: integer) takes 1 argument, 2 given ...
+Error: GQL data exception at line 1, column 19: the argument for `min` of CALL people.older must be integer: Type mismatch on query 'older.min': expected int64, got string ...
+  GQLSTATUS: 22G03
+
+Error: GQL semantic error at line 1, column 25: CALL people.older inside a query names the columns it reads with YIELD: the saved query returns `name`, `age` ...
+Help: add YIELD, as in CALL people.older(..) YIELD name, age. CALL folder.name(args) runs ...
+
+Error: GQL semantic error at line 1, column 27: `nope` is not a column of the saved query called by CALL people.older; it returns `name`, `age` ...
+Error: GQL syntax error at line 1, column 46: YIELD * is allowed only in a standalone CALL (the whole query) ...
+
+Error: GQL construct not supported yet at line 1, column 38: an argument of CALL people.older that reads the row is not yet supported (the variable s is not defined) ...
+Help: pass a constant or a $parameter, or write the saved query's pattern in the query itself. CALL folder.name(args) runs ...
+
+Error: GQL construct not supported yet at line 1, column 6: the saved query `rh` is written in Rhai; CALL runs saved queries written in GQL in this version ...
+Help: run it from the DSL with g.query("rh", #{..}), or save it again in GQL (language: "gql"). CALL folder.name(args) runs ...
+
+Error: GQL semantic error at line 1, column 6: recursive call of the saved query `a`: a calls b calls a (the arguments of a CALL are constants, so the recursion would never end) ...
+
+Error: GQL limit exceeded at line 1, column 6: saved queries call each other more than 16 levels deep (CALL q0 at the end of q16 -&gt; q15 -&gt; ... -&gt; q1) ...
+  GQLSTATUS: 54001
+Help: Saved queries called with CALL nest at most 16 levels deep, and one query and the saved queries it calls hold at most 1024 calls in all. Call an inner saved query directly, as in g.gql("CALL people.adults(30) YIELD name RETURN name"), or write a part of the chain in the query itself; g.get_query(name) shows a saved query's body.
+
+Error: GQL unsupported construct at line 1, column 1: CALL: procedure calls are vendor extensions, not part of GQL ...
+Help: write what the procedure does as Gremlin steps, for example g.v().label().dedup() instead of CALL db.labels(), or save it as a query in GQL and call that one, CALL folder.name(args), which runs a saved query of the graph's catalog. ...
+</code></pre>
+<p>An error inside the called query keeps its own text and caret (under the saved query's text)
+and gains the line <code>in saved query: "name"</code>.</p>
+<h2 id="quantified-path-patterns"><a class="header" href="#quantified-path-patterns">Quantified path patterns</a></h2>
+<p>The forms a <a href="subset.html#quantified-path-patterns">quantified path pattern</a> does not take yet are
+refused before the run with <code>0A000</code>; each help names the rewrite. A body variable is a new name
+(<code>42002</code>), and outside a quantified body it is a list, so a property of it is an error whose help
+offers the body's <code>WHERE</code> or a list comprehension:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (a) ((x)-[:knows]-&gt;{1,2}(y)){1,3} (b) RETURN b")   // error: a quantified edge inside a parenthesized path pattern is not yet supported
+g.gql("MATCH (a) ((x)--&gt;(y) WHERE y.age &gt; a.age){1,3} (b) RETURN b")   // error: a condition inside a parenthesized path pattern that reads a variable declared outside it is not yet supported
+g.gql("MATCH (a) ((a)--&gt;(y)){1,2} (b) RETURN b")   // error: `a` is already bound; a variable of a quantified path pattern must be a new name
+g.gql("MATCH (a) ((x)--&gt;(y)){1,3} (b) RETURN x.name")   // error: `x` is a group variable of the quantified path pattern
+</code></pre>
+<pre><code class="language-text">Help: write the edge out as often as needed inside the parentheses, as in ((x)--&gt;()--&gt;(y)){1,3}, or quantify the edge outside them, as in MATCH (a)-[:knows]-&gt;{1,3}(b) RETURN b. ...
+Help: compare the body's variables with each other, with values or with parameters inside it, as in ((x)-[e]-&gt;(y) WHERE e.weight &gt; $w){1,3}, and test the outer variable in the WHERE of the MATCH clause. ...
+Help: give the element inside its own variable: the node before a parenthesized path pattern is the first node of its first iteration and the node after it the last node of its last iteration, as in (a) ((x)--&gt;(y)){1,3} (b). ...
+Help: test each element inside the parenthesized path pattern, with WHERE x.name ... before its closing parenthesis, or read the list, as in [v IN x | v.name]. ...
+</code></pre>
+<p>An unbounded quantified path pattern that reaches <code>repeat.max_loops</code> or
+<code>traversal.max_traversers</code> fails like a quantified edge (<code>RepeatLimitExceeded</code>,
+<code>ResourceLimitExceeded</code>, no GQLSTATUS), never with fewer rows, and its help names <strong>the pattern
+as the plan walks it</strong>: read back from the lowered <code>repeat()</code> body, so it shows each node's
+labels but not its variable (a node without a label is <code>()</code>), each edge with its labels in the
+direction of the walk (the plan may walk the pattern from its far end), and a body of one edge
+with nothing on its nodes as the quantified edge it equals (<code>-[:knows]-&gt;{1,}</code>):</p>
+<pre><code class="language-rhai graph=modern">g.with("repeat.max_loops", 1).gql("MATCH (a {name: 'marko'}) ((x:person)-[:knows]-&gt;(m)-[:created]-&gt;(y))+ (b) RETURN b.name AS b")   // error: repeat() exceeded the loop limit of 1 iterations
+</code></pre>
+<pre><code class="language-text">Help: The loop of the quantified path pattern ((:person)-[:knows]-&gt;()-[:created]-&gt;()){1,} of the gql() query ran 1 iterations, the limit of repeat.max_loops. A quantifier without an upper bound ({m,}, *, + or Cypher [*]) repeats the pattern until every path has used all the edges it can reach (trail), ... Give the quantifier an upper bound, as in ((:person)-[:knows]-&gt;()-[:created]-&gt;()){1,5}, ... Or raise the limit for the query, g.with("repeat.max_loops", 2).gql(..), ...
+</code></pre>
+<p>A <code>MATCH</code> clause holds at most 64 edge patterns; an edge in a quantified body counts once,
+however often the body repeats, so the help of that limit names a quantified path pattern as one
+of the fixes:</p>
+<pre><code class="language-text">Help: split the pattern into several MATCH clauses that share a variable, for example MATCH (a)--&gt;(b)--&gt;(c) MATCH (c)--&gt;(d)--&gt;(e) RETURN e (edge uniqueness then holds within each clause only), repeat a chain as a quantified path pattern, whose body edges count once however often it repeats, for example MATCH (a) (()--&gt;()){65} (z) RETURN z, or walk a long path with Gremlin repeat(), for example g.v().repeat(__.out()).times(100). The query is larger than gql() accepts.
+</code></pre>
+<h2 id="insert"><a class="header" href="#insert">INSERT</a></h2>
+<p>An <code>INSERT</code> pattern that cannot create what it says fails before the run; its help shows the
+accepted form and ends with one shared paragraph on <code>INSERT</code>:</p>
+<pre><code class="language-rhai graph=modern">g.gql("INSERT (a:x)-[:r]-(b:y)")   // error: INSERT needs a direction; write -[e:T]-&gt; or &lt;-[e:T]-
+g.gql("INSERT (:a)-[:r|s]-&gt;(:b)")   // error: an edge in INSERT has exactly one label
+g.gql("MATCH (p:person) INSERT (p:admin)")   // error: the variable `p` is already bound
+g.gql("INSERT (:x {a: 1, a: 2})")   // error: the key `a` appears twice in this map
+g.gql("MATCH (p:person) INSERT (:x {n: count(p)})")   // error: the aggregate function count() cannot be used in INSERT
+g.gql("MATCH (p:person) WHERE EXISTS { INSERT (:a) } RETURN p")   // error: INSERT inside EXISTS { }: a subquery expression or a comprehension cannot write
+</code></pre>
+<pre><code class="language-text">Error: GQL syntax error at line 1, column 13: INSERT needs a direction; write -[e:T]-&gt; or &lt;-[e:T]- (step #1 'gql:error("42001")' refused the query before the traversal ran)
+  at #1: v().gql:error("42001")
+             ^^^^^^^^^^^^^^^^^^
+  query:     INSERT (a:x)-[:r]-(b:y)
+                         ^^^^^^
+  GQLSTATUS: 42001
+Help: give the new edge its direction, from the node before it (-[:r]-&gt;) or to it (&lt;-[:r]-); for example g.gql("INSERT (a:person {name: 'ann'})-[:knows]-&gt;(b:person:admin)"). INSERT (Cypher CREATE) creates its pattern once for each row: a new node with the labels written, joined by &amp; or :, and a property map; a new edge with a direction and exactly one label; and a variable bound before, written alone as (p), connects the existing node, as in g.gql("MATCH (p:person {name: 'marko'}) INSERT (p)-[:likes]-&gt;(f:fruit&amp;food {name: 'apple'}) RETURN f.name"). A query may end with the INSERT (it then returns no rows), and FOR gives it one row per item, as in g.gql("FOR n IN ['ann', 'bob'] INSERT (:person {name: n})"). To create a pattern only where it is missing, MERGE finds it or creates it, as in g.gql("FOR n IN ['ann', 'marko'] MERGE (:person {name: n})").
+</code></pre>
+<p>While the query runs, a row whose endpoint is <code>NULL</code> (<code>22004</code>) or no node (<code>22G03</code>), or whose
+property value is a node, an edge or a path (<code>22G03</code>), fails the query, and it changes nothing:</p>
+<pre><code class="language-rhai graph=modern">g.gql("OPTIONAL MATCH (p:person {name: 'nobody'}) INSERT (p)-[:knows]-&gt;(:person)")   // error: the source node `p` of the inserted `:knows` edge is NULL
+g.gql("MATCH (p:person) INSERT (:x {v: p})")   // error: the value of property `v` is a node
+</code></pre>
+<pre><code class="language-text">Caused by: GQL data exception at line 1, column 51: the source node `p` of the inserted `:knows` edge is NULL
+  query:     …person {name: 'nobody'}) INSERT (p)-[:knows]-&gt;(:person)
+                                              ^^^
+  GQLSTATUS: 22004
+Help: keep only the rows where it is bound before the INSERT: FILTER p IS NOT NULL. A row of the data gave the marked endpoint of the new edge no node: an edge connects two nodes, so a variable that OPTIONAL MATCH may leave NULL is filtered first, as in g.gql("MATCH (p:person) OPTIONAL MATCH (p)-[:created]-&gt;(s) FILTER s IS NOT NULL INSERT (p)-[:made]-&gt;(s)"), and a value that is no node is turned into one by a MATCH, as in g.gql("FOR n IN ['lop'] MATCH (s:software {name: n}) INSERT (:review {stars: 5})-[:about]-&gt;(s)").
+</code></pre>
+<p>A schema violation of an <code>INSERT</code> is the schema's error, with a help line written for GQL: a
+missing <code>required</code> property names the <code>INSERT</code> map and <code>coalesce()</code>, a type mismatch the
+conversion function (<code>toInteger()</code>, ...) with a <code>$parameter</code> example
+(<a href="writes.html#schema">Writing with GQL</a>). A bound node written with labels or properties
+(<code>MATCH (p:person) INSERT (p:admin)</code>) gets the <code>SET</code> that changes it, built from the query, as in
+<code>g.gql("MATCH (p:person) SET p:admin")</code>, beside the Gremlin steps. The write clause that is not supported yet
+(<code>FOREACH</code>) is <code>0A000</code> with a help line naming the GQL form:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) FOREACH (x IN [1] | SET p.k = x)")   // error: FOREACH is not yet supported in this version
+</code></pre>
+<pre><code class="language-text">Help: write FOR x IN &lt;list&gt; followed by the write clause, for example FOR name IN ['ann', 'bob'] INSERT (:person {name: name}). DELETE takes a list itself, as in MATCH p = (:person)-[:knows]-&gt;() DETACH DELETE nodes(p). This construct comes in a later version of gql(); until then, write the query without it or as Gremlin steps.
+</code></pre>
+<h2 id="set-and-remove"><a class="header" href="#set-and-remove">SET and REMOVE</a></h2>
+<p>A <code>SET</code> / <code>REMOVE</code> item of the wrong form fails before the run: a label item joined by <code>|</code>, <code>!</code> or
+<code>%</code> (<code>42001</code>), a label item on a variable known to be an edge, an aggregate in a value, or a
+target that is undefined, a <code>LET</code> / <code>WITH</code> value, a path, a group variable or a <code>FOR</code> position
+(<code>42002</code>); a deeper target such as <code>p.a.b</code> or <code>head(l).k</code> is not supported yet (<code>0A000</code>). Each
+help names the accepted form and ends with one shared paragraph on <code>SET</code> / <code>REMOVE</code>:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) SET p:A|B")   // error: `|` (a label alternative) cannot stand in SET
+g.gql("MATCH (a)-[e:knows]-&gt;(b) SET e:met")   // error: `e` is an edge: an edge has exactly one label
+g.gql("MATCH (p) SET p.k = count(*)")   // error: the aggregate function count() cannot be used in SET
+g.gql("MATCH (p) SET p.a.b = 1")   // error: `p.a.b` as a SET target is not yet supported in this version
+</code></pre>
+<pre><code class="language-text">Error: GQL syntax error at line 1, column 24: `|` (a label alternative) cannot stand in SET: a label item names the labels, joined by `:` or `&amp;` (step #1 'gql:error("42001")' refused the query before the traversal ran)
+  at #1: v().gql:error("42001")
+             ^^^^^^^^^^^^^^^^^^
+  query:     MATCH (p:person) SET p:A|B
+                                    ^^^
+  GQLSTATUS: 42001
+Help: write the labels, as in SET p:A:B. SET changes the nodes and edges of each row, item by item from left to right: n.k = &lt;value&gt; sets a property (a NULL value removes it), n = {map} replaces every property, n += {map} merges the map into them, and n:A:B adds labels to a node (an edge has exactly one label); REMOVE n.k removes a property and REMOVE n:A a label, as in g.gql("MATCH (p:person {name: 'marko'}) SET p.age = p.age + 1, p:employee REMOVE p.nick RETURN p.age"). A variable that OPTIONAL MATCH leaves NULL is skipped, and a query may end with the SET or REMOVE (it then returns no rows), as in g.gql("MATCH (s:software) SET s += {open: true}").
+Help: change the type of the edge with the Gremlin step set_label(), as in g.gql("MATCH (a)-[e:knows]-&gt;(b) RETURN e").select("e").set_label("met"). In a MATCH clause a node variable names one node ...
+</code></pre>
+<p>While the query runs, a <code>NULL</code> right side of <code>n = ..</code> or <code>n += ..</code> (<code>22004</code>), a right side that
+is no map, node or edge, a node, edge or path as a property value, a target that holds no element,
+and a label item on a value that turns out to be an edge (<code>22G03</code>) fail the query, and it changes
+nothing. The help rewrites the failing query where it can:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) SET p = NULL")   // error: the right side of SET p = .. is NULL, not a map
+g.gql("MATCH (p:person) SET p.best = p")   // error: the value of property `best` is a node
+g.gql("MATCH (p:person) SET p = 1")   // error: the right side of SET p = .. is a single value
+g.gql("FOR x IN [1] SET x.k = 1")   // error: SET changes a node or an edge, but `x` holds a value of type 'int64'
+</code></pre>
+<pre><code class="language-text">Caused by: GQL data exception at line 1, column 26: the right side of SET p = .. is NULL, not a map
+  query:     MATCH (p:person) SET p = NULL
+                                      ^^^^
+  GQLSTATUS: 22004
+Help: SET p = {} removes every property; to keep them when the map is NULL, give it the element's own properties as a default with coalesce($p, properties(p)), as in g.gql("MATCH (p:person) SET p = coalesce(NULL, properties(p))"). A row of the data gave the marked SET or REMOVE item a value it cannot write; keep such rows away from it with FILTER or WHERE, as in g.gql("MATCH (p:person) FILTER p.age IS NOT NULL SET p.next = p.age + 1"). SET changes the nodes and edges of each row, ...
+Help: store a value of it instead, such as its id, as in g.gql("MATCH (p:person) SET p.best = element_id(p)"), or its properties with properties(..). A row of the data gave the marked SET or REMOVE item a value it cannot write; ...
+</code></pre>
+<p>A schema violation of a <code>SET</code> / <code>REMOVE</code> gets a help line written for GQL too: a type mismatch
+names the conversion function in a <code>SET</code> of the label and key, a removed <code>required</code> property
+(<code>REMOVE</code>, a <code>NULL</code> value, <code>SET n = {map}</code> without the key) the map that keeps it and <code>+=</code>, and
+a label whose <code>required</code> property the node lacks the <code>SET</code> that writes the key before the label.</p>
+<h2 id="delete"><a class="header" href="#delete">DELETE</a></h2>
+<p>A <code>DELETE</code> target that cannot hold an element fails before the run: a label test such as
+<code>n:person</code> or <code>n IS person</code> (<code>42001</code>: it is a boolean, and <code>DELETE</code> removes whole elements), a
+literal, a computed value, a map or a <code>FOR</code> position (<code>42002</code>). <code>DROP n</code>, the Gremlin step
+written as a clause, is a syntax error naming <code>DETACH DELETE</code>, and <code>REMOVE n</code> without an item
+names it too. Each help rewrites the failing query and ends with one shared paragraph on
+<code>DELETE</code>:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (n:person {name: 'vadas'}) DELETE n:person")   // error: `n:person` is a label test (a boolean), not an element
+g.gql("MATCH (n:person) DELETE 1 + 1")   // error: `1 + 1` is a computed value, not a node, an edge, a path or a list of them
+g.gql("MATCH (p:person) DROP p")   // error: GQL has no DROP clause: DELETE removes nodes and edges
+</code></pre>
+<pre><code class="language-text">Error: GQL syntax error at line 1, column 41: `n:person` is a label test (a boolean), not an element; DELETE removes whole nodes and edges (step #1 'gql:error("42001")' refused the query before the traversal ran)
+  at #1: v().gql:error("42001")
+             ^^^^^^^^^^^^^^^^^^
+  query:     MATCH (n:person {name: 'vadas'}) DELETE n:person
+                                                     ^^^^^^^^
+  GQLSTATUS: 42001
+Help: delete the element itself with DELETE n, as in g.gql("MATCH (n:person {name: 'vadas'}) DELETE n"), or remove the label and keep the element with REMOVE n:person, as in g.gql("MATCH (n:person {name: 'vadas'}) REMOVE n:person"). DELETE removes, for each row, the nodes and edges its targets give: a node or edge variable, a path (all its nodes and edges) or a list of them; a NULL target is skipped, and an element given twice is removed once. A node that still has edges is removed only together with them: DETACH DELETE removes its edges too, as in g.gql("MATCH (s:software {name: 'lop'}) DETACH DELETE s"). The rest of the query can no longer read what it deleted, so read what it needs first, as in g.gql("MATCH (p:person {name: 'vadas'}) WITH p, p.name AS name DETACH DELETE p RETURN name"); a query may end with the DELETE (it then returns no rows).
+Help: name the element to remove by its variable, as in g.gql("MATCH (n:person) DETACH DELETE n"). DELETE removes, for each row, ...
+Help: write DETACH DELETE (the GQL form of the Gremlin step drop()), as in g.gql("MATCH (p:person) DETACH DELETE p"). DELETE removes, for each row, ...
+</code></pre>
+<p>While the query runs, a plain (or <code>NODETACH</code>) <code>DELETE</code> of a node that still has an edge the same
+clause does not delete fails with <code>G1001</code>; the help names <code>DETACH DELETE</code> in the failing query
+and the form that deletes the edges in the same clause. A target that turns out to hold no
+element (a <code>WITH</code> value, a property) is <code>22G03</code>. Either failure changes nothing:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (n:person {name: 'marko'}) DELETE n")   // error: `n` is a node that still has edges
+g.gql("MATCH (n:person) WITH 1 AS x DELETE x")   // error: DELETE removes nodes, edges and paths, but `1` gives a number on this row
+</code></pre>
+<pre><code class="language-text">Caused by: GQL data exception at line 1, column 41: `n` is a node that still has edges, and DELETE removes only nodes without edges (besides the edges deleted in the same clause)
+  query:     MATCH (n:person {name: 'marko'}) DELETE n
+                                                     ^
+  GQLSTATUS: G1001
+Help: remove the node together with its edges with DETACH DELETE, as in g.gql("MATCH (n:person {name: 'marko'}) DETACH DELETE n"), or delete its edges in the same clause, as in g.gql("MATCH (s:software {name: 'ripple'})&lt;-[r]-() DELETE r, s").
+Help: give DELETE a node, an edge, a path or a list of them, and keep the rows where the target holds something else away from it with FILTER or WHERE, as in g.gql("MATCH (n:person {name: 'marko'}) DETACH DELETE n"). DELETE removes, for each row, ...
+</code></pre>
+<p>After a <code>DELETE</code>, a later part of the query that reads a deleted element (a property,
+<code>labels()</code>, <code>element_id()</code>, a <code>SET</code>, <code>REMOVE</code> or <code>INSERT</code> on it) or returns it fails, and the
+query changes nothing. The error is the storage's (<code>ElementRemoved</code>), with a help line written for
+GQL: read what the query needs before the <code>DELETE</code>, for example with <code>properties(n)</code>.
+<code>count(n)</code>, <code>n IS NULL</code> and <code>type(r)</code> of a deleted edge still work, and a pattern from a deleted
+node matches nothing:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (n:software) DETACH DELETE n RETURN n.name")   // error: the node was deleted earlier in this query
+g.gql("MATCH ()-[r:created]-&gt;() DELETE r RETURN r.weight")   // error: the edge was deleted earlier in this query
+</code></pre>
+<pre><code class="language-text">Caused by: The vertex was removed earlier in this query; its id, label and value are no longer available
+Help: The node was deleted earlier in this query (by DELETE or DETACH DELETE, or together with a node a DETACH DELETE removed), but a later part of the query still reads it: a deleted node has no properties, labels or id any more and cannot be returned or changed, and a pattern from it matches nothing; only count(n) and n IS NULL still work. Read what you need before the DELETE and keep that instead, for example g.gql("MATCH (n:person {name: 'marko'}) WITH n, properties(n) AS p DETACH DELETE n RETURN p"), or run the DELETE as a separate query after reading.
+Help: The edge was deleted earlier in this query (...); only count(r), r IS NULL and type(r) still work. Read what you need before the DELETE and keep that instead, for example g.gql("MATCH (:person)-[r:knows]-&gt;() WITH r, properties(r) AS p DELETE r RETURN p"), or for a node g.gql("MATCH (n:person {name: 'marko'}) WITH n, properties(n) AS p DETACH DELETE n RETURN p"), or run the DELETE as a separate query after reading.
+</code></pre>
+<h2 id="merge"><a class="header" href="#merge">MERGE</a></h2>
+<p>A <code>MERGE</code> pattern that cannot be matched or created as written fails before the run: a second
+pattern after <code>,</code>, an edge without its one label or with a label expression, a quantifier
+(<code>42001</code>); a node bound before written with labels or properties, a bound edge variable, and a
+pattern that is only a node bound before (<code>MATCH (a) MERGE (a)</code>: nothing to find or create)
+(<code>42002</code>). Each help rewrites the failing query where it can and ends with one shared paragraph
+on <code>MERGE</code>:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MERGE (a:x), (b:y)")   // error: MERGE takes exactly one pattern
+g.gql("MATCH (a) MERGE (a)")   // error: MERGE (a) with `a` bound earlier has nothing to find or create
+g.gql("MATCH (a:person) MERGE (a:admin)-[:r]-&gt;(:b)")   // error: the variable `a` is already bound
+g.gql("MERGE (a:x)-[:r|s]-&gt;(b)")   // error: an edge in MERGE has exactly one label
+</code></pre>
+<pre><code class="language-text">Error: GQL syntax error at line 1, column 12: MERGE takes exactly one pattern: a second pattern after `,` cannot stand here (step #1 'gql:error("42001")' refused the query before the traversal ran)
+  at #1: v().gql:error("42001")
+             ^^^^^^^^^^^^^^^^^^
+  query:     MERGE (a:x), (b:y)
+                        ^
+  GQLSTATUS: 42001
+Help: write one MERGE for each pattern, as in g.gql("MERGE (a:x) MERGE (b:y)"), or connect the patterns with an edge into one. MERGE looks for its whole pattern for each row: every match is a row, and when nothing matches the whole pattern is created, reusing the nodes bound before. Its one pattern has nodes with the labels written, joined by &amp; or :, and a property map, edges with exactly one label (an edge without a direction matches either direction and is created from left to right), and a node bound before written alone, as (p); ON CREATE SET and ON MATCH SET items change what was created or matched, as in g.gql("MERGE (p:person {name: 'ann'}) ON CREATE SET p.new = true ON MATCH SET p.new = false RETURN p.new"). Each row sees what the rows before it created, so FOR creates a repeated item once, as in g.gql("FOR n IN ['ann', 'ann'] MERGE (:person {name: n})").
+Help: to find or create a connection, give the pattern an edge, as in g.gql("MATCH (a) MERGE (a)-[:T]-&gt;(:Label)"); to find or create another node, give it its own name, as in g.gql("MATCH (a) MERGE (a2:Label)"). MERGE looks for its whole pattern for each row: ...
+Help: write (a) to connect the node, or give a new node its own name, as in MERGE (a)-[:T]-&gt;(a2:Label {k: 1}); to change the bound node itself use SET on it, as in g.gql("MATCH (a:person) SET a:admin"), or the Gremlin steps add_label() and property() on it, as in g.gql("MATCH (a) RETURN a").select("a").add_label("admin"). MERGE looks for its whole pattern for each row: ...
+Help: give the new edge one label, as in -[:r]-&gt;; for example g.gql("MERGE (a:person {name: 'ann'})-[:knows]-&gt;(b:person:admin)"). MERGE looks for its whole pattern for each row: ...
+</code></pre>
+<p>While the query runs, a property value of the pattern that is <code>NULL</code> (<code>22004</code>: MERGE can neither
+match nor create <code>{k: NULL}</code>, checked for each row before the match), a node bound before that is
+<code>NULL</code> (<code>22004</code>) or no node (<code>22G03</code>), and a node, edge or path as a property value (<code>22G03</code>) fail
+the query, and it changes nothing, also what earlier rows created. The help names the <code>FILTER</code>
+before the <code>MERGE</code> or the <code>coalesce()</code> default in the failing query:</p>
+<pre><code class="language-rhai graph=modern">g.gql("FOR x IN [1, NULL] MERGE (:n {k: x})")   // error: MERGE cannot match or create `{k: NULL}`
+g.gql("MATCH (p:person) OPTIONAL MATCH (p)-[:created]-&gt;(s) MERGE (p)-[:made]-&gt;(s)")   // error: the destination node `s` of the merged `:made` edge is NULL
+g.gql("MERGE (p:person {name: NULL})")   // error: MERGE cannot match or create `{name: NULL}`
+</code></pre>
+<pre><code class="language-text">Caused by: GQL data exception at line 1, column 34: MERGE cannot match or create `{k: NULL}`: a property value is NULL
+  query:     FOR x IN [1, NULL] MERGE (:n {k: x})
+                                              ^
+  GQLSTATUS: 22004
+Help: keep only the rows where it has a value with FILTER x IS NOT NULL before the MERGE, or give it a default with coalesce(), as in g.gql("FOR x IN [1, NULL] MERGE (:n {k: coalesce(x, 0)})"). A row of the data gave the marked part of the MERGE pattern a value it can neither match nor create: a property value that is NULL or a graph element, or a node bound before that is NULL or no node. A variable that OPTIONAL MATCH may leave NULL is filtered first, and a value that is no node is turned into one by a MATCH, as in g.gql("FOR n IN ['lop'] MATCH (s:software {name: n}) MERGE (:review {stars: 5})-[:about]-&gt;(s)"). MERGE looks for its whole pattern for each row: ...
+Help: keep only the rows where it is bound before the MERGE: FILTER s IS NOT NULL, as in g.gql("MATCH (p:person) OPTIONAL MATCH (p)-[:created]-&gt;(s) FILTER s IS NOT NULL MERGE (p)-[:made]-&gt;(s)"). A row of the data gave the marked part of the MERGE pattern a value it can neither match nor create: ...
+Help: MERGE matches and creates only property values that are not NULL: leave `name` out of the pattern, and find the elements that lack it with a MATCH, as in g.gql("MATCH (n) FILTER n.name IS NULL RETURN n"). A row of the data gave the marked part of the MERGE pattern a value it can neither match nor create: ...
+</code></pre>
+<p>A schema violation of a <code>MERGE</code> gets a help line written for GQL too. One raised by the create
+names the <code>MERGE</code> pattern and keeps its node variable: a type mismatch the conversion function, as
+in <code>g.gql("MERGE (p:person {w: toFloat($v)})", #{v: "1.5"})</code>, and a missing <code>required</code> property
+the pattern's property map, because the <code>ON CREATE SET</code> items run after the create and cannot
+give it (or a <code>"default"</code> in the schema, to match on other keys only). One raised by an
+<code>ON CREATE SET</code> / <code>ON MATCH SET</code> item gets the <code>SET</code> fix in <code>MERGE</code> form, as in
+<code>g.gql("MERGE (n:person) ON MATCH SET n.w = toFloat($v)", #{v: "1.5"})</code>.</p>
+<h2 id="gqlstatus-codes"><a class="header" href="#gqlstatus-codes">GQLSTATUS codes</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Code</th><th>Kind</th><th>When</th></tr></thead><tbody>
+<tr><td><code>42001</code></td><td>syntax</td><td>the query does not parse: an unexpected token, a missing <code>RETURN</code>, an unclosed bracket, a quantifier with <code>m &gt; n</code>, <code>GROUP BY</code> after <code>WITH</code> (grouping is implicit) or after <code>ORDER BY</code>; an unknown function or <code>CAST</code> type name (with a suggestion), a function called with the wrong number of arguments, the SQL form <code>SUBSTRING(s FROM a FOR b)</code>; a <code>ZONED TIME '..'</code> / <code>ZONED DATETIME '..'</code> literal whose text has no offset or zone; <code>WITH ORDINALITY</code> / <code>WITH OFFSET</code> after <code>UNWIND</code>; an <code>INSERT</code> edge without a direction or with a label expression, an <code>INSERT</code> node label other than a conjunction, <code>WHERE</code> or a quantifier in an <code>INSERT</code> pattern, a <code>SET</code> / <code>REMOVE</code> label item joined by `</td></tr>
+<tr><td><code>42002</code></td><td>semantic</td><td>an undefined variable, a variable used as a node and an edge, an edge variable bound twice in one <code>MATCH</code>, a duplicate column name, a missing parameter, an <code>ORDER BY</code> key that <code>RETURN DISTINCT</code> dropped; a variable a <code>WITH</code> did not carry on, a <code>LET</code> name bound again; a variable read outside an aggregate that is not a grouping key, an aggregate in <code>WHERE</code> / <code>FILTER</code> / <code>LET</code> or inside another aggregate, <code>ORDER BY</code> after an aggregation reading something other than a column; a <code>GROUP BY</code> key that is not an item without an aggregate, or such an item missing from <code>GROUP BY</code>; a path or group variable bound twice; a variable of a quantified path pattern that is not a new name, or a property of one read outside its body; a <code>FOR</code> / <code>UNWIND</code> name already in scope, one name for the item and its position, the position used as a node or edge, an aggregate in the <code>FOR</code> list; a new variable in a pattern predicate, a variable bound inside a subquery (<code>EXISTS</code>, a pattern predicate, <code>COUNT { }</code>, <code>COLLECT { }</code>) read outside it, a condition in a subquery reading a variable of a later <code>MATCH</code> clause of the body, a subquery in an aggregating item reading a variable outside the aggregates that is not a grouping key; a variable bound inside a pattern comprehension read outside it, a comprehension variable named like another variable of the query, an aggregate inside a comprehension's <code>WHERE</code> or <code>|</code> part; a <code>COLLECT { }</code> body that does not return exactly one column; <code>UNION</code> operands with different column names, <code>UNION</code> mixed with <code>UNION ALL</code> in one chain, a variable read after <code>NEXT</code> that the <code>RETURN</code> before it does not return; a <code>CALL</code> body returning a name already in scope, reading a variable it does not import (also through a first <code>WITH</code> that is no importing <code>WITH</code>), importing one twice; a <code>CALL folder.name(..)</code> of a saved query that does not exist in that folder, with too many or too few arguments, a missing parameter value, an aggregate in an argument, without <code>YIELD</code> inside a query, or with a <code>YIELD</code> of a column it does not return or of a name already in scope, a recursive call (<a href="#calls-of-saved-queries">Calls of saved queries</a>); in <code>INSERT</code>, a bound variable with labels or properties, a bound edge variable, a duplicate key in a property map, an aggregate in a property value; in <code>SET</code> / <code>REMOVE</code>, an undefined target, a target that is a <code>LET</code> / <code>WITH</code> value, a path, a group variable or a <code>FOR</code> position, a label item on an edge variable, an aggregate in a value; in <code>DELETE</code>, a target known to hold no element (a literal, a computed value, a map, a <code>FOR</code> position), an aggregate in a target; in <code>MERGE</code>, a bound node with labels or properties, a bound edge variable, a pattern that is only a node bound before</td></tr>
+<tr><td><code>0A000</code></td><td>refused / not yet</td><td>a <a href="refused.html">refused construct</a> or one <a href="subset.html#not-supported-yet">not supported yet</a> (also a function: <code>sin()</code>, <code>rand()</code>, <code>elements()</code>, <code>CAST</code> to <code>DATE</code>; <code>X.realtime()</code>; <code>EXCEPT</code>, <code>INTERSECT</code>, <code>OTHERWISE</code>; a <code>CALL</code> body without <code>RETURN</code> that writes nothing, <code>CALL { } IN TRANSACTIONS</code>; Cypher 4's <code>exists(n.p)</code>; a <code>CALL</code> of a saved query written in Rhai, with an argument that reads the row, or inside <code>EXISTS</code> / <code>COUNT</code> / <code>COLLECT</code>, a vendor procedure (<code>db</code>, <code>dbms</code>, <code>apoc</code>, <code>gds</code>); a <code>SET</code> / <code>REMOVE</code> target deeper than a variable (<code>p.a.b</code>, <code>head(l).k</code>), the write clause <code>FOREACH</code>, a subquery in a <code>MERGE</code> property value, an <code>INSERT</code> in a <code>UNION</code> operand or with a path variable; <code>LOAD CSV</code>, <code>CREATE INDEX</code> / <code>CONSTRAINT</code> / <code>GRAPH</code>; a list-comprehension or list-predicate variable read inside a subquery; inside a parenthesized path pattern: a nested group or quantified edge, a path variable, several patterns, no edge, a variable written twice or bound outside, a condition reading an outer variable, a subquery); also <code>gql()</code> after other steps</td></tr>
+<tr><td><code>54001</code></td><td>limit</td><td>the query nests too deeply (more than 128 levels of parentheses, or an expression taller than 512)</td></tr>
+<tr><td><code>54001</code></td><td>limit</td><td>more than 64 subqueries (<code>EXISTS</code>, pattern predicates, pattern comprehensions, <code>COUNT { }</code> and <code>COLLECT { }</code>, nested ones included), or more than 1024 subquery bodies to run (a <code>LET</code> / <code>WITH</code> variable holding a subquery counts once per reader); <code>CALL</code> bodies and whole-query subquery bodies nested more than 16 levels; saved queries calling each other more than 16 levels deep, or more than 1024 calls of saved queries in one query</td></tr>
+<tr><td><code>54001</code></td><td>limit</td><td>a MATCH clause holds more than 64 edge patterns (over all its comma-separated paths; a quantified body's edges count once); split it into several MATCH clauses that share a variable, repeat a chain as a quantified path pattern, or use Gremlin <code>repeat()</code></td></tr>
+<tr><td><code>22004</code></td><td>data</td><td>an endpoint of an <code>INSERT</code> edge is <code>NULL</code> (from an <code>OPTIONAL MATCH</code>); the right side of <code>SET n = ..</code> / <code>SET n += ..</code> is <code>NULL</code>; a property value of a <code>MERGE</code> pattern or a node bound before it is <code>NULL</code></td></tr>
+<tr><td><code>22G02</code></td><td>data</td><td>a negative <code>OFFSET</code> / <code>LIMIT</code> (literal or parameter value)</td></tr>
+<tr><td><code>22G03</code></td><td>data</td><td>a value of the wrong type, before the run when the kind is certain from the query text (<a href="semantics.html#static-kind-checks">static kind checks</a>: <code>false AND 123</code>, <code>1 IN true</code>, <code>type(n)</code> of a node variable, <code>p.name</code> of a path, <code>WITH 123 AS x RETURN x.num</code>), else when a row reaches it: <code>OFFSET</code> / <code>LIMIT</code> not an integer, <code>'a' + 1</code>, <code>type()</code> of a vertex, a non-boolean condition, <code>IN</code> with a right operand that is no list, <code>sum()</code> / <code>avg()</code> of a non-number; a map projection of a value that is no element or map, a list comprehension over a value that is no list; a temporal component the type lacks (<code>date(..).hour</code>), temporal arithmetic without a meaning (<code>date + date</code>); an argument of a <code>CALL</code> of a saved query that does not fit its parameter's schema; a function argument of the wrong kind (<code>toFloat(true)</code>, a float where an integer is required, <code>toString()</code> of a list, map, vertex, edge or path, <code>trim(s, x)</code> with a string <code>s</code>); an <code>INSERT</code> endpoint that is no node, a node, edge or path as an <code>INSERT</code> or <code>SET</code> property value; a <code>SET</code> / <code>REMOVE</code> target that holds no node or edge, a label item on an edge at run time, a right side of <code>SET n = ..</code> / <code>+=</code> that is no map, node or edge; a <code>DELETE</code> target that holds no node, edge or path; a node bound before a <code>MERGE</code> that is no node, a node, edge or path as a <code>MERGE</code> property value</td></tr>
+<tr><td><code>G1001</code></td><td>data</td><td>a <code>DELETE</code> / <code>NODETACH DELETE</code> of a node that still has an edge the same clause does not delete (use <code>DETACH DELETE</code>)</td></tr>
+<tr><td><code>22012</code></td><td>data</td><td>integer division or <code>%</code> by zero (a float one gives <code>Infinity</code> or <code>NaN</code>), also <code>mod(a, 0)</code>; a duration divided by zero</td></tr>
+<tr><td><code>22007</code></td><td>data</td><td>temporal text that is no value of the type, a temporal map with an unknown key or conflicting date keys, an unknown time zone (<a href="#dates-and-times">Dates and times</a>)</td></tr>
+<tr><td><code>22008</code></td><td>data</td><td>a temporal field out of range, a temporal value or result outside the years -9999 to 9999</td></tr>
+<tr><td><code>22003</code></td><td>data</td><td>a numeric result out of range (integer overflow, also of <code>sum()</code>, <code>abs()</code>, <code>exp()</code>, <code>power()</code>); a conversion out of range (<code>toInteger(1.0e19)</code>, <code>CAST('1e400' AS FLOAT)</code>)</td></tr>
+<tr><td><code>22018</code></td><td>data</td><td><code>CAST</code> of text that is no value of the target type (<code>CAST('abc' AS INTEGER)</code>)</td></tr>
+<tr><td><code>22011</code></td><td>data</td><td>a negative position or length in <code>substring()</code>, <code>left()</code>, <code>right()</code></td></tr>
+<tr><td><code>22027</code></td><td>data</td><td>a <code>TRIM(c FROM s)</code> character <code>c</code> that is not exactly one character</td></tr>
+<tr><td><code>2201E</code></td><td>data</td><td>the logarithm of a number <code>&lt;= 0</code>, or to a base <code>&lt;= 0</code> or <code>1</code> (<code>ln</code>, <code>log</code>, <code>log10</code>)</td></tr>
+<tr><td><code>2201F</code></td><td>data</td><td><code>sqrt()</code> of a negative number, <code>power()</code> of 0 to a negative power or of a negative number to a non-integer power</td></tr>
+<tr><td><code>22023</code></td><td>data</td><td>an argument outside the function's values: a truncation unit the type lacks or an unknown one (<code>date.truncate('hour', ..)</code>), <code>range()</code> step 0, a negative <code>round()</code> precision or an unknown rounding mode, a negative <code>replace()</code> limit, a negative <code>n</code> in the list <code>trim(list, n)</code></td></tr>
+</tbody></table>
+</div>
+<p><code>42001</code> is fixed; the other codes are <strong>provisional</strong>: they follow the standard's classes and
+may still be refined before the GQL support is complete. The function codes (<code>22018</code>, <code>22011</code>,
+<code>22027</code>, <code>2201E</code>, <code>2201F</code>, <code>22023</code>, <code>22007</code>, <code>22008</code>) are the ISO / SQL-heritage subclasses of class <code>22</code>; Neo4j
+reports the same failures with its own vendor subclasses (<code>22N38</code>, <code>22N03</code>, ...). Match on the kind
+(<code>GqlErrorKind</code>) in code, and treat the code as diagnostic information.</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (n:person) RETURN n.name AS name ORDER BY name LIMIT $l", #{l: -1})   // error: LIMIT must be a non-negative integer (22G02)
+g.v().gql("MATCH (n) RETURN n")   // error: gql() starts a traversal in this version (0A000)
+</code></pre>
+<h2 id="in-rust"><a class="header" href="#in-rust">In Rust</a></h2>
+<pre><code class="language-rust ignore">use graphersal::error::GqlErrorKind;
+use graphersal::prelude::*;
+
+let graph = TraversalGraph::tinkerpop_modern();
+let error = graph.traversal().gql("MATCH (n:person) RETRUN n").to_list().unwrap_err();
+if let TraverserError::Gql { kind, gqlstatus, line, column, .. } = error.root_cause() {
+    assert_eq!(*kind, GqlErrorKind::Syntax);
+    assert_eq!(gqlstatus, "42001");
+    assert_eq!((*line, *column), (1, 18));
+}</code></pre>
+<p>The <code>DiagnosticError</code> trait gives the help text (<code>help()</code>) and the labelled lines (<code>details()</code>:
+<code>query</code>, <code>expected</code>, <code>did you mean</code>, <code>GQLSTATUS</code>) shown above.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../gql/refused.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../gql/plans.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../gql/refused.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../gql/plans.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>
