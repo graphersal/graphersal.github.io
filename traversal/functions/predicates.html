@@ -1,0 +1,307 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Predicates - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/traversal/functions/predicates.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!-- generated by the test book_step_reference of graphersal-session from the texts of crates/graphersal/src/script/register/docs.rs: change those and regenerate (GRAPHERSAL_UPDATE_BOOK=1), not this file -->
+<h1 id="predicates"><a class="header" href="#predicates">Predicates</a></h1>
+<p>See also <a href="../../users_guide/predicates.html">Predicates: Comparison and Resolution</a>.</p>
+<p><strong><code>P.between</code></strong>: At least the first and less than the second value.</p>
+<pre><code class="language-rhai graph=modern">g.v().values("age").is(P.between(27, 30)).to_list()   // [29, 27]
+</code></pre>
+<p><strong><code>P.containing</code></strong>: The string contains the given text.</p>
+<pre><code class="language-rhai graph=modern">g.v().values("name").is(TextP.containing("ar")).to_list()   // ["marko"]
+</code></pre>
+<p><strong><code>P.ending_with</code> · <code>P.endingWith</code></strong>: The string ends with the given text.</p>
+<pre><code class="language-rhai graph=modern">g.v().values("name").is(TextP.ending_with("o")).to_list()   // ["marko"]
+</code></pre>
+<p><strong><code>P.eq</code></strong>: Equal to the value.</p>
+<pre><code class="language-rhai graph=modern">g.v().has("age", P.eq(29)).values("name").to_list()   // ["marko"]
+</code></pre>
+<p><strong><code>P.gt</code></strong>: Greater than the value.</p>
+<pre><code class="language-rhai graph=modern">g.v().values("age").is(P.gt(30)).to_list()   // [32, 35]
+</code></pre>
+<p><strong><code>P.gte</code></strong>: Greater than or equal to the value.</p>
+<pre><code class="language-rhai graph=modern">g.v().values("age").is(P.gte(32)).to_list()   // [32, 35]
+</code></pre>
+<p><strong><code>P.inside</code></strong>: Strictly between the two values (both excluded).</p>
+<pre><code class="language-rhai graph=modern">g.v().values("age").is(P.inside(27, 32)).to_list()   // [29]
+</code></pre>
+<p><strong><code>P.lt</code></strong>: Less than the value.</p>
+<pre><code class="language-rhai graph=modern">g.v().values("age").is(P.lt(29)).to_list()   // [27]
+</code></pre>
+<p><strong><code>P.lte</code></strong>: Less than or equal to the value.</p>
+<pre><code class="language-rhai graph=modern">g.v().values("age").is(P.lte(29)).to_list()   // [29, 27]
+</code></pre>
+<p><strong><code>P.neq</code></strong>: Not equal to the value.</p>
+<pre><code class="language-rhai graph=modern">g.v().values("age").is(P.neq(29)).to_list()   // [27, 32, 35]
+</code></pre>
+<p><strong><code>P.not</code></strong>: The complement of the given predicate (see the book page Predicates for the deviation from TinkerPop).</p>
+<pre><code class="language-rhai graph=modern">g.v().values("age").is(P.not(P.gt(30))).to_list()   // [29, 27]
+</code></pre>
+<p><strong><code>P.not_containing</code> · <code>P.notContaining</code></strong>: The string does not contain the given text.</p>
+<pre><code class="language-rhai graph=modern">g.v().values("name").is(TextP.not_containing("o")).to_list()   // ["vadas", "ripple", "peter"]
+</code></pre>
+<p><strong><code>P.not_ending_with</code> · <code>P.notEndingWith</code></strong>: The string does not end with the given text.</p>
+<pre><code class="language-rhai graph=modern">g.v().values("name").is(TextP.not_ending_with("s")).to_list()   // ["marko", "lop", "josh", "ripple", "peter"]
+</code></pre>
+<p><strong><code>P.not_starting_with</code> · <code>P.notStartingWith</code></strong>: The string does not start with the given text.</p>
+<pre><code class="language-rhai graph=modern">g.v().values("name").is(TextP.not_starting_with("r")).to_list()   // ["marko", "vadas", "lop", "josh", "peter"]
+</code></pre>
+<p><strong><code>P.outside</code></strong>: Below the first or above the second value.</p>
+<pre><code class="language-rhai graph=modern">g.v().values("age").is(P.outside(27, 32)).to_list()   // [35]
+</code></pre>
+<p><strong><code>P.starting_with</code> · <code>P.startingWith</code></strong>: The string starts with the given text.</p>
+<pre><code class="language-rhai graph=modern">g.v().values("name").is(TextP.starting_with("m")).to_list()   // ["marko"]
+</code></pre>
+<p><strong><code>P.typeOf</code></strong>: The value is of the given GType or type name (String, Integer, Double, UUID, ...).</p>
+<pre><code class="language-rhai graph=modern">g.v().has("age", P.typeOf(GType.LONG)).count().next()   // 4
+</code></pre>
+<p><strong><code>P.within</code> · <code>P.WithIn</code></strong>: Equal to one of the values (given as arguments or one list).</p>
+<pre><code class="language-rhai graph=modern">g.v().values("age").is(P.within(27, 35)).to_list()   // [27, 35]
+</code></pre>
+<p><strong><code>P.without</code> · <code>P.WithOut</code></strong>: Equal to none of the values (given as arguments or one list).</p>
+<pre><code class="language-rhai graph=modern">g.v().values("age").is(P.without(27, 35)).to_list()   // [29, 32]
+</code></pre>
+<p><strong><code>TextP.containing</code></strong>: The string contains the given text.</p>
+<pre><code class="language-rhai graph=modern">g.v().values("name").is(TextP.containing("ar")).to_list()   // ["marko"]
+</code></pre>
+<p><strong><code>TextP.ending_with</code> · <code>TextP.endingWith</code></strong>: The string ends with the given text.</p>
+<pre><code class="language-rhai graph=modern">g.v().values("name").is(TextP.ending_with("o")).to_list()   // ["marko"]
+</code></pre>
+<p><strong><code>TextP.not_containing</code> · <code>TextP.notContaining</code></strong>: The string does not contain the given text.</p>
+<pre><code class="language-rhai graph=modern">g.v().values("name").is(TextP.not_containing("o")).to_list()   // ["vadas", "ripple", "peter"]
+</code></pre>
+<p><strong><code>TextP.not_ending_with</code> · <code>TextP.notEndingWith</code></strong>: The string does not end with the given text.</p>
+<pre><code class="language-rhai graph=modern">g.v().values("name").is(TextP.not_ending_with("s")).to_list()   // ["marko", "lop", "josh", "ripple", "peter"]
+</code></pre>
+<p><strong><code>TextP.not_regex</code> · <code>TextP.notRegex</code></strong>: The string does not match the regular expression.</p>
+<pre><code class="language-rhai graph=modern">g.v().values("name").is(TextP.not_regex("^[mjp]")).to_list()   // ["vadas", "lop", "ripple"]
+</code></pre>
+<p><strong><code>TextP.not_starting_with</code> · <code>TextP.notStartingWith</code></strong>: The string does not start with the given text.</p>
+<pre><code class="language-rhai graph=modern">g.v().values("name").is(TextP.not_starting_with("r")).to_list()   // ["marko", "vadas", "lop", "josh", "peter"]
+</code></pre>
+<p><strong><code>TextP.regex</code></strong>: The string matches the regular expression (Rust regex dialect, see the book page Predicates).</p>
+<pre><code class="language-rhai graph=modern">g.v().values("name").is(TextP.regex("^[mj]")).to_list()   // ["marko", "josh"]
+</code></pre>
+<p><strong><code>TextP.starting_with</code> · <code>TextP.startingWith</code></strong>: The string starts with the given text.</p>
+<pre><code class="language-rhai graph=modern">g.v().values("name").is(TextP.starting_with("m")).to_list()   // ["marko"]
+</code></pre>
+<p><strong><code>Predicate.and</code></strong>: Combines two predicates: both must match.</p>
+<pre><code class="language-rhai graph=modern">g.v().has("age", P.gt(30).and(P.lt(35))).values("name").to_list()   // ["josh"]
+</code></pre>
+<p><strong><code>Predicate.negate</code></strong>: The complement of the predicate (see the book page Predicates for the deviation from TinkerPop).</p>
+<pre><code class="language-rhai graph=modern">g.v().has("age", P.gt(30).negate()).values("name").to_list()   // ["marko", "vadas"]
+</code></pre>
+<p><strong><code>Predicate.or</code></strong>: Combines two predicates: at least one must match.</p>
+<pre><code class="language-rhai graph=modern">g.v().has("age", P.lt(28).or(P.gt(33))).values("name").to_list()   // ["vadas", "peter"]
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../traversal/step_reference.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../traversal/functions/tokens_and_values.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../traversal/step_reference.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../traversal/functions/tokens_and_values.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../../dsl-highlight.js"></script>
+        <script src="../../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

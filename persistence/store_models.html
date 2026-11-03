@@ -1,0 +1,415 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Embedding Models in a Store - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/persistence/store_models.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="embedding-models-in-a-store"><a class="header" href="#embedding-models-in-a-store">Embedding Models in a Store</a></h1>
+<p>A store keeps the embedding models its vectors were made with. A model is <strong>data of the
+database</strong>: ONE blob (its files as a deterministic tar, see <a href="store_blobs.html">Blobs</a>) referenced
+by a catalog definition of kind <code>model</code> that follows the history like every other definition.
+Every position of the store (a commit, a mark, a snapshot, a rollback, a view of the past) has
+exactly the models, and the default model, of that moment; every copy of the store carries them.
+The normative description is the <a href="format.html">format specification</a>, sections 4.5 and 6.3.</p>
+<p>A model is named by its <strong>repository</strong> (<code>minishlab/potion-base-8M</code>): that is the name <code>embed</code>
+and text queries use. Inside, the schema records the model's <strong>identity</strong>
+(<code>model2vec/&lt;repo&gt;@&lt;12 hex&gt;</code>, a hash of its files), so the vectors stay tied to the exact model
+that made them.</p>
+<p>An import is the ONLY way a model serves a database: the step <code>embed()</code>, the function
+<code>embed(text)</code>, text queries, vector rules and <code>g.embedders()</code> use the built-in <code>hash-ngram/1</code>
+and the models of the database, nothing else. (Graphersal 0.4.0 also served models given on the
+command line, <code>--embedder</code>, or registered by a host; 0.5.0 removed that. A host with a model of
+its own computes the vectors itself and writes them as values.)</p>
+<h2 id="importing-a-model"><a class="header" href="#importing-a-model">Importing a model</a></h2>
+<pre><code class="language-text">graphersal embed-model download minishlab/potion-base-8M          # once, into the download cache
+graphersal embed-model import minishlab/potion-base-8M --into data/ --default
+graphersal embed-model import minishlab/potion-base-8M --into data/ --replace   # a new revision
+</code></pre>
+<p>The download fills the <strong>download cache</strong> (<code>$GRAPHERSAL_EMBED_MODELS</code>, else
+<code>%LOCALAPPDATA%\graphersal\embed-models</code> on Windows, <code>$XDG_CACHE_HOME/graphersal/embed-models</code>,
+else <code>~/.cache/graphersal/embed-models</code>; <code>--dir</code> for another one): one download, imported into
+any number of databases without the network. The import takes a repository from the cache
+first, else the argument as a model directory (<code>--repo</code>, <code>--license</code> fill what a directory does
+not say). <code>--default</code> makes the model the default, <code>--replace</code> replaces another revision of the
+same repository (below). The import writes the model's files (config, tokenizer, weights, model
+card, licence files) as one blob and commits one definition.</p>
+<p>From Python:</p>
+<pre><code class="language-python">store.import_model("minishlab/potion-base-8M", default=True)          # an open store
+graphersal.Store.import_model_into("data", "minishlab/potion-base-8M")  # a closed store
+</code></pre>
+<p><code>import_model(source, *, repo=None, license=None, replace=False, default=False)</code> returns the
+report as a dict; the wheel has no download client, so the cache is filled by the command line.
+In Rust (the cache lookup is <code>persist::ModelCache</code>: <code>ModelCache::new()?.source("minishlab/potion-base-8M")</code>
+gives the <code>ModelSource</code>):</p>
+<pre><code class="language-rust ignore">use graphersal::persist::{ImportModelOptions, ModelSource, Store, StoreOptions};
+
+let store = Store::open("data", StoreOptions::new())?;
+let report = store.import_model(
+    ModelSource::Dir("models/minishlab/potion-base-8M".into()),
+    ImportModelOptions::new().with_default(true),
+)?;
+println!("{} ({}), commit {:?}", report.model.repo, report.model.identity, report.commit_seq);</code></pre>
+<ul>
+<li>The same model again commits nothing (<code>already_present</code>).</li>
+<li>Another revision of a repository the store holds is refused (<code>ModelRevisionExists</code>) unless
+<code>with_replace(true)</code>: then the new revision replaces the old one in ONE commit (and becomes
+the default if the old one was). <a href="../users_guide/vector_rules.html">Vector rules</a> naming the old
+revision are switched to the new one and their properties re-embedded in the same commit;
+vectors of the old revision without a rule refuse the replace (<code>ModelInUse</code>).</li>
+<li><code>ModelSource::Files(NewModel)</code> imports files given as streams (a host without a file system,
+such as the browser).</li>
+<li>A closed store: <code>Store::import_model_dir</code> (what the CLI does). See the next section.</li>
+</ul>
+<h2 id="changing-the-models-of-a-closed-store"><a class="header" href="#changing-the-models-of-a-closed-store">Changing the models of a closed store</a></h2>
+<p><code>Store::import_model_dir</code>, <code>Store::set_default_model_dir</code> and <code>Store::remove_model_dir</code> (CLI
+<code>embed-model import|download --into &lt;dir&gt;</code>, <code>store models default &lt;dir&gt; [&lt;repo&gt;|--none]</code>,
+<code>store models remove &lt;dir&gt; &lt;repo&gt;</code>; Python <code>Store.import_model_into</code>) change the
+catalog of a CLOSED store WITHOUT loading its graph: seconds on a store of any size. Each takes
+the writer lock (a store open elsewhere is refused with <code>Locked</code>: make the change on the open
+store, or close it), reads the catalog of the latest position from the newest snapshot's
+manifest and the WAL after it (the data changes are read and checked, not applied), and appends
+ONE ordinary commit to the WAL, synced (format spec 12.12). The commit is part of the history
+like any other: the next open replays it, a rollback goes behind it, <code>changes_since</code> and
+backups carry it, and it is recorded in the system journal (<code>catalog.closed_commit</code>, plus the
+<code>model.*</code> record with <code>closed: true</code>). The same refusals apply as on an open store
+(<code>ModelRevisionExists</code>, <code>ModelInUse</code>, <code>UnknownModel</code>, <code>InvalidModel</code>); a change that changes
+nothing (the model is the default already, the same identity imported again) writes nothing.
+The needed-model check of an open does not apply, so an import is also how a missing model
+comes back. <code>ClosedCommitOptions::with_principal</code> records who made the change (the CLI records
+<code>cli</code>).</p>
+<p>A replace (<code>ImportModelOptions::with_replace</code>) stays such a closed commit when no schema
+property uses the old revision. When <a href="../users_guide/vector_rules.html">vector rules</a> name it, the replace re-embeds
+their properties in the same commit, which needs the data: then, and only then,
+<code>Store::import_model_dir</code> OPENS the store (its graph is loaded, the store is write-locked for
+the time) and runs the open store's import; <code>ImportModelReport::reembedded</code> names the
+re-embedded properties and the first warning says that the store was opened (the CLI prints it
+as a <code>note:</code>). Vectors of the old revision without a rule (no <code>"from"</code>) refuse the replace with
+<code>ModelInUse</code> on both paths.</p>
+<p>A damaged store refuses the change: open it (it opens in maintenance mode) and
+<a href="store_damage.html">repair</a> it first. The commit reads the WAL after the newest snapshot; on a
+store with a very long WAL tail run <code>graphersal store checkpoint &lt;dir&gt;</code> first.</p>
+<h2 id="the-default-model"><a class="header" href="#the-default-model">The default model</a></h2>
+<p><code>Store::set_default_model(Some(repo))</code> makes a model the one <code>embed</code> uses without a model name
+(one commit; <code>None</code> clears it; on a closed store <code>Store::set_default_model_dir</code>, CLI
+<code>graphersal store models default &lt;dir&gt; &lt;repo&gt;</code> or <code>--none</code>, or <code>embed-model import --default</code>).
+At most one model is the default. Without one, <code>embed</code> uses the built-in <code>hash-ngram/1</code>, and the
+front ends (CLI, dev server banner, playground, Python) note that the store holds models but none
+is the default.</p>
+<h2 id="removing-a-model"><a class="header" href="#removing-a-model">Removing a model</a></h2>
+<p><code>Store::remove_model(repo)</code> (CLI <code>graphersal store models remove &lt;dir&gt; &lt;repo&gt;</code>, on a closed
+store <code>Store::remove_model_dir</code>) commits the removal of the definition. It is refused while the current schema needs the model
+(<code>ModelInUse</code>: re-embed or drop the properties first). Earlier positions keep the model; its
+blob is removed by the <a href="store_prune.html">prune</a> that drops the last retained history referencing
+it.</p>
+<h2 id="loading-and-memory"><a class="header" href="#loading-and-memory">Loading and memory</a></h2>
+<p>A model the CURRENT schema needs (a vector property's <code>embedder</code> names it) is loaded when the
+store opens; every other model is loaded at the first query that embeds with it. A model is
+loaded once per process, shared by every position that uses the same blob, and unloaded when no
+position uses it any more. Loaded models count in <code>g.memory_usage()</code> as <code>model_bytes</code> and fall
+under the process <a href="../users_guide/resource_limits.html">memory ceiling</a>: before a load the ceiling
+is checked with the size the definition records, so nothing is read when it does not fit.</p>
+<p>The store does <strong>not open</strong> (in any mode: writable, <code>--read-only</code>, a backup, a view of a past
+position) when a model its schema needs is not in its catalog at that position, its blob is
+missing or damaged (<code>ModelUnavailable</code>; the message names the commands that bring it back), or
+it does not fit under the ceiling (<code>ModelDoesNotFit</code>, naming the smallest ceiling that fits). A
+model nothing needs that is damaged is a journal record (<code>model.unavailable</code>); the store works.
+A build that cannot run models (the browser playground, a library build without the feature
+<code>model2vec</code>) opens a store whose schema needs one read-only, without text queries.</p>
+<h2 id="listing"><a class="header" href="#listing">Listing</a></h2>
+<p><code>Store::models()</code> (CLI <code>graphersal store models &lt;dir&gt;</code>, <code>store info</code>) lists the models of the
+current position: repository, identity, revision, dimension, licence, size, the memory it takes
+loaded, whether it is the default, its state (<code>loaded</code>, <code>not_loaded</code>, <code>damaged</code>, <code>missing</code>,
+<code>unsupported</code>) and the schema properties that need it. <code>Store::verify</code> reads every model's blob
+and checks it is the tar of its identity.</p>
+<h2 id="the-licence-travels-with-the-model"><a class="header" href="#the-licence-travels-with-the-model">The licence travels with the model</a></h2>
+<p>The licence the repository states, its licence file (or, without one, the unchanged standard
+MIT or Apache-2.0 text of the licence the model card names, kept as <code>LICENSE</code> with a first
+paragraph saying where the text comes from; the copyright holders are those the model card
+names) and the licences of its base models are part of the model's tar. Graphersal never writes
+a licence of its own. <code>graphersal store models &lt;dir&gt;</code> and <code>graphersal store info &lt;dir&gt;</code> name
+every model with its licence and where the licence text comes from (<code>ModelInfo::license_text</code>): who hands a store or a copy of it on
+redistributes its models.</p>
+<pre><code class="language-text">$ graphersal store models data/
+── Embedding model ───────────────────────────────────────────────────────────
+  model:        acme/tiny
+  full name:    model2vec/acme/tiny@0123456789ab
+  size:         29.5 MiB
+  licence:      mit (named in the model card)
+  licence text: standard MIT text (the repository has no licence file)
+  default:      yes
+  used by:      the schema (doc.emb)
+</code></pre>
+<p>The other two forms of <code>licence text</code> are <code>from the repository (its own licence file)</code> and <code>none (no standard text for this licence)</code>.</p>
+<h2 id="what-carries-the-models"><a class="header" href="#what-carries-the-models">What carries the models</a></h2>
+<p>Every copy: full and incremental backups, the ZIP backup, fork, attic fork, repair, conversion
+and upgrade, a packed snapshot (<code>.gsnap</code>; <code>--without-models</code> leaves the blobs out, the
+definitions stay and the models are then missing in the copy). Prune, checkpoint and compact
+keep the blobs the retained history references.</p>
+<h2 id="a-gsnap-without-a-store"><a class="header" href="#a-gsnap-without-a-store">A <code>.gsnap</code> without a store</a></h2>
+<p>A packed snapshot exported from a store (<code>graphersal store export</code>, the playground's "Save
+graph") carries the blobs of its models. Loaded WITHOUT a store (<code>graphersal --graph file.gsnap</code>, <code>GraphSource::from_file</code>, Python <code>Graph.load</code>; in Rust
+<code>persist::read_snapshot_file</code>, which also returns a <code>SnapshotLoadReport</code>) the graph serves those
+models: <code>embed()</code>, <code>embed(text)</code>, text queries, vector rules and <code>g.embedders()</code> use them as a
+store's graph does. The load only notes where each model's blob lies in the file; a model is
+loaded at its first use by reading its blob from the file (checked by length, CRC-32C and
+SHA-256), so no copy of a blob stays in memory, only the loaded model. The file must therefore
+stay as it was while the graph serves its models: a file changed, truncated or removed after the
+load makes a model that was not loaded yet unavailable, with an error naming the file (a model
+loaded before keeps running). A graph with no packed models has the built-in <code>hash-ngram/1</code> only.
+Changes stay in memory: the file is never written.</p>
+<ul>
+<li>
+<p>A <code>.gsnap</code> of Graphersal 0.4.0 holds its models as model rows: they are converted as the
+store upgrade converts them (one blob and definition each; a model without a repository
+becomes <code>local/&lt;12 hex&gt;</code> and the schema's <code>embedder</code> naming it is rewritten in memory), the
+file stays as it is. The load reads the rows once to convert them (briefly holding a model's
+files in memory) and keeps only how to build each model's tar; the tar is built again from the
+rows when the model loads. <code>graphersal store create &lt;dir&gt; --from file.gsnap</code> keeps them
+converted (the documented route for a 0.4.0 file).</p>
+</li>
+<li>
+<p>A <code>.gsnap</code> exported <code>--without-models</code> keeps the definitions but not the blobs: the models
+are listed as <code>missing</code>, and a query that needs one fails with the import command. In a store
+made from it, <code>graphersal embed-model import &lt;repo&gt; --into &lt;store&gt;</code> (or <code>Store::import_model</code>)
+of the same model writes its blob back.</p>
+</li>
+<li>
+<p>A 0.4.0 <code>.gsnap</code> whose schema names a model the file does not carry (0.4.0 served it through
+<code>--embedder</code>) loads, but text queries and vector rules on those properties fail until the
+graph is in a store holding the model: <code>graphersal store create &lt;dir&gt; --from file.gsnap</code>
+makes the store (and says so with a <code>warning:</code>), the import puts the model in, then the store
+opens.</p>
+</li>
+<li>
+<p>The CLI prints what the load found as <code>note:</code> lines on stderr (<code>SnapshotLoadReport::notes</code>,
+the same text in Python as a <code>UserWarning</code>, in Rust from the report; <code>GraphSource::from_file</code>
+logs them as <code>tracing</code> warnings): converted models, models stored but none the default, models
+the schema names that the file lacks, vector properties without a rule, saved queries calling
+a removed function. Their schema patches run in a store (<code>graphersal store create &lt;dir&gt; --from file.gsnap</code>, then <code>graphersal --graph &lt;dir&gt; -e '...'</code>): a schema change of the loaded file
+stays in memory. Each note is a short headline with one detail per line below it and every
+command on a line of its own under a comment saying what it does, for example</p>
+<pre><code class="language-text">note: data.gsnap holds 2 embedding model(s) but none is the default
+  effect: embed() without a model name uses hash-ngram/1
+  name one: g.v().embed("text", #{embedder: "acme/tiny"})
+  # or make one the default, in a store
+  graphersal store models default &lt;dir&gt; &lt;repo&gt;
+</code></pre>
+</li>
+</ul>
+<h2 id="older-graphersal-versions"><a class="header" href="#older-graphersal-versions">Older Graphersal versions</a></h2>
+<p>Graphersal 0.4.0 kept models as <code>models/&lt;model2vec-12hex&gt;/</code> directories outside the history,
+in stores of store format version 3. This version opens such a store only after <code>graphersal store upgrade</code> (in place or into a copy), which turns each model into a blob and defines all of
+them in ONE commit (principal <code>upgrade</code>); the history before that commit has no models. No
+default model is set. A model kept without a repository name becomes <code>local/&lt;12 hex&gt;</code> (import it
+again with <code>--repo</code> to give it its name). A ZIP backup of 0.4.0 is migrated as it is restored, a
+<code>.gsnap</code> with model rows when a store is created from it. The upgrade also lists the models the
+schema needs that the store lacks, and every vector property with a model but no source property
+(<code>from</code>): see <a href="store_versions.html#040---050-models-become-blobs">0.4.0 -&gt; 0.5.0</a>.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../persistence/scheduled_jobs.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../persistence/store_blobs.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../persistence/scheduled_jobs.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../persistence/store_blobs.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

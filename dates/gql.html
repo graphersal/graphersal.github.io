@@ -1,0 +1,311 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Dates in GQL - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/dates/gql.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="dates-in-gql"><a class="header" href="#dates-in-gql">Dates in GQL</a></h1>
+<p><a href="../gql/index.html"><code>gql()</code></a> has openCypher's temporal functions (<code>date()</code>, <code>datetime()</code>,
+<code>duration()</code>, <code>x.year</code>, <code>date.truncate()</code>, <code>duration.between()</code>, ...) with Neo4j's meaning. They
+build and read the same six values as the Gremlin steps of this part (Cypher's <code>time</code> is the
+<code>offsettime</code>, its <code>localtime</code> the <code>time</code>): a date a GQL query returns
+is a <code>date</code> value, and a date a Gremlin step stored reads as a date in GQL. The full list of
+forms is on <a href="../gql/subset.html#dates-and-times">The Supported Subset</a>, the differences from Neo4j
+on <a href="../gql/semantics.html#where-dates-and-times-differ-from-neo4j">Semantics</a>.</p>
+<p>The Gremlin steps keep their PostgreSQL-style rules; where a GQL function means something else,
+the GQL function changes, never the step. This page sets each GQL form beside the Gremlin step or
+Rhai literal that does the same, and names the differences.</p>
+<pre><code class="language-rhai graph=empty">g.gql("RETURN date('2024-03-15') AS d").select("d").next() == date("2024-03-15")   // true
+g.gql("RETURN $d + duration('P1M') AS d", #{d: date("2024-01-31")}).to_list()   // #{"d": date("2024-02-29")}
+</code></pre>
+<pre><code class="language-rhai graph=empty script">g.add_v("event").property("at", date("2024-03-15")).iterate();
+g.gql("MATCH (e:event) RETURN e.at.year AS y, e.at + duration('P1M') AS next").to_list()   // #{"next": date("2024-04-15"), "y": 2024}
+</code></pre>
+<h2 id="building-values"><a class="header" href="#building-values">Building values</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>GQL</th><th>Gremlin / Rhai</th><th>Difference</th></tr></thead><tbody>
+<tr><td><code>date('2015-07-21')</code>, <code>localtime('21:40')</code>, <code>time('21:40+01:00')</code>, <code>localdatetime('..')</code>, <code>datetime('..')</code>, <code>duration('P1D')</code></td><td>the literals <code>date("2015-07-21")</code>, <code>time("21:40")</code>, <code>offsettime("21:40+01:00")</code>, <code>localdatetime("..")</code>, <code>datetime("..")</code>, <code>duration("P1D")</code></td><td>GQL also reads Neo4j's forms: week, ordinal and quarter dates (<code>2015-W30-2</code>, <code>2015-202</code>, <code>2015-Q3-21</code>), basic forms (<code>20150721T2140</code>, <code>2140-02</code>), fractions on any duration unit (<code>P1.5Y</code>); GQL's <code>time('21:40')</code> without an offset is UTC, Rhai's <code>offsettime()</code> needs the offset; both keep a zone in brackets (<code>[Europe/London]</code>) and nine fraction digits</td></tr>
+<tr><td><code>date({year: 2015, week: 30, dayOfWeek: 2})</code> and the other maps</td><td>none: build the text, or <code>date_add()</code> from a start</td><td></td></tr>
+<tr><td><code>date(x)</code>, <code>localdatetime(x)</code>, <code>datetime(x)</code> of another temporal value</td><td><a href="conversions.html#as_dategtypex-to-another-date-type"><code>as_date(GType.DATE)</code></a>, <code>as_date(GType.LOCALDATETIME)</code>, <code>as_date(GType.DATETIME)</code></td><td>the same projections (the date of a <code>datetime</code> at its own offset, a <code>localdatetime</code> read at UTC); GQL's <code>localdatetime(date)</code> and <code>datetime(date)</code> are errors as in Neo4j (<code>localdatetime({date: d})</code> is midnight), <code>as_date(GType.LOCALDATETIME)</code> of a date is midnight</td></tr>
+<tr><td><code>datetime({.., timezone: 'Europe/Berlin'})</code>, <code>datetime({datetime: x, timezone: z})</code></td><td><a href="time_zones.html#moving-between-a-datetime-and-its-wall-clock"><code>at_zone(z)</code></a></td><td>the same: both resolve a zone name to its offset at that instant and keep the name in the value (a fixed offset keeps no name)</td></tr>
+<tr><td><code>time(x)</code>, <code>time({time: x, timezone: z})</code></td><td><a href="conversions.html#as_dategtypex-to-another-date-type"><code>as_date(GType.OFFSETTIME)</code></a></td><td>the same projections (a <code>localtime</code> or <code>localdatetime</code> at UTC, a <code>datetime</code> with its offset)</td></tr>
+<tr><td><code>datetime.fromepochmillis(ms)</code>, <code>datetime({epochMillis: ms})</code>, <code>datetime({epochSeconds: s})</code></td><td><a href="conversions.html"><code>as_date()</code></a> of an <code>int64</code> (epoch milliseconds)</td><td></td></tr>
+<tr><td>the ISO literals <code>DATE '2015-07-21'</code>, <code>TIME '21:40+01:00'</code>, <code>TIMESTAMP '..'</code>, <code>DURATION 'P1D'</code> (<a href="../gql/subset.html#literals">Literals</a>)</td><td>the literals <code>date("2015-07-21")</code>, <code>offsettime("21:40+01:00")</code>, <code>localdatetime("..")</code>, <code>duration("P1D")</code></td><td><code>TIME '..'</code> / <code>TIMESTAMP '..'</code> are the zoned type when the text has an offset, the local one otherwise</td></tr>
+<tr><td><code>date()</code>, <code>datetime()</code>, <code>CURRENT_DATE</code>, <code>CURRENT_TIMESTAMP</code>, <code>LOCAL_TIMESTAMP</code>, <code>X.statement()</code>, <code>X.transaction()</code></td><td><a href="now_and_today.html"><code>today()</code>, <code>now()</code></a></td><td>both are one instant per run; a query run from a script reads the script's instant, so <code>datetime()</code> in <code>g.gql(..)</code> equals the script's <code>now()</code> (a host's pinned clock too); run alone, a query takes it when it starts</td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-rhai graph=empty">g.gql("RETURN date(datetime('2015-07-21T23:40:32+02:00')) AS d").to_list()   // #{"d": date("2015-07-21")}
+g.inject(datetime("2015-07-21T23:40:32+02:00")).as_date(GType.DATE).next()   // date("2015-07-21")
+</code></pre>
+<h2 id="reading-components"><a class="header" href="#reading-components">Reading components</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>GQL</th><th>Gremlin / Rhai</th><th>Difference</th></tr></thead><tbody>
+<tr><td><code>x.year</code>, <code>x.month</code>, <code>x.day</code>, <code>x.hour</code>, <code>x.minute</code>, <code>x.second</code></td><td><a href="truncation_and_parts.html#date_part"><code>date_part(DT.year)</code></a>, ..., or the getters <code>d.year</code> of a script value</td><td>the same</td></tr>
+<tr><td><code>x.quarter</code>, <code>x.week</code>, <code>x.weekYear</code>, <code>x.ordinalDay</code></td><td><code>date_part(DT.quarter)</code>, <code>DT.week</code>, <code>DT.iso_year</code>, <code>DT.day_of_year</code></td><td>the same (ISO 8601 weeks)</td></tr>
+<tr><td><code>x.dayOfWeek</code> (1 = Monday)</td><td><code>date_part(DT.iso_day_of_week)</code></td><td><code>DT.day_of_week</code> is PostgreSQL's 0 = Sunday</td></tr>
+<tr><td><code>x.millisecond</code>, <code>x.microsecond</code>, <code>x.nanosecond</code></td><td><code>date_part(DT.millisecond)</code>, <code>DT.microsecond</code>, <code>DT.nanosecond</code></td><td>the same: the fraction of the second</td></tr>
+<tr><td><code>x.epochSeconds</code>, <code>x.epochMillis</code></td><td><code>date_part(DT.epoch)</code> (seconds with the fraction), the getter <code>epoch_millis</code></td><td></td></tr>
+<tr><td><code>x.offset</code> (<code>'+01:00'</code>), <code>x.timezone</code> (the zone name, else the offset), <code>x.offsetSeconds</code></td><td><code>date_part(DT.offset)</code> (seconds), the getter <code>timezone</code></td><td>GQL writes the offset as text</td></tr>
+<tr><td><code>dur.months</code>, <code>dur.years</code>, <code>dur.days</code>, <code>dur.hours</code>, ... (totals)</td><td><code>date_part(DT.month)</code> of a duration is the remainder field (PostgreSQL: <code>P1Y</code> has month 0); the getters <code>months</code>, <code>days</code>, <code>micros</code></td><td>GQL's names are Neo4j's totals (<code>duration('P1Y').months</code> is 12); its remainders are <code>monthsOfYear</code>, <code>minutesOfHour</code>, ...</td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-rhai graph=empty">g.gql("RETURN date('2015-07-21').dayOfWeek AS a, duration('P1Y').months AS b").to_list()   // #{"a": 2, "b": 12}
+g.inject(date("2015-07-21")).date_part(DT.iso_day_of_week).next()   // 2
+g.inject(duration("P1Y")).date_part(DT.month).next()   // 0
+</code></pre>
+<h2 id="truncation"><a class="header" href="#truncation">Truncation</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>GQL</th><th>Gremlin</th><th>Difference</th></tr></thead><tbody>
+<tr><td><code>date.truncate('month', d)</code>, <code>localdatetime.truncate(..)</code>, <code>datetime.truncate(..)</code>, <code>localtime.truncate(..)</code>, <code>time.truncate(..)</code></td><td><a href="truncation_and_parts.html#date_trunc"><code>date_trunc(DT.month)</code></a></td><td>the same for <code>year</code> down to <code>nanosecond</code> and <code>week</code></td></tr>
+<tr><td><code>X.truncate('millennium' | 'century', d)</code></td><td><code>date_trunc(DT.millennium)</code>, <code>DT.century</code></td><td>GQL follows Neo4j (2017 gives 2000, 1984 gives 1900), Gremlin PostgreSQL (2001, 1901)</td></tr>
+<tr><td><code>X.truncate('weekYear', d)</code>, a map of overrides (<code>{dayOfWeek: 2}</code>)</td><td>none</td><td></td></tr>
+<tr><td><code>datetime.truncate(unit, d, {timezone: z})</code></td><td><code>date_trunc(unit, z)</code></td><td>GQL keeps the wall clock and reads it in <code>z</code>; Gremlin truncates on the wall clock of <code>z</code></td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-rhai graph=empty">g.gql("RETURN date.truncate('millennium', date('2017-10-11')) AS d").to_list()   // #{"d": date("2000-01-01")}
+g.inject(date("2017-10-11")).date_trunc(DT.millennium).next()   // date("2001-01-01")
+</code></pre>
+<h2 id="arithmetic"><a class="header" href="#arithmetic">Arithmetic</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>GQL</th><th>Gremlin / Rhai</th><th>Difference</th></tr></thead><tbody>
+<tr><td><code>x + dur</code>, <code>x - dur</code></td><td><a href="arithmetic.html#date_add"><code>date_add(dur)</code></a>, the Rhai operators <code>x + dur</code></td><td>the same order (months clamped, days, time); but in GQL a <code>date</code> takes the whole days of a time part (<code>date + PT33H</code> adds a day) and a <code>localtime</code> ignores months and days, where <code>date_add</code> is an error</td></tr>
+<tr><td><code>dur + dur</code>, <code>dur * n</code>, <code>dur / n</code></td><td><code>date_add(dur)</code> on a duration (field by field)</td><td>GQL scales with the fraction cascade (<code>P1M * 0.5</code> is <code>P15DT5H14M33S</code>)</td></tr>
+<tr><td><code>duration.between(a, b)</code></td><td><a href="arithmetic.html#age"><code>age()</code></a> (the operands swapped: <code>age</code> counts from the incoming value back to <code>other</code>)</td><td>GQL counts whole months, then days, then time, each part signed (Neo4j); <code>age</code> borrows as PostgreSQL does; GQL takes two different types, <code>age</code> one type</td></tr>
+<tr><td><code>duration.inMonths(a, b)</code>, <code>duration.inDays(a, b)</code></td><td><a href="arithmetic.html#date_diff"><code>date_diff(other, DT.month)</code></a>, <code>DT.day</code> (a number, the incoming value minus <code>other</code>)</td><td>GQL gives a duration (<code>P30Y8M</code>), <code>date_diff</code> an integer (368)</td></tr>
+<tr><td><code>duration.inSeconds(a, b)</code></td><td><code>date_diff(other)</code> (the milliseconds, an integer)</td><td>GQL gives a duration of seconds only (<code>PT24H</code>)</td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-rhai graph=empty">g.gql("RETURN date('1997-09-11') + duration('P29DT33H') AS d").to_list()   // #{"d": date("1997-10-11")}
+g.inject(date("1997-09-11")).date_add(duration("P29DT33H")).next()   // error: adding a duration with a time part is not defined for a date
+g.gql("RETURN duration.between(date('1984-10-11'), date('2015-06-24')) AS d").to_list()   // #{"d": duration("P30Y8M13D")}
+g.inject(date("2015-06-24")).age(date("1984-10-11")).next()   // duration("P30Y8M13D")
+g.inject(date("2015-06-24")).date_diff(date("1984-10-11"), DT.month).next()   // 368
+</code></pre>
+<h2 id="comparing-and-text"><a class="header" href="#comparing-and-text">Comparing and text</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>GQL</th><th>Gremlin</th><th>Difference</th></tr></thead><tbody>
+<tr><td><code>a = b</code>, <code>a &lt; b</code> on one type</td><td><code>is(P.eq(..))</code>, <code>is(P.lt(..))</code> (<a href="comparing.html">Comparing and Sorting</a>)</td><td>the same; two <code>datetime</code>s by their instant</td></tr>
+<tr><td><code>a &lt; b</code> on two durations</td><td><code>is(P.lt(..))</code> orders by length</td><td>GQL gives <code>NULL</code>; <code>ORDER BY</code> and <code>order()</code> sort by length</td></tr>
+<tr><td><code>a = b</code>, <code>a &lt; b</code> on two different temporal types</td><td></td><td>GQL: <code>=</code> is FALSE, <code>&lt;</code> is <code>NULL</code>, as for any two kinds</td></tr>
+<tr><td><code>toString(x)</code></td><td><a href="conversions.html#to-numbers-and-text"><code>as_string()</code></a></td><td>GQL writes Neo4j's text (<code>'12:00'</code>), <code>as_string()</code> the canonical ISO text (<code>"12:00:00"</code>), as GQL's <code>CAST(x AS STRING)</code> does</td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-rhai graph=empty">g.gql("RETURN toString(localtime('12:00')) AS a, CAST(localtime('12:00') AS STRING) AS b").to_list()   // #{"a": "12:00", "b": "12:00:00"}
+g.inject(time("12:00")).as_string().next()   // "12:00:00"
+</code></pre>
+<h2 id="zone-names-and-the-zoned-time"><a class="header" href="#zone-names-and-the-zoned-time">Zone names and the zoned time</a></h2>
+<p>A zone name in a value (<code>datetime('2017-08-08T12:31[Europe/Stockholm]')</code>,
+<code>datetime({.., timezone: 'Europe/Stockholm'})</code>) is kept, printed (<code>toString</code> writes
+<code>..+02:00[Europe/Stockholm]</code>), read as <code>x.timezone</code>, and later arithmetic, truncation and
+<code>duration.between</code> follow the zone's daylight saving rules, as Neo4j does; the Gremlin steps
+with a zone argument keep the name in the same way. Cypher's <code>time()</code> (ISO <code>zoned_time()</code>,
+the literal <code>TIME '12:00+01:00'</code>, the clock <code>CURRENT_TIME</code>) is the <code>offsettime</code>; a named zone
+gives a <code>time</code> the zone's offset at the query's instant
+(<a href="../gql/semantics.html#dates-and-times">Semantics</a>).</p>
+<pre><code class="language-rhai graph=empty">g.gql("RETURN datetime('2024-03-30T12:00[Europe/Berlin]') + duration('P1D') AS d").to_list()   // #{"d": datetime("2024-03-31T12:00:00+02:00[Europe/Berlin]")}
+g.gql("RETURN time({hour: 12, timezone: '+01:00'}) AS t").to_list()   // #{"t": offsettime("12:00:00+01:00")}
+</code></pre>
+<p><code>X.realtime()</code> stays refused: <a href="../gql/semantics.html#where-dates-and-times-differ-from-neo4j">Semantics</a>.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../dates/tinkerpop.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../users_guide/schema_enforcement.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../dates/tinkerpop.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../users_guide/schema_enforcement.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

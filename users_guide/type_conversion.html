@@ -1,0 +1,285 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Type Conversion and length() - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/users_guide/type_conversion.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="type-conversion-and-length"><a class="header" href="#type-conversion-and-length">Type Conversion and length()</a></h1>
+<p>Deviations of <code>length()</code>, <code>as_string()</code>, <code>as_bool()</code>, <code>as_number()</code> and <code>cast()</code> from Apache
+TinkerPop 3.8.2.</p>
+<h2 id="length-accepts-strings-only"><a class="header" href="#length-accepts-strings-only">length() accepts strings only</a></h2>
+<ul>
+<li><strong>TinkerPop:</strong> <code>length()</code> is a string step; any other input is a cast error.</li>
+<li><strong>Graphersal:</strong> the same. A list, map, path, vertex, edge or number raises a cast error, in
+both scopes; <code>null</code> stays <code>null</code>. Use <code>count(Scope.local)</code> for the size of a collection.
+Earlier Graphersal versions also measured lists and paths; that was removed.</li>
+</ul>
+<pre><code class="language-rhai graph=modern">g.V().fold().length().toList()            // error: expected type [string], got type 'array'
+g.V().fold().count(Scope.local).toList()  // 6
+</code></pre>
+<ul>
+<li><strong>Deviation:</strong> the length counts Unicode scalar values (Rust <code>chars().count()</code>). TinkerPop
+counts Java <code>char</code>s (UTF-16 code units). The two agree for every character in the Basic
+Multilingual Plane (<code>"é"</code> is 1, <code>"日本語"</code> is 3, in both). They differ for astral-plane
+characters such as emoji: <code>"😀"</code> is 1 here and 2 in TinkerPop. The same applies to
+<code>length(Scope.local)</code> and to <code>length()</code> of a label.</li>
+</ul>
+<h2 id="null-asstring-and-asbool-raise-asnumber-and-cast-keep-it"><a class="header" href="#null-asstring-and-asbool-raise-asnumber-and-cast-keep-it">null: asString() and asBool() raise, asNumber() and cast() keep it</a></h2>
+<ul>
+<li><strong>TinkerPop:</strong> <code>asString()</code> and <code>asBool()</code> reject <code>null</code> ("Can't parse null"); <code>asNumber()</code>
+keeps it.</li>
+<li><strong>Graphersal:</strong> the same, per step. <code>as_string()</code> and <code>as_bool()</code> raise a cast error on <code>null</code>
+(the configured <code>CastPolicy</code> still applies); <code>as_number()</code> and the Graphersal extension
+<code>cast()</code> keep <code>null</code> as <code>null</code>. The behaviour is deliberately not uniform.</li>
+</ul>
+<pre><code class="language-rhai graph=modern">g.inject(()).asString().toList()   // error: expected type [string], got type 'null'
+g.inject(()).asNumber().toList()   // null
+</code></pre>
+<h2 id="asbool-and-asnumber-are-explicit-conversions"><a class="header" href="#asbool-and-asnumber-are-explicit-conversions">asBool() and asNumber() are explicit conversions</a></h2>
+<p><code>as_bool()</code> and <code>as_number(GType.INT | GType.LONG)</code> follow TinkerPop's own rules, not the schema
+coercion matrix. The matrix (used when a declared property is written) and the Graphersal
+extension <code>cast()</code> stay strict: <code>cast(GType.BOOLEAN)</code> of <code>2</code> or of <code>"TRUE"</code> and
+<code>cast(GType.INT)</code> of <code>5.43</code> still fail, because a lossy conversion there would corrupt stored data.</p>
+<p><code>asBool()</code>:</p>
+<div class="table-wrapper"><table><thead><tr><th>Input</th><th>Result</th></tr></thead><tbody>
+<tr><td><code>true</code>, <code>false</code></td><td>unchanged</td></tr>
+<tr><td><code>0</code>, <code>0.0</code>, <code>-0.0</code>, <code>NaN</code></td><td><code>false</code></td></tr>
+<tr><td>any other number (<code>1</code>, <code>-1</code>, <code>3.14</code>, <code>Infinity</code>)</td><td><code>true</code></td></tr>
+<tr><td>the texts <code>true</code> / <code>false</code> in any ASCII letter case (<code>"tRUe"</code>, <code>"FALSE"</code>)</td><td><code>true</code> / <code>false</code></td></tr>
+<tr><td>any other text (<code>"hello"</code>, <code>"1"</code>, <code>""</code>, <code>" true"</code>), <code>null</code>, a uuid, a collection</td><td>error</td></tr>
+</tbody></table>
+</div>
+<p><code>asNumber(GType.INT)</code> and <code>asNumber(GType.LONG)</code> (the same <code>int64</code> target):</p>
+<div class="table-wrapper"><table><thead><tr><th>Input</th><th>Result</th></tr></thead><tbody>
+<tr><td>an integer</td><td>unchanged</td></tr>
+<tr><td>a float</td><td>truncated toward zero (<code>5.67</code> is <code>5</code>, <code>-5.67</code> is <code>-5</code>)</td></tr>
+<tr><td>a text that parses as a whole integer (<code>"5"</code>), a boolean</td><td><code>5</code>, <code>1</code>/<code>0</code></td></tr>
+<tr><td><code>null</code></td><td><code>null</code></td></tr>
+<tr><td><code>"5.7"</code>, <code>NaN</code>, infinity, a float outside the <code>int64</code> range</td><td>error</td></tr>
+</tbody></table>
+</div>
+<ul>
+<li><strong>Deviation (asNumber):</strong> TinkerPop's <code>Integer</code> target wraps or narrows to its own width; Graphersal
+has one integer width, so a <code>NaN</code>, infinite or out-of-range float is an error instead.</li>
+<li><strong>Deviation (asBool):</strong> only the two literals <code>true</code> and <code>false</code> convert from text, never <code>"1"</code> or
+<code>"yes"</code>: a string is not interpreted by its content.</li>
+</ul>
+<pre><code class="language-rhai graph=modern">g.inject(-1, 0.0, "tRUe").asBool().toList()        // [true, false, true]
+g.inject(5.67, -5.67).asNumber(GType.INT).toList() // [5, -5]
+g.inject(5.43).cast(GType.INT).toList()            // error: stays strict
+</code></pre>
+<h2 id="trim-ltrim-and-rtrim"><a class="header" href="#trim-ltrim-and-rtrim">trim(), lTrim() and rTrim()</a></h2>
+<ul>
+<li><strong>Deviation:</strong> the three steps strip Unicode whitespace (the White_Space property, Rust
+<code>str::trim</code>), while Java's <code>String.trim()</code> strips only characters up to U+0020. A no-break
+space (U+00A0) or an ideographic space (U+3000) at the end of a string is removed here and kept
+by TinkerPop. No vendored scenario depends on it.</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../users_guide/id_arguments.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../users_guide/math.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../users_guide/id_arguments.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../users_guide/math.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

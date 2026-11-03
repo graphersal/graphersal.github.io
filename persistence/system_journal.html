@@ -1,0 +1,421 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>System Journal - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/persistence/system_journal.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="system-journal"><a class="header" href="#system-journal">System Journal</a></h1>
+<p>The <strong>system journal</strong> records what an instance DID, one record per operational event: a store
+opened or closed, a checkpoint written, a backup taken or failed, damage found, a rollback, a
+permission denied, the system clock stepping back. A person reads it later ("what happened to
+this store last night?"); a host forwards it to its own logging.</p>
+<p>It sits beside three other streams and replaces none of them:</p>
+<div class="table-wrapper"><table><thead><tr><th>Stream</th><th>Holds</th></tr></thead><tbody>
+<tr><td>the WAL (<a href="journal_and_recovery.html">Journal and Recovery</a>)</td><td>the changes to the DATA, commit by commit</td></tr>
+<tr><td><a href="workload_statistics.html">Workload statistics</a></td><td>numbers per time bucket</td></tr>
+<tr><td><code>tracing</code> (the CLI's <code>GRAPHERSAL_LOG</code>)</td><td>developer diagnostics, unstable</td></tr>
+<tr><td>the system journal</td><td>individual operational events, declared and stable</td></tr>
+</tbody></table>
+</div>
+<p>The journal decides nothing: no part of Graphersal reads it to decide anything, and a failed
+journal write never fails the operation it describes (it is a <code>tracing</code> warning and a counted
+lost record, <code>SystemJournal::lost_records</code>). Records hold names, counts, durations and ids:
+never data values, query text or secrets.</p>
+<h2 id="records"><a class="header" href="#records">Records</a></h2>
+<p>Every record has the same envelope plus typed fields:</p>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>seq</code></td><td>the local sequence number: monotonic, never reused; the cursor of a reader</td></tr>
+<tr><td><code>origin</code></td><td>the instance that created the record: a random id and a readable name</td></tr>
+<tr><td><code>origin_seq</code></td><td>its sequence number there; <code>(origin, origin_seq)</code> identifies a record everywhere</td></tr>
+<tr><td><code>time</code></td><td>microseconds since the Unix epoch (UTC), from the instance clock that also times the commits: a record about commit N is never earlier than commit N</td></tr>
+<tr><td><code>level</code></td><td><code>error</code>, <code>warn</code>, <code>notice</code> or <code>info</code> (most severe first)</td></tr>
+<tr><td><code>source</code></td><td>a dotted hierarchy: <code>store</code>, <code>store.backup</code>, <code>store.damage</code>, <code>auth</code>, <code>clock</code></td></tr>
+<tr><td><code>kind</code></td><td>the stable event code (<code>store.backup_done</code>); every kind is declared below</td></tr>
+<tr><td><code>message</code></td><td>the rendered English text</td></tr>
+<tr><td><code>op</code>, <code>parent</code></td><td>the operation a record belongs to, and its parent operation (when set)</td></tr>
+<tr><td><code>commit</code></td><td>the commit in the WAL the event relates to (when set)</td></tr>
+<tr><td><code>principal</code></td><td>who: the channel the work came through (<code>cli</code>, <code>mcp</code>, <code>playground</code>, <code>python</code>, <code>host</code>)</td></tr>
+<tr><td><code>fields</code></td><td>the kind's declared fields</td></tr>
+</tbody></table>
+</div>
+<p>A reader of an older version shows a record of a kind it does not know by its message and
+fields.</p>
+<p>A <code>recommendation</code> field says how to fix what the record reports, in the layout of every
+Graphersal note: a short headline, then each command on its own line under a <code># comment</code> saying
+what it does. The text form of a record (<code>JournalRecord::to_line</code>, <code>graphersal store journal</code>,
+the playground's journal panel) keeps the one-line fields in parentheses on the record's line
+and puts a field of several lines below it, indented:</p>
+<pre><code class="language-text">2026-10-09T08:53:20.000000Z #12 error  model.unavailable the model acme/tiny is missing: queries with it fail (repo=acme/tiny, identity=model2vec/acme/tiny@0123456789ab, cause=missing)
+  recommendation: download the model again and import it into the store, or restore the store from a backup or replica
+    # download the model's files again
+    graphersal embed-model download acme/tiny
+    # import them into the store in place of the damaged copy
+    graphersal embed-model import acme/tiny --into &lt;store&gt; --replace
+</code></pre>
+<p>The JSON forms (<code>--json</code>, <code>GET /api/journal</code>, MCP, Python) keep the field as one string with its
+line breaks.</p>
+<h2 id="repeats-and-states"><a class="header" href="#repeats-and-states">Repeats and states</a></h2>
+<p>The journal is append-only, so a repeat is collected BEFORE it is written, never by rewriting
+a record. Every kind declares a collapse key (its kind, its source and some of its fields; never
+the time). The first occurrence is written at once. A record whose key equals one of the last
+five written records is counted in memory instead; the group is closed by ONE
+<code>journal.repeated</code> record (with the original's <code>origin_seq</code>, the count and the time range) when
+the original leaves the last five records, when an hour has passed since the original (a
+continuing problem shows again), or when the journal is flushed or closed. A crash loses only
+the count of an open group.</p>
+<p>A <strong>state</strong> (<code>store.damage_found</code>, <code>store.read_only</code>) is written once, its repeats are counted
+while it holds, a <code>journal.state_reminder</code> repeats its current values once per hour, and its
+<code>..._cleared</code> kind ends it.</p>
+<h2 id="where-it-is-kept"><a class="header" href="#where-it-is-kept">Where it is kept</a></h2>
+<ul>
+<li>A graph without a store keeps its journal <strong>in memory</strong>: the newest 10 000 records
+(<code>JournalPage::truncated</code> says when older ones are gone). The playground's graphs too.</li>
+<li>A <strong>Store</strong> keeps it in its directory (format spec 4.7): segments <code>journal/&lt;20 digits&gt;.jnl</code>
+(the name is the first <code>seq</code> the segment may hold), append-only, framed like the WAL (sync
+marker, length, header and body CRC: a torn tail is cut by the next writer, a damaged record
+is skipped by resyncing on the next frame). A new segment starts past 4 MiB
+(<code>StoreOptions::with_journal_segment_bytes</code>), at an open by another instance, and after a
+failed write. There is no retention limit.</li>
+<li><code>error</code> records are written and synced at once. The others are batched in memory and
+written as described in <a href="#when-records-appear">When records appear</a>, so the journal never
+writes in the middle of another operation of the store; a crash loses at most about the last
+second of records.</li>
+<li>A store opened read-only (a backup, maintenance mode, a store holding something critical of
+a newer version) reads its stored journal; its new records stay in memory. Once damage is
+found while a store is open (either damage policy), its journal writes nothing more to the
+store's files: the records stay in memory and in the <code>tracing</code> mirror.</li>
+<li>The instance identity lives in the instance-local file <code>INSTANCE</code> at the store root (a random
+id and a name: <code>StoreOptions::with_instance_name</code>, else the host name). No copy carries it: a
+restored backup or a converted store opened elsewhere is another instance, which writes into
+a new segment.</li>
+<li>The journal is never store damage: <code>verify</code> lists its problems as notes
+(<code>VerifyReport::journal_notes</code>), and its files are left out of the damage found while open.</li>
+</ul>
+<h2 id="when-records-appear"><a class="header" href="#when-records-appear">When records appear</a></h2>
+<ul>
+<li><strong>In the process that holds the graph or the store</strong> a record is visible at once: every read
+(<code>Graph::system_journal()</code>, <code>Store::journal()</code>, the session, <code>GET /api/journal</code>, the MCP
+tool <code>journal</code>, the playground, Python's <code>graph.journal</code>/<code>store.journal</code>, the REPL) answers
+from the records in memory, written or not, and reads only older records from the segments,
+so a page never has a gap or a duplicate, before or after the batch is written.</li>
+<li><strong>On disk, and so for another process</strong> (<code>graphersal store journal</code> or
+<code>Store::journal_dir</code> on a store a server holds open), a record appears within about a second:
+a store on a file system writes the batch half a second after its first record, from a
+thread of its own, independent of the statistics job <code>stats_flush</code>. The thread writes only
+while no other operation of the store runs (a checkpoint, prune, compaction, rollback,
+attic change, verify, backup, fork, export or close; commits are not waited for, they write
+other files); during a long checkpoint the batch waits for its end.</li>
+<li>Without threads (wasm32), and for a store in memory or in a host's own <code>StoreDir</code>, the host
+calls <code>Store::flush_journal()</code>: the playground does on its every-second tick
+(<code>Session::tick_jobs</code>). The system job <code>stats_flush</code>, <code>SystemJournal::flush</code> (which also
+closes the groups of repeats), the close and the next <code>error</code> record write the batch too,
+as does a batch of 1000 records or 1 MiB.</li>
+</ul>
+<h2 id="copies"><a class="header" href="#copies">Copies</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Path</th><th>The journal</th></tr></thead><tbody>
+<tr><td>full backup, ZIP backup</td><td>every segment (the newest up to its last complete record), checked frame by frame in the store and in the copy; a problem is a <code>BackupReport::warnings</code> entry, never a failed backup; listed in <code>BackupReport::journal_files</code></td></tr>
+<tr><td>incremental backup</td><td>segments the backup lacks are copied, the backup's newest one gets the new tail appended (a backup segment that is not a prefix of the store's is left as it is, with a warning)</td></tr>
+<tr><td>restore</td><td>the backup's journal becomes the store's; the restoring instance continues in a new segment</td></tr>
+<tr><td>backup from memory</td><td>what is readable is copied</td></tr>
+<tr><td>convert</td><td>carried (<code>INSTANCE</code> is not)</td></tr>
+<tr><td>fork, attic fork, repair</td><td>NOT carried: the new store's first record <code>store.created</code> names the store and the commit it was made from</td></tr>
+<tr><td><code>.gsnap</code> export</td><td>not carried (a state, not operations)</td></tr>
+</tbody></table>
+</div>
+<h2 id="reading-it"><a class="header" href="#reading-it">Reading it</a></h2>
+<ul>
+<li><strong>Rust</strong>: <code>Graph::system_journal()</code> (every graph), <code>Store::journal()</code> (an open store),
+<code>Store::journal_dir(dir, &amp;query)</code> (a closed store, or one open elsewhere: no lock, nothing
+written). <code>SystemJournal::query(&amp;JournalQuery)</code> filters by time range (<code>since</code>/<code>until</code>),
+level (<code>min_level</code>), source (<code>source_prefix</code>: <code>store</code> matches <code>store.backup</code>), <code>kind</code>, <code>op</code>
+and <code>origin</code>, from a cursor (<code>after(seq)</code>), at most <code>limit</code> records (default 1000):
+<code>JournalPage::next_after</code> is the next cursor, <code>more</code> says that more follow.
+<code>JournalQuery::newest_first()</code> answers the NEWEST matching records instead, newest first
+(a stored journal is read from its last segment backwards, one segment in memory at a time,
+and no older segment than needed is read): <code>next_before</code> is the cursor of the next older
+page (<code>before(seq)</code>), <code>more</code> says that older ones exist, and <code>next_after</code> is the newest
+record covered, so a reader shows the end of a long journal at once and then follows it.
+<code>SystemJournal::subscribe(after)</code> follows the journal (<code>wait(timeout)</code> blocks natively,
+WebAssembly polls); <code>add_sink</code> forwards every written record to a host's <code>JournalSink</code>;
+<code>open_operations()</code> is the last record of each operation without a <code>_done</code>/<code>_failed</code> record.
+Facade: <code>graphersal::system_journal</code>.</li>
+<li><strong>tracing</strong>: every written record is mirrored under the target <code>graphersal::journal</code> at its
+level (<code>notice</code> as <code>info</code>); the CLI shows them on stderr with <code>GRAPHERSAL_LOG=info</code>.</li>
+<li><strong>CLI</strong>: <code>graphersal store journal &lt;DIR&gt; [--level L] [--since TIME] [--source P] [--kind K] [--after SEQ | --last N] [--limit N] [--follow] [--json]</code>; <code>--last N</code> prints only the newest
+N records (<a href="store_cli.html">The graphersal store Command</a>).</li>
+<li><strong>Dev server</strong>: <code>GET /api/journal?after=N&amp;level=..&amp;source=..&amp;kind=..&amp;limit=..</code>
+(<code>newest_first=true&amp;before=N</code>: newest first, paging backwards), and the read-only MCP tool
+<code>journal</code> (the same keys) (<a href="dev_server.html">Dev Server and MCP</a>).</li>
+<li><strong>Python</strong>: <code>graph.journal(...)</code> (every graph; without a store its in-memory journal),
+<code>store.journal(...)</code> and <code>Store.journal_dir(path, ...)</code> (a closed store, or one open
+elsewhere), with the keyword arguments <code>after</code>, <code>before</code>, <code>newest_first</code>, <code>since</code>, <code>until</code>,
+<code>level</code>, <code>source</code>, <code>kind</code>, <code>op</code>, <code>origin</code>, <code>limit</code> and <code>policy</code>. A page is a dict <code>{"records", "next_after", "truncated", "more", "notes"}</code>; each record has the keys of <code>store journal --json</code>
+(<a href="python.html#the-system-journal">Python</a>).</li>
+<li><strong>Playground</strong>: <strong>Catalog ▸ System journal…</strong> shows the served graph's journal, newest first,
+with a level and a source filter, in the WebAssembly playground (the graph's store in memory)
+and over the dev server. It opens on the newest 300 records (a newest-first page), then reads
+only the records written since, every five seconds; "Show more" shows 300 more rows, reading
+older pages backwards (<a href="../users_guide/web_playground.html#system-journal">Web Playground</a>).</li>
+<li><strong>Permissions</strong>: reading is the resource <code>Journal</code> (<code>Resource::Journal</code>, <code>Read</code>); the session,
+the dev server and MCP ask the authorizer before they answer. <code>AccessPolicy::read_only()</code>
+allows it. The Rust API itself asks nothing (it is the host's).</li>
+</ul>
+<p>The journal has no DSL access yet.</p>
+<h2 id="event-catalogue"><a class="header" href="#event-catalogue">Event catalogue</a></h2>
+<p>Every kind the journal writes, generated from the declarations in the code
+(<code>GRAPHERSAL_UPDATE_BOOK=1 cargo test -p graphersal --lib catalogue</code>):</p>
+<!-- journal-events:begin -->
+<div class="table-wrapper"><table><thead><tr><th>Kind</th><th>Level</th><th>Source</th><th>Form</th><th>Fields</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>journal.repeated</code></td><td>info</td><td><code>journal</code></td><td>event</td><td><code>of_origin_seq</code>: the origin_seq of the original record; <code>of_kind</code>: the kind of the original record; <code>count</code>: how many more times it occurred; <code>first_us</code>: the first repeat (µs since the Unix epoch); <code>last_us</code>: the last repeat (µs since the Unix epoch)</td><td>Closes a group of repeats: the record <code>of_origin_seq</code> occurred <code>count</code> more times between <code>first_us</code> and <code>last_us</code> (written when the original leaves the last five records, after an hour, or at close). Its level is the original's.</td></tr>
+<tr><td><code>journal.state_reminder</code></td><td>info</td><td><code>journal</code></td><td>event, collapsed by <code>state</code></td><td><code>state</code>: the kind of the state; <code>since_us</code>: when the state began (µs since the Unix epoch); <code>count</code>: how many times it was reported again since the last record</td><td>A state still holds (once per hour while it does), with its current values. Its level is the state's.</td></tr>
+<tr><td><code>journal.records_lost</code></td><td>warn</td><td><code>journal</code></td><td>event, collapsed by kind</td><td><code>count</code>: the records not written</td><td>Writing journal records failed; this many records are missing from the stored journal (they were kept in memory only).</td></tr>
+<tr><td><code>clock.step_back</code></td><td>warn</td><td><code>clock</code></td><td>event, collapsed by kind</td><td><code>system_us</code>: the system clock's reading (µs); <code>floor_us</code>: the instance clock (µs); <code>behind_ms</code>: how far the system clock is behind (ms)</td><td>The system clock stepped back more than a second behind the instance clock; times stay at the instance clock until the system clock catches up.</td></tr>
+<tr><td><code>store.opened</code></td><td>info</td><td><code>store</code></td><td>event</td><td><code>commit_seq</code>: the position after the open; <code>replayed</code>: WAL commits replayed onto the snapshot; <code>load_ms</code>: how long the open took (ms); <code>read_only</code>: whether it opened read-only (a backup, maintenance mode, ...)</td><td>The store was opened.</td></tr>
+<tr><td><code>store.recovered</code></td><td>notice</td><td><code>store.recovery</code></td><td>event</td><td><code>torn_tail_cut_bytes</code>: bytes of an incomplete last WAL record cut off; <code>intent_completed</code>: the interrupted operation completed (empty: none); <code>tmp_removed</code>: temporary files removed; <code>wal_cut</code>: whether a refused WAL record was cut off</td><td>The open repaired the traces of a crash or an interrupted operation.</td></tr>
+<tr><td><code>store.closed</code></td><td>info</td><td><code>store</code></td><td>event</td><td><code>commit_seq</code>: the last commit; <code>clean</code>: whether it was closed cleanly</td><td>The store was closed.</td></tr>
+<tr><td><code>store.read_only</code></td><td>warn</td><td><code>store</code></td><td>state until <code>store.read_only_cleared</code></td><td><code>reason</code>: why</td><td>The store is read-only: it holds something critical this version does not know.</td></tr>
+<tr><td><code>store.read_only_cleared</code></td><td>notice</td><td><code>store</code></td><td>ends <code>store.read_only</code></td><td>-</td><td>The store is writable again. Not emitted yet: a later version (a store turns writable only at a new open today).</td></tr>
+<tr><td><code>store.checkpoint_done</code></td><td>info</td><td><code>store.checkpoint</code></td><td>event</td><td><code>commit_seq</code>: the snapshot's position; <code>merged</code>: whether it was merged from the last snapshot and the WAL; <code>bytes</code>: the snapshot's size; <code>ms</code>: how long it took; <code>automatic</code>: whether the store started it itself</td><td>A checkpoint wrote a snapshot.</td></tr>
+<tr><td><code>store.checkpoint_failed</code></td><td>error</td><td><code>store.checkpoint</code></td><td>event, collapsed by kind</td><td><code>error</code>: the error; <code>automatic</code>: whether the store started it itself</td><td>A checkpoint failed; nothing visible was written (level warn when the memory ceiling refused it).</td></tr>
+<tr><td><code>store.backup_done</code></td><td>notice</td><td><code>store.backup</code></td><td>event</td><td><code>target</code>: where it went; <code>mode</code>: full, increment, zip or memory; <code>commit_seq</code>: the backup's position; <code>bytes</code>: the bytes written</td><td>A backup was written and verified.</td></tr>
+<tr><td><code>store.backup_failed</code></td><td>error</td><td><code>store.backup</code></td><td>event, collapsed by <code>target</code></td><td><code>target</code>: where it should have gone; <code>side</code>: where damage was found: store, backup or none; <code>error</code>: the error</td><td>A backup failed (level warn when the memory ceiling refused it).</td></tr>
+<tr><td><code>store.prune_done</code></td><td>notice</td><td><code>store.prune</code></td><td>event</td><td><code>up_to</code>: the position pruned up to; <code>snapshots_removed</code>: snapshots removed; <code>segments_removed</code>: WAL segments removed; <code>bytes</code>: bytes freed; <code>marks_unreachable</code>: marks no longer reachable</td><td>Old snapshots and WAL were removed.</td></tr>
+<tr><td><code>store.damage_found</code></td><td>error</td><td><code>store.damage</code></td><td>state per <code>first_path</code> until <code>store.damage_cleared</code></td><td><code>found_by</code>: the operation that found it; <code>problems</code>: how many problems; <code>first_path</code>: the first damaged file</td><td>Damage was found in the store's files while it is open.</td></tr>
+<tr><td><code>store.damage_cleared</code></td><td>notice</td><td><code>store.damage</code></td><td>ends <code>store.damage_found</code></td><td><code>first_path</code>: the file that was damaged</td><td>Damage found earlier is gone. Not emitted yet: a later version (damage is cleared by a repair into a new store today).</td></tr>
+<tr><td><code>store.maintenance_mode</code></td><td>error</td><td><code>store.damage</code></td><td>event</td><td><code>trigger</code>: what the open ran into</td><td>The store opened in maintenance mode (read-only): its files are damaged.</td></tr>
+<tr><td><code>store.repaired</code></td><td>notice</td><td><code>store.damage</code></td><td>event</td><td><code>target</code>: the new store; <code>commit_seq</code>: its position; <code>diverged</code>: whether the salvaged state diverged from the WAL</td><td>The store's salvaged state was written as a new store.</td></tr>
+<tr><td><code>store.rolled_back</code></td><td>notice</td><td><code>store.rollback</code></td><td>event</td><td><code>target</code>: the commit rolled back to; <code>mode</code>: move or delete; <code>attic_entry</code>?: the attic entry of the later history</td><td>The store was rolled back; the later history moved into the attic (or was deleted).</td></tr>
+<tr><td><code>store.attic_restored</code></td><td>notice</td><td><code>store.attic</code></td><td>event</td><td><code>entry</code>: the attic entry</td><td>An attic entry was restored as the store's current history.</td></tr>
+<tr><td><code>store.attic_removed</code></td><td>notice</td><td><code>store.attic</code></td><td>event</td><td><code>entry</code>: the attic entry</td><td>An attic entry was removed.</td></tr>
+<tr><td><code>store.created</code></td><td>notice</td><td><code>store</code></td><td>event</td><td><code>how</code>: create, packed, fork, attic_fork or repair; <code>from_store_id</code>?: the store it was made from; <code>from_commit</code>?: the position it was made from</td><td>The store was created (the first record of every store).</td></tr>
+<tr><td><code>store.upgraded</code></td><td>notice</td><td><code>store.upgrade</code></td><td>event</td><td><code>from_version</code>: the old store format version; <code>to_version</code>: the new one; <code>in_place</code>: whether it was upgraded in place; <code>models</code>: the embedding models of models/ that became blobs (Graphersal 0.4.0 stores)</td><td>The store was upgraded to this version's store format.</td></tr>
+<tr><td><code>store.verified</code></td><td>info</td><td><code>store.verify</code></td><td>event</td><td><code>problems</code>: damage found; <code>warnings</code>: warnings; <code>notes</code>: notes (the system journal's among them)</td><td>The store's files were verified (level warn when problems or warnings were found).</td></tr>
+<tr><td><code>auth.denied</code></td><td>warn</td><td><code>auth</code></td><td>event, collapsed by <code>action</code>, <code>resource_kind</code>, <code>channel</code></td><td><code>action</code>: the action asked; <code>resource_kind</code>: the kind of resource; <code>channel</code>: the channel the work came through</td><td>The authorizer denied a request (one per execution; no query text).</td></tr>
+<tr><td><code>blob.damaged</code></td><td>error</td><td><code>blob</code></td><td>event, collapsed by <code>hash</code>, <code>failure</code></td><td><code>hash</code>: the blob's hash (hex); <code>length</code>: its length in bytes; <code>failure</code>: what failed: missing, length, crc or hash; <code>found_by</code>: the operation that found it; <code>referrers</code>?: the catalog definitions that reference it, as kind:name; <code>recommendation</code>: how to get the bytes back</td><td>A blob is missing or damaged (never store damage: the store keeps working).</td></tr>
+<tr><td><code>blob.repaired</code></td><td>notice</td><td><code>blob</code></td><td>event</td><td><code>hash</code>: the blob's hash (hex); <code>how</code>: rewritten (written again) or restored (copied back); <code>source</code>?: where a restored blob came from (graphersal store restore-blobs --from)</td><td>A damaged blob was replaced by intact bytes of the same hash.</td></tr>
+<tr><td><code>blob.dropped</code></td><td>warn</td><td><code>blob</code></td><td>event</td><td><code>hash</code>: the blob's hash (hex); <code>referrers</code>: the catalog definitions left out with it, as kind:name</td><td>A repair left out a missing or damaged blob and the catalog definitions referencing it (graphersal store repair --drop-damaged-blobs).</td></tr>
+<tr><td><code>blob.collected</code></td><td>info</td><td><code>blob</code></td><td>event</td><td><code>count</code>: blobs removed; <code>bytes</code>: bytes freed; <code>by</code>: prune, attic_remove or rollback_delete</td><td>Blobs no retained history references were removed.</td></tr>
+<tr><td><code>catalog.closed_commit</code></td><td>notice</td><td><code>catalog</code></td><td>event</td><td><code>ops</code>: the catalog and schema changes of the commit; <code>kinds</code>: the definition kinds it changed; <code>wal_tail_commits</code>: the commits after the newest snapshot read to find the current catalog; <code>ms</code>: how long it took</td><td>A catalog change was appended to a CLOSED store's WAL as one commit, without loading the graph (format spec 12.12).</td></tr>
+<tr><td><code>ledger.rebuilt</code></td><td>notice</td><td><code>ledger</code></td><td>event</td><td><code>frames</code>: the frames written; <code>reason</code>: missing or damaged</td><td>The derived blob ledger was missing or damaged and was rebuilt from the WAL.</td></tr>
+<tr><td><code>model.imported</code></td><td>notice</td><td><code>model</code></td><td>event</td><td><code>repo</code>: its repository; <code>identity</code>: its identity; <code>bytes</code>: the bytes of its blob; <code>default</code>: whether it became the default model; <code>closed</code>?: true when the change was committed to a closed store (format spec 12.12)</td><td>An embedding model was imported into the store (one commit defining it).</td></tr>
+<tr><td><code>model.migrated</code></td><td>notice</td><td><code>model</code></td><td>event</td><td><code>repo</code>: its repository (local/&lt;12 hex&gt; when 0.4.0 kept none); <code>identity</code>: its identity now; <code>former_identity</code>: its identity in the 0.4.0 store; <code>bytes</code>: the bytes of its blob; <code>closed</code>?: true when the change was committed to a closed store (format spec 12.12)</td><td>An embedding model a Graphersal 0.4.0 store kept under models/ became a blob with a catalog definition (store upgrade to store format version 4; the migration commit).</td></tr>
+<tr><td><code>model.replaced</code></td><td>notice</td><td><code>model</code></td><td>event</td><td><code>repo</code>: its repository; <code>old_identity</code>: the replaced revision's identity; <code>new_identity</code>: the new revision's identity; <code>closed</code>?: true when the change was committed to a closed store (format spec 12.12)</td><td>A new revision of an embedding model replaced the current one (one commit).</td></tr>
+<tr><td><code>model.removed</code></td><td>notice</td><td><code>model</code></td><td>event</td><td><code>repo</code>: its repository; <code>identity</code>: its identity; <code>closed</code>?: true when the change was committed to a closed store (format spec 12.12)</td><td>An embedding model was removed from the store's current state (one commit).</td></tr>
+<tr><td><code>model.default_changed</code></td><td>notice</td><td><code>model</code></td><td>event</td><td><code>from</code>: the repository of the previous default (empty: none); <code>to</code>: the repository of the new default (empty: none); <code>closed</code>?: true when the change was committed to a closed store (format spec 12.12)</td><td>The default embedding model changed (one commit).</td></tr>
+<tr><td><code>model.loaded</code></td><td>info</td><td><code>model</code></td><td>event, collapsed by <code>identity</code></td><td><code>repo</code>: its repository; <code>identity</code>: its identity; <code>load_bytes</code>: the memory it takes; <code>ms</code>: how long the load took</td><td>An embedding model was loaded into memory.</td></tr>
+<tr><td><code>model.unloaded</code></td><td>info</td><td><code>model</code></td><td>event, collapsed by <code>identity</code></td><td><code>repo</code>: its repository; <code>identity</code>: its identity</td><td>An embedding model no open position uses was unloaded.</td></tr>
+<tr><td><code>model.load_failed</code></td><td>error</td><td><code>model</code></td><td>event, collapsed by <code>identity</code>, <code>cause</code></td><td><code>repo</code>: its repository; <code>identity</code>: its identity; <code>cause</code>: damaged, missing, does_not_fit or invalid; <code>needed</code>: the bytes a load needs (blob and loaded model); <code>recommendation</code>: how to bring the model back</td><td>An embedding model the schema needs did not load: the store did not open.</td></tr>
+<tr><td><code>model.unavailable</code></td><td>error</td><td><code>model</code></td><td>event, collapsed by <code>identity</code>, <code>cause</code></td><td><code>repo</code>: its repository; <code>identity</code>: its identity; <code>cause</code>: damaged, missing, does_not_fit or invalid; <code>recommendation</code>: how to bring the model back</td><td>An embedding model nothing needs at open is missing or damaged: the store works, queries with the model fail.</td></tr>
+<tr><td><code>vector_fill.started</code></td><td>notice</td><td><code>vector_fill</code></td><td>event</td><td><code>reason</code>: rule_added, rule_changed or model_replaced; <code>rules</code>: the rules filled: element, label, from, to, model; <code>elements</code>: the elements to embed; <code>estimate_ms</code>?: the estimated time, when the model's speed is known</td><td>A vector fill started under the write lock (a vector rule added or changed, or its model replaced): the whole database is locked until it ends.</td></tr>
+<tr><td><code>vector_fill.done</code></td><td>notice</td><td><code>vector_fill</code></td><td>event</td><td><code>embedded</code>: the elements embedded; <code>removed</code>: the vectors removed (a source without text); <code>elapsed_ms</code>: how long the fill held the lock</td><td>A vector fill ended with the commit of its unit (<code>commit</code>); <code>op</code> is its start record.</td></tr>
+<tr><td><code>vector_fill.failed</code></td><td>error</td><td><code>vector_fill</code></td><td>event</td><td><code>cause</code>: the error; <code>elapsed_ms</code>: how long the fill held the lock; <code>embedded_before_failure</code>: the elements embedded before it failed</td><td>A vector fill failed (the model, the memory ceiling, a cancel): its unit was rolled back, nothing was written.</td></tr>
+</tbody></table>
+</div><!-- journal-events:end -->
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../persistence/workload_statistics.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../persistence/optimize.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../persistence/workload_statistics.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../persistence/optimize.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>
