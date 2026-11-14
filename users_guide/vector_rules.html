@@ -1,0 +1,341 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Vector Rules - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/users_guide/vector_rules.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="vector-rules"><a class="header" href="#vector-rules">Vector Rules</a></h1>
+<p>A <strong>vector rule</strong> keeps a vector property in step with the text it is computed from. The schema
+declares it on the vector property: beside <code>embedder</code> (the model) it names the source property
+<code>from</code> of the same label. From then on the engine embeds the text of <code>from</code> into the vector at
+the end of every unit that writes it, in the same unit: the text and its vector commit together,
+or neither does.</p>
+<pre><code class="language-json">"emb": {"type": "array", "format": "vector", "element": "f32", "dimension": 256,
+        "metric": "cosine", "embedder": "hash-ngram/1", "from": "text"}
+</code></pre>
+<p>The preview says what applying the rule fills (on the <code>modern</code> sample: the names of the four
+people), and applying it embeds every name:</p>
+<pre><code class="language-rhai graph=modern">g.validate_schema(#{vertices: #{person: #{schema: #{type: "object", properties: #{name: #{type: "string"}, emb: #{type: "array", format: "vector", embedder: "hash-ngram/1", from: "name"}}}}}})["fill"][0]["elements"]   // 4
+g.patch_schema(#{vertices: #{person: #{schema: #{type: "object", properties: #{name: #{type: "string"}, emb: #{type: "array", format: "vector", embedder: "hash-ngram/1", from: "name"}}}}}})
+</code></pre>
+<p>The vectors are written when the writing unit ends: run a read in the next query. (The
+playground and a script run as one unit see them in their next run.)</p>
+<h2 id="the-keyword"><a class="header" href="#the-keyword">The keyword</a></h2>
+<ul>
+<li><code>from</code> needs <code>format: "vector"</code> and <code>embedder</code> on the same node, and sits on a label's
+top-level property only (like <code>embedder</code>).</li>
+<li><code>from</code> names a top-level property of the same label (1 to 128 bytes), never the vector's own
+key and never the vector of another rule of the label: rules are not chained. When the label
+declares <code>from</code>, its type must admit a string, or the rule would always remove the vector.</li>
+<li><code>embedder</code> names the built-in <code>hash-ngram/1</code> or a model of the store, by its repository
+(<code>minishlab/potion-base-8M</code>) or its identity; the schema stores the identity of the store's
+current revision, and <code>get_schema</code> shows it. Any other model is refused when the schema is
+set, with the command that imports it (<code>graphersal embed-model import &lt;repo&gt; --into &lt;store&gt;</code>).
+An identity with a normalization override (<code>?normalize=false</code>) is refused too: a stored
+model is served as it was imported.</li>
+<li>An undeclared <code>dimension</code> is declared from the model; a declared one must be the model's.</li>
+<li>A storage without change capture (<code>StorageCapabilities::change_capture</code>) refuses rules
+(<code>Unsupported: vector rules</code>): the rule pass reads the unit's undo log.</li>
+<li>Inference never infers a rule.</li>
+<li>Two labels may each have a rule for the same key. For a vertex with several labels the FIRST
+label that declares a rule for the key wins (as for coercion).</li>
+</ul>
+<h2 id="when-the-vector-is-written"><a class="header" href="#when-the-vector-is-written">When the vector is written</a></h2>
+<p>At the end of the outermost unit (a query, a transaction, a whole-script unit, a schema change,
+a live import), once per element, however often the unit wrote it:</p>
+<ol>
+<li>Every element whose <code>from</code> the unit wrote, every element it created, and every vertex whose
+labels it changed (a label with a rule added) is looked at.</li>
+<li>Its text is embedded, in ONE batch per model over the whole unit (chunks of the model's batch
+size).</li>
+<li>The vector is written as an ordinary write of the unit: the change set, the write-ahead log
+and a rollback see it. Replay, recovery, loads and replicas never call a model; vectors travel
+as data.</li>
+</ol>
+<p>Inside the unit a read of the vector after a write of <code>from</code> sees the old vector: the new one
+appears when the outermost unit ends (<code>Execution::changes()</code> of an inner unit does not show it).
+A whole script run as one unit (the playground, <code>eval_value_atomic</code>) therefore reads the new
+vectors in its NEXT run.</p>
+<p><strong>A source without text removes the vector</strong>, in the same unit: <code>from</code> removed, set to <code>null</code>,
+set to <code>""</code>, set to a value that is not a string, or a text in which the model finds nothing to
+embed (<code>hash-ngram/1</code>: separators only).</p>
+<p>A failing model, a cancelled execution or the memory ceiling (<code>memory.limit</code>, operation
+<code>"vector rule fill"</code>) rolls the whole unit back: nothing is written
+(<code>GraphError::VectorRuleFailed</code>, <code>ResourceLimitExceeded</code>). A cancellation (<code>CancelToken</code>) stops
+a fill with the cause <code>EmbedError::Cancelled</code>; the execution timeout is not checked while the
+fill runs inside the commit.</p>
+<h2 id="direct-writes-are-refused"><a class="header" href="#direct-writes-are-refused">Direct writes are refused</a></h2>
+<p>The vector of a rule is computed, like a generated column of SQL. Writing or removing it
+directly (<code>property("emb", ..)</code>, <code>add_v(..).property("emb", ..)</code>, GQL <code>SET</code>, a jpath into it, an
+imported file that carries it) fails with <code>GraphError::DerivedProperty</code>, whose help names the
+source to write instead. <code>apply_change_set</code> (the replication form) takes the vector as given,
+and so do replay, recovery and loads. To write the vectors yourself, remove <code>from</code> from the
+declaration: the vectors stay as plain data.</p>
+<h2 id="first-fill-and-model-replacement"><a class="header" href="#first-fill-and-model-replacement">First fill and model replacement</a></h2>
+<blockquote>
+<p><strong>Warning:</strong> adding a rule (or changing its <code>from</code>, <code>embedder</code>, <code>element</code> or <code>dimension</code>) over
+existing data embeds EVERY element of the label in the schema-changing unit, also those that
+hold a vector already. While it runs the WHOLE database is locked: every write and every read
+waits until it ends. <code>hash-ngram/1</code> embeds about 200,000 short texts per second; a Model2Vec
+model is measured at its load (a batch of 64 sentences). Run it at a quiet time. If it fails,
+nothing is written.</p>
+</blockquote>
+<p>The same holds for a <strong>model replacement</strong> (<code>Store::import_model</code> with <code>replace</code>): the rules
+naming the old revision switch to the new one and re-embed every element of their labels in the
+replacing commit. A property whose vectors the old revision made WITHOUT a rule (an <code>embedder</code>
+but no <code>from</code>) refuses the replace (<code>StoreFailure::ModelInUse</code>, naming it): there is no text to
+re-embed. Add the rule first.</p>
+<p>A first fill and a replacement write <code>vector_fill.started</code> before the first batch,
+<code>vector_fill.done</code> after the commit (its <code>op</code> is the start record) or <code>vector_fill.failed</code>
+after the rollback to the <a href="../persistence/system_journal.html">system journal</a>.
+<code>Graph::vector_fill_progress()</code> (Rust) reports a running fill without taking the lock.</p>
+<p>Removing a rule does nothing to the data: the vectors stay as plain values.</p>
+<h2 id="the-preview-and-the-one-warning"><a class="header" href="#the-preview-and-the-one-warning">The preview and the one warning</a></h2>
+<p><code>validate_schema</code>, <code>validate_schema_patch</code> and <code>diff_schema</code> report the planned fill before
+anything is applied: <code>fill</code> lists per rule the label, <code>from</code>, <code>to</code>, the model, the reason
+(<code>rule_added</code>, <code>rule_changed</code>, <code>model_replaced</code>), the elements to embed, the vectors to remove,
+the estimated time (<code>estimate_ms</code>: the embedding plus the schema check the apply runs under the
+same lock, <code>scan_elements</code> / <code>scan_ms</code>; the embedding part is three times what the model's
+measured speed gives, because that speed is measured on short sentences and real texts are
+longer) and the saved queries whose body writes the rule's
+property directly (<code>direct_writes</code>: such a write is refused once the rule exists; remove it,
+the queries are never rewritten); <code>fill_warning</code> is the ONE text every front end shows:</p>
+<pre><code class="language-text">Applying this schema fills vectors: 1,204,331 elements of doc.emb from doc.text with the model
+minishlab/potion-multilingual-128M (about 1 min).
+The whole database is LOCKED while this runs: every write and every read waits until it ends.
+Run it at a quiet time. If it fails, nothing is written.
+</code></pre>
+<p>and, when saved queries write a filled property directly, a line per property such as
+<code>Saved queries writing doc.emb directly fail once the rule exists (remove that write; they are not rewritten): load_docs.</code> Only a Rhai body with a literal key in <code>property(..)</code> is found
+(<code>property("emb", ..)</code>, also after a cardinality); a computed key, the maps of <code>merge_v</code>/<code>merge_e</code>
+and GQL bodies are not, so check such queries yourself.</p>
+<p>The schema check of a change that keeps the mode (<code>open</code> or <code>closed</code>) reads only the elements of
+the labels whose declaration changed: adding a rule to three labels of a graph of millions of
+elements checks those three labels, not the whole graph. A change of the mode checks every
+element. <code>validate_schema</code> runs the same check and measures it, so its <code>scan_ms</code> is the time the
+apply's check takes; <code>diff_schema</code> reads no data: its counts come from the label statistics
+("up to") and its check time from a fixed rate. A fill <strong>needs confirmation</strong> when its estimate
+(the check included) is 1 s or more, or, without an estimate, from 10,000 elements or a check of
+1 s or more:</p>
+<ul>
+<li>the playground's schema editor asks with a dialog "Apply and lock" / "Cancel" (below the
+threshold a plain note);</li>
+<li>the MCP tools <code>set_schema</code> / <code>patch_schema</code> refuse it with the text and "Repeat with
+confirm_lock: true" (<a href="../persistence/dev_server.html">Dev Server</a>);</li>
+<li>the CLI prints it as a <code>note:</code> before applying <code>--schema</code>;</li>
+<li>Python issues <code>graphersal.VectorFillWarning</code> before applying.</li>
+</ul>
+<p>The diff lists a rule as <code>vector_rule_added</code> (compatible on a new property, incompatible when
+the property was declared before: its direct writes are refused from then on),
+<code>vector_rule_changed</code> (incompatible) or <code>vector_rule_removed</code> (compatible).</p>
+<h2 id="permissions"><a class="header" href="#permissions">Permissions</a></h2>
+<p>Setting a schema with a rule asks <code>Update</code> on the schema. The derived writes ask nothing of their
+own (like create-time defaults), and the rule's model runs without <code>Execute</code> on the embedder.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../users_guide/vectors.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../dates/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../users_guide/vectors.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../dates/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

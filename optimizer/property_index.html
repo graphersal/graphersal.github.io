@@ -1,0 +1,327 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Property Index Rule - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/optimizer/property_index.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="property-index-rule"><a class="header" href="#property-index-rule">Property Index Rule</a></h1>
+<p>Rule name: <code>property_index</code> (on by default, sixth in the pipeline, right after
+<a href="source_filter_pushdown.html">Source Filter Pushdown</a>).</p>
+<h2 id="what-it-rewrites"><a class="header" href="#what-it-rewrites">What it rewrites</a></h2>
+<p>It records on a <code>v()</code>/<code>e()</code> start step which
+<a href="../users_guide/property_indexes.html">property index</a> the step reads instead of its label buckets,
+and, for a condition the index answers <a href="#exact-accesses">exactly</a>, drops that condition's
+re-check. <code>.profile()</code> shows the choice on the start step:</p>
+<pre><code class="language-rhai">v().has_label("person").has("title", "CEO")      →   v(labels: ["person"]).has("title", "CEO") [index: vertex person.title, exact]
+v().has_label("person").has("age", P.gt(30))     →   v(labels: ["person"]) [index: vertex person.age]
+                                                      has("age", P.gt(30))
+e().has_label("knows").has("weight", P.lt(0.5))  →   e(labels: ["knows"]) [index: edge knows.weight]
+                                                      has("weight", P.lt(0.5))
+v().has_label("person")                          →   v(labels: ["person"]).has("name", __.to_lower().is(P.eq("ada")))
+   .has("name", __.to_lower().is("ada"))                  [index: vertex person.name to_lower, exact]
+v().has("name", "josh")                          →   v().has("name", "josh") [index: vertex name, any label, exact]
+v().has("name", "josh").count()                  →   v().has("name", "josh").count() [index: vertex name, any label, exact] [count from index]
+v().has("_owners", __.unfold().is("o1"))         →   v().has("_owners", __.unfold().is(P.eq("o1"))) [index: vertex _owners each, any label, exact]
+v().has("_owners", __.unfold().is(P.gt("o1")))   →   v() [index: vertex _owners each, any label]
+                                                      has("_owners", __.unfold().is(P.gt("o1")))
+v().has_label("doc")                             →   v(labels: ["doc"]) [index: vertex doc.tags each to_lower]
+   .has("tags", __.unfold().to_lower().is(P.gte("x")))  has("tags", __.unfold().to_lower().is(P.gte("x")))
+</code></pre>
+<p>It looks at</p>
+<ul>
+<li>the <code>has(key, value)</code> conditions <a href="source_filter_pushdown.html">Source Filter Pushdown</a> folded into
+the start step (scalar values), and</li>
+<li>the <code>has(key, P)</code> steps in the run of pure filters (<code>has</code>, <code>has_label</code>, <code>has_id</code>, <code>has_key</code>,
+<code>has_not</code>) right after it, with <code>P.eq</code>, <code>P.within</code>, <code>P.gt/gte/lt/lte</code>, <code>P.between</code>, <code>P.inside</code>
+or <code>P.outside</code>, and</li>
+<li>the <code>has(key, __.to_lower().is(P))</code> steps in that run (TinkerPop's <code>has(key, traversal)</code> with
+exactly that child, <code>P</code> as above), which only an index with the
+<a href="../users_guide/property_indexes.html#case-insensitive-search">transform</a> <code>to_lower</code> on the key
+covers. Its slices are <code>P</code>'s constants as given (the child compares the lowered value with
+them); it is covered only while that index has skipped no value (<code>skipped</code> 0), because the
+child's <code>to_lower()</code> fails on a non-string value and the scan must report that error. A
+<code>null</code> constant is not covered (<code>to_lower()</code> passes a <code>null</code> through, the index holds none).</li>
+<li>the <code>has(key, __.unfold().is(P))</code> steps in that run, covered by an index with the transform
+<a href="../users_guide/property_indexes.html#arrays-the-each-transform"><code>each</code></a> (one entry per list
+element) whatever it skipped (a nested list, a map's entries or a vector that <code>unfold()</code>
+emits never equals or ranges with a scalar), and <code>has(key, __.unfold().to_lower().is(P))</code> by
+<code>["each", "to_lower"]</code> while it skipped nothing. Any other <code>has(key, traversal)</code> ends the run
+of pure filters.</li>
+</ul>
+<p>A condition on the whole value (a folded <code>has(key, value)</code>, a <code>has(key, P)</code>) with no index of no
+transform on the key is covered by an <code>each</code> index as a SUPERSET: lists holding the value are
+candidates and the re-check of the whole value drops them; such an access is never exact.</p>
+<p>A condition is covered when every label folded into the start step has an index on its key (of
+the condition's transform: none for <code>has(key, ..)</code>, <code>to_lower</code> for the lowered form), or when a
+<a href="../users_guide/property_indexes.html#label-less-indexes">label-less index</a> on the key exists: a
+start step without labels can only read a label-less index; one with labels compares the sum
+of its per-label estimates with the label-less index's estimate, the lower wins (a tie keeps the
+per-label indexes), and with the label-less index it checks each candidate's labels. Of the
+covered conditions the rule picks the most selective by the indexes' statistics (an equality: about
+<code>entries / distinct_values</code> elements per index and value; a range: half the entries). A
+<a href="../users_guide/property_indexes.html#unique-indexes">unique index</a> is read like any other index
+(its statistics give an equality about one element; one that is not served, its data holding
+repeated values, is never read).</p>
+<h2 id="exact-accesses"><a class="header" href="#exact-accesses">Exact accesses</a></h2>
+<p>An access is <strong>exact</strong> (user decision 2026-11-08) when the index answers the condition it reads
+exactly, so no re-check could drop a candidate:</p>
+<ul>
+<li>every slice is a point (an equality, or each operand of <code>P.within</code>) of a string, boolean, uuid
+or temporal value: a number slice spans <code>int64</code> and <code>float64</code> (a superset), and <code>null</code> and
+ranges keep their re-check;</li>
+<li>the index has no transform (a condition on the whole value), or <code>each</code> reading
+<code>has(key, __.unfold().is(..))</code> (an element is in the postings of each of its values once; the
+start step deduplicates several slices), or <code>to_lower</code> / <code>["each", "to_lower"]</code> reading
+<code>has(key, __.to_lower().is(..))</code> / <code>has(key, __.unfold().to_lower().is(..))</code> (read only while
+the index skipped nothing, so in a reading query <code>to_lower()</code> cannot fail and the lowered keys
+answer the condition; a <code>null</code> constant is never served); not an <code>each</code> index read as a
+superset;</li>
+<li>the query does not write at any level (no mutating step, in a child traversal neither: a write
+could change what the index holds while the plan reads it);</li>
+<li>the storage claims <code>StorageCapabilities::exact_property_index_lookups</code> (the built-in graph, its
+read-only views and the wrappers that forward it do; a custom storage's lookups otherwise
+count as supersets).</li>
+</ul>
+<p>Then the re-check of that one condition is dropped: a folded <code>has(key, value)</code> is no longer
+checked on the candidates (the start step still shows it), a <code>has</code> step leaves the plan and the
+start step shows it after its folded conditions, and the index marker reads <code>, exact</code>. Every other
+condition is still checked, and so are the labels of a label-less index's candidates under a
+start with labels. When nothing else is left (one slice, no other folded condition, and a
+label-less index under a start without labels or the index of the start's single label) the
+access is also countable, and <a href="count_pushdown.html">Count Pushdown</a> may fuse a following <code>count()</code>
+into the start step, which the storage then answers from the index
+(<code>GraphStorage::count_by_property_index</code>) without visiting the elements: <code>.profile()</code> shows
+<code>[count from index]</code>. Should the storage not serve the index after all, the start step scans and
+checks the answered condition itself, as the index keys it.</p>
+<h2 id="why"><a class="header" href="#why">Why</a></h2>
+<p>The start step then reads only the elements whose value lies in the slices of the index, instead
+of every element of its labels. The conditions it does not answer exactly are not removed: the
+start step still checks its other folded conditions on each candidate and their <code>has(key, P)</code>
+steps stay in the plan, so the result equals the scan's (only the order of the elements may
+differ). An exact condition is not checked twice: the index is maintained exactly on every write
+and rollback, it is trusted, and a wrong entry would show in the result instead of being hidden
+by a re-check (the randomized differential tests compare every exact shape with the scan).</p>
+<h2 id="when-it-does-not-fire"><a class="header" href="#when-it-does-not-fire">When it does not fire</a></h2>
+<ul>
+<li>No index is declared (the rule then costs nothing), or one of the folded labels has none on the
+key and no label-less index covers it. Only indexes the storage serves count: an index of a
+<a href="../users_guide/property_indexes.html#index-types">type</a> this version does not know (written by
+a newer version) is kept in the catalog but never read.</li>
+<li>The start step has no folded label (<code>v().has("title", "CEO")</code>) and no label-less index covers
+the key, has ids folded (<code>v("1").has_label(..)</code>: the ids are cheaper), or a fused
+<code>count()</code>/<code>group_count()</code>.</li>
+<li>The condition is not served: <code>P.neq</code>, <code>P.without</code>, text predicates, composites, a list or map
+value, a jpath key, <code>NaN</code>; a <code>has(key, traversal)</code> whose child is not exactly
+<code>to_lower().is(P)</code>, <code>unfold().is(P)</code> or <code>unfold().to_lower().is(P)</code>; a lowered form while its
+index skipped a non-string value.</li>
+</ul>
+<p><code>g.with("optimizer.disabled", ["property_index"])</code> turns it off for one query, for example to
+compare the plan with the label scan.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../optimizer/source_filter_pushdown.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../optimizer/barrier_pushdown.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../optimizer/source_filter_pushdown.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../optimizer/barrier_pushdown.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

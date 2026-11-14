@@ -1,0 +1,320 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Query Optimizer - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/optimizer/index.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="query-optimizer"><a class="header" href="#query-optimizer">Query Optimizer</a></h1>
+<p>Before a traversal runs, Graphersal's rule-based optimizer rewrites its steps into a cheaper
+physical plan: it folds filters into the start step, fuses counts, inserts merge points and so on.
+<code>.profile()</code> always shows the plan <strong>after</strong> optimization, with fused steps under their real names
+(for example <code>v(labels: ["person"]).count()</code>).</p>
+<p>See the <a href="../users_guide/execution_options_reference.html">Execution Options Reference</a> for the full
+table of every <code>g.with()</code> key, including <code>optimizer.disabled</code>/<code>optimizer.enabled</code> below.</p>
+<h2 id="rules-order-and-default-state"><a class="header" href="#rules-order-and-default-state">Rules, order and default state</a></h2>
+<p>The rules run in this order, once per traversal level. Each has a stable name: the string
+<code>.profile()</code> reports and the string <code>g.with("optimizer.disabled", [...])</code> /
+<code>g.with("optimizer.enabled", [...])</code> accept.</p>
+<div class="table-wrapper"><table><thead><tr><th>#</th><th>Rule</th><th>Name</th><th>Default</th><th>Rewrites</th></tr></thead><tbody>
+<tr><td>1</td><td><a href="where_unnest.html">Where Unnest</a></td><td><code>where_unnest</code></td><td>on</td><td><code>where(__.has...)</code> of local filters → the filters inline</td></tr>
+<tr><td>2</td><td><a href="add_property_fold.html">Add Property Fold</a></td><td><code>add_property_fold</code></td><td>on</td><td><code>add_v(..).property(k, v)...</code> → one creation with all properties</td></tr>
+<tr><td>3</td><td><a href="filter_reorder.html">Filter Reorder</a></td><td><code>filter_reorder</code></td><td>on</td><td>adjacent filters sorted cheapest first</td></tr>
+<tr><td>4</td><td><a href="has_id_pushdown.html">Has ID Pushdown</a></td><td><code>has_id_pushdown</code></td><td>on</td><td><code>v().has_id(..)</code> → <code>v(ids)</code></td></tr>
+<tr><td>5</td><td><a href="source_filter_pushdown.html">Source Filter Pushdown</a></td><td><code>source_filter_pushdown</code></td><td>on</td><td><code>v().has_label(..)</code>/<code>has_id(..)</code>/<code>has(k, v)</code> → <code>v(labels, ids).has(k, v)</code> (checked while scanning)</td></tr>
+<tr><td>6</td><td><a href="property_index.html">Property Index</a></td><td><code>property_index</code></td><td>on</td><td><code>v(labels).has(k, ..)</code> reads a declared <a href="../users_guide/property_indexes.html">property index</a> (<code>[index: ..]</code>)</td></tr>
+<tr><td>7</td><td><a href="barrier_pushdown.html">Barrier Pushdown</a></td><td><code>barrier_pushdown</code></td><td>on</td><td><code>out_e().has_label(..)</code> → <code>out_e(labels)</code></td></tr>
+<tr><td>8</td><td><a href="group_count_pushdown.html">Group Count Pushdown</a></td><td><code>group_count_pushdown</code></td><td>on</td><td><code>v().group_count().by(T.label)</code> → one fused step</td></tr>
+<tr><td>9</td><td><a href="count_pushdown.html">Count Pushdown</a></td><td><code>count_pushdown</code></td><td>on</td><td><code>v().count()</code> → one fused step</td></tr>
+<tr><td>10</td><td><a href="lazy_barrier.html">Lazy Barrier</a></td><td><code>lazy_barrier</code></td><td>on</td><td>inserts <code>lazy_barrier()</code> between adjacent adjacency steps</td></tr>
+</tbody></table>
+</div>
+<p>All 10 rules ship on by default; none is opt-in today. The order matters: the early rules
+bring filters into the position where the later ones can fold them. For example
+<code>g.v().where(__.has_label("person")).count()</code> becomes <code>v(labels: ["person"]).count()</code> through
+<code>where_unnest</code>, <code>source_filter_pushdown</code> and <code>count_pushdown</code> together.</p>
+<p><strong>Nested traversals</strong> (the children of <code>where()</code>, <code>union()</code>, <code>repeat()</code>, <code>by(__...)</code>, ...) are
+optimized first, bottom-up, with the same rules, before their parent level. The rules that fold
+into a start step only fire on a level that begins with <code>v()</code>/<code>e()</code>, so they rarely apply inside a
+child; <code>where_unnest</code>, <code>filter_reorder</code>, <code>barrier_pushdown</code> and <code>lazy_barrier</code> do.</p>
+<p><strong>Modulators.</strong> A <code>by()</code> belongs to the step in front of it and moves with it: no rule moves a
+filter across a <code>by()</code>, <code>from()</code>/<code>to()</code> or <code>as()</code>. <code>filter_reorder</code>, <code>has_id_pushdown</code>,
+<code>source_filter_pushdown</code> and <code>barrier_pushdown</code> stop at such a step; <code>lazy_barrier</code> and
+<code>add_property_fold</code> look past modulators (and <code>add_property_fold</code> past <code>as()</code>) because these do not
+change their stream. <code>group_count_pushdown</code> reads the <code>by()</code> modulators of the grouping step: only
+<code>by(T.label)</code> (plus <code>by(Count)</code> for <code>group()</code>) can be fused.</p>
+<h2 id="see-which-rules-fired"><a class="header" href="#see-which-rules-fired">See which rules fired</a></h2>
+<p><code>.profile()</code>/<code>.profile_with(...)</code> end with an "Optimizer rules applied: ..." line after the
+timing table, naming every rule (top-level and nested, deduplicated, in pipeline order) that
+actually changed the plan. The line is omitted when no rule fired.</p>
+<pre><code class="language-console">$ graphersal -e 'g.v().has_label("person").count().profile()'
+Traversal Metrics
+Step                                                         Call      In     Out       Time    % Dur
+=====================================================================================================
+v(labels: ["person"]).count()                                   1       0       4    4.042µs    10.58
+                                                      TOTAL:             execute:   38.208µs    10.58
+=====================================================================================================
+Optimizer rules applied: source_filter_pushdown, count_pushdown
+</code></pre>
+<p>The same list is available as data: <code>optimizer_rules_applied</code> on the <code>TraversalMetrics</code> value
+(a property in Rhai, <code>TraversalMetrics::optimizer_rules_applied()</code> in Rust).</p>
+<pre><code class="language-console">$ graphersal -e 'g.v().has_label("person").count().profile().optimizer_rules_applied'
+"source_filter_pushdown"
+"count_pushdown"
+</code></pre>
+<h2 id="toggle-rules-for-one-query"><a class="header" href="#toggle-rules-for-one-query">Toggle rules for one query</a></h2>
+<p><strong>Disable a rule</strong>, e.g. to compare a plan with and without it, or to work around a rule producing
+an unwanted plan:</p>
+<pre><code class="language-rhai graph=modern">g.with("optimizer.disabled", ["filter_reorder"]).v().has_label("person").count().profile()
+</code></pre>
+<p><strong>Disable every rule at once</strong> with the reserved name <code>"all"</code>, to see a query's genuinely
+unoptimized plan (the "Optimizer rules applied" line then disappears):</p>
+<pre><code class="language-console">$ graphersal -e 'g.with("optimizer.disabled", ["all"]).v().has_label("person").count().profile()'
+Traversal Metrics
+Step                                                         Call      In     Out       Time    % Dur
+=====================================================================================================
+v()                                                             1       0       6    3.041µs    10.21
+has_label("person")                                             1       6       4    2.000µs     6.71
+count()                                                         1       4       1       42ns     0.14
+                                                      TOTAL:             execute:   29.791µs    17.06
+=====================================================================================================
+</code></pre>
+<p><strong>Force-enable an off-by-default rule</strong> with <code>optimizer.enabled</code> (it also accepts <code>"all"</code>). This
+is a no-op today, since no rule defaults to off, but it is ready for the first rule that does.</p>
+<p>A name that is neither a rule above nor <code>"all"</code>, or a rule named in both lists, fails with
+<code>InvalidOption</code> when the traversal executes (not at <code>with()</code> time):</p>
+<pre><code class="language-console">$ graphersal -e 'g.with("optimizer.disabled", ["no_such_rule"]).v().count().to_list()'
+Error: Invalid value for option 'optimizer.disabled': unknown optimizer rule "no_such_rule"; valid names are: where_unnest, add_property_fold, filter_reorder, has_id_pushdown, source_filter_pushdown, property_index, barrier_pushdown, group_count_pushdown, count_pushdown, lazy_barrier, all
+Help: Set 'optimizer.disabled'/'optimizer.enabled' to an array of optimizer rule names ...
+</code></pre>
+<h2 id="do-the-rules-change-results"><a class="header" href="#do-the-rules-change-results">Do the rules change results?</a></h2>
+<p>A rule changes the <em>plan</em>, not the <em>result</em>, with these exceptions, each described on the rule's
+page:</p>
+<ul>
+<li><a href="add_property_fold.html">Add Property Fold</a> decides whether <code>addV(..).property(..)</code> can satisfy a
+schema with required properties at all. Without it, the creation fails.</li>
+<li>The <em>order</em> of results is not part of the guarantee: <a href="source_filter_pushdown.html">Source Filter
+Pushdown</a> reads elements label by label from the index, and
+<a href="property_index.html">Property Index</a> reads them in index order, and
+<a href="lazy_barrier.html">Lazy Barrier</a> can reorder duplicates. Use <code>order()</code> when the order matters.</li>
+</ul>
+<h2 id="path-requirement-analysis"><a class="header" href="#path-requirement-analysis">Path requirement analysis</a></h2>
+<p>After the rules, the <a href="path_analysis.html">path requirement analysis</a> walks every level of the final
+plan backwards and decides what each step must record into traverser paths (<code>none</code>, only some
+labels, or <code>full</code>) so that later readers such as <code>path()</code>, <code>select("a")</code> or <code>simple_path()</code> find
+what they need. <code>.profile()</code> shows the decision as <code>[path: ...]</code> on each step that records
+something, and <code>g.with("path.analysis", false)</code> forces full recording everywhere for diagnosis. It
+runs after the rules because they fuse and remove steps, and it is not a rule: it cannot be
+disabled through <code>optimizer.disabled</code>.</p>
+<h2 id="optimizer-cost"><a class="header" href="#optimizer-cost">Optimizer cost</a></h2>
+<p>The optimizer's own cost is not broken out as a separate row in <code>.profile()</code>. On a real graph it
+is negligible next to the actual traversal work; on graphs the size of <code>tinkerpop_modern</code> the whole
+query runs in microseconds, a scale where debug-build measurement noise dominates any number this
+crate could report.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../traversal/steps/with_side_effect.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../optimizer/where_unnest.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../traversal/steps/with_side_effect.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../optimizer/where_unnest.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

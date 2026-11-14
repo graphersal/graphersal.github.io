@@ -1,0 +1,1001 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Web Playground - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/users_guide/web_playground.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="web-playground"><a class="header" href="#web-playground">Web Playground</a></h1>
+<p>The playground is a single-page web app that runs Graphersal <strong>in the browser</strong>: the real engine,
+compiled to WebAssembly (<code>crates/graphersal-wasm</code>), in a Web Worker. There is no server-side part;
+any static file server can host it. Its source is <code>playground/</code> in the repository; the developer
+details (engine boundary, file layout, libraries) are in <code>playground/README.md</code>.</p>
+<h2 id="build-and-run"><a class="header" href="#build-and-run">Build and run</a></h2>
+<pre><code class="language-bash">rustup target add wasm32-unknown-unknown                      # one-time
+cargo install --locked wasm-bindgen-cli --version 0.2.129     # one-time; must match the wasm-bindgen crate
+playground/build.sh                                           # builds playground/pkg/
+python3 playground/serve.py 8000                              # open http://localhost:8000/ (no browser caching)
+</code></pre>
+<p><code>wasm-opt</code> (from binaryen) is optional; when it is installed, <code>build.sh</code> uses it to make the module
+smaller. Without the build output the page explains how to build it.</p>
+<p>The same UI also runs against the CLI as a local engine, without WebAssembly:
+<code>graphersal --graph &lt;src&gt; --server</code> (DEV mode, unstable, local only; see
+<a href="../persistence/dev_server.html">Dev Server and MCP</a>). There the Query panel can also open an
+<a href="../persistence/dev_server.html#ai-chat">AI Chat</a> tab (EXPERIMENTAL, <code>--ai FILE</code>): an LLM agent that
+answers questions by querying the served graph. In the WebAssembly playground that tab is read-only.</p>
+<h2 id="what-it-does"><a class="header" href="#what-it-does">What it does</a></h2>
+<ul>
+<li><strong>Graphs</strong>: the empty graph, the TinkerPop "modern" graph, the generated ~110k element graph (the
+CLI's <code>--graph large</code>), a file tree sample, or a <a href="graphson.html">GraphSON</a> (<code>.json</code>, TinkerPop's
+<code>g.io()</code> format) or GraphML file from your disk (it stays in the browser). What a GraphSON import
+skips (dates, unsupported types) is shown in a notice.</li>
+<li><strong>Queries</strong>: the full DSL, both spellings, with completion from the engine's own function list
+(each entry's tooltip shows its overloads, a one-line description and a runnable example). A
+traversal without a terminal runs as <code>execute()</code>, so one run gives the results and, with
+<strong>Profile</strong> on, the metrics; <strong>Memory</strong> adds the exact per-step memory figures (the module installs
+the counting allocator, so the source is <code>tracked</code>). Results are shown as a table, JSON and the raw
+text the CLI prints, within the CLI's display limits (see <a href="displaying_results.html">Displaying Results</a>).</li>
+<li><strong>Examples</strong>: the Query panel's <strong>Examples</strong> button (a click, or resting the pointer on it) opens
+a panel over the editor with every example, in collapsible groups (GQL split by topic). Its search
+field finds a plain text in titles and scripts, case-insensitive (<code>.order(</code> lists every example
+that uses it, with the matching line); <code>Up</code>/<code>Down</code> move, <code>Enter</code> opens, <code>Esc</code> clears the search
+and then closes. Reopening returns to where you were and marks the example opened last, so the
+next one is right below it. The Modern graph group has <code>subgraph()</code> examples (the edges of one
+kind, the edges walked by <code>repeat()</code>, the result as a graph, traversing the extracted graph).</li>
+<li><strong>Query tabs</strong>: the Query panel holds several queries side by side. Each tab has its own text,
+Profile/Memory toggles, last result and last profile; switching tabs shows that tab's results
+without running anything. The graph is shared: when a run in one tab changes it, the other tabs'
+results are marked "possibly stale" until they run again. An example from the Examples menu goes
+into the active tab only when that tab is empty or still holds an unchanged example; otherwise it
+opens in a new tab, so your own text is never overwritten. The tab menu also offers <em>Duplicate
+tab</em>, <em>Close other tabs</em> and <em>Run all tabs</em>. The tabs (not their results) are kept in the browser;
+the query history records every run with its tab's name. Shortcuts: <code>Ctrl</code>/<code>⌘</code>+<code>Enter</code> runs the
+active tab (or its selection, see <strong>Run</strong> below), <code>Ctrl</code>/<code>⌘</code>+<code>Shift</code>+<code>Enter</code> runs all tabs, <code>Alt</code>+<code>N</code> opens and <code>Alt</code>+<code>W</code> closes a tab,
+<code>Alt</code>+<code>[</code> / <code>Alt</code>+<code>]</code> switch to the previous / next tab and <code>Alt</code>+<code>Shift</code>+<code>1</code>…<code>9</code> to tab 1…8 or
+the last one (the browser keeps <code>Ctrl</code>/<code>⌘</code>+<code>T</code>, <code>W</code> and <code>1</code>…<code>9</code> for its own tabs).</li>
+<li><strong>GQL query tabs</strong>: a query tab is in Rhai (the Gremlin DSL, the default) or in
+<a href="../gql/index.html">GQL</a>. Open one with <strong>+ ▸ GQL query</strong> (marked <code>GQL</code> in the tab strip), or switch
+the tab with the <strong>Rhai / GQL</strong> switch in the Query panel's header; nothing is detected from the
+text. In a GQL tab you write the query itself, <code>MATCH (p:person) WHERE p.age &gt; $min RETURN p.name</code>,
+with GQL highlighting and completion: the keywords that fit the position (after <code>MATCH</code> a pattern's
+<code>WHERE</code>, <code>RETURN</code> and the next clauses, after <code>RETURN</code> <code>AS</code>, <code>ORDER BY</code>, <code>LIMIT</code>, ...), the GQL
+functions with a short description, the graph's labels after <code>:</code> (edge types inside <code>[..]</code>), the
+property keys after <code>n.</code> (those of <code>n</code>'s labels), the variables the query binds, the
+parameters after <code>$</code>, and after <code>CALL</code> the saved queries written in GQL as <code>folder.name</code>
+(<a href="saved_queries.html#calling-saved-queries-from-gql">Calling saved queries from GQL</a>). Under the editor the <strong>Parameters</strong> field holds the parameter map as JSON,
+<code>{"min": 30}</code> (checked as you type; a fault names its line and column); <strong>+ Add $parameters</strong>
+adds every <code>$name</code> the query reads that the map lacks. Run, Run selection, Stop, Profile, the
+history and the results work as in a Rhai tab: the tab runs <code>g.gql("&lt;query&gt;", #{min: 30})</code>, and
+an error's GQLSTATUS stays in its message while the part of the query it names is underlined in
+the editor (<strong>Go to line</strong> jumps there). Switching a tab that holds exactly one
+<code>g.gql(`...`, #{..})</code> call to GQL takes its query and its literal parameters out of it;
+switching back writes them as that call again; any other text is kept as it is. GQL examples of
+the Examples menu open as GQL tabs. <strong>Save as query…</strong> of a GQL tab saves a GQL query with its
+<code>$parameters</code>, typed and defaulted by the Parameters field.</li>
+<li><strong>Statistics</strong>, a tab of the Profile panel (next to Steps and Text), shows two sources
+side by side: the graph's data (<code>g.statistics()</code>: vertex and edge totals, the counts per vertex
+label, also as primary label, and per edge label; at most 50 labels per kind, largest first) with
+its memory footprint (<code>g.memory_usage()</code>), and the limits a query runs under: the host's presets
+(none in the playground; the dev server's <code>--timeout</code>, <code>--max-*</code>, ...) and the engine's defaults
+for the rest (see <a href="resource_limits.html">Resource Limits</a>; <code>g.with(..)</code> changes them per query).
+While open it reloads after every run that changed the data. A <strong>Process memory</strong> section
+(hidden when empty) lists what the process holds: the resident set size (RSS, with its peak)
+and the live heap on the dev server (RSS on Linux and macOS only), every loaded embedding model
+with its size (measured at its load; marked "estimate" where no tracking allocator counted it) and, on the dev server with <code>--ai</code>, the AI Chat history (conversations
+and an estimate of their bytes). The WebAssembly playground has no loaded models, no chat and no RSS; it shows the live heap
+and the size of its WebAssembly memory.
+Above the Memory section, the <strong>process memory bar</strong> shows how full the process is against its
+<a href="resource_limits.html#seeing-how-full-the-process-is">memory ceiling</a>: used of the ceiling, where
+the ceiling comes from (configured, cgroup limit, 80 % of RAM, WebAssembly default), and the
+percentage (normal below 70 %, amber from 70 to 90 %, red above). One coloured segment per
+place the memory goes: <strong>structure</strong> (vertex and edge slots, ids and labels: the Memory row's
+Structure), <strong>properties</strong> (plain values), <strong>compressed</strong> (compressed and deduplicated values
+with their dictionaries), <strong>indexes</strong> (the id and label indexes plus the property indexes: the
+Memory row's Indexes and Property indexes), <strong>models</strong> (embedding models in memory),
+<strong>live_graph</strong> (a store's live graph, held beside the <a href="../persistence/store_point_in_time.html#read-only-views">read-only view</a> of a past state
+you are looking at), <strong>store</strong> (the store's buffers and, for a database kept in memory, its
+files), <strong>engine</strong> (the script engine, the workload statistics, the session's layouts, the dev
+server's MCP and AI Chat state) and <strong>other</strong> (the rest of the heap no segment explains: query
+buffers, caches, allocator overhead). A segment's tooltip lists the parts it sums. The legend
+lists every segment with its size, also a tiny one, and a line says what compression saves.
+Without a tracking allocator only the known segments are shown, marked "process total not
+tracked"; without a ceiling there is no percentage. The same bar opens the Memory tab of
+<strong>Optimize</strong>; the Statistics tab's <strong>Components and memory report…</strong> button opens that tab,
+whose <strong>Process memory</strong> table lists every component with its bytes (the memory report's walk,
+so it is not repeated in the Statistics tab).
+With <strong>Profile</strong> on, a line under the step tree, <strong>Peak memory</strong>, shows the most memory the run
+held at once against the per-query limit <code>traversal.max_materialized_bytes</code> (amber and red by
+the same thresholds): a different figure from the process bar, against a different limit.</li>
+<li><strong>Errors</strong> show the message, the step path of a runtime error (the same step ids as the profile),
+the <code>help()</code> advice, a "Go to line" for script errors, and the full diagnostic.</li>
+<li><strong>Graph, Schema, Profile</strong> panels draw the graph (capped), show and edit the schema (see
+<a href="#the-schema-editor">The schema editor</a> below; the drawings, a label graph and a Mermaid diagram,
+show at most 300 labels), and the optimized plan with timings, traverser counts, loop statistics,
+path recording and memory. The Graph panel draws the whole graph when it has at most 10 000
+vertices and 20 000 edges (Settings), else its labels; it also draws the neighbourhood of a
+vertex and the last query result. Clicking a vertex or an edge shows its properties, fetched from
+the engine at that moment (the drawing itself carries only ids, labels and names; long texts and
+vectors are collapsed with an expand button, see <a href="#what-the-panel-shows">Long values</a>);
+double-clicking a vertex in the neighbourhood or the query result expands it by one hop from
+the engine (in the whole graph: selects it with its neighbours, again for one hop more),
+double-clicking empty space fits the drawing. The toolbar keeps Layout, Edit, Fit and Export;
+the ⚙ <strong>Display</strong> menu holds the drawing tier, vertex and edge IDs, edge labels and a short mouse
+help (a narrow panel moves Layout and Edit there too). Above 200 vertices the engine lays the drawing out (with progress
+and Stop) instead of the browser. See <a href="#the-graph-drawing">The graph drawing</a> below for what
+the panel shows and its two drawing tiers.</li>
+<li><strong>Run</strong> (or <code>Ctrl</code>/<code>⌘</code>+<code>Enter</code>) runs the selected text when the editor has a selection, else the
+whole tab, so a script can be tried piece by piece. The button then reads <em>Run selection</em>, and the
+status bar and the Results header say "selection (N lines)". A selection of only whitespace runs
+the whole tab; with several selections (<code>Alt</code>+drag) only the main one runs. Everything else is a
+normal run: one unit (committed only when it succeeds), the history records the text that ran,
+Profile and Memory apply, and an error's "Go to line" points into the full text of the tab.
+<em>Run all tabs</em> always runs whole tabs.</li>
+<li><strong>Stop</strong> (next to Run) ends a long query: the engine is restarted and the graph restored as it was
+last loaded (sample or file) or last saved. Changes made after that point are lost, and so is the
+history of the <a href="../persistence/playground_store.html">store in memory</a> (it starts over from that state).
+While no query runs but the graph drawing is being laid out, Stop ends only the layout: the
+drawing keeps the positions reached so far and nothing is restarted.</li>
+<li><strong>Save ▾</strong> (top bar; the start page has the same entries as buttons) downloads ONE file per
+entry: the graph data as GraphSON 3.0 (<code>graphersal-graph-YYYYMMDD-HHMMSS.json</code>) or GraphML
+(<code>.graphml</code>), the schema (<code>graphersal-schema-YYYYMMDD-HHMMSS.json</code>; neither data format carries
+it, see <a href="uuid_values.html#graphml-import-and-export">UUID Values</a>), the <a href="#saved-queries">saved queries</a>, or a snapshot (<code>.gsnap</code>) with
+data, schema and saved queries in one file. One file per click, because browsers block or drop a second
+download started by the same click. To load both back, choose both in <strong>Load from file</strong> on the
+start page: the graph file and, in the dialog's optional second field, the <strong>schema file (JSON)</strong>.
+The schema is set on the new, empty graph first and the data is imported against it as one unit,
+so the elements, ids, labels, properties and the schema come back; in mode <code>open</code> or <code>closed</code> a
+violation fails the load with the error and nothing changes. <strong>Load from file always starts
+without the previous graph's schema</strong>: a graph file loaded without a schema file has no schema
+(a previous graph's schema has nothing to do with an unrelated file). Dropping ONE file on the
+card loads it without a schema; dropping a graph file together with its <code>.json</code> schema pairs them
+when that is unambiguous (the graph file is GraphML, <code>.jsonl</code> or <code>.graphson</code>; two <code>.json</code> files
+are refused, choose them in the dialog). A snapshot (<code>.gsnap</code>) brings its own schema and takes no
+schema file.
+GraphSON keeps every value type (<code>uuid</code>, lists, maps) by itself; GraphML gets them back from the
+schema's declarations, and Save warns about values that come back as strings without one (an
+undeclared <code>uuid</code>, lists and maps, a property with different types on different labels).</li>
+<li><strong>Load schema</strong> applies a JSON file in <a href="schema_enforcement.html#the-format">the schema format</a>
+(<code>set_schema</code>) to the current graph. In mode <code>open</code>
+or <code>closed</code> the existing data is validated first; on violations nothing changes and the error is
+shown. It changes only the current graph: a graph loaded from a file afterwards does not keep
+it (give the schema file in Load from file instead).</li>
+</ul>
+<p>Scripts run without Rhai resource limits and without a default timeout, as in the CLI: the page is
+your own local front end, and Stop ends a runaway query or loop. Every run starts with a fresh
+script scope; the graph keeps the changes queries make until you load another one.</p>
+<p>A run is all-or-nothing: the whole script is one unit of work, and a run that shows an error leaves
+the graph as it was before the run (see
+<a href="transactions.html#a-whole-script-as-one-unit-rhai">Transactions</a>). Scripts may do everything except
+file access, which the browser does not have (see <a href="permissions.html">Permissions</a>).</p>
+<h2 id="links-to-a-query"><a class="header" href="#links-to-a-query">Links to a query</a></h2>
+<p>A link can open the playground with a query in the editor, and run it, on a sample graph or on a
+small graph the link carries itself:</p>
+<pre><code class="language-text">https://graphersal.github.io/play/#/play?graph=modern&amp;q=g.v().has_label(%22person%22).values(%22name%22)&amp;run=1
+https://graphersal.github.io/play/#/play?v=1&amp;data=xZWxboMwEIb3PoZnFIFtSMOUoR36Al...&amp;q=g.v().count()&amp;run=1
+https://graphersal.github.io/play/#/play?graph=modern&amp;q=MATCH%20(p%3Aperson)%20WHERE%20p.age%20%3E%20%24min%20RETURN%20p.name&amp;lang=gql&amp;params=%7B%22min%22%3A30%7D&amp;run=1
+</code></pre>
+<div class="table-wrapper"><table><thead><tr><th>Parameter</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>graph</code></td><td>the sample graph: <code>modern</code> (the default), <code>empty</code>, <code>large</code>, <code>tree</code></td></tr>
+<tr><td><code>data</code></td><td>instead of <code>graph</code>: the graph itself, as GraphSON 3.0 compressed with deflate and written as base64url</td></tr>
+<tr><td><code>schema</code></td><td>with <code>data</code> only: the graph's schema (the <a href="schema_enforcement.html">schema format</a>), encoded the same way</td></tr>
+<tr><td><code>v</code></td><td>the format of <code>data</code> and <code>schema</code>; <code>1</code> (the default) is the only one so far</td></tr>
+<tr><td><code>q</code></td><td>the query, percent-encoded (<code>encodeURIComponent</code>; a literal <code>+</code> must be <code>%2B</code>)</td></tr>
+<tr><td><code>lang</code></td><td><code>gql</code>: <code>q</code> is a plain GQL query and opens in a GQL tab (absent: a Rhai script)</td></tr>
+<tr><td><code>params</code></td><td>with <code>lang=gql</code>: the GQL tab's Parameters field, a JSON map, percent-encoded (optional)</td></tr>
+<tr><td><code>title</code></td><td>the name of the query tab (optional)</td></tr>
+<tr><td><code>run</code></td><td><code>1</code> runs the query once it is in the editor</td></tr>
+</tbody></table>
+</div>
+<p>The parameters are in the fragment (after <code>#</code>), so the browser never sends them to a server: a
+graph in a link goes only where you paste the link. The query goes into a new tab when the current
+one holds your own text. When a graph is already open in the page, the playground asks before it
+replaces it; declined, the query is only put into the editor. The address then goes back to
+<code>#/play</code>, so a reload does not apply the link again. With the dev server a link only opens the
+query: the served graph is your own data, so nothing is replaced and nothing runs. Parameters the
+playground does not know are ignored, so later additions keep older links working.</p>
+<h3 id="share-a-query-with-its-graph"><a class="header" href="#share-a-query-with-its-graph">Share a query with its graph</a></h3>
+<p>The green <strong>Share link</strong> button in the top bar (also <strong>Share as link…</strong> in the Query panel's tab
+menu) makes such a link for the active tab: its query and the graph. A sample graph that has not changed goes into the link by its name; any other
+graph goes into the link itself, with its schema. Saved queries and compression rules are not
+included. Copy the link into a bug report or a message; whoever opens it gets the same graph and
+query in their own browser.</p>
+<p>The playground over the <a href="../getting_started/server_mcp_ai.html">dev server</a> has no Share button:
+its graph lives on the server, and a link to the public playground could not carry it.</p>
+<p><strong>Only small graphs fit into a link.</strong> A link is at most 60,000 characters, so that it fits into
+the text of an issue: roughly a graph of a thousand elements, fewer with long property values. For
+a bug report, reduce the graph to the few vertices and edges that reproduce the problem and leave
+out everything else; a minimal graph is also the fastest to understand. For a larger graph, save it
+with <strong>Save ▸ Data</strong> (GraphSON) and attach the file instead.</p>
+<p>The book uses these links: every example that runs on a sample graph has a <strong>▶</strong> run button next
+to each of its queries (or a <strong>Run in the playground</strong> link under a block with one query).</p>
+<h2 id="ui-profiles"><a class="header" href="#ui-profiles">UI profiles</a></h2>
+<blockquote>
+<p><strong>EXPERIMENTAL.</strong> UI profiles and the profile API may change in any release, like the dev
+server's hosting core.</p>
+</blockquote>
+<p>One playground code base serves several pages: a <strong>UI profile</strong> says what the page shows. The
+playground as described on this page is the built-in profile <code>full</code>, and it is what you get
+unless something asks for another one. A profile names:</p>
+<div class="table-wrapper"><table><thead><tr><th>Key</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>name</code></td><td>lowercase letters, digits and <code>-</code></td></tr>
+<tr><td><code>title</code></td><td>the page title and the top bar's name</td></tr>
+<tr><td><code>version</code></td><td>optional: the version of the product the profile belongs to (<code>"0.1.0"</code>); the top bar shows it (<code>v0.1.0</code>) beside the name instead of the engine's version, which moves into its tooltip</td></tr>
+<tr><td><code>tabs</code></td><td>the tabs: <code>{"id", "title", "builtin": "workspace"}</code> (the workspace of this page, at most once) or <code>{"id", "title", "module": "&lt;path&gt;.js"}</code> (a tab of the profile's own); with more than one tab the page shows a tab row under the top bar</td></tr>
+<tr><td><code>startTab</code></td><td>the tab the page opens on</td></tr>
+<tr><td><code>header</code></td><td>optional: <code>{"module": "&lt;path&gt;.js"}</code>, a module of the profile shown in the top bar on every tab; see "The top-bar module" below</td></tr>
+<tr><td><code>can</code></td><td>what the user can reach: <code>true</code>, <code>false</code>, <code>"wasm"</code> (only in the browser playground) or <code>"server"</code> (only with the dev server) per key; a key left out is <code>false</code></td></tr>
+<tr><td><code>cards</code></td><td>card templates per label for the profile's tabs (may be empty; see <a href="#cards">Cards</a>)</td></tr>
+<tr><td><code>graph</code></td><td>styles of the profile's graph views per label, classes and legend entries (may be empty; see <a href="#graph-views">Graph views</a>)</td></tr>
+<tr><td><code>files</code></td><td>where the module files are: <code>""</code> (next to the page) or a path ending in <code>/</code> on the same origin</td></tr>
+</tbody></table>
+</div>
+<p>The <code>can</code> keys: the top bar's <code>devBadge</code>, <code>mcp</code>, <code>share</code>, <code>view</code>, <code>catalog</code>, <code>optimize</code>, <code>store</code>,
+<code>save</code>, <code>saveToFile</code>, <code>changeGraph</code>, <code>settings</code>, <code>theme</code>, <code>help</code>; the panels <code>panel.editor</code>,
+<code>panel.results</code>, <code>panel.graph</code>, <code>panel.schema</code>, <code>panel.profile</code>; the Query panel's <code>examples</code>
+and its tab kinds <code>tab.query</code>, <code>tab.gql</code>, <code>tab.ai</code>. What the engine cannot do stays off whatever
+the profile says (the Store menu needs a store, the MCP badge an MCP endpoint, Save to file a
+graph file on the server). <code>full</code> sets every key; Share, Examples and Change graph only in the
+browser playground, the DEV SERVER badge, the MCP badge and Save to file only with the dev
+server: exactly the page as it was before profiles.</p>
+<p><strong>Choosing a profile.</strong> The browser playground takes a built-in profile from its address:
+<code>#/play?profile=demo</code> (the parameter stays in the address, so a reload keeps it; a link that
+names no profile opens <code>full</code>). The dev server takes it from <code>graphersal --server --ui-profile NAME|FILE</code> (a built-in name or a JSON file with a profile object) and tells the page through
+<code>GET /api/info</code> (<code>uiProfile</code>); a host built on the server's core sets it with
+<code>ContextBuilder::ui_profile</code>. A profile name the page does not know, or an object that breaks a
+rule above, is shown as an error naming every problem, never replaced by another profile. The
+built-in <code>demo</code> profile is a small example: a tab of its own that lists the people of the modern
+graph through a saved query as cards (it shows the script that defines the query when the graph
+has none), a Graph tab that draws them as a graph view, and the workspace without the catalog,
+the optimizer, the store and the examples.</p>
+<p><strong>A profile's own tabs.</strong> A module tab is an ES module (<code>files</code> + <code>module</code>, loaded when the tab
+is first shown) whose default export is a Vue component. It gets two props: <code>params</code>, the tab's
+parameters from the address (<code>#/play?tab=&lt;id&gt;&amp;key=value</code>), and <code>api</code>, the <strong>profile API</strong>:</p>
+<div class="table-wrapper"><table><thead><tr><th>Member</th><th>What it does</th></tr></thead><tbody>
+<tr><td><code>query(name, params)</code></td><td>calls the saved query <code>name</code> with named arguments through the page's engine (the dev server's <code>POST /api/query</code>, the browser engine's worker), under the engine's rules (read-only mode, access policy); the caller passes every parameter; resolves to its results, rejects with <code>{message, help}</code></td></tr>
+<tr><td><code>markdown(text)</code></td><td>the text through the playground's safe Markdown renderer (never HTML)</td></tr>
+<tr><td><code>card(label, row, options)</code></td><td>a card of <code>row</code> by the profile's card template for <code>label</code> (see <a href="#cards">Cards</a>)</td></tr>
+<tr><td><code>graph(data, options)</code></td><td>a graph view of <code>{nodes, edges}</code>, styled by the profile's <code>graph</code> key (see <a href="#graph-views">Graph views</a>)</td></tr>
+<tr><td><code>mergeGraph(base, addition)</code></td><td>the union of two graph datas without duplicates, with the ids it added</td></tr>
+<tr><td><code>toast(kind, text)</code></td><td>a notification: <code>info</code>, <code>success</code>, <code>warn</code> or <code>error</code></td></tr>
+<tr><td><code>navigate(tab, params)</code></td><td>shows another tab of the profile (and puts it into the address)</td></tr>
+<tr><td><code>theme</code></td><td><code>mode</code>, <code>dark</code> and <code>token(name)</code>, the value of a colour token such as <code>accent</code></td></tr>
+<tr><td><code>info</code></td><td>the profile's name and title, whether the engine is the dev server, its version and read-only flag</td></tr>
+</tbody></table>
+</div>
+<p>A module that cannot be loaded, has no default export or fails while rendering shows an error
+card in its tab; the other tabs keep working.</p>
+<p><strong>The top-bar module.</strong> A choice that affects every tab (a project filter, a status text)
+belongs in the top bar, not inside each tab: the profile key <code>header: {"module": "&lt;path&gt;.js"}</code>
+names a module (loaded from <code>files</code> like a tab's) whose default export the page renders in the
+top bar, right of the free space and left of the bar's buttons, on every tab. It gets the same
+<code>api</code> prop as a module tab and no <code>params</code>. Keep it small: the bar lets it shrink and never
+grows wider than the window, so hide parts of it on narrow screens with media queries of its own
+(or the playground's <code>hide-narrow</code> class, hidden below 760 px). A header module that cannot be
+loaded or fails shows a small "Header module failed" marker in the bar (its tooltip names the
+module and the error); the tabs keep working. The <code>demo</code> profile has one: the engine's kind and
+a button that opens its Graph tab. The profile's files are served like the rest of
+the page: with the dev server, put them into the <code>--ui-dir</code> directory (an overlay over the
+embedded playground). The details of the API are in the playground's <code>js/profile-api.js</code>.</p>
+<h3 id="cards"><a class="header" href="#cards">Cards</a></h3>
+<p><code>api.card(label, row, options)</code> shows one row of a saved query (an element, a map such as
+<code>value_map()</code> returns, or a single value) by the profile's <strong>card template</strong> for <code>label</code>. A label
+without a template gets a plain card: the label and every field of the row. The <code>full</code> profile
+defines no cards; the <code>demo</code> profile's Hello tab shows the people of the modern graph as cards.</p>
+<p>A template says which fields go where; every key is optional and an unknown key is an error:</p>
+<div class="table-wrapper"><table><thead><tr><th>Key</th><th>What it shows</th></tr></thead><tbody>
+<tr><td><code>title</code></td><td>the heading: a field (or a list of fields, the first present wins); without one, the label</td></tr>
+<tr><td><code>subtitle</code></td><td>one muted line of parts joined with <code>·</code></td></tr>
+<tr><td><code>badges</code></td><td>small pills after the title; a badge shows when its field (or its <code>when</code>) is present and true</td></tr>
+<tr><td><code>body</code></td><td>a field holding Markdown: rendered by the playground's safe renderer in the full card (never HTML), a one-line plain-text excerpt in the compact card</td></tr>
+<tr><td><code>excerpt</code></td><td>the characters of that excerpt (default 160, <code>0</code>: none)</td></tr>
+<tr><td><code>fields</code></td><td>a key/value list in the full card; long values collapse like everywhere else (setting <em>Collapse values above</em>); left out, every field the other parts do not show; <code>[]</code>, none</td></tr>
+<tr><td><code>actions</code></td><td>default buttons <code>{id, text, kind, when, unless, title}</code> (kind <code>default</code>, <code>primary</code> or <code>danger</code>)</td></tr>
+</tbody></table>
+</div>
+<p>A <strong>field</strong> is a dot-separated path (<code>name</code>, <code>author.name</code>, <code>tags.0</code>); on an element it is looked
+up in the properties first, then on the element (<code>id</code>, <code>label</code>). A one-item list, as
+<code>value_map()</code> returns every property, is shown as its item. A <strong>part</strong> is a field or an object
+<code>{field, title, text, prefix, format, tone, when, unless}</code>: <code>title</code> names the field in <code>fields</code>,
+<code>text</code> replaces the value by a fixed text, <code>prefix</code> comes before the value, <code>format</code> is <code>text</code>
+(the default; lists joined with commas), <code>date</code>, <code>datetime</code> (an ISO text or milliseconds since
+1970, shown in UTC), <code>count</code> (a list's length) or <code>markdown</code> (<code>fields</code> only), <code>tone</code> colours a
+badge (<code>neutral</code>, <code>accent</code>, <code>ok</code>, <code>warn</code>, <code>danger</code>, or a map from the value to a tone), and
+<code>when</code>/<code>unless</code> show the part only when another field is (or is not) present and true. A field
+that is absent, <code>null</code>, empty text or an empty list renders nothing.</p>
+<pre><code class="language-json">"cards": {
+  "memory": {
+    "title": ["title", "slug"],
+    "subtitle": ["kind", "scope", "source", {"field": "updated", "format": "date"}],
+    "badges": [
+      {"field": "pinned", "text": "pinned", "tone": "accent"},
+      {"field": "superseded_by", "text": "replaced", "tone": "warn"},
+      {"field": "conflicts", "text": "conflict", "tone": "danger"}
+    ],
+    "body": "body",
+    "fields": [{"field": "why", "title": "Why", "format": "markdown"}, {"field": "links", "title": "Links"}],
+    "actions": [
+      {"id": "pin", "text": "Pin", "unless": "pinned"},
+      {"id": "forget", "text": "Forget", "kind": "danger", "unless": "imported_at"}
+    ]
+  }
+}
+</code></pre>
+<p>The module chooses how a card is shown with <code>options</code> (all optional):</p>
+<div class="table-wrapper"><table><thead><tr><th>Option</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>variant</code></td><td><code>"full"</code> (the default: body and fields) or <code>"compact"</code> (a list row: title, subtitle, badges, excerpt)</td></tr>
+<tr><td><code>selected</code></td><td><code>true</code> marks the card as the current one</td></tr>
+<tr><td><code>onOpen(row)</code></td><td>the title becomes a button and a click on the card calls it (to open the full card of a list row)</td></tr>
+<tr><td><code>actions</code></td><td>the buttons, in place of the template's</td></tr>
+<tr><td><code>onAction(id, row)</code></td><td>called when a button is clicked; without it the card shows no buttons. While the promise it returns is pending, the card's buttons are disabled; a failure shows as an error notification</td></tr>
+</tbody></table>
+</div>
+<p>Actions are the module's: the template only names the buttons, and the module decides what a
+click does (call a saved query, navigate, show a notification). Cards take their colours from the
+page's theme, so they follow light and dark mode, and they wrap on a narrow screen.</p>
+<h3 id="graph-views"><a class="header" href="#graph-views">Graph views</a></h3>
+<p><code>api.graph(data, options)</code> draws a graph that the module builds, typically from saved queries,
+with the same drawing code as the <a href="#the-graph-drawing">Graph panel</a>: Cytoscape for ordinary
+sizes, the Fast tier (WebGL) for large views. The data is</p>
+<pre><code class="language-json">{
+  "nodes": [{"id": "a", "label": "memory", "caption": "Graph first", "data": {"kind": "feedback"}, "classes": ["pinned"]}],
+  "edges": [{"id": "e1", "source": "a", "target": "b", "label": "supersedes", "data": {}}]
+}
+</code></pre>
+<p><code>id</code> is a text or a number (unique per kind), <code>label</code> chooses the style and the card template,
+<code>caption</code> is the text under the node (else the style's <code>caption</code> field of <code>data</code>, else the label),
+<code>data</code> holds the element's fields (what its card shows), <code>classes</code> names style classes. Every
+edge's <code>source</code> and <code>target</code> must be nodes of the data. Data that breaks a rule is not drawn: the
+view shows every problem instead (<code>nodes[1].id "a" is used twice</code>, <code>edges[0].target "zz" is not a node of the data</code>, ...).</p>
+<p>The profile's <code>graph</code> key styles the views per label (<code>"*"</code> applies to every label; the label's
+own entry on top of it):</p>
+<pre><code class="language-json">"graph": {
+  "nodes": {
+    "memory": {"color": "--accent", "shape": "ellipse", "size": 24, "caption": "slug"},
+    "session": {"shape": "round-rectangle", "color": "#8a93a3"}
+  },
+  "edges": {
+    "supersedes": {"arrow": true, "width": 2},
+    "conflicts_with": {"color": "--danger", "arrow": false},
+    "relates_to": {"color": "--text-faint", "width": 0.8}
+  },
+  "classes": {"pinned": {"border": {"width": 4}}},
+  "legend": [{"text": "loaded at every session start", "node": {"border": {"width": 4}}}]
+}
+</code></pre>
+<div class="table-wrapper"><table><thead><tr><th>Key</th><th>Values</th></tr></thead><tbody>
+<tr><td><code>color</code></td><td><code>#rgb</code>, <code>#rrggbb</code> or a colour token of the page (<code>--accent</code>, <code>--danger</code>, ...: follows light and dark mode); a node without one takes its label's colour from the Graph panel's palette</td></tr>
+<tr><td><code>shape</code> (node)</td><td><code>ellipse</code>, <code>round-rectangle</code>, <code>rectangle</code>, <code>diamond</code>, <code>triangle</code>, <code>hexagon</code>, <code>star</code></td></tr>
+<tr><td><code>size</code> (node)</td><td>6 to 96 pixels (default 24)</td></tr>
+<tr><td><code>border</code> (node)</td><td><code>{width: 0..12, color, style}</code></td></tr>
+<tr><td><code>style</code> (edge), <code>border.style</code></td><td><code>solid</code>, <code>dashed</code>, <code>dotted</code></td></tr>
+<tr><td><code>arrow</code> (edge)</td><td><code>true</code> (default) or <code>false</code></td></tr>
+<tr><td><code>width</code> (edge)</td><td>0.5 to 12 pixels (default 1.6)</td></tr>
+<tr><td><code>opacity</code></td><td>0.05 to 1</td></tr>
+<tr><td><code>caption</code></td><td>a field path of <code>data</code> (as in <a href="#cards">Cards</a>)</td></tr>
+</tbody></table>
+</div>
+<p>A <strong>class</strong> carries the same keys (node and edge keys together). Three are built in: <code>faded</code>
+(opacity 0.3), <code>bold</code> (a thick border, a wide edge) and <code>dashed</code>; a profile class of the same
+name replaces one, and an unknown name changes nothing. The module can also style each element
+itself with <code>styleOf(element, kind)</code>, which returns <code>{classes, ...keys}</code> or <code>null</code>. Later wins:
+the defaults, <code>"*"</code>, the label's entry, the element's <code>classes</code>, the classes <code>styleOf</code> returns,
+then the keys <code>styleOf</code> returns. The legend under the drawing lists the labels drawn (the key
+<code>legendLabels</code>: <code>true</code> by default, <code>"nodes"</code> or <code>"edges"</code> for only those, <code>false</code> for none: a
+profile that colours by classes lists its own entries), then the profile's <code>legend</code> entries,
+then the module's.</p>
+<div class="table-wrapper"><table><thead><tr><th>Option</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>styleOf(element, kind)</code></td><td>per-element style (above)</td></tr>
+<tr><td><code>onSelect(selection)</code></td><td>a click chose <code>{kind, id, label, data, element}</code>, or empty space (<code>null</code>)</td></tr>
+<tr><td><code>onExpand(node)</code></td><td>a double click on a node, or the side card's <strong>Expand</strong> button: the module reads the node's neighbours and merges them in with <code>api.mergeGraph</code></td></tr>
+<tr><td><code>selected</code></td><td><code>{kind, id}</code> or <code>null</code>: the selection set from outside (for example a tab parameter)</td></tr>
+<tr><td><code>card</code></td><td><code>true</code> or <code>{actions, onAction(id, selection), expand}</code>: a side card of the selected element through <code>api.card(label, element.data, ...)</code>; <code>expand</code> names the Expand button (<code>false</code>: none; a function <code>(selection) =&gt; text or false</code> decides per node)</td></tr>
+<tr><td><code>legend</code></td><td><code>true</code> (default), <code>false</code>, or extra entries <code>[{text, node}]</code> / <code>[{text, edge}]</code></td></tr>
+<tr><td><code>layout</code></td><td><code>cose</code> (default), <code>circle</code>, <code>concentric</code>, <code>breadthfirst</code> or <code>grid</code></td></tr>
+<tr><td><code>height</code></td><td>the drawing's CSS height (default <code>520px</code>)</td></tr>
+<tr><td><code>highlight</code></td><td>what a selection highlights: <code>neighbours</code> (default: the element with its neighbours), <code>element</code>, <code>none</code></td></tr>
+<tr><td><code>emptyText</code></td><td>the text of a view without nodes</td></tr>
+</tbody></table>
+</div>
+<p>A click selects (the rest fades), a double click on empty space or <strong>Fit</strong> fits the drawing, Esc
+clears the selection; the toolbar zooms, picks the layout and lays the drawing out again. When
+the module replaces the data (an expansion merged in, new styles), the nodes it had keep their
+positions and the new ones appear next to their neighbours, without a new layout. The view itself
+never writes: a module changes the graph through <code>query</code> from its card's buttons. The Fast tier
+draws every node as a circle and every line solid. On a server in allow-list mode the engine's
+force layout is not available: the browser's force layout runs up to 1,500 nodes, a larger view
+is drawn as a grid.</p>
+<h3 id="allow-list-mode"><a class="header" href="#allow-list-mode">Allow-list mode</a></h3>
+<p>A host built on the dev server's core can serve such a profile in <strong>allow-list mode</strong> (<code>GET /api/info</code> <code>apiMode: "allow-list"</code>): the server answers only the saved queries the host selected,
+so only a profile whose tabs are all modules can be shown there (a profile with the workspace is
+an error naming the reason). See <a href="../persistence/dev_server.html#the-http-api-experimental">the HTTP API</a>.</p>
+<h3 id="request-headers-of-a-host"><a class="header" href="#request-headers-of-a-host">Request headers of a host</a></h3>
+<blockquote>
+<p><strong>EXPERIMENTAL</strong>, like UI profiles.</p>
+</blockquote>
+<p>A host whose server wants more on every request than the playground sends (for example a token,
+<code>Authorization: Bearer &lt;token&gt;</code>) tells the playground before it starts: a classic script that
+runs before the playground's modules sets</p>
+<pre><code class="language-html">&lt;script&gt;
+  window.GRAPHERSAL_ENGINE = { headers: { Authorization: 'Bearer ' + token } };
+&lt;/script&gt;
+</code></pre>
+<p>The page reads it once, when it finds the server, and every request it sends to the server's
+<code>/api/</code> carries these headers (the API calls of the workspace and of the profile API alike; the
+page's own <code>Accept</code>, <code>Content-Type</code> and <code>X-Graphersal-Client</code> cannot be replaced). A header with an
+invalid name or a value that is not a single line of text is left out with a warning in the
+browser console that names the header, never its value. The values never go into an address or
+a log. A plain link cannot carry a header, so with host headers the Store menu shows no download
+links of stored snapshots (<em>Download current state</em> still works). Without the setting the page
+sends exactly what it always sent. Requests a profile's modules send themselves, to endpoints of
+the host's own, add the header themselves.</p>
+<h2 id="the-graph-drawing"><a class="header" href="#the-graph-drawing">The graph drawing</a></h2>
+<h3 id="what-the-panel-shows"><a class="header" href="#what-the-panel-shows">What the panel shows</a></h3>
+<p>Drawing "the first 1000 vertices" of a large graph shows an arbitrary slice of it. The Graph
+panel's tabs choose a meaningful part instead:</p>
+<ul>
+<li><strong>Whole graph</strong>: the graph itself when it has at most the vertex and edge limits of the
+settings (10 000 vertices and 20 000 edges by default). A larger graph shows its labels (below)
+with a note saying how large it is; <strong>Draw the first N vertices anyway</strong> draws that slice (said
+to be one), <strong>Double the limits</strong> raises them.</li>
+<li><strong>Labels</strong>: the label overview. Each vertex label is a node sized by its number of vertices,
+each edge is a label pair (<code>person –created→ software</code>) with its number of edges. The 40 largest
+labels are drawn, the others form one "other labels" node; the 200 largest pairs are drawn and
+the note counts the rest. The counts come from the graph's statistics and one pass over the
+edges, so they are exact (for graphs with more than five million edges, the pairs are counted
+over the first five million and the note says so). <strong>Double-click a label</strong> to draw a sample of
+its vertices with the edges between them, <strong>double-click an edge</strong> for a sample of that label
+pair. A sample is the first matching elements in storage order (at most 1000 vertices), not a
+random choice, and its note says how many of how many it shows.</li>
+<li><strong>Neighbourhood</strong>: a vertex and its neighbours, fetched from the engine. Type a vertex id (or
+click <strong>Neighbourhood</strong> in a vertex's properties, or the <strong>⌖</strong> button of a vertex row in the
+Results table) and choose the <strong>Depth</strong> (1 = the direct neighbours, 2 = their neighbours too,
+up to 5) and the <strong>direction</strong>: <strong>both</strong>, <strong>out →</strong> (the vertices it points to) or <strong>← in</strong> (the
+vertices pointing to it); changing either redraws from the same vertex. <strong>Double-click a vertex</strong>
+to expand it by one hop (along the chosen direction): its neighbours are added, everything already
+drawn stays where it is and the new vertices are placed around it. The note says how many edges
+still lead out of the drawing, and when the limits (Settings) cut the neighbourhood, how many
+vertices and edges within that depth were left out.</li>
+<li><strong>Query result</strong>: the vertices, edges and paths the last query returned, with the edges
+between them. At most 50 000 vertices + edges by default (<strong>Result graph</strong> in the settings, up
+to 200 000; the result's data itself is never cut); the note says when a result has more.
+<strong>Double-click a vertex</strong> of the result to expand it by one hop from the engine, like in a
+neighbourhood: the drawing continues as a neighbourhood ("the query result, expanded"), the
+result's vertices stay in place, and further double clicks keep expanding. A result with more
+vertices than the drawing limit is not expanded (the note says so; open a vertex's
+neighbourhood instead).</li>
+</ul>
+<p><strong>Result highlight.</strong> In the <strong>Whole graph</strong> tab the elements the active tab's last query result
+refers to are highlighted and everything else is faded (<strong>Highlight result</strong> in the toolbar's ⚙
+Display menu turns this off for good). <strong>✕ Clear highlight</strong> in the toolbar, shown while a highlight is active, or
+<code>Esc</code> on the drawing (click it first) shows the graph normally again; <code>Esc</code> also clears a
+double-click selection. Clearing applies to that result only: the next query result highlights
+again, and switching to another query tab shows that tab's result highlighted, while the tab you
+cleared stays cleared. Both tiers behave the same.</p>
+<p><strong>Vertex details.</strong> Clicking a vertex shows its id and label, then <code>edges: in 3 · out 5</code>: the number
+of incoming and outgoing edges of the vertex in the whole graph, also when its neighbours are not
+in the drawing (the engine counts them from the graph, not from the visible subgraph).</p>
+<p><strong>Long values.</strong> In an element's details (click a vertex or an edge) and in the Results table, a
+text longer than 200 characters or with more than 3 lines is cut to its start and "…", and a
+vector (a list of 16 or more numbers) shows as <code>vector[384] [0.12, -0.03, 0.5, 1, …]</code>. <strong>expand</strong>
+shows the full value, <strong>collapse</strong> the short form again; the copy button next to it in the
+element's details copies the full value. <strong>Collapse values above</strong> in the Settings sets the
+number of characters (20 to 100 000), 0 shows every value in full. A vector in the Results table
+keeps its own disclosure (<code>vector[768 f32]</code>, the JSON tab has every value).</p>
+<p><strong>Vertex size.</strong> <strong>Vertex size</strong> in the toolbar's ⚙ Display menu sizes each vertex by its number
+of edges in the whole graph: <strong>Degree</strong> (incoming + outgoing), <strong>In</strong> or <strong>Out</strong>; <strong>Off</strong> (the
+default) draws every vertex the same size. The size grows with the logarithm of the degree,
+relative to the largest degree among the drawn vertices, so a few hubs do not shrink everything
+else to dots. The choice is kept in the browser; while it is Off the engine counts no degrees. A
+query result run before the option was switched on is sized by its edges within the drawing until
+it runs again.</p>
+<h3 id="filtering-the-drawing"><a class="header" href="#filtering-the-drawing">Filtering the drawing</a></h3>
+<p><strong>⚲ Filter</strong> in the Graph panel's toolbar opens a popover under the button, at the left of the
+drawing, that decides what is drawn; it stays open while you click the drawing, does not cover
+the details of the selected element on the right, and Esc closes it. It lists the graph's vertex
+and edge labels with their counts; a dot before each vertex label shows its colour in the drawing
+(a ring while the label is hidden, a dashed outline while the label has not been drawn yet).
+Uncheck a label to hide it (<strong>all</strong> / <strong>none</strong> check or uncheck every label of that side).
+<strong>+ condition</strong> under a label adds a condition on one of its properties, such as <code>age &gt; 30</code> or <code>name contains "an"</code>; several
+conditions of one label must all hold, and an element is drawn when its label is checked and its
+conditions hold. Every label you do not touch stays visible, including labels the drawer does not
+list (on a graph with very many labels it lists only the largest ones). A vertex with several
+labels is drawn when none of its labels is unchecked and the conditions of each of its labels
+hold. A hidden vertex hides its edges; <strong>Hide vertices without visible edges</strong> hides vertices
+left alone as well.</p>
+<ul>
+<li>The operators depend on the property's type, which comes from the schema (the stored one, or
+the schema inferred from the data when the drawer opens): numbers and dates offer <code>=</code>, <code>≠</code>, <code>&lt;</code>,
+<code>≤</code>, <code>&gt;</code>, <code>≥</code> and <strong>between</strong> (from inclusive, to exclusive), text offers <code>=</code>, <code>≠</code>, <strong>contains</strong>,
+<strong>starts with</strong>, <strong>ends with</strong> and <strong>regex</strong>, and every key offers <strong>exists</strong> and <strong>missing</strong>.
+A number key sends a number; every other value is sent as text and, when the schema declares the
+key's type, converted like a write (<code>2024-01-01</code> compares as a date). The value text never
+decides a type.</li>
+<li>Changes apply 300 ms after the last edit. On a graph with more than 100 000 vertices and edges
+the drawer says <strong>Large graph: Apply to use</strong> and changes apply with <strong>Apply</strong>.</li>
+<li>A condition the engine refuses (a bad regular expression, a value the schema cannot convert)
+is marked in red at that condition; the drawing keeps showing the last filter that worked.</li>
+<li>While a filter is on, a strip above the drawing says what passes, for example
+<code>Filtered: 3 of 6 vertices, 1 of 6 edges</code> (for a neighbourhood: of the vertices and edges it
+holds without the filter). <strong>Clear</strong> there, and the switch next to the Filter
+button or in the popover's header, turn the filter off without deleting it (the button then shows
+<code>· off</code>); the same switch turns it on again. <strong>Reset</strong> in the drawer deletes it.</li>
+<li><strong>Open as query</strong> opens a new query tab with the query that selects what the filter shows.</li>
+<li>The filter applies to the <strong>Whole graph</strong> (the engine filters first and then draws up to the
+limits, so a filter makes a large graph drawable) and to the <strong>Neighbourhood</strong>. A <strong>Query
+result</strong> and a label sample carry no properties, so they are filtered by label only, and the
+<strong>Labels</strong> overview draws hidden labels faded. A neighbourhood keeps every vertex you expanded
+into when the filter changes: vertices it hid come back when they pass the new filter, and the
+count of edges leading out of the drawing counts only edges to vertices the filter shows.</li>
+<li>The filter, including whether it is on, is kept per graph in the browser.</li>
+<li>A graph with very many labels lists the largest ones (the drawer says so); while a label is
+hidden or has a condition, the labels not listed are hidden too.</li>
+</ul>
+<h3 id="editing-properties"><a class="header" href="#editing-properties">Editing properties</a></h3>
+<p>Click a vertex or an edge for its properties, then the <strong>pencil</strong> next to the close button: a
+dialog edits them. Each property is one line with its name, its type (<code>string</code>, <code>int64</code>,
+<code>float64</code>, <code>boolean</code>, <code>uuid</code>, <code>array</code>, <code>object</code>, <code>null</code>), its value and its buttons, in columns
+aligned across the rows (in a narrow window a property takes two lines); a changed or invalid
+property is marked at its left edge. The last line adds a property: name, type and value, then
+<strong>+ Add</strong> or Enter. Remove (with undo) and rename properties. Arrays and objects are edited as a
+tree below their line (expand, collapse, add and remove items and keys); the <strong>{ }</strong> button edits
+any value as JSON, <strong>Edit as JSON</strong> (next to Save) the whole element. A string always stays a
+string, whatever it looks like, until you pick another type. Long or multi-line strings, and every
+string a <a href="compressed_properties.html">compression rule</a> covers, get a large text box below their
+line (<strong>⤢</strong> opens one for any string).</p>
+<p>When the graph has a <a href="schema_enforcement.html">schema</a>, the dialog follows it: the properties of the
+element's label(s) are listed (also the ones not set yet), required ones are marked with <code>*</code>, the
+type, bounds and description are shown under each line, and an <code>enum</code> is a menu. Every change is
+checked by the engine before you save; its errors appear next to their fields and <strong>Save</strong> stays
+disabled until they are fixed. Saving writes all changes as one commit: if the engine still refuses
+(for example the schema changed meanwhile), nothing is applied and the dialog stays open with the
+error. Ids and labels are shown but not edited. The pencil is disabled, with the reason as its
+tooltip, while a query runs and when the graph cannot be written: a read-only view of a past state
+(Store menu), a backup, or a store in maintenance mode.</p>
+<h3 id="edit-mode"><a class="header" href="#edit-mode">Edit mode</a></h3>
+<p>The <strong>✎ Edit</strong> switch in the Graph panel's toolbar (in the ⚙ Display menu when the panel is narrow)
+turns the mouse into an editor of the graph:</p>
+<ul>
+<li><strong>Add a vertex:</strong> double-click empty space. A dialog asks for the label (a menu of the labels the
+schema declares and the graph already has; any label can be typed unless the schema is
+<code>closed</code>), an optional id (empty: automatic) and the properties, laid out by the label's schema
+(required ones are already there, <code>*</code>). The vertex appears where you double-clicked.</li>
+<li><strong>Add an edge:</strong> drag from one vertex to another (a dashed line follows the pointer; back onto
+the start vertex after leaving it makes a loop). The label menu offers the schema's edge labels
+whose <code>connections</code> allow the two vertices (<code>*</code> matches any label, any label of a multi-label
+vertex counts), then the graph's other edge labels; with a <code>closed</code> schema only the allowed ones.</li>
+<li><strong>Delete:</strong> select a vertex or an edge (click it) and press <strong>Delete</strong>, or use the bin in its
+card. A confirmation says how many edges go with a vertex.</li>
+<li><strong>Edit properties:</strong> double-click an element (or use the pencil), as above.</li>
+</ul>
+<p>Every draft is checked by the engine with a dry run, its errors shown at their fields; each
+change is one commit. The drawing changes in place: the other vertices keep their positions and no
+layout runs. In edit mode vertices cannot be dragged around (a drag draws an edge). The Fast tier
+edits and deletes but adds nothing with the mouse (switch to Detailed to add). Edit mode is off,
+with the reason as its tooltip, in the Labels overview and when the graph cannot be written (a
+read-only view of a past state, a backup, a store in maintenance mode or frozen by damage).</p>
+<p>A small cloud inventory (58 vertices, 91 edges) in the three views:</p>
+<p><img src="../images/playground/graph-whole.png" alt="Whole graph: every vertex and edge, coloured by label" /></p>
+<p><img src="../images/playground/graph-labels.png" alt="Labels: one node per vertex label, sized by its count, and the label pairs with their edge counts" /></p>
+<p><img src="../images/playground/graph-neighbourhood.png" alt="Neighbourhood: the vertices within two hops of one service" /></p>
+<h3 id="tiers"><a class="header" href="#tiers">Tiers</a></h3>
+<p>The Graph panel draws in one of two tiers:</p>
+<div class="table-wrapper"><table><thead><tr><th></th><th>Detailed</th><th>Fast</th></tr></thead><tbody>
+<tr><td>Engine</td><td>Cytoscape.js (Canvas 2D)</td><td>sigma.js + graphology (WebGL)</td></tr>
+<tr><td>Chosen by Auto</td><td>below 2000 vertices + edges</td><td>from 2000 (back to Detailed below 1600)</td></tr>
+<tr><td>Vertex labels</td><td>always (from 2000 elements only when large enough to read)</td><td>as you zoom in</td></tr>
+<tr><td>Edge labels</td><td>yes</td><td>only on hover: hovering a vertex highlights its neighbours and labels its edges</td></tr>
+<tr><td>Edges</td><td>curved, loops, arrows</td><td>straight, arrows, no loops</td></tr>
+<tr><td>Layouts</td><td>Force, Circle, Concentric, Tree, Grid</td><td>Force (the engine's), Circle, Grid</td></tr>
+<tr><td>Export</td><td>PNG</td><td>PNG</td></tr>
+<tr><td>Pans smoothly up to</td><td>about 2000 elements</td><td>100 000 elements (the largest measured)</td></tr>
+</tbody></table>
+</div>
+<p>The switch <strong>Auto / Detailed / Fast</strong> in the toolbar's ⚙ Display menu (also in Settings) chooses the tier;
+Auto decides by size, with a margin so a drawing does not flip back and forth around the
+threshold. Switching keeps the drawing's positions. In the Fast tier a banner says what it lacks,
+and the controls it cannot honour (edge labels, the Concentric and Tree layouts) are disabled with
+the reason as tooltip. The schema drawing and the label overview always use the Detailed tier.</p>
+<p><strong>Drill down:</strong> in the Fast tier, click a vertex (or double-click it to select its neighbours,
+again for one hop more) and choose <strong>Open in Detailed</strong>: that neighbourhood is drawn in the Detailed
+tier, with every label and style; <strong>Back to the whole drawing</strong> returns.</p>
+<p>A drawing waits for an explicit <strong>Draw it</strong> only where it can still make the page slow: Detailed
+forced above 5000 vertices + edges, the Fast tier above 200 000. A browser without WebGL (or where
+the Fast tier's scripts cannot load) draws in the Detailed tier, at most 10 000 vertices + edges,
+and says so. The Fast tier's scripts are loaded only the first time a drawing needs them.</p>
+<p>The Fast tier draws the first 10 000 vertices of the generated 110k-element graph:</p>
+<p><img src="../images/playground/graph-fast-10k.png" alt="10 000 vertices drawn by the Fast (WebGL) tier" /></p>
+<h2 id="saved-queries"><a class="header" href="#saved-queries">Saved queries</a></h2>
+<p><a href="saved_queries.html">Saved queries</a> are named, parameterized queries stored in the graph. The top
+bar's <strong>Catalog ▾ ▸ Saved queries</strong> manager lists them by folder (the description and the
+signature) with a badge each: <strong>R/O</strong> (it only reads), <strong>R/W</strong> (it changes data; the tooltip lists
+what, as inferred from its body), <strong>R/O ⚠</strong> (read-only, its writing steps are denied until it is
+saved again) or <strong>unavailable</strong> (it cannot run; the tooltip says why), and its language, <strong>Rhai</strong>
+or <strong>GQL</strong> (the tooltip names the dialect). It manages them on the
+WebAssembly playground and on the <a href="../persistence/dev_server.html">dev server</a> alike:</p>
+<ul>
+<li><strong>New saved query…</strong> / <strong>✎</strong> opens the editor: name, folder, description, the language, the
+parameter list and the body. Each parameter has a name, a type (<code>string</code>, <code>integer</code>, <code>number</code>, <code>boolean</code>, <code>uuid</code>,
+<code>array</code> of one of these, <code>object</code>, or a schema written as JSON), constraints (minimum and
+maximum, length, pattern, allowed values), a default (empty: the parameter is required) and a
+description; ↑/↓ reorder and ✕ removes one. The body is what goes inside the function, in the code
+editor with the DSL completion; the line <code>fn name(a, b) {</code> above it follows the parameter list,
+so a parameter is added or renamed in one place. <strong>Save</strong> stores it (a rename replaces the old
+name in the same commit); what the engine refuses is shown next to its field (a bad name or
+folder, a parameter whose default breaks its schema, a body that does not compile). Moving a
+query to another folder is changing its folder here. <strong>Delete…</strong> asks first.</li>
+<li>The <strong>Rhai / GQL</strong> switch picks the language. A <a href="saved_queries.html#saved-queries-in-gql">GQL query</a>
+is the whole query text, highlighted as GQL, with no function line around it; every <code>$name</code> it
+reads must be a declared parameter and every parameter must be read (<strong>+ Add $parameters of
+the query</strong> declares the missing ones as strings). Switching a <code>g.gql(`...`)</code> body to GQL keeps
+its query; switching a GQL query to Rhai wraps it into <code>g.gql(`...`, #{p: p})</code>.</li>
+<li><strong>Save as query…</strong> in a query tab's <strong>⋯</strong> menu opens the editor on the tab's text. A GQL tab
+becomes a GQL query with every <code>$name</code> as a parameter, typed and defaulted by its Parameters
+field. A Rhai tab holding exactly one <code>g.gql(`...`)</code> call (as <strong>Wrap as GQL</strong> writes it)
+becomes a GQL query of the inner text the same way, typed by the values the tab passes in its
+<code>#{..}</code> map; any other tab becomes a Rhai query whose body is the tab's text.</li>
+<li>The body editor completes the declared parameters: in a Rhai body their names (the function's
+arguments), shown with their type above the DSL's own names; in a GQL query <code>$name</code> after <code>$</code>. A
+parameter added, renamed or removed in the list is offered at once.</li>
+<li>Clicking a query opens its <strong>run form</strong>, built from the parameter schemas: a number field with
+its minimum and maximum, a list for allowed values, a checkbox for a boolean, UUID text that is
+checked, one line per item for a list; defaults are prefilled and required fields marked with
+<code>*</code>, the descriptions are hints. <strong>Run</strong> writes the call, for example
+<code>g.query("older_than", #{age: 29, label: "person"})</code>, into a query tab and runs it there: it is
+visible, editable and in the history like any other query. The form remembers the last values
+per query (in the browser). An empty field takes the parameter's default.</li>
+<li>In the editor, <code>g.query("</code> completes the names of the saved queries, grouped by folder.</li>
+<li>Saved queries travel in the <strong>catalog file</strong>, like the schema: <strong>Catalog ▾ ▸ Save catalog
+(.json)</strong> (<code>graphersal-catalog-YYYYMMDD-HHMMSS.json</code>, also <strong>Save catalog</strong> on the start page)
+holds the whole catalog, saved queries, <a href="compressed_properties.html">compression rules</a> and
+<a href="property_indexes.html">property indexes</a>; <strong>Catalog ▾ ▸ Load catalog…</strong> (or <strong>Load catalog</strong> on the start
+page) adds the file's definitions to the current graph (one of the same kind and name is
+replaced; a compression rule compresses its values at once). A graph loaded from a GraphSON or
+GraphML file afterwards keeps them; a sample graph starts without any, a snapshot (<code>.gsnap</code>)
+brings its own. <strong>Stop</strong> keeps the catalog the page loaded or edited (like the schema);
+definitions a script made since the last load or save are gone with the rest of the run's
+changes.</li>
+</ul>
+<h2 id="the-catalog"><a class="header" href="#the-catalog">The Catalog</a></h2>
+<p>The top bar's <strong>Catalog ▾</strong> lists what the graph stores besides its data and schema, each kind with
+its count, and opens its manager:</p>
+<ul>
+<li><strong>Saved queries</strong>: the queries by folder with <strong>Run…</strong>, <strong>Edit…</strong>, <strong>Delete</strong> and <strong>New saved
+query…</strong> (the editor and run form described above).</li>
+<li><strong>Compression</strong>: the <a href="compressed_properties.html">compression rules</a> with their stats (compressed
+values, plain and stored size, ratio, saving, dictionary size), <strong>Edit…</strong>, <strong>Recompress</strong> and
+<strong>Drop</strong>, and <strong>New rule…</strong>: a form with name, element (vertex or edge), label (the graph's
+labels are suggested), path, minimum size and dictionary; the engine's errors show next to their
+field. Saving re-encodes the label's values at once.</li>
+<li><strong>Property indexes</strong>: the <a href="property_indexes.html">property indexes</a> with their stats (entries,
+distinct values, elements per value, memory; <em>not served</em> on a storage that keeps the
+definition but serves no index) and <strong>Drop</strong> (after a confirmation), and <strong>New index…</strong>: a form
+with element (vertex or edge), label (the graph's labels are suggested), key and an optional
+name (the default <code>&lt;label&gt;_&lt;key&gt;</code> is shown as you type); the engine's errors show next to their
+field. Creating builds the index from the data at once.</li>
+</ul>
+<p>The same dropdown holds <strong>Save catalog (.json)</strong> and <strong>Load catalog…</strong>. The Statistics tab of the
+Profile panel shows the compressed strings and the dictionaries, and the property indexes' memory,
+in its memory part when there are any.</p>
+<p>A catalog change is a commit: in the <a href="#the-store-in-memory">store in memory</a> it is part of the
+history, and on the dev server another browser tab or an AI agent sees it through the change feed.</p>
+<h3 id="system-journal"><a class="header" href="#system-journal">System journal</a></h3>
+<p><strong>Catalog ▾ ▸ System journal…</strong> (in the section <em>Kept by this instance</em>: the journal is not part
+of the catalog and no catalog file carries it) shows the <a href="../persistence/system_journal.html">system journal</a>
+of the served graph: what the instance did, such as the store opened or closed, checkpoints,
+backups, damage found and permissions denied. The newest record is at the top; each row shows the
+time in the browser's time zone (the exact UTC time with microseconds in its tooltip), the level,
+the source, the kind, the message with its fields, and the record's sequence number.</p>
+<ul>
+<li><strong>Level</strong> shows that level and the more severe ones (<code>error</code> &gt; <code>warn</code> &gt; <code>notice</code> &gt; <code>info</code>);
+<strong>Source</strong> shows a source and the ones below it (<code>store</code> shows <code>store.backup</code> too; the
+sources seen so far are suggested).</li>
+<li>It opens on the newest 300 records: a long journal on disk is read from its end, never from
+its start.</li>
+<li>While the dialog is open it shows the records written since its last read as they come (every
+five seconds on the dev server, every two in the WebAssembly playground; switch it off with
+<em>follow new records</em>, or press <strong>Refresh</strong>); it never reads the whole journal again. It keeps
+the newest 2000 records it follows.</li>
+<li><strong>Show more</strong> shows 300 more rows, reading the next older page from the journal when all held
+rows are shown; the line under the table says how many loaded rows are not shown and whether
+older records exist.</li>
+</ul>
+<p><strong>Notifications.</strong> A new journal record also pops up as a small notification in the top-right
+corner, without blocking anything: red for <code>error</code>, amber for <code>warn</code>, blue for <code>notice</code>, grey for
+<code>info</code>. <code>warn</code> and <code>error</code> stay until you close them; the others close after 30 seconds, and
+not while the pointer is on them. The close button (×) shows when the pointer is on a
+notification or it has keyboard focus (always on touch screens). At most three are shown; more
+become one <em>+N more journal records</em> notification, and repeats of the same kind and message
+merge into one with a counter (×3). A click opens the System journal at that record,
+highlighted. Only records written while the page is open pop up, never older ones. <strong>Settings ▸
+Notifications ▸ Journal records</strong> sets the least severe level shown: <em>notice and above</em> (the
+default), <em>warn and above</em>, <em>error only</em> or <em>Off</em>; it is kept in the browser with the other
+settings. The playground reads the journal for them every five seconds on the dev server and
+every two in the WebAssembly playground, only while the page is visible; the open System journal
+dialog shares these reads.</p>
+<p>In the WebAssembly playground the journal is the one of the graph's <a href="#the-store-in-memory">store in
+memory</a>, gone with a page reload like the store. On the dev server it is
+the served graph's (<code>GET /api/journal</code>): the store's journal on disk for a <code>--graph &lt;store&gt;</code>,
+else the graph's journal in memory.</p>
+<h2 id="the-store-in-memory"><a class="header" href="#the-store-in-memory">The store in memory</a></h2>
+<p>Every graph you load is kept as a Store in memory: every run that changes the graph is a commit,
+and the <strong>Store</strong> menu in the top bar checkpoints, marks, opens past states read-only, forks and
+rolls back. <strong>Everything in memory is lost on page reload</strong>: download a <code>.gsnap</code> to keep a state.
+The details are on the page <a href="../persistence/playground_store.html">The Store in the Playground</a>.</p>
+<h2 id="the-schema-editor"><a class="header" href="#the-schema-editor">The schema editor</a></h2>
+<p>The Schema panel's <strong>Tables</strong> tab shows the schema (the stored one, or, without one, the schema
+inferred from the data; the badge says which) as nested tables on one page: a table per vertex and
+edge label, one row per property with its type, <em>required</em>, <em>nullable</em> and a compact constraint
+column (<code>0..150</code>, <code>length 1..80</code>, <code>^\d{5}$</code>, <code>&lt;= 10</code>, <code>one of a, b</code>). A nested object is a table
+inside its row; arrays show as <code>array of T</code> (an array of objects gets the item table); objects
+deeper than the first level start collapsed as <code>object {n fields}</code>. The format is described in
+<a href="schema_enforcement.html#the-format">Schemas</a>.</p>
+<p>Everything is edited in place, and every edit changes a <strong>draft</strong>, never the stored schema:</p>
+<ul>
+<li>the type (a dropdown; <code>uuid</code> is <code>string</code> + <code>format: "uuid"</code>, <code>any</code> is <code>{}</code>; a union of several
+kinds is edited in the JSON tab), <em>required</em>, <em>nullable</em>, the property name, a <code>+ property</code> row in
+every table, and a detail form per property (open it from the constraint column) with the
+constraints of its type, <code>enum</code>, <code>const</code>, <code>additionalProperties</code> for objects, and the annotations
+<code>title</code>, <code>description</code>, <code>default</code>, <code>examples</code>, <code>$comment</code>, <code>deprecated</code>;</li>
+<li>labels: add, rename (a renamed vertex label is renamed in the edge connections too), remove; the
+connections of an edge label with from/to dropdowns (<code>*</code> is any label; no connection allows every
+pair); <code>additionalProperties</code> per label;</li>
+<li>the <code>mode</code> (toolbar) and <code>meta</code> (free JSON);</li>
+<li>the <strong>JSON</strong> tab is the same draft as text, synchronised both ways: text that parses becomes the
+draft, invalid JSON is shown inline while the tables keep the last valid state;</li>
+<li><strong>Infer from data</strong> starts a draft from <code>infer_schema()</code>; <strong>Load…</strong> reads a <code>schema.json</code> into the
+draft; <strong>Download</strong> saves what the editor shows as <code>schema.json</code>;</li>
+<li><strong>Freeze as open</strong> / <strong>Freeze as closed</strong> (offered while the graph stores no enforcing schema and
+no draft is being edited) store the inferred schema with that mode in one step,
+<code>set_schema(infer_schema(), mode)</code>: see
+<a href="schema_enforcement.html#freeze-the-structure-you-have">Freeze the structure you have</a>. It always
+applies, except <code>closed</code> with vertices or edges without a label: then nothing changes and the
+report is shown.</li>
+</ul>
+<p>A property's <code>default</code> is stored when a vertex or edge is created without it (see
+<a href="schema_enforcement.html#defaults-on-create">Defaults on create</a>), never filled into existing
+elements; the editor's backfill script uses it as the value it writes into those.</p>
+<p>With a draft, the toolbar offers the review and the apply:</p>
+<ol>
+<li><strong>What changes</strong> lists the changes from the stored schema (<code>diff_schema</code>), each marked backward
+compatible or not (compatible: it only adds or relaxes, so data and clients written against the
+old schema keep working; adding an optional property is compatible, removing one is not; see
+<a href="schema_enforcement.html#changing-a-schema-patch-and-diff">the rule set</a>). Existing data that
+conflicts is what the next step finds.</li>
+<li><strong>Check against data</strong> validates the existing data against the draft (<code>validate_schema_patch</code>;
+nothing changes) and lists the violations grouped by rule. A click on a group opens a new query
+tab that runs a query showing the offending elements (<code>g.V().hasLabel("person").not(__.has("email"))</code>
+for a missing required key, the sample ids for a constraint violation).</li>
+<li><strong>Apply</strong> stores the draft with <code>patch_schema</code> (a JSON Merge Patch computed from the stored
+schema; one unit, all or nothing). It checks first and is blocked while the data violates the
+draft. To make a key required on existing data, <strong>Open a backfill script</strong> writes the recipe as
+one run: the draft with mode <code>none</code>, a <code>property(key, value)</code> for every element that lacks the
+key (the draft's <code>default</code>, or a placeholder to edit), then the draft itself; a playground run is
+one unit, so nothing is kept unless all of it succeeds.</li>
+</ol>
+<p><strong>Discard</strong> drops the draft. A draft that sets a member <em>to</em> <code>null</code> (<code>"default": null</code>) cannot be a
+merge patch; Apply then uses <code>set_schema</code> with the whole draft. The editor talks to the engine only
+through the seven schema methods, the same as in Rust, the DSL and Python. The Graph and Mermaid
+tabs draw the stored (or inferred) schema, not the draft.</p>
+<p><strong>When the panel infers.</strong> Inferring a schema reads the whole graph, so the panel does it only
+when it is first shown (expanded) and when you press its refresh button, never after every change
+of the graph. A stored schema is read again after every change (a schema set or changed by a
+query shows at once). Without one, a change (a query that writes, the property editor, a change
+made in another tab or by an AI agent) keeps the schema inferred last on screen and adds the badge
+<strong>may be outdated - refresh</strong> next to the refresh button; press refresh to infer it again. The
+same badge appears when the stored schema is dropped. Loading another graph, opening a read-only
+view of the Store, going back to the live graph, rolling back or switching databases replaces the
+graph: the panel infers once for it, right away if it is shown, else when you open it. The
+WebAssembly playground and the dev server behave the same.</p>
+<h2 id="if-the-playground-freezes"><a class="header" href="#if-the-playground-freezes">If the playground freezes</a></h2>
+<p>Open the playground's address with <code>/reset</code> added (for example <code>http://localhost:8000/reset/</code>).
+That page loads nothing of the playground itself: it removes the playground's saved state from the
+browser (settings, panel layout, theme, query tabs, view choices; the query history is kept) and
+then opens the playground with the Modern sample graph. Use it when a saved state makes the page
+hang again after every reload, for example a huge drawing that is restored on start.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../library/python.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../persistence/dev_server.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../library/python.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../persistence/dev_server.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

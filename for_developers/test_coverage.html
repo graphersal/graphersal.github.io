@@ -1,0 +1,281 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Test Coverage - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/for_developers/test_coverage.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="test-coverage"><a class="header" href="#test-coverage">Test Coverage</a></h1>
+<p>Coverage is measured with <a href="https://github.com/taiki-e/cargo-llvm-cov"><code>cargo-llvm-cov</code></a> (source-based LLVM coverage on the
+stable toolchain; install the tool and <code>llvm-tools-preview</code> once). Coverage is an analysis aid, not an acceptance gate: it shows
+thinly tested places, it does not prove behaviour.</p>
+<h2 id="running-it"><a class="header" href="#running-it">Running it</a></h2>
+<p>Three runs separate what the hand-written tests cover from what only the TinkerPop suite reaches. Clear the old profile between
+runs, otherwise the runs are merged:</p>
+<pre><code class="language-bash">F=script,io,display,serde,persist,gql
+IGN='(tests/|benches/)'
+
+# 1. everything: lib unit tests + tests/all + the TinkerPop suite
+rm -f target/llvm-cov-target/*.profraw target/llvm-cov-target/*.profdata
+cargo llvm-cov --no-report --package graphersal --features $F
+
+# 2. hand-written tests only (no TinkerPop suite)
+rm -f target/llvm-cov-target/*.profraw target/llvm-cov-target/*.profdata
+cargo llvm-cov --no-report --package graphersal --features $F --lib --test all
+
+# 3. TinkerPop suite only
+rm -f target/llvm-cov-target/*.profraw target/llvm-cov-target/*.profdata
+cargo llvm-cov --no-report --package graphersal --features $F --test tinkerpop_features
+</code></pre>
+<p>Right after a run, turn its profile into a report:</p>
+<pre><code class="language-bash">cargo llvm-cov report --package graphersal --ignore-filename-regex "$IGN"                 # table on stdout
+cargo llvm-cov report --package graphersal --ignore-filename-regex "$IGN" --json --summary-only &gt; summary.json
+cargo llvm-cov report --package graphersal --ignore-filename-regex "$IGN" --html          # target/llvm-cov/html/index.html
+</code></pre>
+<p><code>--ignore-filename-regex '(tests/|benches/)'</code> removes the tests, the TinkerPop harness and the benches from the percentages, so only
+<code>crates/graphersal/src/</code> is measured. Never commit <code>target/</code>. The single command from <code>CLAUDE.md</code>
+(<code>cargo llvm-cov --package graphersal --features script,io,display,serde,persist,gql</code>) is run 1 with a text report.</p>
+<h2 id="reading-the-report"><a class="header" href="#reading-the-report">Reading the report</a></h2>
+<ul>
+<li><strong>Lines %</strong> is the number to rank by. <strong>Functions</strong> count monomorphized instances (a generic step instantiated for three storages
+counts three times). <strong>Regions</strong> are finer than lines (branches, <code>?</code> early returns, match arms).</li>
+<li>A file with a <code>#[cfg(test)]</code> module counts those test lines as covered code, so <code>error.rs</code> looks a little better than it is.</li>
+<li><strong>Doc tests are not measured</strong>: <code>--doctests</code> needs a nightly toolchain.</li>
+<li>Compare the runs per file: <strong>covered by run 1 but not run 2</strong> means only the TinkerPop suite protects that code (fragile; add a
+hand-written test). <strong>Missed by run 1</strong> means nothing tests it.</li>
+<li>In the HTML report, red lines are uncovered; open a file and look for whole <code>process</code>/error branches that are red.
+Fused or batch steps often have an unexercised per-traverser fallback; run the query with the optimizer disabled
+(<code>g.with("optimizer.disabled", [...])</code>) to reach it.</li>
+</ul>
+<h2 id="the-books-rust-code-blocks"><a class="header" href="#the-books-rust-code-blocks">The book's Rust code blocks</a></h2>
+<p><code>mdbook test</code> compiles every Rust block of the book against the library. A plain <code>mdbook test book</code> fails
+("crate graphersal not linked"), because rustdoc needs the compiled crate and <code>mdbook</code> cannot pass <code>--extern</code>.
+<code>book/test.sh</code> does the whole job: it builds <code>graphersal</code> with <code>script,io,display,serde,persist,gql</code> into its own
+target directory (<code>target/mdbook-test</code>, so exactly one rlib exists) and runs <code>mdbook test</code> with that library path and
+a <code>rustdoc</code> shim that adds the <code>--extern</code>.</p>
+<pre><code class="language-sh">book/test.sh
+</code></pre>
+<p>A block that cannot compile by nature (it needs another crate or a feature the script does not enable) is marked
+<code>rust,ignore</code>; verbatim program output is a <code>text</code> block.</p>
+<h2 id="last-measured-numbers"><a class="header" href="#last-measured-numbers">Last measured numbers</a></h2>
+<p>Measured with the three-run recipe above, with the features <code>script,io,display,serde</code> (before <code>persist</code> joined the
+recipe, so the persistence code is not in these figures):</p>
+<div class="table-wrapper"><table><thead><tr><th>Run</th><th>Lines</th><th>Functions</th><th>Regions</th></tr></thead><tbody>
+<tr><td>Everything</td><td>89.50 %</td><td>89.14 %</td><td>89.63 %</td></tr>
+<tr><td>Hand-written only</td><td>89.22 %</td><td>89.03 %</td><td>89.37 %</td></tr>
+<tr><td>TinkerPop only</td><td>32.82 %</td><td>29.26 %</td><td>29.87 %</td></tr>
+</tbody></table>
+</div>
+<p>The TinkerPop suite adds only 0.3 points on top of the hand-written tests, so little code depends on it alone. The
+weakest hand-written areas at that point were <code>traversal/traverser.rs</code> (72 %, the string readers of edge-property
+handles), the <code>from()</code>/<code>to()</code> modulators (72 %, <code>Debug</code>/<code>Clone</code> only), <code>has(key, P)</code> (75 %), <code>step_by.rs</code> (75 %),
+<code>traversal/step/mod.rs</code> (75 %, trait default methods every step overrides) and <code>value/mod.rs</code> (76 %, the per-shape
+<code>fetch_*</code> arms).</p>
+<p>These figures are a snapshot, not a gate; re-run the recipe for a current report.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../for_developers/tinkerpop_compliance.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../for_developers/release_plan.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../for_developers/tinkerpop_compliance.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../for_developers/release_plan.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

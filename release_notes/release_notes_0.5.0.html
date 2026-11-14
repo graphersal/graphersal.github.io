@@ -1,0 +1,551 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Release Notes 0.5.0 - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/release_notes/release_notes_0.5.0.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="release-050"><a class="header" href="#release-050">Release 0.5.0</a></h1>
+<p>A minor release about <strong>models as data</strong> and <strong>memory that never runs out unannounced</strong>. A
+Store keeps its embedding models in its history, as blobs referenced by catalog definitions, so
+every position, copy and backup has exactly the models of its moment; <strong>vector rules</strong> in the
+schema keep vectors in step with their text; the process has a <strong>memory ceiling, on by
+default</strong>, so a query, load or write that would exhaust the memory fails and rolls back instead
+of the operating system killing the process. A <strong>system journal</strong> records what each instance
+did, all times of an instance come from one monotonic clock, and a commit of any size is
+written to the WAL in parts.</p>
+<p>It is not a drop-in update: the store format changes (stores need <code>graphersal store upgrade</code>),
+the external embedders and <code>embed_property</code> are removed, and the memory limit moves from the
+execution options to the process. Read "Upgrading from 0.4" first; every removed or changed
+API, with its replacement, is in "Breaking changes in detail" at the end of this page.</p>
+<h2 id="upgrading-from-04"><a class="header" href="#upgrading-from-04">Upgrading from 0.4</a></h2>
+<ul>
+<li><strong>Stores need an upgrade.</strong> The store format version is now 4 (file format version 4).
+Graphersal 0.5.0 refuses a store of 0.1.x to 0.4.x as "older format" until
+<code>graphersal store upgrade &lt;dir&gt; &lt;new_dir&gt;</code> (or <code>--in-place</code>; Rust <code>Store::upgrade</code>,
+<code>Store::upgrade_in_place</code>; Python <code>Store.upgrade</code>) converts it, and 0.4.x refuses an upgraded
+store as newer. The upgrade checks every 0.4.0 model file before it writes anything, turns
+each model under <code>models/</code> into a blob and defines them all in ONE commit; no default model
+is set (<a href="../persistence/store_versions.html#040---050-models-become-blobs">Format Versions and Upgrade</a>).</li>
+<li><strong>What the upgrade tells you</strong> (CLI <code>note:</code>/<code>warning:</code> lines, <code>UpgradeReport</code>, Python report
+dict; the exit code is 0): models converted or renamed (a model without a repository becomes
+<code>local/&lt;12 hex&gt;</code>), models the schema needs but the store does not keep (0.4.0 served them
+through <code>--embedder</code>; import them, or the store does not open), vector properties without a
+rule with a ready schema patch adding <code>"from"</code>, and saved queries calling the removed
+<code>embed_property</code> (never rewritten). The vector notes come as ONE note per model listing its
+properties with their counts and one combined patch (<code>UpgradeReport::vector_notes</code>,
+<code>VectorWithoutRule::combined_schema_patch</code>; a real 0.4.0 file went from 18 notes to one), and
+the saved queries that write a vector property directly (<code>property("emb", ..)</code> with a literal
+key) are listed too, one note each (<code>UpgradeReport::saved_queries_writing_vectors</code>): such a
+write fails once the rule exists, so remove it (queries are never rewritten; a computed key
+and <code>merge_v</code>/<code>merge_e</code> maps are not found). The <code>.gsnap</code> notes say the same.</li>
+<li><strong>Take a full backup after the upgrade.</strong> An upgraded backup directory stays a backup, but it
+no longer takes increments of the upgraded store (<code>BackupRefused</code>): back the upgraded store up
+into a new directory.</li>
+<li><strong>A 0.4.0 <code>.gsnap</code></strong> loads as it is (<code>--graph file.gsnap</code>, <code>GraphSource::from_file</code>): its
+model rows are converted in memory, the file is not changed. To work on it durably,
+<code>graphersal store create &lt;dir&gt; --from file.gsnap</code> makes a store without opening it and prints
+the same report as the upgrade, also when the schema needs a model the file does not carry;
+import the model, then open the store.</li>
+<li><strong>Embedders come from the database only.</strong> The CLI flags <code>--embedder</code>/<code>--default-embedder</code>
+(and their args-file keys), the Python <code>Embedder</code>/<code>Model2Vec</code> classes and keywords and the
+Rust host registry are removed. Import a model once
+(<code>graphersal embed-model import &lt;repo&gt; --into &lt;store&gt;</code>, <code>Store.import_model</code>,
+<code>Store::import_model</code>); it then travels with the store
+(<a href="../persistence/store_models.html">Embedding Models in a Store</a>).</li>
+<li><strong><code>embed_property</code> is removed</strong>: declare a vector rule instead (<code>"from"</code> beside <code>embedder</code>
+in the schema). Its first fill embeds every element of the label while the whole database is
+locked; the preview says how many and how long first
+(<a href="../users_guide/vector_rules.html">Vector Rules</a>).</li>
+<li><strong>The memory ceiling is on by default.</strong> Unless the host sets it, it is the cgroup limit minus
+a headroom, else 80 % of the physical memory (3.5 GiB on wasm32). A query, import, load or
+store open that would take the process over it now FAILS (<code>ResourceLimitExceeded</code> or
+<code>PersistError::MemoryBudget</code>, naming the minimum ceiling that fits) where 0.4 went on.
+<code>memory.limit</code> is a process setting now: <code>exec::set_memory_limit</code>, CLI <code>--memory-limit</code>,
+Python <code>graphersal.set_memory_limit</code>; as a <code>g.with()</code> option, policy default or session preset
+it fails with <code>InvalidOption</code>
+(<a href="../users_guide/resource_limits.html#the-process-memory-ceiling">The process memory ceiling</a>).</li>
+<li><strong><code>traversal.max_materialized_bytes</code> means "held at once".</strong> The per-query limit now counts
+the live bytes one execution holds at the same time (freed memory is given back), no longer
+the size of one value; every profile reports the query's peak against it
+(<a href="../users_guide/resource_limits.html#memory-materialized-bytes-and-expansions">Memory: materialized bytes and expansions</a>).
+A query that built many medium values may now reach the default of 1 GiB: raise it per
+query, or for the CLI with <code>--max-materialized-bytes</code>, for Python with
+<code>graph.set_limits(max_materialized_bytes=...)</code>.</li>
+</ul>
+<h2 id="added"><a class="header" href="#added">Added</a></h2>
+<ul>
+<li><strong>Models as data</strong> (<a href="../persistence/store_models.html">Embedding Models in a Store</a>): a model
+is ONE blob (a deterministic tar of its files, card, licence files and manifest) referenced by
+a catalog definition of kind 5. Importing, replacing, removing and choosing the default model
+are commits, so every position (commit, mark, view, rollback, backup) has the models of its
+moment. A model the current schema needs loads when the store opens, in every mode; a missing,
+damaged or too large one refuses the open with the commands that fix it. CLI
+<code>embed-model import &lt;repo|dir&gt; --into &lt;store&gt; [--replace] [--default]</code>,
+<code>embed-model download &lt;repo&gt; --into &lt;store&gt;</code>, <code>store models</code>, <code>store models default</code>,
+<code>store models remove</code>; Rust <code>Store::import_model</code>/<code>set_default_model</code>/<code>remove_model</code>/
+<code>models</code> and the closed-store forms <code>import_model_dir</code>/<code>set_default_model_dir</code>/
+<code>remove_model_dir</code>; Python <code>Store.import_model</code>, <code>Store.import_model_into</code>,
+<code>store.set_default_model</code>; the playground's Store menu marks the default model. A store that
+holds models but has no default says so (CLI note, Python <code>UserWarning</code>, <code>modelsNote</code> of the
+dev server and playground).</li>
+<li><strong>Catalog commits on a closed store</strong>: a model import, removal or default change on a CLOSED
+store appends ONE commit without loading the graph (format spec 12.12); a replace whose old
+revision feeds vector rules opens the store and re-embeds, and says so.</li>
+<li><strong>A <code>.gsnap</code> without a Store serves its models</strong>: <code>--graph file.gsnap</code>, Python <code>Graph.load</code>,
+<code>GraphSource::from_file</code> and <code>persist::read_snapshot_file</code> read a model's blob from the file
+by offset when the model is first used (no copy is kept in memory); a file changed meanwhile
+is refused for the model, a loaded model keeps running. A graph with no packed models has the
+built-in <code>hash-ngram/1</code> only.</li>
+<li><strong>Vector rules</strong> (<a href="../users_guide/vector_rules.html">Vector Rules</a>): a vector property with
+<code>embedder</code> and <code>"from": "&lt;property&gt;"</code> is recomputed at the end of every unit that writes its
+source, in the same unit; adding a rule (or replacing its model) fills every element of the
+label while the database is locked. Previews (<code>validate_schema</code>, <code>validate_schema_patch</code>,
+<code>diff_schema</code>) report the planned fill and one warning text; MCP <code>set_schema</code>/<code>patch_schema</code>
+take <code>confirm_lock</code> above the threshold (refused without it as a tool error, <code>isError: true</code>,
+nothing applied); the playground asks "Apply and lock"; Python issues
+<code>graphersal.VectorFillWarning</code>. The embedding part of the estimate is three times what the
+model's measured speed gives (that speed is measured on short sentences). The estimate of the
+locked time includes the schema check
+(<code>PlannedFill::scan_elements</code>/<code>scan_ms</code>; <code>validate_schema</code> measures it), and the preview names
+the saved queries writing the filled property directly (<code>PlannedFill::direct_writes</code>, a line
+of the warning). A cancelled fill (<code>CancelToken</code>) rolls the unit back as
+<code>GraphError::VectorRuleFailed</code> with the cause <code>EmbedError::Cancelled</code>; the execution timeout
+is not checked while the fill runs inside the commit. A direct write of a rule's vector is refused
+(<code>GraphError::DerivedProperty</code>); replay and recovery never call a model.</li>
+<li><strong>Blobs</strong> (<a href="../persistence/store_blobs.html">Blobs</a>): immutable files of a store named by their
+SHA-256, referenced by <code>BlobRef</code> values (<code>graphersal::blob</code>), kept as long as retained history
+references them and collected by prune; <code>Store::write_blob</code>/<code>read_blob</code>. A missing or
+damaged blob is never store damage: only what needs its bytes fails. Every copy carries the
+blobs its history references (backups, increments, ZIP, fork, attic fork, repair, convert,
+upgrade, <code>.gsnap</code>). <strong>Blob recovery</strong>: <code>graphersal store restore-blobs &lt;dir&gt; --from &lt;backup|zip|gsnap|store&gt;</code> (<code>Store::restore_blobs_from</code>) copies missing or damaged blobs back
+from any copy, and <code>graphersal store repair --drop-damaged-blobs</code>
+(<code>RepairOptions::with_drop_damaged_blobs</code>) builds a repaired store without what references a
+lost blob.</li>
+<li><strong>The system journal</strong> (<a href="../persistence/system_journal.html">System Journal</a>): declared
+operational events (opens, closes, checkpoints, backups, prunes, damage, rollbacks, model
+loads, vector fills, permission denials) with levels and collapsed repeats, kept in memory per
+graph and in a store's <code>journal/</code>. It never decides anything and is never damage. Read it with
+<code>graphersal store journal &lt;dir&gt; [--level] [--since] [--kind] [--follow] [--json]</code>,
+<code>GET /api/journal</code>, the MCP tool <code>journal</code>, <code>Store::journal</code>/<code>Store::journal_dir</code>,
+<code>Graph::system_journal</code>, in Python with <code>graph.journal(...)</code>, <code>store.journal(...)</code> and
+<code>Store.journal_dir(path, ...)</code> (pages of dicts with the keys of <code>--json</code>), and in the
+playground under <strong>Catalog ▸ System journal…</strong> (newest first, level and source filters,
+incremental refresh; WebAssembly and dev server), where new records also pop up as
+notifications in the top-right corner (coloured by level; warn and error stay until closed;
+a click opens the journal at the record; the level is a setting, default notice); a newest-first page
+(<code>JournalQuery::newest_first</code>/<code>before</code>, <code>newest_first=true&amp;before=N</code>, <code>--last N</code>) reads a
+stored journal from its end; reading needs <code>Read</code> on the new
+<code>Resource::Journal</code> (<code>AccessPolicy::read_only()</code> allows it; Python <code>policy=</code>). A record is
+read at once in the process; a store on a file system writes it to disk within about a second
+(a thread of its own, never in the middle of another store operation), other hosts call
+<code>Store::flush_journal</code> (the playground every second). A record names who caused it
+(<code>principal</code>: the channel, e.g. <code>playground</code>, <code>mcp</code>, <code>cli</code>, <code>python</code>) and its instance by the
+host name (the OS host name when no <code>HOSTNAME</code> is exported).</li>
+<li><strong>One clock per instance</strong> (format spec 18): commit, mark and checkpoint times and journal
+times never go backwards, also when the system clock steps back; the floor is restored from
+the files at open (<code>storage::CommitClock</code>, <code>GraphStorage::commit_clock</code>).</li>
+<li><strong>Commits of any size</strong>: a commit body over 64 MiB is written as consecutive WAL records of
+64 MiB (format spec 9.3.1); the 1 GiB limit of one commit is gone (up to 2^20 parts). Memory
+bounds it now: a commit needs several times its size in RAM (a single commit of a little over
+1 GiB peaked at 4.4 to 5.7 GB in our measurements), so split very large writes into units
+(<a href="../users_guide/resource_limits.html#the-size-of-one-commit-journal">The size of one commit</a>).</li>
+<li><strong>The process memory ceiling</strong> covers every allocation proportional to data: queries
+(estimated or tracked live bytes), imports, snapshot loads, store opens and recovery (a graph
+that does not fit refuses the open, naming the minimum ceiling, never maintenance mode),
+checkpoints, backup verifies, model loads and vector fills
+(<a href="../users_guide/resource_limits.html#what-the-ceiling-covers">What the ceiling covers</a>).
+<code>exec::check_memory_for</code> and <code>exec::memory_room</code> let a host check its own allocations.</li>
+<li><strong>Seeing how full the process is</strong>: <code>process.memory</code> of the statistics (<code>/api/statistics</code>, MCP
+<code>statistics</code>) gains <code>usedBytes</code>, <code>limitBytes</code>, <code>limitSource</code>, <code>usedPercent</code> and the segments
+<code>structure</code>, <code>properties</code>, <code>compressed</code>, <code>indexes</code>, <code>models</code> and <code>other</code>, with the same names
+and figures as <code>g.memory_usage()</code> (<code>structure</code> is <code>structure_bytes</code>, <code>indexes</code> the id and
+label indexes plus the property indexes). The playground shows the bar in Profile -&gt;
+Statistics and in Optimize -&gt; Memory, the REPL before <code>/memory</code>, the dev server in its
+banner. PROFILE adds a "Peak memory X of Y" line (<code>profile::QueryMemory</code>,
+<code>TraversalMetrics::memory()</code>, JSON key <code>query_memory</code>). <code>g.memory_usage()</code> reports the loaded
+models as <code>model_bytes</code> (<code>MemoryStats::model_bytes</code>, the session's memory JSON, a row of the
+playground's statistics), beside <code>total_bytes</code>, not in it.</li>
+<li><strong>Bounded memory report</strong>: <code>g.memory_report()</code> and <code>MemoryReportRequest</code> return the 500
+largest rows per list (a <code>limit</code> parameter; <code>usize::MAX</code> keeps every row) plus a "remaining N
+labels, X bytes" count; the totals cover everything. The MCP tool <code>memory_report</code> defaults to
+50 per list. On a graph with 111 000 labels the dev server's answer went from 207 MB in 4.2 s
+to 386 KB in 0.15 s.</li>
+<li><strong><code>Store::quick_info</code></strong>: the store's <code>info()</code> without the blob count (<code>blobs.unreferenced</code> is 0,
+not counted); it reads no WAL, no attic and no blob. The dev server adds
+<code>GET /api/store/summary</code> and <code>GET /api/store/details</code> (<code>GET /api/store</code> is unchanged).</li>
+<li><strong>CLI</strong>: <code>--max-materialized-bytes</code> (the per-query limit), <code>--memory-limit &lt;bytes|auto|none&gt;</code>
+for the process, <code>store journal</code>, <code>store restore-blobs</code>, <code>store repair --drop-damaged-blobs</code>,
+<code>store models default</code>, <code>embed-model import --replace/--default</code>; <code>store info</code> shows
+the blobs, <code>store models</code> marks the default model. Python: <code>graphersal.set_memory_limit</code>,
+<code>graphersal.memory_limit</code>, <code>graph.limits()</code>, <code>memory_report(limit=)</code>, <code>VectorFillWarning</code>.</li>
+</ul>
+<h2 id="fixed"><a class="header" href="#fixed">Fixed</a></h2>
+<ul>
+<li><strong>A job's <code>memory_limit</code></strong> lowered the process ceiling (it compared with the whole process);
+it is now the per-execution limit of the job's traversals.</li>
+<li><strong>PROFILE memory figures of nested steps</strong>: the filter, <code>as</code> and side-effect steps inside a
+short-circuiting child traversal (<code>filter(__.out_v().not(__.has_label(..)))</code>) were measured
+against a zeroed snapshot and showed trillions of allocations under the tracking allocator.</li>
+<li><strong><code>embed-model import</code></strong> takes a model from the download cache before looking for a
+directory of that name.</li>
+<li><strong><code>--license</code></strong> of <code>embed-model import</code> now applies only when the model's manifest states no
+licence (the library's rule); before, it overrode the manifest.</li>
+<li>A ceiling <code>help()</code> no longer names a Rust crate path to a script user; nor do the helps of
+the script limits (<code>script.max_*</code>): they name the command line flag and the Python call,
+and the <code>ScriptLimits</code> builder as the Rust host's.</li>
+<li><strong>A store opened read-only</strong> (a model this build cannot load, newer critical content) or in
+maintenance mode listed no commit in <code>changes_since</code> and backed up no WAL commit: it used a
+durable end no journal had set. It now reads the WAL to its last complete record.</li>
+<li><strong>Backups of a closed store</strong> (<code>Store::backup_dir</code>, <code>Store::backup_zip_dir</code>) fill
+<code>BackupReport::models</code> like the open store's backups.</li>
+<li><strong>A closure using <code>g</code> inside a chain on <code>g</code></strong> (<code>g.queries().map(|q| g.get_query(q.name))</code>)
+failed with Rhai's bare "Data race detected": the error now explains it and its help names the
+forms that work (<code>let qs = g.queries(); qs.map(..)</code>, or a <code>for</code> loop).</li>
+<li>A text query on a property whose model the database does not keep now says "no model of this
+database has the identity ..." (<code>EmbedError::ModelNotRegistered</code>; there is no registry since
+0.5.0); its help names <code>g.embedders()</code> and <code>graphersal embed-model import</code>.</li>
+<li><strong>Playground</strong>: the Graph panel no longer flickers between showing and hiding its scrollbars
+with classic scrollbars (Windows): a canvas half a pixel taller than its panel made them
+appear and disappear about ten times a second.</li>
+</ul>
+<h2 id="performance"><a class="header" href="#performance">Performance</a></h2>
+<ul>
+<li><strong>The Divan bench of 0.5.0 against 0.4.0</strong> (119 comparable cases, alternating runs on one
+machine): reads and traversals that take 10 µs or more are unchanged (68 cases, geometric
+mean +0.6 %; the depth-first <code>repeat()</code> walks +3 to +4.5 %, a sack-merging <code>barrier()</code> loop
+-10 %); imports, change sets, vector search and property-level writes within noise. A query
+of a microsecond or two pays about 0.1 µs more per run for setting up the memory checks
+(15 cases, +8 % on average). Writes on a FRESH graph measure slower (query mutations +11 %,
+GQL writes +6 %): without a tracking allocator, the memory ceiling walks the whole graph once
+at its first unit to learn its size (about 12 ns per element, 0.1 ms for 10 000 vertices).
+A graph walks again only after its element count has doubled or halved, or when its estimate
+reaches half of the ceiling, and a host with the
+tracking allocator (the CLI, Python, the playground) never walks. Vector rules: a unit
+writing one source text costs 2.3 µs including its embedding, a unit rewriting 10 000 texts
+15 ms (<code>hash-ngram/1</code>).</li>
+<li>The short-circuiting child runs of <code>filter()</code>, <code>where()</code> and <code>not()</code> reuse their output
+buffers: <code>g.e().filter(__.out_v()...)</code> on the <code>large</code> graph makes 1 allocation instead of
+111 100 and runs 12 % faster (<code>filter(__.both().has(..))</code>: 28 %).</li>
+<li>A snapshot load passes under a ceiling of 1.00x its manifest estimate (the graph is no longer
+counted twice; it needed about 1.4x).</li>
+<li>The memory report picks its largest rows in one selection pass before building any row.</li>
+<li><strong>The playground's Store menu opens without reading the history</strong>: it shows a summary at once
+and the sizes when they are weighed. <code>Store::info</code> reads the snapshot blob tables and the
+ledger before an attic's WAL and stops once every blob is found, and an open store remembers
+what each attic entry references. On a 4.9 GB store with a model and four attic entries the
+menu's call went from 180-190 ms and 464 MB read to 6 ms and 43 KB (the dev server's
+<code>GET /api/store</code> from about 300 ms to 12-15 ms).</li>
+<li><strong>A schema change checks only the labels it changes</strong> when the mode stays <code>open</code> or <code>closed</code>
+(the apply and the <code>validate_schema</code> preview); a change of the mode checks everything. Adding
+vector rules to labels of 9,000 to 30,500 elements in a graph of 2.5 million elements: the
+preview went from 587-668 ms to 6-15 ms, the apply from 616-679 ms to 39-99 ms (a store:
+709-824 ms to 82-183 ms). This relies on the data satisfying the stored schema, which every
+write checks: a storage of a host must reject writes that violate the schema in force
+(<code>GraphStorage::set_schema</code>, <a href="../for_developers/custom_storage.html">Custom storage</a>).</li>
+<li>Blobs are written at about 276 MB/s (SHA-256, CRC-32C and the disk together); SHA-256 is the
+engine's own scalar code.</li>
+</ul>
+<h2 id="format"><a class="header" href="#format">Format</a></h2>
+<ul>
+<li><strong>Store format version 4</strong> (Graphersal 0.5.0): models are blobs referenced by catalog
+definitions of kind 5 (spec 4.5, 6.3), with the blob ledger (10.1) and the system journal
+(4.7); the 0.4.0 <code>models/</code> area is migrated by the upgrade (15.1, <code>INTENT</code> op
+<code>upgrade_models</code>).</li>
+<li><strong>File format version 4</strong>: the blob reference value tag 21 (3), the manifest's blob table
+(6.2 item 5), system-journal segments (4.7) and the WAL Commit part record type 4 (9.3.1). A
+packed snapshot carries blobs as segment rows of kind 4 (7.5, 8).</li>
+<li>New spec sections: 4.6 (blobs), 4.7 (system journal), 9.3.1 (commit in parts), 10.1
+(<code>ledger</code>), 12.12 (catalog commits on a closed store), 18 (the instance clock); the vector-rule
+rule for replay in 9.3, blob recovery in 13.4, and the conformance notes of 17. No section was
+renumbered.</li>
+<li>Nothing new is a creation parameter: the hash algorithm is stated per blob, and the WAL part
+size is a writer's choice (<a href="../persistence/creation_parameters.html">Creation Parameters</a>).</li>
+<li><code>WORKLOAD</code> (the workload statistics) is no longer copied by a conversion (<code>store convert</code>),
+as the specification already said; an upgrade into a copy keeps it.</li>
+</ul>
+<h2 id="project"><a class="header" href="#project">Project</a></h2>
+<ul>
+<li><strong>No prebuilt binary or wheel for macOS on Intel</strong> from 0.5.0 on (its CI runner made every
+release much slower): build the CLI from source with Cargo; the Python package installs there
+from the sdist, which needs a Rust toolchain
+(<a href="../getting_started/installation.html">Installation</a>).</li>
+</ul>
+<h2 id="breaking-changes-in-detail"><a class="header" href="#breaking-changes-in-detail">Breaking changes in detail</a></h2>
+<p>Each row: what 0.4.x had, what 0.5.0 has instead.</p>
+<div class="table-wrapper"><table><thead><tr><th>0.4.x</th><th>0.5.0</th></tr></thead><tbody>
+<tr><td><code>graphersal --embedder ml=&lt;repo&gt; --default-embedder ml --graph s.gstore</code></td><td><code>graphersal embed-model import &lt;repo&gt; --into s.gstore --default</code> once, then <code>graphersal --graph s.gstore</code> (<a href="../persistence/store_models.html#importing-a-model">Embedding Models in a Store</a>)</td></tr>
+<tr><td><code>--embedder</code>/<code>--default-embedder</code> in an args file</td><td>key removed: a usage error (exit 2) naming the import command</td></tr>
+<tr><td><code>g.embed_property(#{label: "doc", from: "text", to: "emb", embedder: "ml"})</code></td><td>a vector rule: schema <code>"emb": {"type": "array", "format": "vector", "embedder": "&lt;model&gt;", "from": "text"}</code> (<code>g.patch_schema(..)</code>); applying it fills every element while the database is locked (<a href="../users_guide/vector_rules.html">Vector Rules</a>). A call of <code>embed_property</code>, also in a saved query, fails with a help showing the rule</td></tr>
+<tr><td>a loader or saved query writing the vector itself (<code>property("emb", embed(..))</code>)</td><td>under a rule: write the source property; a direct write is <code>GraphError::DerivedProperty</code></td></tr>
+<tr><td>Rust <code>Embedders::builder().with(Arc::new(my))</code>, <code>GraphTraversalSource::with_embedders</code>, <code>Embedders::scope</code>, <code>script::set_engine_embedders</code>, <code>script::set_scope_embedders</code></td><td>removed: compute vectors outside and write them as values, or import a Model2Vec model into the store (<code>Store::import_model(ModelSource::Dir(..), ImportModelOptions::new())</code>); a host building its own Rhai engine calls <code>script::set_engine_graph</code></td></tr>
+<tr><td>Python <code>graphersal.Embedder</code>, <code>graphersal.Model2Vec</code>, <code>embedders=</code>, <code>default_embedder=</code>, <code>graph.register_embedder</code>, <code>graph.embed_property</code>, <code>EmbedPropertyError</code></td><td><code>store.import_model(repo or dir, repo=, license=, replace=, default=)</code>, <code>Store.import_model_into(path, ..)</code>; vector rules (<a href="../library/python.html">Python</a>). A removed keyword raises <code>TypeError</code></td></tr>
+<tr><td><code>memory.limit</code>/<code>memory.headroom</code> as a <code>g.with()</code> option, an <code>ExecutionPolicy</code> default or a session preset</td><td>the process ceiling: <code>exec::set_memory_limit</code>/<code>set_memory_headroom</code>, CLI <code>--memory-limit</code>/<code>--memory-headroom</code>, Python <code>graphersal.set_memory_limit(.., headroom=)</code>; per query <code>traversal.max_materialized_bytes</code>. The old keys fail with <code>InvalidOption</code></td></tr>
+<tr><td>Python <code>memory_limit=</code>/<code>memory_headroom=</code> constructor and loader keywords</td><td><code>graphersal.set_memory_limit(..)</code> (process); <code>graph.set_limits(max_materialized_bytes=..)</code> (per query)</td></tr>
+<tr><td><code>presets</code> of <code>AnyGraph::import_graphml</code>/<code>import_graphson</code></td><td>removed (they carried only <code>memory.limit</code>)</td></tr>
+<tr><td><code>traversal.max_materialized_bytes</code>: the size of one value or buffer</td><td>the live bytes one execution holds at once; the profile reports the peak</td></tr>
+<tr><td>no default memory ceiling</td><td>on by default (cgroup minus headroom, else 80 % of RAM; 3.5 GiB on wasm32); <code>none</code> turns it off</td></tr>
+<tr><td>a commit body over 1 GiB vetoed (<code>CommitTooLarge</code>)</td><td>written in parts; <code>CommitTooLarge</code> only beyond 2^20 parts</td></tr>
+<tr><td><code>g.memory_report()</code>, <code>MemoryReportRequest::new()</code>: every row</td><td>the 500 largest rows per list plus the count of the rest (<code>limit</code>/<code>with_limit(usize::MAX)</code> for all)</td></tr>
+<tr><td><code>graphersal store export</code>: the snapshot plus the <code>models/</code> files as they were</td><td>the stored snapshot with the models of ITS position: a model imported after the last checkpoint is exported after the next <code>store checkpoint</code></td></tr>
+<tr><td><code>embed-model import --license X</code> overriding the manifest</td><td>applies only when the manifest states no licence</td></tr>
+<tr><td>a 0.1.x-0.4.x store opened as it is</td><td><code>graphersal store upgrade</code> first (store format version 4)</td></tr>
+</tbody></table>
+</div>
+<p><code>graphersal</code> (Rust), removed from the public API (checked with <code>cargo semver-checks</code> against
+v0.4.0):</p>
+<ul>
+<li><code>vector::{Embedder, EmbedderInfo, EmbedContext, Embedders, EmbeddersBuilder, HashNgram, Model2Vec, Model2VecOptions, EmbedJob, EmbedReport, EmbedJobError, DEFAULT_MAX_BATCH, MAX_EMBEDDER_NAME_BYTES}</code>; the <code>vector</code> facade keeps the <code>Vector*</code> types,
+<code>MAX_VECTOR_DIMENSION</code> and <code>EmbedError</code>. Feature <code>model2vec</code> now means "the engine can load
+the models kept in the database" and has no public item of its own.</li>
+<li><code>Graph::embed_property</code>, <code>AnyGraph::embed_property</code>,
+<code>ScriptGraphTraversalSource::embed_property</code>, <code>GraphTraversalSource::with_embedders</code>,
+<code>script::set_engine_embedders</code>, <code>script::set_scope_embedders</code>.</li>
+<li><code>EmbedError::Registry</code> and <code>EmbedError::EmbedderMismatch</code>; the constructors
+<code>EmbedError::unavailable</code>/<code>failed</code>/<code>bad_output</code>/<code>no_features</code> are crate-internal.</li>
+<li><code>persist::{StoredModel, ModelFile, AddModelReport, StoredEmbedders}</code>, <code>Store::add_model</code>,
+<code>read_model_file</code>, <code>stored_embedders</code>, <code>stored_embedders_dir</code>, <code>add_model_dir</code>,
+<code>read_model_file_dir</code>.</li>
+</ul>
+<p>Changed:</p>
+<ul>
+<li><code>persist::BaseModel</code> moved to <code>catalog::BaseModel</code>.</li>
+<li><code>Store::models</code>/<code>models_dir</code> return <code>Vec&lt;ModelInfo&gt;</code>; <code>Store::remove_model(repo)</code> and
+<code>remove_model_dir(dir, repo, ClosedCommitOptions)</code> take a repository and return
+<code>ModelChangeReport</code>; <code>StoreInfo::models</code> and the <code>models</code> of <code>BackupReport</code>, <code>ForkReport</code> and
+<code>RepairReport</code> are <code>Vec&lt;ModelInfo&gt;</code>; <code>Store::import_models_from_packed</code> returns
+<code>Vec&lt;BlobRef&gt;</code>; <code>persist::ModelCopy</code> is an alias of <code>BlobCopy</code> (<code>Exclude</code> leaves out models
+and blobs).</li>
+<li><code>AnyGraph::import_graphml</code>/<code>import_graphson</code> take no <code>presets</code> argument.</li>
+<li><code>Store::import_model</code> with replace re-embeds the vectors of rules naming the old revision;
+vectors of it without a rule refuse the replace with <code>StoreFailure::ModelInUse</code>.</li>
+<li><code>set_schema</code> may write data: the first fill of a vector rule.</li>
+<li><code>Graph</code> is no longer <code>UnwindSafe</code>, <code>Recovered</code> no longer <code>UnwindSafe</code> nor <code>RefUnwindSafe</code>
+(they hold the model registry and the instance clock).</li>
+<li>The implicit discriminants of <code>Resource::Custom</code> and <code>StoreFailure::AutoCheckpointFailed</code>
+changed (new variants before them); only an <code>as</code> cast sees it.</li>
+<li><code>MemoryReportRequest::new()</code> is bounded (above).</li>
+</ul>
+<p>Added (not breaking), beyond the features above: <code>GraphError::{DerivedProperty, VectorRuleFailed, VectorRuleModelMissing}</code>, the field <code>needed</code> of <code>GraphError::ResourceLimitExceeded</code>,
+<code>PersistError::MemoryBudget</code> fields <code>operation</code>, <code>in_use</code>, <code>setting</code>, <code>PersistError::Journal</code>, the
+<code>StoreFailure</code> causes <code>BlobUnavailable</code>, <code>BlobDamaged</code>, <code>ModelUnavailable</code>, <code>ModelDoesNotFit</code>,
+<code>ModelInUse</code>, <code>ModelRevisionExists</code>, <code>UpgradeModelDamaged</code> (each with a <code>faq.md</code> row),
+<code>ElementProperty::Blob</code> (refused as element data), <code>SchemaChangeKind::{VectorRuleAdded, VectorRuleChanged, VectorRuleRemoved}</code>, <code>VectorSchema::from</code>, <code>schema::{PlannedFill, FillReason, fill_warning}</code>, <code>exec::FillProgress</code>, <code>Graph::vector_fill_progress</code>,
+<code>UpgradeReport::{models_converted, migration_commit, models_missing, vectors_without_rule, saved_queries_using_removed, saved_queries_writing_vectors, vector_notes}</code>,
+<code>SnapshotLoadReport::saved_queries_writing_vectors</code>, <code>VectorWithoutRule::combined_schema_patch</code>,
+<code>PlannedFill::{scan_elements, scan_ms, direct_writes}</code>, <code>catalog::{RemovedFunctionUse, VectorPropertyWrite}</code>, <code>script::{saved_queries_using_removed, saved_queries_writing_vectors}</code>,
+<code>persist::{ModelSource, ImportModelOptions, ModelInfo, ModelState, ImportModelReport, ModelChangeReport, ClosedCommitOptions, BlobSource, RestoreBlobsReport, RepairOptions, ModelCache, ConvertedModel, MissingModel, VectorWithoutRule, SnapshotLoadReport, read_snapshot_file}</code>,
+<code>Store::create_from_packed_dir</code>, <code>Recovered::into_graph</code>, <code>RecoveryReport::clock_floor</code>, the report
+fields for blobs, models and journal files.</p>
+<p><code>graphersal-session</code> and <code>graphersal-wasm</code> (internal): the session JSON carries <code>modelsNote</code>,
+the models' <code>state</code>, <code>loadBytes</code>, <code>neededBy</code> and <code>default</code>, <code>fill</code>/<code>fill_warning</code> in schema
+previews (each fill with <code>scan_elements</code>, <code>scan_ms</code>, <code>direct_writes</code>), <code>model_bytes</code> in the
+memory JSON (<code>views::memory_stats_view</code>), <code>process.memory</code> with the bar keys, <code>query_memory</code> in profiles, and a <code>limit</code> for the
+memory report; <code>Session::journal</code> and wasm <code>journal(spec)</code> read the system journal.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../release_notes/release_notes_0.5.1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../release_notes/release_notes_0.4.0.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../release_notes/release_notes_0.5.1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../release_notes/release_notes_0.4.0.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>
