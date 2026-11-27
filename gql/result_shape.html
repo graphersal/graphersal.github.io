@@ -1,0 +1,323 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Result Shape - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/gql/result_shape.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="result-shape"><a class="header" href="#result-shape">Result Shape</a></h1>
+<h2 id="one-map-per-row"><a class="header" href="#one-map-per-row">One map per row</a></h2>
+<p>Every result row of <code>gql()</code> is a <strong>map</strong> from column name to value, whatever the plan behind it
+(the planner may start a pattern at any of its nodes; the row looks the same). <code>RETURN</code> is
+mandatory in a query that only reads, as in GQL and Cypher: such a query without it is a
+syntax error whose help suggests <code>RETURN *</code> or <code>RETURN a, b</code>. A query whose last clause writes
+(or that ends with <code>FINISH</code>) returns no rows (<a href="writes.html">Writing with GQL</a>).</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) RETURN p.name AS name, p.age AS age ORDER BY age").to_list()
+// #{"age": 27, "name": "vadas"}, #{"age": 29, "name": "marko"}, #{"age": 32, "name": "josh"}, #{"age": 35, "name": "peter"}
+g.gql("MATCH (n:person)")   // error: missing RETURN
+</code></pre>
+<p>A value is a property value (number, string, boolean, date, UUID, vector, ...), <code>NULL</code> (a
+missing property gives a <code>NULL</code> column, the key is never left out), a list, a map (both may
+<a href="#nested-maps-and-lists">nest</a>), a vertex or edge, or a <a href="#paths">path</a>. An element column holds the live element, so Gremlin can continue from it:</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (a)-[e]-&gt;(b) RETURN * ORDER BY element_id(e) LIMIT 2").to_list()
+// #{"a": v[1], "b": v[2], "e": e[0][1-knows-&gt;2]}, #{"a": v[1], "b": v[3], "e": e[1][1-created-&gt;3]}
+g.gql("MATCH (s:software) RETURN s ORDER BY s.name").select("s").in("created").values("name").order().to_list()   // "josh", "josh", "marko", "peter"
+</code></pre>
+<h2 id="column-names"><a class="header" href="#column-names">Column names</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Item</th><th>Column name</th></tr></thead><tbody>
+<tr><td><code>expr AS name</code></td><td><code>name</code></td></tr>
+<tr><td><code>n.name</code> without <code>AS</code></td><td>the expression text as written: <code>n.name</code></td></tr>
+<tr><td><code>count(*)</code> without <code>AS</code></td><td>the same rule: <code>count(*)</code></td></tr>
+<tr><td><code>RETURN *</code></td><td>every named variable, in name order (code point order, as Neo4j: <code>a, b, p</code>; <code>WITH *</code> too)</td></tr>
+<tr><td><code>RETURN *, expr AS x</code></td><td>the variables first, then <code>x</code></td></tr>
+</tbody></table>
+</div>
+<p>A name used twice is an error. Give every computed column an <code>AS</code> name: it is easier to read
+and to reach from Gremlin (<code>select("name")</code>), and the text form of an unaliased column follows
+Neo4j's rule today (the expression as written), which may still be aligned with the ISO naming
+rule.</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) RETURN p.name ORDER BY p.name LIMIT 2").to_list()   // #{"p.name": "josh"}, #{"p.name": "marko"}
+g.gql("MATCH (s:software) RETURN s.name AS `the name` ORDER BY `the name`").to_list()   // #{"the name": "lop"}, #{"the name": "ripple"}
+g.gql("MATCH (n:person) RETURN n.age AS a, n.name AS a")   // error: the column name `a` is used twice in RETURN
+</code></pre>
+<p>A keyword (<code>by</code>, <code>order</code>, <code>match</code>, ...) is fine as a label, a property key or an <code>AS</code> name, but
+where it is read back as a variable (in <code>ORDER BY</code>, or as a pattern variable) it must be
+back-quoted: <code>RETURN p.name AS by ORDER BY `by` </code>.</p>
+<h2 id="column-order"><a class="header" href="#column-order">Column order</a></h2>
+<p>The engine keeps the columns in the <strong>written order</strong> (<code>RETURN p.name AS name, p.age AS age</code>
+gives <code>name</code>, then <code>age</code>). Whether you see that order depends on where the rows go:</p>
+<div class="table-wrapper"><table><thead><tr><th>Output</th><th>Column order</th></tr></thead><tbody>
+<tr><td>JSON: <code>to_json()</code>, <code>--format json</code>, the dev server's JSON API, the MCP tools <code>gql</code> and <code>query</code></td><td>written order</td></tr>
+<tr><td>Rust: the row is an <code>ElementProperty::Map</code></td><td>written order</td></tr>
+<tr><td>Rhai maps (<code>to_list()</code>, <code>next()</code>), the REPL / CLI table view</td><td>sorted by key</td></tr>
+<tr><td>Python dicts</td><td>sorted by key</td></tr>
+</tbody></table>
+</div>
+<p>Rhai object maps and Python dicts built from them are sorted by key, the same as for Gremlin's
+<code>project()</code> today; the table view shows their columns in that order.</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person) RETURN p.name AS name, p.age AS age ORDER BY age LIMIT 2").to_json()
+// [{"name": "vadas", "age": 27}, {"name": "marko", "age": 29}]
+g.gql("MATCH (p:person) RETURN p.name AS name, p.age AS age ORDER BY age").next().keys()   // "age", "name"
+</code></pre>
+<p>When the written order matters, read the rows as JSON or name the columns so that their
+alphabetical order is the order you want.</p>
+<h2 id="paths"><a class="header" href="#paths">Paths</a></h2>
+<p>A path variable (<code>RETURN p</code>) and a group variable (the variable of a quantified edge, or a
+variable inside a quantified path pattern) hold
+elements, so Gremlin can continue from them too:</p>
+<div class="table-wrapper"><table><thead><tr><th>Column</th><th>Value</th><th>JSON</th></tr></thead><tbody>
+<tr><td>a path variable <code>p</code></td><td>a path: vertex, edge, vertex, ..., in the written order (Gremlin's <code>path()</code> value)</td><td>a list of the element objects</td></tr>
+<tr><td>a group variable <code>e</code> of <code>-[e]-&gt;{1,3}</code></td><td>a list of the edges, in the written order; <code>[]</code> for a zero-length match</td><td>a list of edge objects</td></tr>
+<tr><td>a group variable <code>x</code> or <code>e</code> of <code>((x)-[e]-&gt;(y)){1,3}</code></td><td>a list of the nodes or edges, one per iteration in the written order; <code>[]</code> for zero iterations (with <code>?</code>: the single element, or <code>NULL</code>)</td><td>a list of element objects</td></tr>
+<tr><td>either, from an <code>OPTIONAL MATCH</code> that did not match</td><td><code>NULL</code></td><td><code>null</code></td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH p = (a {name: 'marko'})-[:knows]-&gt;(b {name: 'vadas'}) RETURN p").to_list()   // #{"p": [v[1], e[0][1-knows-&gt;2], v[2]]}
+g.gql("MATCH p = (a {name: 'marko'})-[:knows]-&gt;(b {name: 'vadas'}) RETURN p").to_json()
+// [{"p": [{"id": "1", "label": "person", ...}, {"id": "0", "label": "knows", "inV": "2", "outV": "1", ...}, {"id": "2", ...}]}]
+g.gql("MATCH p = (a {name: 'marko'})-[:knows]-&gt;(b {name: 'vadas'}) RETURN p").select("p").unfold().to_list()   // v[1], e[0][1-knows-&gt;2], v[2]
+g.v().has("name", "marko").out_e("knows").in_v().has("name", "vadas").path().to_list()   // [v[1], e[0][1-knows-&gt;2], v[2]]
+</code></pre>
+<h2 id="nested-maps-and-lists"><a class="header" href="#nested-maps-and-lists">Nested maps and lists</a></h2>
+<p>A column may hold maps and lists nested to any depth: a record constructor <code>{k: expr}</code>, a
+<a href="subset.html#map-projections-and-comprehensions">map projection</a> <code>p {.name, ...}</code> and a list or
+pattern comprehension build them per row, so one row can carry an entity with its related data
+inside. Keys keep their written order in the JSON output, at every level, like the columns of a
+row (<a href="#column-order">Column order</a>); Rhai maps sort them by key as anywhere else.</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (s:software) RETURN s {.name, creators: [(s)&lt;-[:created]-(p) | p {.name, .age}]} AS sw ORDER BY sw.name").to_json()
+// [{"sw": {"name": "lop", "creators": [{"name": "peter", "age": 35}, {"name": "josh", "age": 32}, {"name": "marko", "age": 29}]}},
+//  {"sw": {"name": "ripple", "creators": [{"name": "josh", "age": 32}]}}]
+// (the creators of one program come in no defined order)
+</code></pre>
+<p>A vertex, edge or path inside a map or a list stays the live element, as in a column of its own:
+Gremlin can continue from it, and JSON renders it as the element object <code>{id, label, properties}</code>
+(an edge also its endpoints, <code>inV</code> and <code>outV</code>). Project the properties you need (<code>f {.name}</code>
+instead of <code>f</code>) for a smaller answer.</p>
+<pre><code class="language-rhai graph=modern">g.gql("MATCH (p:person {name: 'marko'})-[:knows]-&gt;(f {name: 'vadas'}) RETURN p {.name, friend: f} AS x").to_list()   // #{"x": #{"friend": v[2], "name": "marko"}}
+g.gql("MATCH (p:person {name: 'marko'})-[:knows]-&gt;(f {name: 'vadas'}) RETURN p {.name, friend: f} AS x").to_json()
+// [{"x": {"name": "marko", "friend": {"id": "2", "label": "person", "properties": {"name": "vadas", "age": 27}}}}]
+g.gql("MATCH (p:person {name: 'marko'}) RETURN [(p)-[:knows]-&gt;(f) | f] AS friends").select("friends").unfold().values("name").order().to_list()   // "josh", "vadas"
+</code></pre>
+<div class="table-wrapper"><table><thead><tr><th>Value</th><th>Rhai / Rust</th><th>JSON</th></tr></thead><tbody>
+<tr><td>a map projection or record</td><td>a map (<code>ElementProperty::Map</code>), keys in written order in Rust</td><td>an object, keys in written order</td></tr>
+<tr><td>a map projection of a <code>NULL</code> variable</td><td><code>()</code> / <code>NULL</code></td><td><code>null</code></td></tr>
+<tr><td>a list or pattern comprehension</td><td>a list; <code>[]</code> when nothing is kept or matched</td><td>an array</td></tr>
+<tr><td>an element inside either</td><td>the live vertex or edge</td><td>the element object</td></tr>
+</tbody></table>
+</div>
+<h2 id="row-order-and-duplicates"><a class="header" href="#row-order-and-duplicates">Row order and duplicates</a></h2>
+<ul>
+<li>Without <code>ORDER BY</code> the row order is unspecified (<a href="semantics.html#ordering">Ordering</a>).</li>
+<li>Rows are a multiset: the same row may appear several times (one per match). <code>RETURN DISTINCT</code>
+removes duplicates (<a href="semantics.html#distinct-and-grouping-equality">with GQL's equality</a>).</li>
+<li>An aggregating <code>RETURN</code> gives one row per group; without grouping keys exactly one row, even
+when nothing matched (<a href="semantics.html#aggregation">Aggregation</a>).</li>
+<li><code>OFFSET</code> and <code>LIMIT</code> apply after <code>ORDER BY</code> and <code>DISTINCT</code>.</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../gql/semantics.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../gql/writes.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../gql/semantics.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../gql/writes.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,761 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Vectors - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/users_guide/vectors.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="vectors"><a class="header" href="#vectors">Vectors</a></h1>
+<blockquote>
+<p>New to embeddings? <a href="../getting_started/embeddings.html">Embeddings and Vector Search</a> is the
+task-oriented tour: semantic search, filtered search, GraphRAG and recommendations, in the
+playground with toy vectors and in Python with a real model. This page is the reference.</p>
+</blockquote>
+<p>A <strong>vector</strong> is a fixed-length list of numbers stored as one value: an embedding of a text, an
+image or a node, as a language or vision model computes it. A property holds a <code>vector</code>, not a
+list that happens to contain numbers, and the engine stores it compactly, converts it between
+element kinds and compares it as one value. Vectors are a Graphersal extension: TinkerPop has no
+vector type.</p>
+<p><strong>The engine never calls a model on its own.</strong> A query that reached out to an embedding service
+by itself would depend on the network, could not be rolled back (a paid call stays paid) and would
+not run in the browser playground. The host either computes embeddings itself (in Python, in an
+MCP tool, in a server) and writes them as ordinary property values, or registers <em>embedders</em> that
+the <code>embed</code> step calls (<a href="#embeddings">Embeddings</a> below); one small embedder, <code>hash-ngram/1</code>, is
+built in.</p>
+<pre><code class="language-rhai graph=empty">type_of(vector([0.12, -0.5, 0.33]))   // "Vector"
+vector([0.12, -0.5, 0.33]).dimension   // 3
+vector([0.12, -0.5, 0.33], "i8").element   // "i8"
+g.inject(vector([0.5, 1.0])).is(P.typeOf(GType.VECTOR)).count().next()   // 1
+</code></pre>
+<h2 id="element-kinds-and-quantization"><a class="header" href="#element-kinds-and-quantization">Element kinds and quantization</a></h2>
+<p>A vector has 1 to 65 536 components, all of one <strong>element kind</strong>:</p>
+<div class="table-wrapper"><table><thead><tr><th>Element</th><th>A component</th><th>Bytes per component</th><th>768 components</th></tr></thead><tbody>
+<tr><td><code>f32</code> (default)</td><td>an IEEE single-precision float</td><td>4</td><td>3 KiB</td></tr>
+<tr><td><code>f16</code></td><td>an IEEE half-precision float</td><td>2</td><td>1.5 KiB</td></tr>
+<tr><td><code>i8</code></td><td>an 8-bit code times one f32 scale per vector (<code>value = code * scale</code>)</td><td>1</td><td>768 B</td></tr>
+<tr><td><code>bit</code></td><td>one sign bit: <code>1.0</code> for a set bit, <code>-1.0</code> otherwise</td><td>1/8</td><td>96 B</td></tr>
+</tbody></table>
+</div>
+<p>A list of 768 numbers as a plain <code>array</code> takes about 24 KiB; the same vector as <code>f32</code> 3 KiB.</p>
+<p><strong>Quantization</strong> converts a vector to another element kind, to save memory at a small cost in
+precision:</p>
+<ul>
+<li><strong>f32 to f16</strong> rounds every component to the nearest half value (ties to even). A component
+beyond the half range (65 504) is an error, never an infinity.</li>
+<li><strong>f32 to i8</strong> is symmetric scalar quantization: <code>scale = max |x| / 127</code>, <code>code = round(x / scale)</code> in -127..=127. A zero vector has scale 0.</li>
+<li><strong>f32 to bit</strong> keeps the sign: a component <code>&gt; 0</code> sets its bit (binary quantization).</li>
+<li>Every other conversion goes through the f32 values, so <code>quantize("f32")</code> dequantizes.</li>
+</ul>
+<pre><code class="language-rhai graph=empty">vector([0.5, -1.0, 0.25]).quantize("bit").to_list()   // [1.0, -1.0, 1.0]
+vector([0.5, -1.0, 0.25]).quantize("f16").to_list()   // [0.5, -1.0, 0.25]
+g.inject(vector([0.5, -1.0, 0.25])).quantize("i8").next().element   // "i8"
+vector([1e10], "f16")   // fails: the component is beyond the range of an f16 vector
+</code></pre>
+<p>All four kinds are part of the value type and of every file format from the start, so storing a
+property quantized is a choice of the data, never a format change.</p>
+<h2 id="building-vectors"><a class="header" href="#building-vectors">Building vectors</a></h2>
+<ul>
+<li><code>vector(list)</code> builds an f32 vector of a list of numbers; <code>vector(list, kind)</code> quantizes it to
+<code>"f16"</code>, <code>"i8"</code> or <code>"bit"</code>.</li>
+<li>The <code>as_vector()</code> step converts a list of numbers in a traversal (a stored list, a <code>fold()</code>);
+a vector passes, <code>null</code> stays <code>null</code>.</li>
+<li>A schema that declares the property as a vector converts a written list on write (below).</li>
+</ul>
+<p>A vector never holds NaN or an infinity (it would break ordering and comparison); <code>-0.0</code> is kept
+and equals <code>0.0</code>. An empty list, a component that is not a number and more than 65 536
+components are errors:</p>
+<pre><code class="language-rhai graph=empty">g.inject([0.5, 1]).as_vector().next()   // vector([0.5, 1.0])
+g.inject(1, 2, 3).fold().as_vector().next().dimension   // 3
+vector([])   // fails: a vector has 1 to 65536 components
+vector([1, "x"])   // fails: component 1 is not a number
+</code></pre>
+<p>A vector prints as its DSL literal, which evaluates back to the same vector (an <code>i8</code> or <code>bit</code>
+vector shows its dequantized values and its kind): <code>vector([0.5, 1.0])</code>, <code>vector([0.503937, -1.0], "i8")</code>. <code>to_string()</code> and the step names in <code>.profile()</code> cut it after 16 components, like
+a list. In a script a vector has the getters <code>element</code> and <code>dimension</code> and the methods
+<code>quantize(kind)</code> and <code>to_list()</code> (the values as floats).</p>
+<h2 id="writing-filtering-and-ordering"><a class="header" href="#writing-filtering-and-ordering">Writing, filtering and ordering</a></h2>
+<p>A vector is written like any other value, and <code>has()</code> compares it by value: the same element
+kind, the same dimension and equal components. A list is never equal to a vector, and an <code>f16</code>
+vector never equals an <code>f32</code> one, even with the same values:</p>
+<pre><code class="language-rhai graph=empty script">g.add_v("doc").property("title", "Graphs").property("emb", vector([0.1, 0.9])).iterate();
+g.add_v("doc").property("title", "Vectors").property("emb", vector([0.8, 0.2])).iterate();
+g.v().has("emb", vector([0.1, 0.9])).values("title").next();   // "Graphs"
+g.v().has("emb", [0.1, 0.9]).count().next();   // 0
+g.v().has_label("doc").order().by("emb").values("title").to_list()   // ["Graphs", "Vectors"]
+</code></pre>
+<p>Vectors order (a Graphersal extension) after the dates and before strings; among themselves by
+element kind (<code>f32</code>, <code>f16</code>, <code>i8</code>, <code>bit</code>), then by dimension, then component by component. A
+vector is one value in the local steps (<code>count(Scope.local)</code> is 1, <code>unfold()</code> passes it), and
+<code>min()</code>/<code>max()</code> refuse it.</p>
+<p>A <a href="property_indexes.html">property index</a> never holds vectors: <code>has(key, vector)</code> on an indexed
+key reads the elements by a scan, with the same result.</p>
+<p><strong>Quantize an existing property</strong> with one write per element, then declare the new element in the
+schema (<code>g.patch_schema(..)</code>, below). This works as shown while no schema declares the property;
+when the schema already declares it as <code>f32</code> (mode open or closed), a write is converted back to
+<code>f32</code> and the new element is refused while f32 data remains: the migration recipe for that case
+(mode <code>none</code> for the rewrite, one unit) is in
+<a href="../getting_started/embeddings.html#quantization-smaller-vectors">Embeddings and Vector Search</a>.</p>
+<pre><code class="language-rhai graph=empty script">g.add_v("doc").property("emb", vector([0.5, -1.0, 0.25])).iterate();
+g.v().has_label("doc").has("emb").property("emb", __.values("emb").quantize("i8")).iterate();
+g.v().values("emb").next().element   // "i8"
+</code></pre>
+<h2 id="vectors-in-a-schema"><a class="header" href="#vectors-in-a-schema">Vectors in a schema</a></h2>
+<p>A schema declares a vector property as an <code>array</code> with the custom format <code>vector</code>:</p>
+<pre><code class="language-json">{"type": "array", "format": "vector", "element": "i8", "dimension": 768, "metric": "cosine"}
+</code></pre>
+<ul>
+<li><code>element</code> (default <code>f32</code>) and <code>dimension</code> (optional: any dimension) are checked exactly: a
+stored vector of another kind or length does not conform. <code>metric</code> (<code>cosine</code>, <code>dot</code>, <code>l2</code>,
+<code>hamming</code>) is an annotation: the metric the vectors are meant to be compared with, which
+<code>similarity()</code> and <code>nearest()</code> use when the query names none (<a href="#metrics">Metrics</a>). It never
+changes or checks any data.</li>
+<li><code>embedder</code> (on a label's top-level property only) records the model identity of the
+embedder that produced the vectors (<code>"hash-ngram/1"</code>): a <a href="vector_rules.html">vector rule</a>
+embeds with it and the text queries read it (<a href="#which-model-produced-a-property">Which model produced a property</a>). A
+plain write does not check it.</li>
+<li><code>from</code> (with <code>embedder</code>, on a label's top-level property only) makes the property a
+<a href="vector_rules.html">vector rule</a>: the engine embeds the text of <code>from</code> into it at the end of
+every unit that writes it, and refuses direct writes of it.</li>
+</ul>
+<blockquote>
+<p><strong>Warning:</strong> a <a href="vector_rules.html">vector rule</a> (<code>"from"</code> on a vector property) added or changed
+fills every element of its label in the schema-changing unit, and the WHOLE database is
+locked while it runs: every write and every read waits until it ends. The schema preview
+(<code>validate_schema</code>, <code>diff_schema</code>) reports how many elements and how long first.</p>
+</blockquote>
+<ul>
+<li><code>items</code> is not allowed next to the format (the components are numbers of the element kind).</li>
+<li>Another JSON Schema validator ignores the unknown format and keywords and sees an array of
+numbers, which is what a vector exports as. The schema visualizer's per-label JSON Schema
+(<code>visualize("jsonschema")</code>) spells out <code>items</code> and <code>minItems</code>/<code>maxItems</code> for it.</li>
+</ul>
+<p>In mode <code>open</code> or <code>closed</code>, a <strong>list of numbers written to the property becomes a vector of the
+declared element</strong>, and a vector of another element is quantized to it: a property is stored
+quantized from the start, whatever the host sends. The dimension is never changed:</p>
+<pre><code class="language-rhai graph=empty script">g.set_schema(#{mode: "open", vertices: #{doc: #{schema: #{type: "object", properties: #{
+  emb: #{type: "array", format: "vector", element: "i8", dimension: 3}}}}}});
+g.add_v("doc").property("emb", [0.5, -1.0, 0.25]).iterate();
+g.add_v("doc").property("emb", vector([1.0, 2.0, 3.0])).iterate();
+g.v().values("emb").to_list().map(|v| v.element)   // ["i8", "i8"]
+</code></pre>
+<p>On that graph, <code>g.add_v("doc").property("emb", [1.0, 2.0])</code> fails with "Type mismatch on vertex
+'doc.emb': expected vector&lt;i8, 3&gt;, got vector&lt;i8, 2&gt;", and its help names the conversion
+(<code>values("emb").as_vector().quantize("i8")</code>).</p>
+<p><code>infer_schema()</code> reports a vector as such, with its dimension when every vector of that element
+at the position has the same one. <code>diff_schema()</code> counts a change of <code>element</code> or <code>dimension</code>
+(and a list turned into a vector, or back) as incompatible, since the stored data no longer
+conforms; dropping <code>dimension</code> (any dimension) is compatible. An <code>embedder</code> change is the entry
+<code>embedder_changed</code>: declaring one where there was none is compatible, changing it is not (the
+stored vectors and a text query embedded by the new model are no longer comparable), and removing
+it is not either (a text query on the property no longer finds its model). <code>infer_schema()</code>
+never reports an <code>embedder</code>: nothing in the data says which model made a vector. A saved query takes a vector
+parameter the same way: <code>params: #{q: #{schema: #{type: "array", format: "vector", element: "f32", dimension: 768}}}</code>; a list argument is converted to the declared vector.</p>
+<h2 id="similarity"><a class="header" href="#similarity">Similarity</a></h2>
+<p><code>similarity()</code> scores a vector against a query vector <code>q</code> and yields a <code>float64</code>. It is a map
+step in two forms:</p>
+<div class="table-wrapper"><table><thead><tr><th>Form</th><th>Scores</th></tr></thead><tbody>
+<tr><td><code>similarity(key, q[, metric])</code></td><td>the vector property <code>key</code> (a name or a <code>jpath(..)</code>) of the incoming element (or map)</td></tr>
+<tr><td><code>similarity(q[, metric])</code></td><td>the incoming value itself, a vector (<code>values("emb").similarity(q)</code>, a computed vector)</td></tr>
+</tbody></table>
+</div>
+<p><code>q</code> is a vector, a list of numbers (made an f32 vector when the step is built), or an anonymous
+traversal run on each incoming traverser whose first result is the query (<code>__.select("q")</code>).
+The key form drops an element without the property or whose value is not a vector; the value
+form drops <code>null</code> and fails on any other value that is not a vector.</p>
+<pre><code class="language-rhai graph=empty script">g.add_v("doc").property("title", "Graphs").property("emb", vector([0.6, 0.8])).iterate();
+g.add_v("doc").property("title", "Vectors").property("emb", vector([1.0, 0.0])).iterate();
+g.v().has_label("doc").similarity("emb", vector([1.0, 0.0])).to_list();   // [0.6000000095367428, 1.0]
+g.v().has_label("doc").values("emb").similarity([0.0, 0.0], "l2").to_list();   // [1.000000023841858, 1.0]
+g.v().has_label("doc")
+ .project("title", "score").by("title").by(__.similarity("emb", vector([1.0, 0.0])))
+ .to_list()
+</code></pre>
+<h3 id="metrics"><a class="header" href="#metrics">Metrics</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Metric</th><th>Score</th><th>Closer is</th><th>Vectors</th></tr></thead><tbody>
+<tr><td><code>cosine</code> (default)</td><td>the dot product over the product of the norms, -1 to 1; <code>0.0</code> when either vector is zero (never NaN)</td><td>higher</td><td>any kind except bit against non-bit</td></tr>
+<tr><td><code>dot</code></td><td>the dot product</td><td>higher</td><td>as cosine</td></tr>
+<tr><td><code>l2</code></td><td>the Euclidean distance</td><td>smaller</td><td>as cosine</td></tr>
+<tr><td><code>hamming</code></td><td>the number of differing bits</td><td>smaller</td><td>bit vectors only</td></tr>
+</tbody></table>
+</div>
+<p>The metric is the step's argument if it names one; otherwise the <code>metric</code> annotation the stored
+schema declares for the property (a top-level name on a vertex or edge, by the element's labels
+like a write; for the value form, the property a <code>values("emb")</code> reference points to), and
+<code>cosine</code> without one. A computed vector, a jpath key and a map have no declaration: cosine.</p>
+<p>Scores are exact: every component is read from the stored kind (an f16 or i8 vector dequantized,
+bits counted) and summed in f64, in a fixed order, so the same vectors always give the same score.
+Vectors of different element kinds compare through their values: an <code>i8</code> property can be searched
+with an <code>f32</code> query. A bit vector compares only with another bit vector (for which the dot product,
+cosine and distance follow exactly from the Hamming distance, the components being ±1). Two vectors
+of different dimensions are an error, never truncated:</p>
+<pre><code class="language-rhai graph=empty">g.inject(vector([1.0, 0.0])).similarity(vector([1.0, 0.0, 0.0])).next()   // fails: vectors of dimensions 2 and 3 cannot be compared
+g.inject(vector([1.0, -1.0], "bit")).similarity(vector([1.0, -1.0])).next()   // fails: a bit vector compares only with another bit vector
+g.inject(vector([1.0, -1.0], "bit")).similarity(vector([1.0, 1.0], "bit"), "hamming").next()   // 1.0
+</code></pre>
+<h2 id="exact-search-nearest"><a class="header" href="#exact-search-nearest">Exact search: nearest()</a></h2>
+<p><code>nearest(key, q, k[, #{metric: ".."}])</code> keeps the <code>k</code> incoming elements whose vector property
+<code>key</code> is closest to <code>q</code>, <strong>best first</strong> (the highest cosine or dot, the smallest l2 or hamming).
+It is an exact search: every incoming element is scored, with a bounded heap of <code>k</code> (O(n log k),
+never a full sort).</p>
+<ul>
+<li>Elements without the property, or whose value is not a vector, are skipped.</li>
+<li>Equal scores keep the input order, the earlier element first: the answer is deterministic, the
+same in a live graph, a view at a commit and a fork.</li>
+<li><code>q</code> is a vector, a list of numbers or a traversal. A traversal runs for every scored element and
+must give the same vector each time (one query per search, "more like this" below); a query
+that depends on the element fails and names <code>similarity()</code>, which scores each element against
+its own vector.</li>
+<li>The metric follows the same rule as for <code>similarity()</code>. Without a metric argument, elements whose
+labels declare different metrics fail: one search ranks with one metric.</li>
+<li>Bulk counts as in <code>limit()</code>: a traverser that stands for n equal ones is n results, cut at <code>k</code>.</li>
+<li><code>.profile()</code> shows the step as written, <code>nearest("emb", vector([..]), 10, #{metric: "l2"})</code>;
+the deadline (<code>evaluationTimeout</code>) and a cancel stop it while it scores.</li>
+</ul>
+<pre><code class="language-rhai graph=empty script">g.add_v("doc").property("title", "Graph databases 101").property("emb", vector([0.9, 0.1, 0.0])).iterate();
+g.add_v("doc").property("title", "Vector search").property("emb", vector([0.1, 0.9, 0.1])).iterate();
+g.add_v("doc").property("title", "Indexes").property("emb", vector([0.6, 0.6, 0.2], "i8")).iterate();
+g.add_v("doc").property("title", "Draft").iterate();
+g.v().has_label("doc").nearest("emb", vector([1.0, 0.2, 0.0]), 2).values("title").to_list();   // ["Graph databases 101", "Indexes"]
+g.v().has_label("doc").nearest("emb", [0.0, 1.0, 0.0], 1, #{metric: "l2"}).values("title").next()   // "Vector search"
+</code></pre>
+<p><code>nearest()</code> is the same as ordering by the score and keeping <code>k</code>, which is how to get the scores
+along with the elements:</p>
+<pre><code class="language-rhai graph=empty script">g.add_v("doc").property("title", "a").property("emb", vector([1.0, 0.0])).iterate();
+g.add_v("doc").property("title", "b").property("emb", vector([0.6, 0.8])).iterate();
+let q = vector([1.0, 0.1]);
+g.v().has_label("doc").nearest("emb", q, 2)
+ .project("title", "score").by("title").by(__.similarity("emb", q))
+ .to_list()
+</code></pre>
+<h3 id="filtered-search"><a class="header" href="#filtered-search">Filtered search</a></h3>
+<p>Filter first, then search: <code>has_label()</code> and <code>has()</code> before <code>nearest()</code> reduce what it scores (a
+<code>has_label()</code> folds into <code>v()</code> as usual, a property index serves a <code>has()</code>), and a <code>where()</code> can
+filter by the graph around each element:</p>
+<pre><code class="language-rhai graph=empty script">g.add_v("team").property("name", "engineering").as("eng")
+ .add_v("doc").property("title", "Design").property("lang", "en").property("year", 2026)
+   .property("emb", vector([0.9, 0.1])).add_e("owned_by").to("eng")
+ .add_v("doc").property("title", "Entwurf").property("lang", "de").property("year", 2026)
+   .property("emb", vector([0.9, 0.1])).add_e("owned_by").to("eng")
+ .iterate();
+g.v().has_label("doc")
+ .has("lang", "en").has("year", P.gte(2026))
+ .where(__.out("owned_by").has("name", "engineering"))
+ .nearest("emb", vector([1.0, 0.0]), 5)
+ .values("title").to_list()   // ["Design"]
+</code></pre>
+<h3 id="graphrag-a-vector-hit-then-the-graph"><a class="header" href="#graphrag-a-vector-hit-then-the-graph">GraphRAG: a vector hit, then the graph</a></h3>
+<p>Retrieval-augmented generation over a graph finds the chunks nearest to the question's embedding
+and expands along the edges to build the context:</p>
+<pre><code class="language-rhai graph=empty script">g.add_v("doc").property("title", "Graphersal").as("d")
+ .add_v("entity").property("name", "Rhai").as("e")
+ .add_v("chunk").property("text", "Graphersal runs Gremlin in Rhai.").property("emb", vector([0.9, 0.2]))
+   .add_e("part_of").to("d")
+ .add_e("mentions").from("d").to("e")
+ .iterate();
+g.v().has_label("chunk").nearest("emb", vector([1.0, 0.1]), 5).as("hit")
+ .out("part_of").as("doc")
+ .out("mentions").has_label("entity").as("ent")
+ .select("hit", "doc", "ent").by("text").by("title").by("name")
+ .to_list()
+</code></pre>
+<p>The embedding of the question comes from the host (the model is never called by the engine), as
+a query parameter or the argument of a saved query: <code>params: #{q: #{schema: #{type: "array", format: "vector", dimension: 384}}}</code> with the body <code>g.v().has_label("chunk").nearest("emb", q, k)</code>. MCP clients and the AI Chat call such a query with <code>run_saved_query</code>.</p>
+<h3 id="more-like-this"><a class="header" href="#more-like-this">More like this</a></h3>
+<p>The query vector can come from the graph itself: label it, then search with <code>__.select(..)</code>:</p>
+<pre><code class="language-rhai graph=empty script">g.add_v("doc").property("id", "d42").property("emb", vector([1.0, 0.0])).iterate();
+g.add_v("doc").property("id", "d7").property("emb", vector([0.9, 0.1])).iterate();
+g.add_v("doc").property("id", "d9").property("emb", vector([0.0, 1.0])).iterate();
+g.v().has("id", "d42").as("me").values("emb").as("q")
+ .v().has_label("doc").where(P.neq("me"))
+ .nearest("emb", __.select("q"), 2)
+ .values("id").to_list()   // ["d7", "d9"]
+</code></pre>
+<h3 id="recommendations-with-vector_mean"><a class="header" href="#recommendations-with-vector_mean">Recommendations with vector_mean()</a></h3>
+<p><code>vector_mean()</code> is a reducing barrier (like <code>mean()</code>): the component-wise mean of the incoming
+vectors, as an f32 vector. An incoming list of vectors (<code>fold()</code>) counts each of its vectors,
+<code>null</code> is skipped, quantized vectors count with their values, an empty stream gives no result,
+and vectors of different dimensions fail. <code>local(__.unfold().vector_mean())</code> averages each list
+on its own. The mean of what a user liked is a taste vector to search with:</p>
+<pre><code class="language-rhai graph=empty script">g.add_v("user").property("name", "u7").as("u")
+ .add_v("article").property("title", "Graphs").property("emb", vector([1.0, 0.0])).as("a")
+ .add_v("article").property("title", "Trees").property("emb", vector([0.8, 0.4])).as("b")
+ .add_v("article").property("title", "Cooking").property("emb", vector([0.0, 1.0]))
+ .add_v("article").property("title", "Forests").property("emb", vector([0.9, 0.3]))
+ .add_e("liked").from("u").to("a").add_e("liked").from("u").to("b").add_e("read").from("u").to("a")
+ .add_e("read").from("u").to("b")
+ .iterate();
+g.v().has("name", "u7").out("liked").values("emb").fold().vector_mean().as("taste")
+ .v().has_label("article")
+ .where(__.in("read").has("name", "u7").count().is(0))
+ .nearest("emb", __.select("taste"), 1)
+ .values("title").next()   // "Forests"
+</code></pre>
+<h3 id="performance"><a class="header" href="#performance">Performance</a></h3>
+<p>The search is an exact scan: its time grows with the number of scored elements times the
+dimension, and it needs no index, so it costs nothing to keep up to date and answers the same at
+every commit, mark and snapshot. Measured with the bench <code>nearest_10k_x_384</code> (<code>cargo bench -p graphersal --bench graph --features io,script,display,serde -- nearest_10k_x_384</code>): 10 000
+vertices with a random 384-dimensional embedding, <code>v().has_label("doc").nearest("emb", q, 10)</code>,
+on an Apple M3:</p>
+<div class="table-wrapper"><table><thead><tr><th>Stored element</th><th>Metric</th><th>Median</th><th>Per vector</th></tr></thead><tbody>
+<tr><td><code>f32</code></td><td>cosine</td><td>1.3 ms</td><td>130 ns</td></tr>
+<tr><td><code>f16</code></td><td>cosine</td><td>2.3 ms</td><td>230 ns</td></tr>
+<tr><td><code>i8</code></td><td>cosine</td><td>1.8 ms</td><td>180 ns</td></tr>
+<tr><td><code>bit</code></td><td>hamming</td><td>0.21 ms</td><td>21 ns</td></tr>
+</tbody></table>
+</div>
+<p>So about 13 ms per 100 000 f32 vectors of 384 components: enough for most in-memory graphs, and a
+filter before the search (above) scores fewer. There is no approximate (ANN) index yet (see
+<a href="current_limitations.html">Current Limitations</a>). These figures come from a source build, not from
+the musl-linked prebuilt Linux binary
+(<a href="../getting_started/installation.html#performance-of-the-prebuilt-linux-binaries">Performance of the prebuilt Linux binaries</a>).</p>
+<h3 id="quantization-memory-against-accuracy"><a class="header" href="#quantization-memory-against-accuracy">Quantization: memory against accuracy</a></h3>
+<p>A quantized property takes less memory and gives approximately the same answers. Measured by the
+test <code>quantized_search_recall_against_f32</code> on 2 000 random 128-dimensional vectors (20 queries,
+recall@10 against the f32 search with cosine); random vectors are the hardest case, real
+embeddings usually keep more:</p>
+<div class="table-wrapper"><table><thead><tr><th>Stored as</th><th>Bytes per 384 components</th><th>recall@10</th></tr></thead><tbody>
+<tr><td><code>f32</code></td><td>1 536</td><td>1.00 (exact)</td></tr>
+<tr><td><code>f16</code></td><td>768</td><td>1.00</td></tr>
+<tr><td><code>i8</code></td><td>384 (+ 4 for the scale)</td><td>0.99</td></tr>
+<tr><td><code>bit</code> (hamming)</td><td>48</td><td>0.30</td></tr>
+<tr><td><code>bit</code> top 100, re-ranked by <code>f32</code></td><td>48 + 1 536</td><td>0.74</td></tr>
+</tbody></table>
+</div>
+<p>Bit vectors are a coarse, very fast prefilter: keep both properties and re-rank the prefilter's
+hits exactly, <code>nearest("emb_bit", q.quantize("bit"), 100, #{metric: "hamming"})</code> followed by
+<code>nearest("emb", q, 10)</code>.</p>
+<h2 id="embeddings"><a class="header" href="#embeddings">Embeddings</a></h2>
+<p>An <strong>embedder</strong> turns text into vectors. The step <code>embed()</code> embeds the incoming string,
+<code>embed(key)</code> the string property <code>key</code> (a name or a <code>jpath(..)</code>) of the incoming element, and the
+function <code>embed(text)</code> makes a query vector before any traversal runs. The embedders of a graph
+are the built-in <code>hash-ngram/1</code> and the embedding models kept in its database (imported into a
+Store, or carried by a <code>.gsnap</code> file: <a href="../persistence/store_models.html">Embedding Models in a
+Store</a>). Each step and function takes an option map naming the
+embedder, <code>#{embedder: "name"}</code> (a model by its repository, <code>minishlab/potion-base-8M</code>); without
+it the database's default model runs, else <code>hash-ngram/1</code>. <code>g.embedders()</code> lists them:</p>
+<pre><code class="language-rhai graph=modern">g.embedders()[0].name   // "hash-ngram/1"
+embed("graph").dimension   // 256
+g.v().has_label("person").embed("name").count().next()   // 4
+g.v().embed("name", #{embedder: "hash-ngram/1"}).count().next()   // 6
+g.v().values("age").embed().next()   // error: embed() takes a string, not int64
+g.v().embed("name", #{embedder: "nope"}).next()   // error: there is no embedder "nope"
+</code></pre>
+<p>Rules of the step:</p>
+<ul>
+<li>an element without the property is dropped (like <code>values(key)</code>); a value that is not a string
+fails: nothing is converted implicitly, write <code>as_string()</code> first;</li>
+<li>an empty text, or one with no word at all, fails (<code>has(key, P.neq(""))</code> leaves them out);</li>
+<li>the step hands the embedder batches (up to the embedder's <code>max_batch</code> traversers per call),
+each traverser once whatever its bulk, and keeps the order;</li>
+<li><code>.profile()</code> names the embedder that ran: <code>embed("name", embedder: "hash-ngram/1")</code>;</li>
+<li>writing the vectors (<code>property("emb", __.embed("text"))</code>) happens inside the traversal's unit
+under the graph's write lock, which suits a fast local embedder such as the built-in one;</li>
+<li>a property declared <code>{"type": "array", "format": "vector", "dimension": 384}</code> refuses a vector
+of another dimension or element kind, as for any write (<a href="#vectors-in-a-schema">Vectors in a schema</a>).</li>
+</ul>
+<p>A fuzzy name search on the modern graph:</p>
+<pre><code class="language-rhai graph=modern script">g.v().has_label("person").property("name_emb", __.embed("name")).iterate();
+g.v().has_label("person").nearest("name_emb", embed("Markus"), 2).values("name").to_list()   // ["marko", "vadas"]
+</code></pre>
+<p>What <code>g.embedders()</code> returns for each embedder:</p>
+<div class="table-wrapper"><table><thead><tr><th>Key</th><th></th></tr></thead><tbody>
+<tr><td><code>name</code></td><td>what <code>#{embedder: ..}</code> takes: <code>hash-ngram/1</code>, or a model's repository</td></tr>
+<tr><td><code>model</code></td><td>the stable identity of what computes the vectors (<code>hash-ngram/1</code>, <code>model2vec/minishlab/potion-base-8M@fac4fa854e68</code>), independent of any file path: two embedders of one model give comparable vectors</td></tr>
+<tr><td><code>dimension</code>, <code>element</code></td><td>the shape of every vector it returns</td></tr>
+<tr><td><code>metric</code></td><td>the metric it recommends for comparing them</td></tr>
+<tr><td><code>max_batch</code></td><td>the most texts per call</td></tr>
+<tr><td><code>deterministic</code></td><td>whether the same text always gives the same bits</td></tr>
+<tr><td><code>local</code></td><td>whether the texts stay in the process</td></tr>
+<tr><td><code>default</code></td><td>whether it runs without an <code>embedder</code> option</td></tr>
+</tbody></table>
+</div>
+<p>Running an embedder asks <code>Execute</code> on the resource <code>Embedder("name")</code>, for every embedder including
+the built-in one (<a href="permissions.html">Permissions</a>); <code>AccessPolicy::read_only()</code> allows it, and a
+saved query may embed. A computed vector is stored as a plain value: replay, recovery, change sets
+and loads never call an embedder, so an embedder that is not deterministic is safe to use.</p>
+<h3 id="filling-a-vector-property"><a class="header" href="#filling-a-vector-property">Filling a vector property</a></h3>
+<p>A <a href="vector_rules.html">vector rule</a> fills a vector property from a text property of the same label
+and keeps it in step: the schema names the source with <code>from</code> beside the model in <code>embedder</code>, and
+the engine embeds the text at the end of every unit that writes it (the first fill embeds every
+element of the label when the rule is applied):</p>
+<pre><code class="language-json">"emb": {"type": "array", "format": "vector", "embedder": "hash-ngram/1", "from": "name"}
+</code></pre>
+<p>A rule embeds with the built-in <code>hash-ngram/1</code> or a model of the database
+(<a href="../persistence/store_models.html">Models in the store</a>). Without a rule, write the vectors in a
+query of your own, and again for the elements whose text changed:</p>
+<pre><code class="language-rhai graph=modern">g.v().has_label("person").property("emb", __.embed("name")).iterate()
+</code></pre>
+<p>(<code>__.embed("name", #{embedder: "minishlab/potion-base-8M"})</code> names a model of the database; an element without the text, or
+with a text the embedder finds nothing in, fails the whole query, so filter first:
+<code>has("name", P.neq(""))</code>.) Declare the model in the schema then, as the next section shows, so a
+text query finds it. The job <code>embed_property</code> of earlier releases was removed in 0.5.0: a call
+fails with a help naming the vector rule.</p>
+<h3 id="which-model-produced-a-property"><a class="header" href="#which-model-produced-a-property">Which model produced a property</a></h3>
+<p>Vectors of different models cannot be compared: a cosine between a <code>hash-ngram/1</code> vector and one
+of a semantic model means nothing. The schema therefore records, per label and property, which
+model produced the vectors: the keyword <code>embedder</code> of a vector declaration holds the embedder's
+<strong>model identity</strong> (<code>model</code> in <code>g.embedders()</code>, never a file path; a vector rule may name a
+model of the database by its repository, and the schema stores its identity):</p>
+<pre><code class="language-json">{"type": "array", "format": "vector", "element": "f32", "dimension": 256, "metric": "cosine", "embedder": "hash-ngram/1"}
+</code></pre>
+<p>A vector rule declares it by its <code>embedder</code>; for vectors you write yourself, declare it in an
+<strong>attached schema</strong> (mode <code>open</code> or <code>closed</code>; <code>g.set_schema(g.infer_schema(), SchemaMode.open)</code>
+attaches the structure a graph has) with <code>g.patch_schema(..)</code>. The schema then keeps it right:</p>
+<ul>
+<li>changing the <code>embedder</code> of a declared property is an incompatible schema change (the stored
+vectors and a text query embedded by the new model are not comparable): embed into another
+property, or change it deliberately and write the vectors again (a rule does it for you:
+changing its model re-embeds every element);</li>
+<li>a declaration of another element kind (<code>i8</code>, <code>f16</code>, <code>bit</code>) than the embedder returns is fine:
+each vector is quantized to the declared element on write, as a schema write of a vector of
+another element is, so an f32 model can fill an <code>i8</code> property (a quarter of the memory)
+directly.</li>
+</ul>
+<p>Different labels and properties may use different models: <code>doc.emb</code> from one, <code>doc.title_emb</code>
+or <code>person.emb</code> from another. A plain write of a vector (<code>property("emb", vector)</code>) still checks
+only the element kind and the dimension (a rule's vector refuses direct writes): the provenance
+is used by the text queries, not checked on every write.</p>
+<h3 id="text-queries"><a class="header" href="#text-queries">Text queries</a></h3>
+<p>With the provenance recorded, <code>nearest()</code> and <code>similarity()</code> take the query as <strong>text</strong>: the text
+is embedded once per execution, with the embedder of the database whose model the schema
+declares for the property, so the query vector always comes from the model of the stored ones:</p>
+<pre><code class="language-rhai graph=modern script">g.v().has_label("person").property("emb", __.embed("name")).iterate();
+g.set_schema(g.infer_schema(), SchemaMode.open);
+g.patch_schema(#{vertices: #{person: #{schema: #{properties: #{emb: #{embedder: "hash-ngram/1"}}}}}});
+g.v().has_label("person").nearest("emb", "Markus", 2).values("name").to_list()   // ["marko", "vadas"]
+</code></pre>
+<p>With a vector rule instead, the vectors appear when the unit that applied it ends: run the text
+query as the next query.</p>
+<ul>
+<li>The model is read per element from the attached schema (the element's labels, the property);
+every element the query meets must declare the same model, else the query fails naming both
+(filter by label first: <code>has_label("doc")</code>).</li>
+<li>No schema attached, or no <code>embedder</code> declared for the property: the query fails, and its help
+shows how to attach a schema and declare a vector rule; passing a vector, <code>nearest("emb", embed("Markus"), 2)</code>, keeps working without any schema.</li>
+<li>The database does not keep the declared model: the query fails, and its help shows how to
+import it (<code>graphersal embed-model import &lt;repo&gt; --into &lt;store&gt;</code>, Python
+<code>store.import_model(..)</code>); passing a vector keeps working.</li>
+<li>The key form only: <code>similarity("emb", "text")</code> and <code>nearest("emb", "text", k)</code>, with a
+top-level property name.</li>
+<li>On a property declared <code>i8</code> or <code>f16</code> the embedded (f32) query is compared with the stored
+vectors as a vector query is; on a <code>bit</code> property, which compares only with bit vectors, the
+query is quantized to bits first, with the quantizer of a write (the same as
+<code>nearest("emb", g.inject(embed("text")).quantize("bit").next(), k)</code>).</li>
+<li>It asks <code>Execute</code> on the embedder it resolves (on each one, when the schema declares several
+models for the property on different labels), and <code>.profile()</code> names it:
+<code>nearest("emb", "Markus", 2, embedder: "hash-ngram/1")</code>.</li>
+</ul>
+<h3 id="the-built-in-hash-ngram1"><a class="header" href="#the-built-in-hash-ngram1">The built-in <code>hash-ngram/1</code></a></h3>
+<p><code>hash-ngram/1</code> needs no model file and no dependency and gives the same bits on every target (the
+CLI, Python, the dev server, the browser playground). It lowercases the text, splits it into words
+(runs of letters and digits), and hashes each word and its character 3-, 4- and 5-grams (of the
+word framed as <code>&lt;word&gt;</code>) into 256 signed buckets, then scales the result to length 1 (f32
+components, metric cosine).</p>
+<p>It measures <strong>lexical</strong> similarity: typos, word forms and shared stems come out close, in any
+script ("Graph" and "grahp", "Москва" and "Москве"), meaning does not ("car" and "automobile"
+are unrelated). Uses: fuzzy lookup, entity matching, deduplication, and a baseline before a
+semantic model.</p>
+<p>The algorithm is frozen: the output of <code>hash-ngram/1</code> never changes (a different algorithm would
+be a new name, <code>hash-ngram/2</code>), and tests pin its bits. Two caveats: there is no Unicode
+normalization (a precomposed "é" and "e" followed by a combining accent are different words), and
+lowercasing and the letter/digit classes follow the Unicode version of the Rust toolchain the
+binary was built with.</p>
+<p>Its time grows with the length of the text. Measured with the bench <code>embed_hash_ngram_1000</code>
+(<code>cargo bench -p graphersal --bench graph --features io,script,display,serde -- embed_hash_ngram_1000</code>, 1000 texts per call, Apple M-series, source build): about 0.84 µs per
+short title (5 words) and about 18.5 µs per paragraph of about 1 KB, so embedding a property of
+100 000 short texts takes well under a second.</p>
+<h3 id="models-of-the-database-feature-model2vec"><a class="header" href="#models-of-the-database-feature-model2vec">Models of the database (feature <code>model2vec</code>)</a></h3>
+<p>Besides <code>hash-ngram/1</code>, the embedders are <a href="https://github.com/MinishLab/model2vec">Model2Vec</a>
+static embedding models (one vector per token, averaged over the text; semantic, fast on a CPU)
+kept in the graph's database: one blob plus a catalog definition that follows the history
+(<code>Store::import_model</code>, CLI <code>graphersal embed-model import &lt;repo&gt; --into &lt;store&gt;</code>, Python
+<code>store.import_model(..)</code>); every copy carries them with their licences. A store's traversals,
+<code>embed(text)</code> and <code>g.embedders()</code> use its models without any setup: each model is an embedder
+named by its repository (the default model, when one is set, is the default), the models the
+schema needs are loaded at open, the others at their first use
+(<a href="../persistence/store_models.html">Embedding Models in a Store</a>). A <code>.gsnap</code> file loaded without a
+store serves the models it carries the same way; a graph without models has <code>hash-ngram/1</code> only.</p>
+<p>Running a model needs the feature <code>model2vec</code> of the <code>graphersal</code> crate (off by default, native
+targets only; the command line and the Python wheel have it on): the engine then loads the
+models kept in the database. It adds no public item. A build without it (and the browser
+playground) keeps and copies the models but opens a store whose schema needs one read-only
+without text queries.</p>
+<ul>
+<li><strong>Layouts</strong> an import reads: <code>config.json</code>, <code>tokenizer.json</code> and <code>model.safetensors</code> in the
+directory (the Model2Vec layout), or <code>config_sentence_transformers.json</code> beside them or beside
+a <code>0_StaticEmbedding</code> directory holding them (the sentence-transformers layout).</li>
+<li><strong>Tokenizer</strong>: a tokenizer with a Unigram model (the potion models) runs on Graphersal's
+compact Unigram model, built from <code>tokenizer.json</code> when the model loads (flat arrays: about
+25 MiB for the 500 000 tokens of <code>potion-multilingual-128M</code>, where the <code>tokenizers</code> crate's
+own model takes 442 MiB), inside the <code>tokenizers</code> pipeline the file declares (normalizer,
+pre-tokenizer, added tokens); the token ids and the vectors are the bits <code>tokenizers</code> and
+<code>model2vec-rs</code> give. Every other tokenizer runs on <code>tokenizers</code>' own model.</li>
+<li><strong>Info</strong>: the model's dimension, <code>f32</code>, metric cosine, 256 texts per call, <code>local</code>, and
+<code>deterministic: false</code>: one build gives the same bits for the same text, but they depend on the
+versions of <code>model2vec-rs</code> and <code>tokenizers</code> it was built with.</li>
+<li><strong>Model identity</strong>: <code>model2vec/&lt;repo&gt;@&lt;12 hex digits&gt;</code>; the digits start a SHA-256 over the
+three files, no path is part of it (<code>persist::ModelCache::identity(dir)</code> computes it for a
+downloaded directory).</li>
+<li><strong>Failures</strong>: a model that does not load (a missing or damaged blob, a model that does not fit
+under the memory ceiling) is <code>EmbedError::Unavailable</code> with the reason and the commands that
+bring it back; a tokenizer failure while embedding is <code>EmbedError::Failed</code>, never a panic. A
+text with no known token fails like an empty text for <code>hash-ngram/1</code>.</li>
+</ul>
+<p><strong>Changed in 0.5.0.</strong> The host embedder API is removed: the Rust trait <code>vector::Embedder</code>, the
+registry <code>vector::Embedders</code> (<code>builder</code>, <code>scope</code>), <code>vector::HashNgram</code>, <code>vector::Model2Vec</code>,
+<code>GraphTraversalSource::with_embedders</code>, <code>script::set_engine_embedders</code>/<code>set_scope_embedders</code>, the
+CLI flags <code>--embedder</code>/<code>--default-embedder</code> and the Python <code>graphersal.Embedder</code>/
+<code>graphersal.Model2Vec</code>. A host with a model of its own computes the vectors outside and writes
+them as values (<code>property("emb", vector)</code>), and searches with a vector
+(<code>nearest("emb", q, 10)</code>); <code>embed()</code> stays for <code>hash-ngram/1</code> and the database's models. A
+script host that builds its own engine and scope gives the global <code>embed(text)</code> the graph's
+models with <code>script::set_engine_graph(&amp;mut engine, graph)</code> (the <code>eval_*</code> entry points do it
+themselves).</p>
+<h2 id="storage-and-exchange"><a class="header" href="#storage-and-exchange">Storage and exchange</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Format</th><th>A vector</th></tr></thead><tbody>
+<tr><td>Graphersal's binary format (snapshots, the Store, the journal)</td><td>its own value tag: the element kind, the dimension, for <code>i8</code> the scale, then the packed components (<a href="../persistence/format.html#3-value-encoding">format spec 3</a>)</td></tr>
+<tr><td>Serialized <code>ChangeSet</code></td><td>exact, tagged: <code>{"@type": "graphersal:Vector", "@value": {"element": "f32", "data": [..]}}</code> (<a href="transactions.html">Transactions</a>)</td></tr>
+<tr><td>JSON results, <code>to_json()</code></td><td>the list of its values (an <code>i8</code> or <code>bit</code> vector dequantized)</td></tr>
+<tr><td>GraphSON export</td><td>a <code>g:List</code> of <code>g:Float</code>, which TinkerGraph loads</td></tr>
+<tr><td>GraphSON import</td><td>a list stays a list; it becomes a vector where the target schema declares one (mode <code>open</code>/<code>closed</code>); the exact <code>graphersal:Vector</code> tag is read too (<a href="graphson.html">GraphSON</a>)</td></tr>
+<tr><td>GraphML</td><td>the JSON text of the list; a vector again where the target graph's schema declares one (any mode)</td></tr>
+</tbody></table>
+</div>
+<p>Exporting an <code>i8</code> or <code>bit</code> vector as its values loses nothing that matters: a declared <code>i8</code>
+property quantizes them back to the same codes. <code>memory_usage()</code> counts a vector's components
+exactly (plus a small header), and the memory budget of a query estimates them the same way.</p>
+<h2 id="from-python"><a class="header" href="#from-python">From Python</a></h2>
+<p>A vector property is a <code>graphersal.Vector</code> in Python, built from a list of numbers or from any
+one-dimensional <code>float32</code>/<code>float64</code> buffer such as a <code>numpy</code> array (the extension does not depend
+on <code>numpy</code>):</p>
+<pre><code class="language-python">import numpy as np
+from graphersal import Graph, Vector
+
+g = Graph()
+emb = np.array([0.12, -0.5, 0.33], dtype=np.float32)      # model.encode(text) in practice
+g.execute('g.add_v("doc").property("emb", e).iterate()', params={"e": Vector(emb)})
+v = g.query('g.v().values("emb").next()')                # graphersal.Vector
+v.element, v.dimension, v.tolist()                       # ('f32', 3, [0.12, -0.5, 0.33])
+Vector(emb, element="i8")                                # quantized, 1 byte per component
+
+q = np.array([0.1, -0.4, 0.3], dtype=np.float32)          # the question's embedding
+g.query('g.v().nearest("emb", q, 10).to_list()', params={"q": q})
+</code></pre>
+<p>A one-dimensional <code>float32</code>/<code>float64</code> numpy array passed as a parameter arrives as an f32
+vector, like <code>Vector(array)</code>. See the Python binding's README for the details.</p>
+<p>From Python, a model enters a store with <code>store.import_model("minishlab/potion-base-8M")</code>; text
+queries and vector rules then work as described above (<a href="../library/python.html#embedding-models">Python Quick Start: Embedding
+models</a>).</p>
+<h2 id="in-the-playground-and-the-cli"><a class="header" href="#in-the-playground-and-the-cli">In the playground and the CLI</a></h2>
+<p>The result table shows a vector as <code>vector[768 f32]</code> with an expandable preview of its first
+values; the JSON view holds all of them. The property editor edits a vector as a JSON list of
+numbers (a declared vector property offers the type <code>vector</code>). The CLI's tables show the kind and
+the first values (<code>vector[768 f32] [0.012, -0.5, 0.33, 0.1, …]</code>), and a final vector prints as its
+literal.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../users_guide/compressed_properties.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../users_guide/vector_rules.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../users_guide/compressed_properties.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../users_guide/vector_rules.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

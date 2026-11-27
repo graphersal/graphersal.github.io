@@ -1,0 +1,662 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Serving Layers - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/for_developers/serving_layers.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="serving-layers"><a class="header" href="#serving-layers">Serving Layers</a></h1>
+<p>A server that hosts one product graph for many customers keeps the product once and gives each
+customer a <a href="layered_graphs.html">layer</a> over it. Clients configure a name such as <code>/mcp/acme</code>,
+never a version. When the product is released again, the server publishes new layers over the
+new product version, and the name moves to them. This page describes that serving model, which
+pieces Graphersal provides for it, and what a host builds itself.</p>
+<p><code>graphersal-serve</code> hosts <strong>one graph per process</strong>, and it stays that way: it has no base pool,
+no catalog of names and no multi-graph server. A host builds those on its extension points. A
+complete reference host lives in the tests of <code>graphersal-serve</code>, in the module
+<code>extension_tests::reference_resolver</code> (<code>crates/graphersal-serve/src/extension_tests.rs</code>). The
+excerpts on this page come from it.</p>
+<h2 id="the-serving-model"><a class="header" href="#the-serving-model">The serving model</a></h2>
+<ul>
+<li>
+<p><strong>Base pool.</strong> The server loads each product version once, as a frozen <code>LayerBase</code>, and
+keys it by its identity (<code>BaseRef</code>). <code>product@2026.3</code> and <code>product@2026.4</code> live side by side
+while layers over the old version still exist.</p>
+</li>
+<li>
+<p><strong>Catalog.</strong> Each served version is named <code>&lt;name&gt;@&lt;version&gt;</code> and is a layer over a pooled
+base:</p>
+<pre><code class="language-text">product@2026.3   -&gt; base (served read-only as an empty layer over it)
+acme@2026.3      -&gt; layer over product@2026.3
+globex@2026.3    -&gt; another layer over the same base
+acme             -&gt; alias, now acme@2026.3
+acme@2026.2      -&gt; explicit pin to an old version, kept on purpose
+</code></pre>
+</li>
+<li>
+<p><strong>Sessions are pinned.</strong> An MCP session is bound to a graph when it starts (<code>initialize</code>)
+and stays on that graph for its whole life. A release flips the alias: new sessions get the
+new version, and open sessions finish on the old one.</p>
+</li>
+<li>
+<p><strong>Old versions are retired.</strong> Once no alias and no pin names a version, and no session has
+used it for a while, the host drops it. When a base has no layers left, the host drops it
+from the pool.</p>
+</li>
+</ul>
+<h2 id="what-graphersal-provides"><a class="header" href="#what-graphersal-provides">What Graphersal provides</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Piece</th><th>Where</th><th>What it does</th></tr></thead><tbody>
+<tr><td><code>LayerBase</code></td><td><code>graphersal::storage</code></td><td>A frozen base: the graph, its embedding models, a display name and its identity. A clone is one <code>Arc</code>. <code>new_layer()</code> makes a <code>Graph&lt;LayeredGraph&gt;</code> over it.</td></tr>
+<tr><td><code>LayerBase::from_store_read_only(dir, target)</code></td><td>feature <code>persist</code></td><td>Opens a versioned base store read-only at a commit or a mark (<code>RecoveryTarget::Mark("2026.3")</code>). It takes no lock and writes nothing, so the release process may keep the store open.</td></tr>
+<tr><td><code>LayerBase::from_snapshot_file(path, options)</code></td><td>feature <code>persist</code>, native</td><td>Loads a base from a <code>.gsnap</code> file.</td></tr>
+<tr><td><code>BaseRef</code></td><td><code>graphersal::storage</code></td><td>The base's identity: lineage id, commit sequence number and commit time. It is <code>Copy + Hash + Eq</code>, so it can key the pool.</td></tr>
+<tr><td>Layer stores</td><td><code>Store::create_layer</code> / <code>open_layer</code></td><td>Keep a customer's layer durable. A layer store records the <code>BaseRef</code> of its base, and opens only over a base with that identity.</td></tr>
+<tr><td><code>Host::serves_layer</code></td><td><code>graphersal-mcp</code></td><td>Makes the <code>initialize</code> instructions name <code>layer()</code>, <code>has_layer()</code> and <code>g.layer_diff()</code>.</td></tr>
+<tr><td>Route tag</td><td><code>graphersal-mcp</code></td><td><code>Host::session_route</code> puts the version into the session id: <code>&lt;route&gt;~&lt;id&gt;</code>.</td></tr>
+<tr><td><code>graphersal_mcp::session_route(id)</code></td><td><code>graphersal-mcp</code></td><td>Reads the route out of an id, without checking the id.</td></tr>
+<tr><td><code>Mcp::verified_session_route(id)</code></td><td><code>graphersal-mcp</code></td><td>Returns the route only when the endpoint knows the id as an anonymous session; <code>verified_session_route_for(id, identity)</code> for a request with an identity.</td></tr>
+<tr><td><code>ContextBuilder::layered(true)</code></td><td><code>graphersal-serve</code></td><td>Tells the context's <code>Host</code> that it serves a layer from the first <code>initialize</code> on.</td></tr>
+<tr><td><code>ContextBuilder::mcp_session_route(Some(..))</code></td><td><code>graphersal-serve</code>, feature <code>mcp</code></td><td>Sets the route tag of the sessions this context starts.</td></tr>
+<tr><td><code>ContextBuilder::shared_mcp</code> / <code>mcp_profile</code></td><td><code>graphersal-serve</code>, feature <code>mcp</code></td><td>One MCP endpoint for every context, with a profile per context.</td></tr>
+<tr><td><code>GraphResolver</code>, <code>Server::ready_with</code></td><td><code>graphersal-serve</code></td><td>The extension point that picks the context of each request.</td></tr>
+<tr><td><code>Request::mark_read_only</code></td><td><code>graphersal-serve</code></td><td>Serves one request read-only: the host's router or <code>RequestFilter</code> marks it, for a caller with read access only (see "Read-only requests" below). EXPERIMENTAL.</td></tr>
+<tr><td><code>ContextBuilder::file_root</code>, <code>jobs_outside_file_root</code></td><td><code>graphersal-serve</code></td><td>Confines every file path a client names (backup jobs, catalog loads, fork and backup directories) to one directory (see "File root" below). EXPERIMENTAL.</td></tr>
+<tr><td><code>SessionStore</code>, <code>Mcp::with_session_store</code>, <code>Mcp::forget_sessions_of</code></td><td><code>graphersal-mcp</code></td><td>Keeps the MCP session table across restarts, and ends the sessions of a revoked identity (see "Sessions survive a restart" below). EXPERIMENTAL.</td></tr>
+<tr><td><code>GraphDirectory</code>, <code>Mcp::handle_directory</code></td><td><code>graphersal-mcp</code></td><td>One MCP endpoint over all graphs: the agent lists them, selects one per session and may switch (see below). EXPERIMENTAL.</td></tr>
+</tbody></table>
+</div>
+<h3 id="base-identity"><a class="header" href="#base-identity">Base identity</a></h3>
+<p>Every read-only open of the same commit has the same <code>BaseRef</code>, and so does a <code>.gsnap</code> export
+of that commit's snapshot. A second load of a pooled commit can be dropped in favour of the
+pooled base. A commit to the base store makes a new identity, so each product version is its own
+base.</p>
+<p>A <code>.gsnap</code> export copies the store's newest <strong>snapshot</strong>. Commits that are still only in the
+write-ahead log are not in it, so <strong>checkpoint before you export</strong> a release. Otherwise the
+export holds the commit of the newest snapshot, with that commit's identity.</p>
+<p>Samples and GraphSON or GraphML files get a new lineage id at every load. They never count as
+the same base twice, so a server should load its bases from a Store or a <code>.gsnap</code>.</p>
+<p>This example pools two product versions loaded from one versioned store and lays two customers
+over the same base. It needs only the <code>graphersal</code> crate:</p>
+<pre><code class="language-rust">use std::collections::HashMap;
+use std::sync::Arc;
+use graphersal::persist::{MemDir, RecoveryTarget, Store, StoreOptions};
+use graphersal::prelude::*;
+use graphersal::storage::{BaseRef, LayerBase};
+
+// The release process: one base store, a mark per product version.
+let dir = MemDir::named("product");
+let store =
+    Store::create_with(&amp;dir, TraversalGraph::tinkerpop_modern(), StoreOptions::new()).unwrap();
+store.mark("2026.3").unwrap();
+GraphTraversalSource::new(&amp;mut *store.graph().write()).add_v("feature").iterate().unwrap();
+store.mark("2026.4").unwrap();
+store.close().unwrap();
+
+// The server's pool: one LayerBase per base commit.
+fn pooled(pool: &amp;mut HashMap&lt;BaseRef, LayerBase&gt;, dir: &amp;MemDir, mark: &amp;str) -&gt; LayerBase {
+    let loaded = LayerBase::from_store_read_only(dir, RecoveryTarget::Mark(mark.into()))
+        .unwrap()
+        .with_name(format!("product@{mark}"));
+    let key = *loaded.base_ref().unwrap();
+    pool.entry(key).or_insert(loaded).clone()
+}
+let mut pool = HashMap::new();
+let acme = pooled(&amp;mut pool, &amp;dir, "2026.3").new_layer().unwrap();
+let globex = pooled(&amp;mut pool, &amp;dir, "2026.3").new_layer().unwrap(); // the pooled base
+assert_eq!(pool.len(), 1);
+assert!(Arc::ptr_eq(acme.read().base(), globex.read().base()));
+let next = pooled(&amp;mut pool, &amp;dir, "2026.4").new_layer().unwrap();
+assert_eq!(pool.len(), 2);
+assert_eq!(acme.read().vertex_count().unwrap(), 6);
+assert_eq!(next.read().vertex_count().unwrap(), 7);</code></pre>
+<h3 id="the-route-tag"><a class="header" href="#the-route-tag">The route tag</a></h3>
+<p>At an HTTP <code>initialize</code>, the endpoint asks the context for its route. If the context has one,
+the session id becomes <code>&lt;route&gt;~&lt;id&gt;</code>, for example <code>acme@2026.3~9f2c…</code>:</p>
+<ul>
+<li>With signed ids (<code>Mcp::with_session_key</code>), the route is part of the signed data. A changed,
+removed or added route breaks the signature, and the endpoint answers <code>404</code>. Replicas that
+share the key verify each other's ids, so a load balancer may send a session's requests to any
+replica.</li>
+<li>In table mode (the default), the table stores the whole routed id. An edited route is an
+unknown id, which is also a <code>404</code>.</li>
+<li>A route is 1 to 128 bytes of <code>[A-Za-z0-9._-@/:+=]</code> (<code>is_valid_session_route</code>). An invalid
+route makes <code>initialize</code> fail with a JSON-RPC error, so a session is never left unpinned.</li>
+</ul>
+<p>A stream connection (<code>Context::mcp_connection</code>) is its own session and has no route: the host
+picks the context when it opens the stream.</p>
+<h3 id="sessions-belong-to-their-identity"><a class="header" href="#sessions-belong-to-their-identity">Sessions belong to their identity</a></h3>
+<p>Every HTTP MCP session belongs to the identity of the request that sent its <code>initialize</code> (what
+the host's request filter attached, <code>McpRequest::with_identity</code>; none means anonymous). A
+request that names the session id with another identity gets the same <code>404</code> as an unknown
+session, and a <code>DELETE</code> from it ends nothing. Anonymous counts as an identity of its own: an
+anonymous session cannot be used by a signed-in caller, and the other way round. In table mode
+the table stores the identity with the session; with signed ids the identity is part of the
+signed data (an anonymous id signs exactly what it signed before). One <code>Mcp</code> shared by several
+routes (<code>/mcp</code> and per-graph paths) accepts a session id on each of them, for its identity
+only. A resolver that checks a routed id for a caller uses
+<code>mcp.verified_session_route_for(id, identity)</code>; <code>verified_session_route(id)</code> checks it as
+anonymous.</p>
+<h3 id="runs-belong-to-their-identity"><a class="header" href="#runs-belong-to-their-identity">Runs belong to their identity</a></h3>
+<p>The page id a browser sends (<code>X-Graphersal-Client</code>) is chosen by the client, so it cannot own a
+run alone. When the host's request filter attaches an identity (<code>Request::set_identity</code>), every
+run, the Stop of a page (<code>POST /api/cancel</code>), MCP request cancellation and the fairness key of a
+host's job queue use the identity together with the page id: a caller with another identity, or
+an anonymous one, that sends the same page id cancels nothing. The key is <code>&lt;length&gt;:&lt;identity&gt;/</code>
+before the plain key (<code>5:alice/page:tab</code>; <code>RunInfo::client</code>, the run administration's <code>client</code>).
+Without an identity the key is the plain one, as in the CLI's dev server. The run
+administration (<code>ContextBuilder::admin_runs</code>) keeps its own rules: it lists and cancels runs by
+the registry's id, whatever their identity.</p>
+<p>The change feed (<code>GET /api/changes</code>) names who made a change (<code>recent[].by</code>, <code>detail</code>) only to a
+request of the same identity; a change made under another identity, anonymous included, reads
+<code>by: "another identity"</code> without <code>detail</code>, so a reader learns no other principal's page id.
+Without identities every change is shown as before.</p>
+<h3 id="sessions-survive-a-restart"><a class="header" href="#sessions-survive-a-restart">Sessions survive a restart</a></h3>
+<p>By default the session table lives in memory: a restarted host forgets every MCP session, and
+each client gets <code>404</code>, initializes again and, in directory mode, selects its graph again. A
+host that wants the sessions back after a restart gives the endpoint a store:</p>
+<pre><code class="language-rust ignore">let mcp = Mcp::new(false, None, false)
+    .with_max_sessions(1024)                     // first: the load keeps the newest 1024
+    .with_session_store(Arc::new(MyFileStore::new(dir)))?;</code></pre>
+<p><code>SessionStore</code> has two methods: <code>load</code> answers the stored sessions once, and <code>save</code> gets the
+whole table after every change (a session created, a graph selected, a selection renamed or its
+note told, a session ended or evicted). A save runs outside the table lock, one at a time, and
+never writes an older table after a newer one. A failed save is a <code>tracing</code> warning; the
+request goes on and the next change saves again. So write atomically (a temporary file, then a
+rename).</p>
+<p>Each row is a <code>StoredSession</code>: the SHA-256 of the id (64 hex digits; the table never holds the
+plain id, so the store holds nothing a client could present), the identity, the selected name,
+the old name of a pending rename note, the negotiated protocol revision, the client's
+<code>{name, version}</code> and the creation time in Unix seconds. The host serialises it in any format
+(strings, a number and a JSON value) and rebuilds it with <code>StoredSession::new</code>. A restored
+session answers its old id for the same identity only, with its selection and its pending note.
+The expiry rule is unchanged: at most <code>with_max_sessions</code>, the oldest dropped first.</p>
+<p>When the host revokes a user's token or removes the user, <code>mcp.forget_sessions_of(Some(id))</code>
+ends that identity's sessions at once (and saves the table); it answers how many it ended.
+Signed ids (<code>Mcp::with_session_key</code>) keep no table: <code>with_session_store</code> refuses them with an
+error, and <code>forget_sessions_of</code> ends nothing there.</p>
+<h3 id="read-only-requests"><a class="header" href="#read-only-requests">Read-only requests</a></h3>
+<p>A host that gives some callers read access only marks their requests:
+<code>request.mark_read_only()</code>, in its router or its <code>RequestFilter</code>, after it decided who sent the
+request. The mark holds for that one request, and nothing clears it. <code>graphersal-serve</code> then
+serves the request like this (the context itself stays writable for every other request):</p>
+<ul>
+<li><code>POST /api/execute</code> and <code>POST /api/query</code> run under the reading authorizer. A script or saved
+query that would write fails with a permission error and changes nothing.</li>
+<li>Every other route that writes answers <code>409</code> with <code>the graph is served read-only: writes are refused. This request has read access only: ask for write access to change the data.</code>
+(<code>READ_ONLY_HEADLINE</code>, <code>READ_ONLY_REQUEST_HELP</code>). That covers the schema, element, catalog,
+compression, index and saved-query writes, the scheduled jobs, the advisor's apply, dismiss
+and restore, <code>POST /api/save</code>, and every Store operation that writes: checkpoint, mark,
+rollback, the attic, compaction, and also fork, backup and view, which write directories or
+switch the view every client of the context sees.</li>
+<li>Reads stay open, downloads included: exports in every format, the <code>.gsnap</code> download, Store
+snapshots, statistics, the journal, the layout.</li>
+<li><code>/mcp</code> serves the request under the context's MCP profile made read-only
+(<code>Profile::with_read_only(true)</code> in <code>graphersal-mcp</code>): only reading tools, and a writing query
+is refused. The same MCP session may write again on a request that is not marked.</li>
+<li><code>GET /api/info</code> and <code>GET /api/changes</code> answer <code>readOnly: true</code> for the request, and so does
+their <code>mcp</code> status.</li>
+</ul>
+<p>The host's own extra routes (<code>Hooks::route</code>) see the mark with <code>request.is_read_only()</code> and
+decide for themselves. A host that serves MCP in directory mode (<code>handle_directory</code>) answers a
+reader's profile from its <code>GraphDirectory::host</code> instead.</p>
+<h3 id="query-limits-at-run-time"><a class="header" href="#query-limits-at-run-time">Query limits at run time</a></h3>
+<p><code>launch</code> (and <code>ContextBuilder::presets</code>) take the session presets: the traversal options every
+run gets (<code>evaluationTimeout</code>, <code>traversal.max_traversers</code>, ...), the Rhai limits, the script
+budget and whether the limits are ceilings (<code>SessionPresets::with_ceilings</code>). A host changes
+them on a served context without reloading the graph:</p>
+<pre><code class="language-rust ignore">let presets = SessionPresets::new()
+    .with_option("evaluationTimeout", ElementProperty::from(10_000_i64))
+    .with_ceilings(true);
+context.set_presets(presets)?;</code></pre>
+<ul>
+<li>Every run that starts after the call runs under the new presets: a query of the HTTP API, an
+MCP tool call (also in an MCP session opened before), a scheduled query handed out later.
+This holds on the session thread and on every worker of a host's <code>JobQueue</code>.</li>
+<li>A run that is already running keeps the presets it started with. The call does not wait for
+it: each session applies the change just before its next job.</li>
+<li><code>GET /api/info</code> <code>presets</code>, <code>Context::presets()</code> and the statistics answer the new presets.</li>
+<li>Connections, MCP sessions, the graph and the Store stay as they are.</li>
+</ul>
+<p>The process memory ceiling (<code>memory.limit</code>) is no preset; it stays a setting of the whole
+process. The CLI dev server never changes its presets.</p>
+<h3 id="file-root"><a class="header" href="#file-root">File root</a></h3>
+<p>Without further settings a client with write access may name any path the server process can
+write: a backup job's directory, the directory of a Store fork or backup. A host that serves
+callers it does not trust with the machine's files sets a file root on each context:
+<code>ContextBuilder::file_root(Some(root))</code>. The default, <code>None</code>, keeps the old behaviour (the CLI
+dev server never sets one). With a root:</p>
+<ul>
+<li><code>POST /api/jobs/define</code> resolves a backup job's path under the root: a relative path is
+relative to the root, and a path that leaves it (an absolute path elsewhere, <code>..</code>, a symbolic
+link pointing out) is refused in the answer. The job stores the resolved path.</li>
+<li><code>POST /api/catalog/load</code> refuses with <code>403</code> a catalog with a job that writes outside the
+root, and loads nothing. A stored job path must be absolute and inside the root.</li>
+<li>The <code>dir</code> of <code>POST /api/store/fork</code>, <code>/api/store/attic/fork</code> and <code>/api/store/backup</code> is
+resolved the same way: a relative <code>dir</code> is relative to the root (not to the store's
+directory), and one outside it answers <code>403</code> with <code>paths must lie inside the server's file root</code>. Without a <code>dir</code> the default directory next to the store is used, as before.</li>
+</ul>
+<p>The root must exist; a requested <code>dir</code> under a missing root answers <code>500</code>. Jobs already stored
+in a store the host loads (an imported, restored or cloned store) are not checked by the
+context: the host passes the store's definitions to <code>graphersal_serve::jobs_outside_file_root</code>
+and disables or refuses the jobs it returns.</p>
+<h2 id="what-a-host-builds"><a class="header" href="#what-a-host-builds">What a host builds</a></h2>
+<p>The host owns four pieces: the pool, the catalog, the path rewrite and the resolver. It also
+decides when an old version goes.</p>
+<h3 id="pool-and-catalog"><a class="header" href="#pool-and-catalog">Pool and catalog</a></h3>
+<pre><code class="language-rust ignore">struct Served {
+    context: Arc&lt;Context&gt;,
+    base: BaseRef,
+    last_used: Instant,
+}
+
+#[derive(Default)]
+struct Catalog {
+    versions: HashMap&lt;String, Served&gt;, // "acme@2026.3" -&gt; its context
+    aliases: HashMap&lt;String, String&gt;,  // "acme" -&gt; "acme@2026.3"
+    kept: HashSet&lt;String&gt;,             // explicit pins, never retired
+}
+
+struct LayerHost {
+    mcp: Arc&lt;Mcp&gt;, // one endpoint for every context
+    pool: Mutex&lt;HashMap&lt;BaseRef, LayerBase&gt;&gt;,
+    catalog: Mutex&lt;Catalog&gt;,
+}</code></pre>
+<h3 id="one-context-per-version"><a class="header" href="#one-context-per-version">One context per version</a></h3>
+<p>Each version gets a session thread that serves its layer, and a context built with
+<code>.layered(true)</code>, its route, the shared endpoint and a profile of its own. Here a read-only
+customer gets <code>Profile::new(true).with_access_policy(AccessPolicy::read_only())</code>.</p>
+<pre><code class="language-rust ignore">fn publish(&amp;self, version: &amp;str, base: &amp;LayerBase, profile: Profile) {
+    let layer = Arc::new(base.new_layer()?);
+    let name = version.to_string();
+    let (jobs, ()) = spawn_session(
+        SessionPresets::new(),
+        move |session| session.load_shared(layer, &amp;name, "layer").map(|_| ()),
+        None,
+    )?;
+    let context = Context::builder(Runner::Session(jobs), host_check)
+        .layered(true)
+        .shared_mcp(self.mcp.clone())
+        .mcp_profile(profile)
+        .mcp_session_route(Some(version.to_string())) // "acme@2026.3"
+        .build();
+    self.catalog.lock()?.versions.insert(version.into(), Served { context, .. });
+}</code></pre>
+<p>A customer layer that must survive restarts comes from a layer store instead
+(<code>Store::&lt;LayeredGraph&gt;::open_layer(dir, &amp;base, options)</code>), and the session serves the store's
+graph. The layer store refuses a base whose <code>BaseRef</code> differs from the one it was created over.</p>
+<h3 id="path-rewrite"><a class="header" href="#path-rewrite">Path rewrite</a></h3>
+<p>A context answers MCP at <code>/mcp</code> only. The host's listener turns <code>POST /mcp/acme</code> into
+<code>POST /mcp</code> and puts the name into a header. It drops any copy of that header the client sent,
+so only the path names the graph:</p>
+<pre><code class="language-rust ignore">const GRAPH_HEADER: &amp;str = "X-Graphersal-Graph";
+
+let name = path.strip_prefix("/mcp/").filter(|name| valid_name(name))?; // else 404
+let mut request = Request::new(method, "/mcp", body);
+for (field, value) in client_headers {
+    if !field.eq_ignore_ascii_case(GRAPH_HEADER) {
+        request = request.with_header(field, value);
+    }
+}
+server.handle(request.with_header(GRAPH_HEADER, name))</code></pre>
+<h3 id="the-resolver"><a class="header" href="#the-resolver">The resolver</a></h3>
+<p>The resolver runs for every request. A request with a session id goes to the version in the
+id's route, after two checks. A request without one, such as <code>initialize</code>, goes to the alias's
+current version, or to the version the path names (<code>/mcp/acme@2026.2</code>):</p>
+<pre><code class="language-rust ignore">impl GraphResolver for LayerHost {
+    fn resolve(&amp;self, request: &amp;Request&lt;'_&gt;) -&gt; Result&lt;Arc&lt;Context&gt;, HttpError&gt; {
+        let name = request.header(GRAPH_HEADER).ok_or_else(|| not_found())?;
+        let routed = match request.header("Mcp-Session-Id") {
+            Some(id) =&gt; {
+                // 1. The endpoint knows the id (signature, or the table).
+                let route = self.mcp.verified_session_route(id).ok_or_else(|| not_found())?;
+                // 2. The route is a version of the name in the path.
+                let belongs = if name.contains('@') {
+                    route == name
+                } else {
+                    route.split_once('@').is_some_and(|(of, _)| of == name)
+                };
+                if !belongs {
+                    return Err(not_found());
+                }
+                Some(route)
+            }
+            None =&gt; None,
+        };
+        let mut catalog = self.catalog.lock()?;
+        let version = match routed {
+            Some(route) =&gt; route.to_string(),
+            None if name.contains('@') =&gt; name.to_string(), // an explicit pin
+            None =&gt; catalog.aliases.get(name).cloned().ok_or_else(|| not_found())?,
+        };
+        let served = catalog.versions.get_mut(&amp;version).ok_or_else(|| not_found())?;
+        served.last_used = Instant::now();
+        Ok(served.context.clone())
+    }
+}</code></pre>
+<p>A release publishes the new version and then flips the alias:
+<code>catalog.aliases.insert("acme".into(), "acme@2026.4".into())</code>. Nothing else changes. Sessions
+already open carry <code>acme@2026.3</code> in their ids and keep reaching that version's context.</p>
+<h3 id="when-to-drop-an-old-version"><a class="header" href="#when-to-drop-an-old-version">When to drop an old version</a></h3>
+<p>An open session keeps working only while the resolver still holds its version's context. The
+endpoint cannot tell the host when a session has ended: a client may never send <code>DELETE</code>, and a
+signed id stays valid for good. So the host decides. The reference host's policy:</p>
+<ul>
+<li>A version is <strong>needed</strong> while an alias names it or it is in <code>kept</code> (an explicit pin).</li>
+<li>A version that is not needed is <strong>retired</strong> after <code>grace</code> without a request (<code>retire_idle</code>).
+The resolver records <code>last_used</code> on every request it resolves. Retiring removes the context
+from the catalog. Its session thread then ends and its layer is dropped.</li>
+<li>A session still routed to a retired version gets <code>404</code> for an unknown session. The MCP
+client then starts a new session, which gets the current version. Pick the grace period so
+that this rarely happens during a working session (minutes to hours, not seconds).</li>
+<li>When no served version reads a pooled base any more, the base leaves the pool
+(<code>evict_unused_bases</code>), and its memory is freed with the last layer over it.</li>
+</ul>
+<p>Other policies fit the same pieces: a deadline per release, a count of sessions per version kept
+by the host, or retiring only at night. The test
+<code>a_retired_version_drops_its_context_layer_and_finally_its_base</code> checks the reference policy:
+the context, the layer and finally the base are released.</p>
+<h2 id="one-endpoint-over-all-graphs-directory-mode"><a class="header" href="#one-endpoint-over-all-graphs-directory-mode">One endpoint over all graphs (directory mode)</a></h2>
+<p>Instead of one MCP URL per graph (<code>/mcp/acme</code>), a host may offer a single endpoint that an
+agent's harness configures once. The host implements <code>graphersal_mcp::GraphDirectory</code> over its
+catalog:</p>
+<ul>
+<li><code>list()</code>: the graphs and aliases an agent may name, each a <code>GraphEntry</code> with its kind
+(plain, layer, base), state (unloaded, loading, loaded, needs-model, failed with a reason),
+read-only flag and description.</li>
+<li><code>resolve(name)</code>: the route of a name, an alias resolved now (<code>acme</code> -&gt; <code>acme@2026.3</code>). The
+endpoint calls it on every call of a session, so keep it cheap.</li>
+<li><code>host(route)</code>: the context serving that route (a <code>graphersal-serve</code> <code>Context</code> is a
+<code>graphersal_mcp::Host</code>) and its MCP profile, or an error whose text the agent reads, such as
+<code>database 'acme@2026.3' is not loaded; ask an operator to load it</code>.</li>
+</ul>
+<p>The methods take no caller. A host whose graphs differ per caller builds the directory for each
+request from the identity it attaches to that request, and passes that directory to
+<code>handle_directory</code>. It lists only what the caller may see, answers a hidden graph with exactly
+the error of an unknown name (from <code>resolve</code>, <code>use_graph</code> and the <code>graph</code> argument alike), and
+answers the caller's profile from <code>host</code> (read-only for a reader). The session's selected name
+is resolved through the directory of each request, and a session cannot be used by another
+identity (see "Sessions belong to their identity" above).</p>
+<p>The host's listener passes every request to its endpoint path to
+<code>mcp.handle_directory(&amp;catalog, request)</code>. Inside an MCP session the agent calls
+<code>list_graphs</code>, selects a graph with <code>use_graph {name}</code> and may switch later; every data tool
+takes an optional <code>graph</code> argument that names another graph for one call. Each call runs on
+that graph's context under that context's profile, so its read-only flag and access policy
+apply. Saved queries are not tools of their own here: the agent runs them with
+<code>run_saved_query</code> (and <code>graph</code>).</p>
+<ul>
+<li>
+<p><strong>The selection is a name.</strong> <code>use_graph</code> stores the name the agent asked for (a graph or an
+alias, spelled as <code>list()</code> spells it when one entry matches ignoring ASCII case) and the
+endpoint resolves it again on every call, as an HTTP path <code>/db/&lt;name&gt;/</code> is. This is not the
+route tag above: a route tag pins a session to one version, a directory selection follows
+its name.</p>
+<ul>
+<li><strong>Re-pointed alias:</strong> the session follows it silently. Errors of the new target (not
+loaded, read-only) are ordinary tool errors.</li>
+<li><strong>Removed alias:</strong> a call fails with "pick another graph: list_graphs, then use_graph" only
+while no graph or alias of that name exists. The selection stays, so an alias created
+again under that name simply works on.</li>
+<li><strong>Renamed alias:</strong> the host renames it in its catalog, then calls
+<code>mcp.rename_selection(old, new)</code> (it answers the number of sessions moved). Each moved
+session's next <code>tools/call</code> answer starts with one line, <code>note: alias "&lt;first old&gt;" was renamed to "&lt;current&gt;"</code>; several renames before that call give one note from the first
+name to the current one.</li>
+<li><strong>A real graph name</strong> stays on that graph whatever the aliases do.</li>
+</ul>
+</li>
+<li>
+<p><code>list_graphs</code> answers <code>selected</code> (the session's name, or <code>null</code>) and <code>selectedGraph</code> (the
+graph that name resolves to now, or <code>null</code>); <code>use_graph</code> answers <code>selected</code> (the name) and
+<code>graph</code> (its graph now).</p>
+</li>
+<li>
+<p><strong>A new session starts empty.</strong> After a reconnect, or when the endpoint forgot the session
+(the table keeps <code>MAX_SESSIONS</code>, 64, unless <code>Mcp::with_max_sessions</code> says otherwise; the
+client then gets <code>404</code> and initializes again), calls that name no graph fail with a message
+that names <code>list_graphs</code> and <code>use_graph</code>, and the instructions tell the agent to select
+again.</p>
+</li>
+<li>
+<p><strong>Table sessions only.</strong> The selection lives in the session table, so a directory endpoint
+refuses signed session ids (<code>Mcp::with_session_key</code>).</p>
+</li>
+<li>
+<p><code>Mcp::with_endpoint(path)</code> sets the path <code>Mcp::status</code> shows.</p>
+</li>
+<li>
+<p><strong>The route is visible to the client.</strong> It is part of the <code>Mcp-Session-Id</code> header, so never
+put a secret, a tenant key or a storage path into it. A versioned name is enough.</p>
+</li>
+<li>
+<p><strong>Check the name in the path.</strong> A client that may use two graphs holds genuine session ids
+for both. Without the name check, an id that <code>/mcp/globex</code> handed out would reach globex's
+graph when sent to <code>/mcp/acme</code>, past any authorization that the host based on the path. The
+check is needed in both session modes: a signature proves the id is genuine, not that it
+belongs to this path.</p>
+</li>
+<li>
+<p><strong>Edited routes.</strong> In table mode an edited id is an unknown id, and with signed ids it fails
+the signature. Ask the endpoint (<code>verified_session_route</code>) before trusting the route. The
+plain <code>session_route</code> decoder does not check anything.</p>
+</li>
+<li>
+<p><strong>Ignore the client's copy of the routing header.</strong> The host sets the name header from the
+path and drops one the client sent.</p>
+</li>
+<li>
+<p><strong>Profiles are per context.</strong> The read-only flag and the access policy of each customer are
+in that customer's contexts (<code>mcp_profile</code>). One shared endpoint does not mean one shared
+policy.</p>
+</li>
+<li>
+<p>Authentication stays the host's job, in a <code>RequestFilter</code> that knows the path's name. The
+filter attaches the caller's identity and, for a caller with read access only, marks the
+request read-only (see "Read-only requests" above).</p>
+</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../for_developers/layered_graphs.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../gql/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../for_developers/layered_graphs.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../gql/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

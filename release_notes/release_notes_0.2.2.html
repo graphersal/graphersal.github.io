@@ -1,0 +1,281 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Release Notes 0.2.2 - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/release_notes/release_notes_0.2.2.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="release-022"><a class="header" href="#release-022">Release 0.2.2</a></h1>
+<p>A patch release of the 0.2 line. It brings GQL read queries, marked <strong>experimental</strong>, and fixes
+how value filters treat a string that names a step label. It changes no format: stores,
+snapshots and journals of 0.2.1 are read and written exactly as before. Its API additions are
+additive (a new feature, new methods, a new <code>#[non_exhaustive]</code> error variant).</p>
+<h2 id="added"><a class="header" href="#added">Added</a></h2>
+<ul>
+<li><strong>GQL read queries (experimental)</strong> (<a href="../gql/index.html">GQL Queries</a>): <code>g.gql(query)</code> runs a
+query in GQL, the ISO graph query language (ISO/IEC 39075), on the same graph and engine as
+Gremlin. The query is compiled into an ordinary traversal plan, so the optimizer, property
+indexes, <code>profile()</code>, resource limits, cancellation, permissions and custom storages apply as
+they do to Gremlin; each result row is a map from column name to value
+(<a href="../gql/result_shape.html">Result Shape</a>). <strong>Experimental</strong> means: <code>gql()</code> only reads (every write
+clause is refused), the supported subset grows from version to version, and the rows, errors
+and plans of a construct may still change in a later version. Gremlin stays the complete,
+stable interface.
+<ul>
+<li><strong>Supported</strong> (<a href="../gql/subset.html">The Supported Subset</a>): <code>MATCH</code> and <code>OPTIONAL MATCH</code>,
+<code>WHERE</code>, <code>LET</code>, <code>FILTER</code>, Cypher's <code>WITH</code>, <code>RETURN</code> with aggregation, <code>GROUP BY</code>, <code>DISTINCT</code>,
+<code>ORDER BY</code>, <code>OFFSET</code>/<code>LIMIT</code>; <code>FOR</code> (Cypher <code>UNWIND</code>) with <code>WITH ORDINALITY</code>/<code>OFFSET</code>;
+queries that start without <code>MATCH</code>; node and edge patterns, label expressions, quantified
+edges (<code>-[:knows]-&gt;{1,3}</code>) and quantified path patterns
+(<code>(a) ((x)-[:created]-&gt;(s)&lt;-[:created]-(y)){1,2} (b)</code>), path variables (trail semantics: no edge bound twice in a match);
+<code>EXISTS</code> subqueries and Cypher pattern predicates; map projections, list and pattern
+comprehensions and <code>RECORD {..}</code> for JSON-shaped answers; Cypher's <code>COUNT { }</code>,
+<code>COLLECT { }</code>, <code>all()</code>/<code>any()</code>/<code>none()</code>/<code>single()</code> and <code>reduce()</code>; composite queries
+(<code>UNION</code>, <code>UNION ALL</code>, <code>NEXT</code>); <code>CALL { }</code> subqueries run per row (<code>OPTIONAL CALL</code>);
+parameters (<code>$name</code>); three-valued logic; the GQL scalar functions (strings, numbers,
+<code>CAST</code>) and the common openCypher ones (<code>toInteger</code>, <code>substring</code>, <code>split</code>, <code>round</code>, <code>keys</code>,
+<code>nodes(p)</code>, ...).</li>
+<li><strong>ISO first, Cypher spellings accepted</strong> (<a href="../gql/aliases.html">Cypher Aliases</a>): where GQL and
+Cypher differ, GQL wins; unambiguous Cypher spellings with the same meaning are accepted as
+aliases (<code>SKIP</code>, <code>!=</code>, <code>toUpper()</code>, <code>--&gt;</code>, ...). There is no Graphersal-only syntax.</li>
+<li><strong>Errors</strong> (<a href="../gql/errors.html">Errors</a>): a query that does not parse or bind fails before
+anything runs, with a GQLSTATUS code, a caret under the offending text and a <code>Help:</code> line;
+constructs outside the subset are refused by name with an alternative
+(<a href="../gql/refused.html">Refused Constructs</a>). Size limits (pattern edges, subqueries, nesting)
+are errors, never a cut result.</li>
+<li><strong>Plans</strong> (<a href="../gql/plans.html">Plans and Performance</a>): a GQL query and its Gremlin twin get the
+same plan where they mean the same; <code>profile()</code> shows the internal <code>gql:*</code> steps; an equality
+on an indexed property and an id lookup per row are served directly.</li>
+<li><strong>Everywhere:</strong> Rust <code>GraphTraversalSource::gql</code> and <code>gql_with(query, params)</code> (feature <code>gql</code>,
+off by default, no dependencies, builds for wasm32), the Rhai DSL <code>g.gql(query)</code> /
+<code>g.gql(query, params)</code>, the CLI and REPL, Python (<code>graph.query("g.gql(...)")</code>), the
+playground (GQL examples), and the MCP server's tool <code>gql</code>. New error
+<code>TraverserError::Gql</code> with <code>GqlErrorKind</code>.</li>
+<li><strong>Not yet:</strong> writes (<code>INSERT</code>, <code>SET</code>, <code>DELETE</code>, ...), <code>EXCEPT</code>/<code>INTERSECT</code>, path modes and
+shortest paths, a quantifier nested in a quantified path pattern
+(<a href="../gql/conformance.html">Conformance</a>, <a href="../users_guide/current_limitations.html">Current Limitations</a>).</li>
+</ul>
+</li>
+</ul>
+<h2 id="changed"><a class="header" href="#changed">Changed</a></h2>
+<ul>
+<li><strong>A value filter compares a string as a value, never as a step label</strong>
+(<a href="../users_guide/predicates.html">Predicates</a>): <code>has(key, P.eq("a"))</code>, <code>is("a")</code>, <code>has_value</code>,
+their <code>P</code> forms, <code>any</code>/<code>all</code>/<code>none</code> and a jpath <code>has</code> compared a string that named a step label
+(<code>as("a")</code>) with the labelled element instead of the string itself, so
+<code>g.v(1).as("vadas").out("knows").has("name", P.eq("vadas"))</code> returned nothing. They now compare
+the literal, as TinkerPop does; only <code>where(P)</code> and <code>where(P).by(..)</code> read step labels. A
+traversal that relied on the old behaviour should use <code>where(P.eq("a"))</code>. As a side effect, a
+property index now also serves a string <code>P.eq</code> inside child traversals and <code>union()</code> operands.</li>
+<li><strong>The profile table's <code>Step</code> column is as wide as the longest step text</strong>
+(<a href="../users_guide/profiling_and_execute.html">Profiling</a>): at least 60 characters (70 with nested
+steps), at most 160, then <code>...</code>. It was cut at 60/70, which hid annotations such as
+<code>[index: ..]</code>. The playground's Text view uses the same rule.</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../release_notes/release_notes_0.2.3.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../release_notes/release_notes_0.2.1.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../release_notes/release_notes_0.2.3.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../release_notes/release_notes_0.2.1.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,636 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Layers - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/users_guide/layered_graphs.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="layers"><a class="header" href="#layers">Layers</a></h1>
+<p>A <strong>layer</strong> is a writable graph over a frozen <strong>base</strong> graph. The base is loaded once and never
+changes. The layer stores only its own difference from it: the elements it adds, and the base
+elements it modifies or removes. To a query, a layer looks like an ordinary graph. Every step,
+saved query, schema rule and transaction works on it the same way, and nothing tells it apart
+from a graph that holds all of its data itself.</p>
+<p>The typical use is a product graph shared by many projects. The product (the "box") is the
+base. Each project gets a layer, and the same indexer scripts that built the product fill it
+with the project's own repositories. Most of a project graph is the product itself, so a layer
+costs about what the project adds or changes, not a copy of the product. Several layers can
+share one base in the same process.</p>
+<blockquote>
+<p><strong>EXPERIMENTAL in 0.9.x.</strong> From Rust a layer can be saved as a layer snapshot and read back
+over its base, or kept in a layer Store (<code>Store::create_layer</code> / <code>Store::open_layer</code>); the
+CLI and the dev server keep a layer in a layer store with <code>--layer-store</code>, <code>--layer</code> and
+Python keep it in memory (see <a href="#limitations">Limitations</a>). How the storage works inside, its capabilities and memory
+figures are on the developer page <a href="../for_developers/layered_graphs.html">Layered Graphs</a>.
+A server that serves many customers' layers over shared product versions, one MCP endpoint
+per name, is described in <a href="../for_developers/serving_layers.html">Serving Layers</a>.</p>
+</blockquote>
+<h2 id="where-an-element-comes-from"><a class="header" href="#where-an-element-comes-from">Where an element comes from</a></h2>
+<p>Only some queries need to know whether an element is the product's or the project's. Three
+functions answer that question, and only when they are called. Everything else reads the layer
+as one graph.</p>
+<div class="table-wrapper"><table><thead><tr><th>Function</th><th>Example</th><th>Answer</th></tr></thead><tbody>
+<tr><td><a href="../traversal/steps/layer.html"><code>layer()</code></a></td><td><code>g.v().has_label("class").layer()</code></td><td>the origin of each vertex or edge</td></tr>
+<tr><td><a href="../traversal/steps/has_layer.html"><code>has_layer(origins...)</code></a></td><td><code>g.v().has_layer("added", "modified")</code></td><td>only the elements with one of these origins</td></tr>
+<tr><td><a href="../traversal/steps/layer_diff.html"><code>g.layer_diff(#{..})</code></a></td><td><code>g.layer_diff(#{kinds: "vertex"})</code></td><td>the whole difference against the base, as one map</td></tr>
+</tbody></table>
+</div>
+<p>An element has one of three origins:</p>
+<ul>
+<li><code>"base"</code>: the element is the base's, unchanged. A base element written back to its base
+state, or written with a value equal to the base value, is <code>"base"</code> again.</li>
+<li><code>"added"</code>: the layer created it.</li>
+<li><code>"modified"</code>: a base element whose properties or labels the layer changed.</li>
+</ul>
+<p>A removed base element cannot be traversed, so <code>layer()</code> never answers for it. It appears
+only in <code>g.layer_diff()</code>, under <code>removed</code>.</p>
+<p><strong>On a graph without layers</strong> (every sample graph, file and Store) all three functions still
+work: everything is <code>"base"</code> and the diff is empty. A query that uses them runs on both kinds
+of graph.</p>
+<pre><code class="language-rhai graph=modern">g.v().layer().dedup().to_list()   // ["base"]: the sample graph is no layer
+g.v().has_layer("added", "modified").count().next()   // 0
+g.e().has_layer("base").count().next()   // 6
+g.v(1).out_e().group_count().by(__.layer()).next()   // #{"base": 3}
+g.layer_diff()   // #{"added": [], "modified": [], "removed": [], "truncated": false}
+g.layer_diff(#{kinds: "edge", labels: ["knows", "created"], limit: 10})["truncated"]   // false
+g.v().has_layer("new").to_list()   // error: "new" is no origin (base, added or modified)
+</code></pre>
+<p><code>has_layer()</code> without arguments keeps every vertex and edge; <code>has_layer([])</code> keeps none, like
+<code>has_label()</code>. An unknown origin is an error before the query runs, even inside a child
+traversal no traverser reaches. Both steps accept vertices and edges only: anything else (a
+value, a property) is an error.</p>
+<h2 id="glayer_diffkinds-labels-limit"><a class="header" href="#glayer_diffkinds-labels-limit"><code>g.layer_diff(#{kinds, labels, limit})</code></a></h2>
+<p><code>g.layer_diff()</code> returns everything the layer changed. All options are optional:</p>
+<div class="table-wrapper"><table><thead><tr><th>Option</th><th>Value</th><th>Default</th></tr></thead><tbody>
+<tr><td><code>kinds</code></td><td><code>"vertex"</code>, <code>"edge"</code>, or a list of them</td><td>both kinds</td></tr>
+<tr><td><code>labels</code></td><td>a label or a list of labels; an element matches when any label of its base label set or its layer label set is in the list. <code>[]</code> matches nothing</td><td>every label</td></tr>
+<tr><td><code>limit</code></td><td>a positive number of entries, counted across the whole diff</td><td>no limit</td></tr>
+</tbody></table>
+</div>
+<p>The answer is a map:</p>
+<div class="table-wrapper"><table><thead><tr><th>Key</th><th>Value</th></tr></thead><tbody>
+<tr><td><code>added</code></td><td>a list of the elements the layer created: <code>{kind, id, labels, properties}</code>, an edge also with <code>out</code> and <code>in</code> (the endpoint ids)</td></tr>
+<tr><td><code>removed</code></td><td>a list of the base elements the layer removed, in the same form, with their base labels and properties</td></tr>
+<tr><td><code>modified</code></td><td>a list of the base elements the layer changed: <code>{kind, id, base_labels, labels, properties}</code> (an edge also with <code>out</code> and <code>in</code>), where <code>properties</code> maps each changed key to <code>{base, layer}</code>; a key the layer added has no <code>base</code>, a key it removed no <code>layer</code></td></tr>
+<tr><td><code>truncated</code></td><td><code>true</code> when <code>limit</code> left out further entries</td></tr>
+</tbody></table>
+</div>
+<p>An edge's <code>labels</code> is a list of one label. The diff lists vertices first (added, removed,
+modified), then edges in the same order; added elements are listed in creation order, except
+that an element created after a removal may fill the removed element's place. Values are the
+logical values, the same ones a query reads. In the DSL the keys of each map come out sorted
+(<code>added</code>, <code>modified</code>, <code>removed</code>, <code>truncated</code>), because the DSL's map type sorts them. The Rust
+form (<a href="#rust"><code>LayerDiff::to_property</code></a>) and Python keep the order of the table.</p>
+<p>A <code>g.layer_diff()</code> in a script sees the script's own earlier writes. It reads the delta only,
+never every base element, so it is cheap on a large base with a small layer. It asks for
+<code>Read</code> on <code>Data</code> (see <a href="permissions.html">Permissions</a>).</p>
+<h2 id="memory-what-a-layer-weighs"><a class="header" href="#memory-what-a-layer-weighs">Memory: what a layer weighs</a></h2>
+<p><code>g.memory_usage()</code> on a layer reports the layer's own footprint as <code>total_bytes</code>. The base it
+shares with other layers is reported beside it as <code>shared_bytes</code> and is not part of the total.
+The <a href="memory_and_profiling.html#the-memory-report">memory report</a> breaks the layer's own part down
+with the option <code>scope</code>:</p>
+<pre><code class="language-rhai">let r = g.memory_report(#{scope: "delta"});
+[r.labels.map(|l| [l.label, l.elements]), r.shared_bytes, r.structure.removed_base_edges]
+</code></pre>
+<p>With <code>#{scope: "delta"}</code> the rows cover only the elements the layer added or modified (their
+labels and properties, as for a plain graph), the <code>structure</code> is the layer's own (its slots,
+indexes and totals, <code>base_stubs</code>, <code>removed_base_vertices</code>, <code>removed_base_edges</code>), and the base
+is the one figure <code>shared_bytes</code>. A removed base element is only counted, since the layer holds
+nothing of it but a tombstone. The <code>indexes</code> rows show the index bytes the layer owns: nothing
+for an index it shares with the base, the whole index for one it created. Without the option
+(<code>#{scope: "all"}</code>) the report walks every element the layer shows, base elements included, so
+it has the same rows as a report on the graph the layer shows. On a plain graph
+<code>#{scope: "delta"}</code> reports the whole graph, since a plain graph owns everything it shows.</p>
+<p>On the generated <code>large</code> graph (222 210 elements) with 1 100 vertices modified and 500 added,
+the delta report read 1 600 elements and the full report 222 210 (debug build: 62 ms against
+769 ms). The layer's own total was 475 KB beside a shared base of 51 MB.</p>
+<h2 id="trying-a-layer-from-the-command-line"><a class="header" href="#trying-a-layer-from-the-command-line">Trying a layer from the command line</a></h2>
+<p><code>graphersal --layer</code> runs the session on an empty layer over the <code>--graph</code>: the loaded graph
+becomes the frozen base, and every write goes to the layer.</p>
+<pre><code class="language-bash">graphersal --graph modern --layer \
+  -e 'g.add_v("person").property("name", "ada").iterate()' \
+  -e 'g.v().has("name", "marko").property("age", 30).iterate()' \
+  -e 'g.v(6).drop().iterate()' \
+  -e 'g.v().group_count().by(__.layer()).next()' \
+  -e 'g.layer_diff(#{kinds: "vertex"})'
+</code></pre>
+<pre><code class="language-text">"added": 1
+"base": 4
+"modified": 1
+"added": [#{"id": "7", "kind": "vertex", "labels": ["person"], "properties": #{"name": "ada"}}]
+"modified": [#{"base_labels": ["person"], "id": "1", "kind": "vertex", "labels": ["person"], "properties": #{"age": #{"base": 29, "layer": 30}}}]
+"removed": [#{"id": "6", "kind": "vertex", "labels": ["person"], "properties": #{"age": 35, "name": "peter"}}]
+"truncated": false
+</code></pre>
+<ul>
+<li>The base can be any <code>--graph</code> source: a sample graph, a GraphSON or GraphML file, a packed
+snapshot (<code>.gsnap</code>), or a Store. A Store is opened read-only, without its lock, and nothing
+is written into it, so a layer can run over a store another process has open. <code>--schema</code>
+applies to the base as without <code>--layer</code>. The embedding models of a Store or <code>.gsnap</code> base
+serve the layer: <code>embed()</code>, text <code>nearest</code> and vector rules on the layer use them.</li>
+<li>The REPL (<code>graphersal --layer</code>) and the dev server (<code>graphersal --graph &lt;src&gt; --layer --server</code>) run on the layer too. The server's start banner has a <code>layer</code> row; the playground
+pages and the server's MCP endpoint query the layer (MCP <code>graph_info</code> shows a <code>layer</code> block:
+the base's name and identity, what the layer added, modified and removed, its own and the
+shared bytes; the instructions of <code>initialize</code> name <code>layer()</code>, <code>has_layer()</code> and
+<code>g.layer_diff()</code>, on a layer only). "Save to file" is refused (409, "the
+graph is a layer kept in memory over its base"): it would write the layer's graph over the
+base's file.</li>
+<li>The layer lives as long as the process: nothing is saved when it ends. To keep it, use a
+layer store (next section).</li>
+<li><code>--layer</code> is refused with <code>--create-store</code> (a layer never writes its base, so it cannot
+create a store; <code>--layer-store &lt;dir&gt; --create-store</code> keeps the layer in a new layer store)
+and with <code>--read-only</code> (the layer is the part that takes the writes), with exit code 2. A
+base the layer cannot carry yet (see below) is refused with exit code 2 too.</li>
+</ul>
+<h2 id="in-the-playground"><a class="header" href="#in-the-playground">In the playground</a></h2>
+<p>The <a href="web_playground.html">playground</a> shows where each element of a layer comes from. Nothing of
+this appears for a plain graph.</p>
+<ul>
+<li><strong>The layer badge.</strong> The top bar shows "Layer over <em>base</em>" after the graph's counts, with the
+change counts <code>+added ~modified −removed</code>. Its tooltip names the base commit and splits the
+memory into the layer's own bytes and the shared base. A click opens the Layer changes dialog.</li>
+<li><strong>The drawing.</strong> In the Graph panel, an added vertex has a solid outline and a modified vertex
+a dashed outline. An added edge is solid and wider, a modified edge dashed. The colours are a
+colour-blind-safe pair (blue for added, reddish purple for modified), with light and dark
+variants. Base elements look exactly as on a plain graph. The legend adds the entries <code>added</code>,
+<code>modified</code> and <code>base</code>, and the inspector shows an <code>origin</code> row.</li>
+<li><strong>The Layer changes dialog</strong> lists what <code>g.layer_diff()</code> returns: Added, Modified and Removed,
+vertices before edges. A modified element shows each changed property as <em>base → layer</em>, a
+property only one side has as <code>(absent)</code> on the other, and a label change as the row <code>labels</code>.
+You can filter by kind and label and choose a limit. When more changes match than the limit
+shows, a "Truncated" notice says so. A click on an added or modified entry draws its
+neighbourhood in the Graph panel (for an edge, the neighbourhood of its out vertex) and opens
+the element in the inspector. Removed elements are listed only.</li>
+<li><strong>Memory.</strong> The process memory bar (Profile → Statistics, Optimize → Memory) gets a striped
+"Shared base" track below the layer's own segments. It is shared with every other layer over
+the base. In the tracked process heap it is part of <code>other</code>. Optimize → Memory has a <strong>Delta
+only</strong> switch: the memory report then walks only the layer's added and modified elements
+(<code>scope: "delta"</code>), and the base stays the single figure <code>shared_bytes</code>.</li>
+<li><strong>Discard all changes.</strong> The Layer changes dialog has <strong>Discard all changes…</strong> on every
+writable layer, in the browser and on the dev server (<code>--layer</code>, <code>--layer-store</code>). After a
+confirmation it discards everything the layer changed (see
+<a href="#discarding-a-layers-changes">Discarding a layer's changes</a>) in one commit; the layer stays
+and shows its base again, the badge counts drop to zero. It is not offered on a read-only
+server or while a read-only view of a past state is open.</li>
+<li><strong>Starting a layer in the browser.</strong> The WebAssembly playground can make a layer without a
+server. Load a graph, then choose <strong>Store ▸ Start a layer over this graph</strong>. Writes now go to
+the layer and the badge shows them. <strong>Drop layer</strong> in the Layer changes dialog discards the
+layer and brings the base back unchanged. The layer has no Store menu. Stop restarts the
+engine and restores the graph as it was loaded or last saved, so the layer is lost. On the
+dev server the layer comes from <code>--layer</code> / <code>--layer-store</code>, and neither action is offered.</li>
+</ul>
+<p>The UI profile key <code>layerDiff</code> turns the badge, the dialog and its actions on or off
+(the built-in <code>full</code> profile has it on).</p>
+<h2 id="discarding-a-layers-changes"><a class="header" href="#discarding-a-layers-changes">Discarding a layer's changes</a></h2>
+<p>A reset throws away everything a layer changed and keeps the layer: afterwards it reads
+exactly as its base, <code>g.layer_diff()</code> is empty and the badge shows <code>+0 ~0 −0</code>. The base is
+never written, so other layers over it are not affected. Use it to start a project layer over
+from scratch without building a new layer or a new layer store.</p>
+<div class="table-wrapper"><table><thead><tr><th>Where</th><th>How</th></tr></thead><tbody>
+<tr><td>Rust</td><td><code>LayeredGraph::reset_layer()</code>, or <code>Graph&lt;LayeredGraph&gt;::reset_layer()</code> (also on a layer store's live graph, <code>store.graph().reset_layer()</code>)</td></tr>
+<tr><td>Playground</td><td>the Layer changes dialog, <strong>Discard all changes…</strong></td></tr>
+<tr><td>Dev server</td><td><code>POST /api/layer/reset</code> (no body)</td></tr>
+<tr><td>Session (embedding hosts)</td><td><code>Session::reset_layer()</code></td></tr>
+</tbody></table>
+</div>
+<p>What it discards:</p>
+<ul>
+<li>the vertices and edges the layer added (with the edges they had to base vertices);</li>
+<li>its changes to base elements: properties and labels are the base's again;</li>
+<li>the base elements it removed: they are back, with the ids, labels, properties and edges they
+have in the base;</li>
+<li>its own schema and catalog changes (saved queries, jobs, property indexes defined or dropped
+on the layer): both are the base's again.</li>
+</ul>
+<p>It is <strong>one commit</strong>, an ordinary unit like a query: it succeeds or leaves the layer as it
+was, a dry run or a failing transaction around it changes nothing, and commit hooks get its
+change set (the drops, the values written back and the base elements created again). On a
+layer store the commit is in the write-ahead log like any other, so a reopen or a recovery
+gives the reset layer, and <code>store rollback</code> can go back before it. The cost follows the size
+of the layer's changes, not of the base. A layer without changes commits nothing.</p>
+<p>What it keeps: the commit position and history, the store and its settings, and the id
+sequences: an element created after the reset gets a new id, never one handed out before.
+Workload statistics are not graph data and stay as they are.</p>
+<p>A related rule makes the reset replayable: a vertex created with the id and exactly the state
+of a base vertex the layer removed (the same labels in the same order, the same properties in
+the same order) is that base vertex again, not a new element; the same holds for an edge with
+the id, endpoints, label and properties of a removed base edge. Such an element counts as
+<code>base</code> and the diff no longer lists it.</p>
+<pre><code class="language-rust">use std::sync::Arc;
+use graphersal::prelude::*;
+use graphersal::storage::{Graph, LayerDiffRequest, LayeredGraph};
+
+let base = Arc::new(TraversalGraph::tinkerpop_modern());
+let layer = Graph::new(LayeredGraph::over(base).unwrap());
+GraphTraversalSource::new(&amp;mut *layer.write())
+    .v("1").property("age", 30).iterate().unwrap();
+GraphTraversalSource::new(&amp;mut *layer.write()).add_v("person").iterate().unwrap();
+
+let reset = layer.reset_layer().unwrap();
+assert_eq!((reset.added.vertices, reset.modified.vertices), (1, 1));
+assert!(layer.read().layer_diff(&amp;LayerDiffRequest::new()).unwrap().is_empty());
+assert_eq!(layer.read().vertex_count().unwrap(), 6);</code></pre>
+<h2 id="keeping-a-layer-durably---layer-store"><a class="header" href="#keeping-a-layer-durably---layer-store">Keeping a layer durably: <code>--layer-store</code></a></h2>
+<p><code>graphersal --graph &lt;base&gt; --layer-store &lt;dir&gt;</code> runs the session on the layer kept in the
+layer store <code>&lt;dir&gt;</code> over the base: every commit goes to the layer store's write-ahead log
+before the query answers, exactly as with a <code>--graph &lt;store&gt;</code>, and the base is never written.
+<code>--create-store</code> creates the layer store (with <code>--on-damage</code>, as for a plain store); later
+runs open it over the same base.</p>
+<pre><code class="language-bash">graphersal store create product --from modern          # the base: a Store
+graphersal --graph product --layer-store project --create-store \
+  -e 'g.add_v("person").property("name", "ada").iterate()'
+graphersal --graph product --layer-store project \
+  -e 'g.v().group_count().by(__.layer()).next()'
+</code></pre>
+<pre><code class="language-text">note: created the layer store project
+  base: product
+  base identity: graph 01a200ad-0cec-7d75-8f50-725adf107e99 at commit 0 (commit time 0)
+  damage policy: maintenance
+"added": 1
+"base": 6
+</code></pre>
+<ul>
+<li>The base must keep its identity from one run to the next: a Store (opened read-only,
+without its lock, so another process may have it open) or a packed snapshot (<code>.gsnap</code>). A
+sample graph or a GraphSON/GraphML file gets a new identity at every load, so it is refused
+(exit 2) with the commands that make it a Store first (<code>graphersal store create &lt;base_dir&gt; --from &lt;graph&gt;</code>).</li>
+<li>A layer store opens only over the base it was created over. Another base exits 1 with the
+message naming both (<code>LayerBaseMismatch</code>); so does a plain store given as <code>--layer-store</code>.
+<code>--graph &lt;layer store&gt;</code> alone is refused too: it names the base to give.</li>
+<li><code>--layer-store</code> implies <code>--layer</code>; both together are the same durable layer. <code>--read-only</code>
+loads the layer store read-only (no lock, nothing written, every write refused); with
+<code>--create-store</code> it is refused (exit 2). A backup of a layer store opens read-only over the
+base the same way.</li>
+<li>The REPL and the dev server (<code>--server</code>) run on it. The server commits to the layer store,
+its start banner shows a Store section with the layer store's path, its base and its commit
+position, and Ctrl+C closes it cleanly. "Save to file" answers 409 ("every commit is already
+durable in it"); the server's Store panel serves plain stores only, so it is not offered for
+a layer store: use <code>graphersal store ...</code> on it.</li>
+</ul>
+<h3 id="store-commands-on-a-layer-store"><a class="header" href="#store-commands-on-a-layer-store">Store commands on a layer store</a></h3>
+<p>The <code>graphersal store</code> commands that read or copy files work on a layer store without the
+base: <code>info</code> (its base is a row of the "fixed at creation" block), <code>list</code>, <code>marks</code>, <code>journal</code>,
+<code>attic</code> (the listing and <code>changes</code>), <code>backup</code> (it warns that the backup is useless without the
+base), <code>restore</code>, <code>export</code> (a layer snapshot), <code>convert</code> and <code>upgrade</code>. The commands that load
+the layer take <code>--base &lt;SOURCE&gt;</code>, the base it was created over (a store or a <code>.gsnap</code>):</p>
+<div class="table-wrapper"><table><thead><tr><th>Command</th><th>With <code>--base</code></th></tr></thead><tbody>
+<tr><td><code>store verify &lt;dir&gt; --base &lt;src&gt;</code></td><td>also loads every snapshot over the base (without <code>--base</code>: every checksum, plus a note)</td></tr>
+<tr><td><code>store checkpoint &lt;dir&gt; --base &lt;src&gt;</code></td><td>encodes the layer over the base: a snapshot the size of its changes</td></tr>
+<tr><td><code>store fork &lt;dir&gt; &lt;new&gt; [TARGET] --base &lt;src&gt;</code></td><td>a new layer store over the same base</td></tr>
+<tr><td><code>store rollback &lt;dir&gt; TARGET --base &lt;src&gt;</code></td><td>rolls the layer back in place; the attic keeps the rest</td></tr>
+<tr><td><code>store attic &lt;dir&gt; restore|remove|fork ... --base &lt;src&gt;</code></td><td>as for a plain store</td></tr>
+<tr><td><code>store materialize &lt;dir&gt; &lt;file.gsnap&gt; --base &lt;src&gt; [TARGET]</code></td><td>the whole graph the layer shows, as a standalone packed snapshot</td></tr>
+</tbody></table>
+</div>
+<p>Without <code>--base</code> these commands are refused (exit 1) with the <code>LayerStore</code> reason and the
+command to run instead. <code>store materialize</code> writes the base's elements with the layer's
+changes applied, the layer's schema and catalog (format version 4, the base's embedding models
+it uses unless <code>--without-models</code>); the file needs no base, so any Graphersal reads it
+(<code>--graph whole.gsnap</code>, <code>store create &lt;dir&gt; --from whole.gsnap</code>):</p>
+<pre><code class="language-bash">graphersal store materialize project whole.gsnap --base product
+</code></pre>
+<pre><code class="language-text">Materialized the layer store project at commit 1 into whole.gsnap
+  vertices: 7
+  edges: 6
+  standalone: yes: the whole graph (base and layer), it needs no base
+  # open it in the REPL
+  graphersal --graph whole.gsnap
+</code></pre>
+<p><code>store repair</code> refuses a layer store (a repair salvages whole graphs: restore a backup of it),
+and so do <code>store models remove|default</code> (a layer store keeps no embedding model; <code>store models &lt;dir&gt;</code> says its graph serves the base's).</p>
+<h2 id="rust"><a class="header" href="#rust">Rust</a></h2>
+<p>A layer is the storage <code>LayeredGraph</code> over an <code>Arc&lt;TraversalGraph&gt;</code>. Everything that runs on a
+<code>Graph&lt;S&gt;</code> runs on it: the typed traversal API, the DSL, GQL and the session.</p>
+<pre><code class="language-rust">use std::sync::Arc;
+use graphersal::prelude::*;
+use graphersal::storage::{ElementKind, Graph, LayerDiffRequest, LayerOrigin, LayeredGraph};
+
+let base = Arc::new(TraversalGraph::tinkerpop_modern());
+let layer = Arc::new(Graph::new(LayeredGraph::over(Arc::clone(&amp;base)).unwrap()));
+
+// The DSL on the layer: the writes go to the layer, the base stays as it was.
+let run = |script: &amp;str| graphersal::script::eval_value(layer.clone(), script).unwrap();
+run(r#"g.add_v("person").property("name", "ada").iterate()"#);
+run(r#"g.v().has("name", "marko").property("age", 30).iterate()"#);
+assert_eq!(run(r#"g.v().has_layer("added", "modified").count().next()"#).as_int(), Ok(2));
+assert_eq!(run(r#"g.v().has("name", "ada").layer().next()"#).to_string(), "added");
+
+// The typed API: origins and the diff.
+let read = layer.read();
+let g = GraphTraversalSource::new(&amp;*read);
+let diff = g.layer_diff(&amp;LayerDiffRequest::new().kind(ElementKind::Vertex)).unwrap();
+assert_eq!((diff.added.len(), diff.modified.len(), diff.removed.len()), (1, 1, 0));
+assert_eq!(diff.modified[0].properties[0].name, "age");
+assert!(diff.to_json().starts_with(r#"{"added":"#));
+let marko = read.get_vertex_by_id("1").unwrap().unwrap();
+assert_eq!(read.vertex_layer(marko).unwrap(), Some(LayerOrigin::Modified));
+assert_eq!(TraversalGraph::vertex_count(&amp;base), 6);</code></pre>
+<p>A layer built with <code>LayeredGraph::over</code> gets the base graph alone. The embedding models of a
+database live beside the graph, in its <code>Graph</code>; <code>LayerBase</code> keeps them together with the frozen
+graph and a display name, and <code>LayerBase::new_layer()</code> makes a <code>Graph&lt;LayeredGraph&gt;</code> that serves
+them. A clone of a <code>LayerBase</code> is cheap: every layer made from it shares one base and one set of
+models.</p>
+<pre><code class="language-rust">use graphersal::prelude::*;
+use graphersal::storage::LayerBase;
+
+// A Store's graph (`Store::open_read_only(..)?.into_graph()`) or a `.gsnap` read
+// (`graphersal::persist::read_snapshot_file`) brings its models along the same way.
+let base = LayerBase::from_graph(Graph::new(TraversalGraph::tinkerpop_modern()))
+    .unwrap()
+    .with_name("product");
+let project_a = base.new_layer().unwrap();
+let project_b = base.new_layer().unwrap();
+GraphTraversalSource::new(&amp;mut *project_a.write()).add_v("repo").iterate().unwrap();
+assert_eq!(project_a.read().vertex_count().unwrap(), 7);
+assert_eq!(project_b.read().vertex_count().unwrap(), 6);</code></pre>
+<p><code>LayerBase::base_ref()</code> names the base's identity: its graph lineage id, its last commit and
+that commit's time. A layer snapshot (<code>graphersal::persist::write_snapshot</code> of the layer, or
+<code>write_graph_snapshot</code> of its <code>Graph</code>) holds only what the layer added and changed plus that
+identity, so it is about the size of the project's changes, not of the product. It is read
+back over the same base with <code>graphersal::persist::read_layer_snapshot(reader, &amp;options, &amp;base)</code>; over another base (another graph, or the same product graph after more commits) it is
+refused with a message naming both bases, and <code>read_snapshot</code> refuses it as a whole graph. A
+base saved as a <code>.gsnap</code> or Store and loaded again keeps its identity and takes its layers'
+snapshots.</p>
+<p><code>LayerDiff::to_property()</code> is the map of the table above with its keys in that order, and
+<code>LayerDiff::to_json()</code> its JSON text. A storage that has no layers answers <code>LayerOrigin::Base</code>
+and an empty diff from the trait's defaults.</p>
+<h2 id="python"><a class="header" href="#python">Python</a></h2>
+<p><code>graph.layer_diff(kinds=None, labels=None, limit=None, policy=None)</code> answers the diff as a
+<code>dict</code> with the keys in the order of the table above. <code>layer()</code> and <code>has_layer()</code> are DSL steps
+and run in <code>graph.query(...)</code> like every other step.</p>
+<pre><code class="language-python">import graphersal
+
+graph = graphersal.Graph.tinkerpop_modern()
+assert graph.query("g.v().layer().dedup().to_list()") == ["base"]
+assert graph.layer_diff(kinds="vertex", limit=10) == {
+    "added": [], "removed": [], "modified": [], "truncated": False,
+}
+</code></pre>
+<p>A Python <code>Graph</code> cannot be a layer yet: it always holds a graph of its own, so from Python
+every element is <code>"base"</code> and the diff is empty. The functions are there so that queries and
+code written for layers already run.</p>
+<h2 id="limitations"><a class="header" href="#limitations">Limitations</a></h2>
+<ul>
+<li><strong>Discarding only part of a layer.</strong> A reset discards everything; to keep some changes,
+roll a layer store back to a mark or a time instead (<code>store rollback</code>), or write the
+changes back by hand.</li>
+<li><strong>Persistence.</strong> From Rust a layer can be saved as a layer snapshot (above) or kept in a
+layer Store, which journals every commit and opens again only over the same base
+(<code>graphersal store info</code> shows a layer store's base); the CLI and the dev server keep it
+there with <code>--layer-store</code> (above). <code>--layer</code> and Python keep it in memory. A layer store
+is backed up, restored, verified and
+exported like any store; every copy holds the layer only, so <strong>a backup of a layer store is
+useless without its base</strong> (the backup's report and <code>graphersal store backup</code> say so): keep
+the base, or export a standalone copy of the whole graph the layer shows
+(<code>Store::export_materialized</code>, <code>graphersal store materialize</code>: a plain <code>.gsnap</code> that any
+Graphersal reads). Forks, rollback,
+the attic and conversion to another backend work on a layer store and keep it a layer over
+the same base. A damaged layer store is not repaired (restore a backup of it, or rebuild
+the layer), and the embedding models of a layer store are changed in its base.</li>
+<li><strong>One level.</strong> The base is a plain graph; there is no layer over a layer. The base is frozen
+for good: when the product graph changes, project layers are rebuilt over the new base.</li>
+<li><strong>Refused for now</strong>, with an error naming the feature ("... not supported on a layered graph
+yet"): compression rule and embedding model definitions created on a layer.</li>
+<li><strong>Vector rules:</strong> a layer over a base with <a href="vector_rules.html">vector rules</a> keeps the derived
+vectors in step as a plain graph does. Creating the layer embeds nothing: the base's
+vectors are read as they are. A write on the layer to a rule's source embeds the element in
+the same unit, with the same vectors, errors and change sets as a plain graph with the
+layer's data; a write that leaves the text as it was copies nothing into the layer. A rule
+the layer adds or changes on a label the base holds fills every element of that label, so
+it copies each of them into the layer: the preview (<code>validate_schema</code>, <code>diff_schema</code>) names
+how many (<code>base_copies</code>, and a sentence in the warning text). A layer uses the
+<a href="../persistence/store_models.html">embedding models</a> of its base: over a Store or a <code>.gsnap</code>
+that holds models (<code>--layer</code>, or <code>LayerBase</code> in Rust), rules, <code>embed()</code> and text <code>nearest</code>
+on the layer run with them as on the base. A layer cannot import or define models of its
+own. A layer built over a bare graph without its models (<code>LayeredGraph::over</code> in Rust)
+serves only the built-in <code>hash-ngram/1</code>: a write that needs another model fails ("the model
+... is not served here") and leaves nothing, as on a plain graph without that model.</li>
+<li><strong>Property indexes:</strong> a layer serves the base's indexes for its own data, also after it
+changed elements: lookups and counts answer from the index, as on a plain graph. The
+base's unique indexes hold for the layer: a write that would give a second element a unique
+value fails with the same error a plain graph with the layer's data gives, and a value that
+an element of the base held before the layer dropped or changed it is free again. A unique
+index the base keeps disabled (it was stored over repeated values) stays disabled on the
+layer. A layer can create, drop and redefine indexes (<code>g.create_index(...)</code>,
+<code>g.drop_index(...)</code>) for itself: the base and the other layers keep theirs. A unique index
+is checked against the layer's data, as on a plain graph. Creating an index on a layer
+reads every element of its label in the base once and keeps its own copy of the index, which
+counts in the layer's <code>g.memory_usage()</code>.</li>
+<li><strong>Order:</strong> unordered results list the same elements as a plain graph with the same data,
+in the same order, except after some removals (details on the
+<a href="../for_developers/layered_graphs.html#limitations">developer page</a>). Use <code>order()</code> when the
+order matters.</li>
+<li><strong>Not in GQL yet.</strong> GQL queries run on a layer like on any graph, but GQL has no function
+for an element's origin or the diff yet. Use the DSL for those.</li>
+<li><strong>The playground cannot draw removed elements.</strong> They are no longer in the graph, so the
+Layer changes dialog lists them as text only (see <a href="#in-the-playground">In the playground</a>).
+The Fast drawing tier draws edge origins by colour and width only (WebGL has no dashed
+lines); the edge's hover label names its origin.</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../persistence/faq.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../for_developers/custom_storage.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../persistence/faq.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../for_developers/custom_storage.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Map Keys and Values - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/users_guide/map_keys_and_values.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="map-keys-and-values"><a class="header" href="#map-keys-and-values">Map Keys and Values</a></h1>
+<p><code>group()</code>, <code>group_count()</code>, <code>project()</code>, <code>element_map()</code> and <code>select("a", "b")</code> produce maps.
+This page covers how a query reads a map's keys and values generically: <code>unfold()</code> turns a map
+into its entries, and <code>select(Column.keys)</code> / <code>select(Column.values)</code> (TinkerPop
+<code>select(Column)</code>) reads keys or values.</p>
+<h2 id="quick-reference"><a class="header" href="#quick-reference">Quick reference</a></h2>
+<p>On the modern graph:</p>
+<pre><code class="language-rhai graph=modern">g.V().group().by("name").by(__.out().count())                                 // one map
+g.V().group().by("name").by(__.out().count()).unfold()                        // 6 entries: marko=3, vadas=0, ...
+g.V().group().by("name").by(__.out().count()).unfold().select(Column.keys)    // "marko", "vadas", "lop", ...
+g.V().group().by("name").by(__.out().count()).unfold().select(Column.values)  // 3, 0, 0, 2, 0, 1
+g.V().group().by("name").by(__.out().count()).select(Column.keys)             // ONE list: ["marko", "vadas", ...]
+g.V().group().by("name").by(__.out().count()).select(Column.keys).unfold()    // "marko", "vadas", "lop", ...
+</code></pre>
+<p>The order is the map's own order. <code>group()</code> keeps first-seen order. The index-backed
+<code>group_count().by(T.label)</code> pushdown does not guarantee any order.</p>
+<h2 id="unfold-of-a-map"><a class="header" href="#unfold-of-a-map"><code>unfold()</code> of a map</a></h2>
+<p><code>unfold()</code> emits one traverser per map entry. It still unrolls a list into its elements, and any
+other value passes through unchanged. An entry is its own kind of stream value (TinkerPop's
+<code>Map.Entry</code>). When an entry reaches a terminal (<code>to_list()</code>, <code>next()</code>, a table), it becomes a
+single-key map, which is how the Gremlin console prints <code>marko=3</code>:</p>
+<pre><code class="language-rhai graph=modern">g.V().groupCount().by(T.label).unfold().toList()
+// #{"person": 4}
+// #{"software": 2}
+</code></pre>
+<p><code>unfold()</code> of an entry passes it through unchanged. An entry is not a collection.</p>
+<h2 id="selectcolumnkeys--selectcolumnvalues"><a class="header" href="#selectcolumnkeys--selectcolumnvalues"><code>select(Column.keys)</code> / <code>select(Column.values)</code></a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Input</th><th><code>select(Column.keys)</code></th><th><code>select(Column.values)</code></th></tr></thead><tbody>
+<tr><td>a map (<code>group()</code>, <code>group_count()</code>, <code>project()</code>, <code>element_map()</code>, a nested object property)</td><td>one list of all keys</td><td>one list of all values, types kept</td></tr>
+<tr><td>an entry (from <code>unfold()</code> of a map)</td><td>the key</td><td>the value</td></tr>
+<tr><td>a path (from <code>path()</code>)</td><td>one list holding the step labels of each position</td><td>not implemented: cast error</td></tr>
+<tr><td>anything else</td><td>cast error</td><td>cast error</td></tr>
+</tbody></table>
+</div>
+<p><strong>Map or entry?</strong> The rule depends on the kind of value, not on how many keys it has. A map is
+always a map, even with one key:</p>
+<pre><code class="language-rhai graph=modern">g.V("1").groupCount().by("name").select(keys).toList()            // [["marko"]]: one list
+g.V("1").groupCount().by("name").unfold().select(keys).toList()   // ["marko"]: the key itself
+</code></pre>
+<p>This follows TinkerPop, where <code>Map</code> and <code>Map.Entry</code> are different types. A rule based on the
+number of keys ("a single-key map is an entry") would make one-group <code>group()</code> results behave
+differently from every other <code>group()</code> result. Only <code>unfold()</code> creates entries. A single-key map
+that went through a terminal and came back into a query (for example through <code>inject()</code>) is a
+map again, and <code>values(k)</code>, <code>select(k)</code> and <code>has(k, v)</code> read its keys like those of a <code>project()</code>
+result:</p>
+<pre><code class="language-rhai">let m = #{name: "x", age: 3};
+g.inject(m).values("name").toList()        // ["x"]
+g.inject(m).select("name", "age").toList() // [#{age: 3, name: "x"}]
+g.inject(m).has("age", P.gt(2)).count()    // 1
+</code></pre>
+<p><strong>A path.</strong> <code>select(Column.keys)</code> of a path lists the step labels of its positions, one list per
+position in position order (TinkerPop's <code>Path.labels()</code>); an unlabelled position is an empty list,
+and the labels of one position keep the order of their <code>as()</code> calls:</p>
+<pre><code class="language-rhai graph=modern">g.V("1").as("a", "b").out().as("c").path().select(Column.keys).toList()   // [[["a", "b"], ["c"]], ...]
+</code></pre>
+<p><code>select(Column.values)</code> of a path lists its objects in position order (TinkerPop's
+<code>Path.objects()</code>; after <code>path().by(..)</code> the modulated values), so keys and values line up by index:</p>
+<pre><code class="language-rhai graph=modern">g.V("1").out("knows").path().select(Column.values).toList()   // [[v[1], v[4]], [v[1], v[2]]]
+g.V("1").out("knows").path().by("name").select(Column.values) // [["marko", "josh"], ["marko", "vadas"]]
+</code></pre>
+<p><code>select(Column...)</code> has nothing to do with label-based <code>select("a")</code>. It reads the current value
+only, never the traverser path. So an <code>as()</code> label before it records nothing, and <code>.profile()</code>
+shows the step as <code>select(Column.keys)</code>.</p>
+<h2 id="spellings"><a class="header" href="#spellings">Spellings</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Notation</th><th>Keys</th><th>Values</th></tr></thead><tbody>
+<tr><td>Gremlin (dot)</td><td><code>select(Column.keys)</code></td><td><code>select(Column.values)</code></td></tr>
+<tr><td>Gremlin console static import</td><td><code>select(keys)</code></td><td><code>select(values)</code></td></tr>
+<tr><td>Rhai static module</td><td><code>select(Column::keys)</code></td><td><code>select(Column::values)</code></td></tr>
+<tr><td>Rust API</td><td><code>.select(Column::Keys)</code></td><td><code>.select(Column::Values)</code></td></tr>
+</tbody></table>
+</div>
+<p>The bare tokens <code>keys</code> and <code>values</code> are script constants. They do not interfere with the
+<code>values("age")</code> step, because Rhai keeps variables and methods in separate namespaces.
+<code>Column</code>, <code>keys</code> and <code>values</code> are reserved names and cannot be used as script parameters.</p>
+<p>There is no <code>keys()</code> step. It does not exist in TinkerPop either. <code>g.V().group().keys()</code> fails
+with Rhai's own <code>Function not found: keys</code> error. Use <code>select(Column.keys)</code> instead.</p>
+<h2 id="errors"><a class="header" href="#errors">Errors</a></h2>
+<p>A map is not a graph element. So <code>properties()</code>, <code>key()</code>, <code>value()</code>, <code>id()</code> and <code>out()</code> on a map
+or an entry stay errors, as in TinkerPop. The help text shows how to read the map instead:</p>
+<pre><code class="language-rhai">g.V().group().by("name").by(__.out().count()).properties().key()
+// Cast exception: expected type [vertex or edge], got type 'object'
+// Help: ... Read its keys or values with unfold().select(Column.keys) / unfold().select(Column.values), ...
+</code></pre>
+<p><code>select(Column.keys)</code> on something that is not a map fails with
+<code>expected type [map or entry]</code>. The help names the steps that produce maps, and it names
+<code>unfold()</code>.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../users_guide/math.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../users_guide/value_keyed_maps.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../users_guide/math.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../users_guide/value_keyed_maps.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

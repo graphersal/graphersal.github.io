@@ -1,0 +1,334 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Release Notes 0.2.1 - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/release_notes/release_notes_0.2.1.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="release-021"><a class="header" href="#release-021">Release 0.2.1</a></h1>
+<blockquote>
+<p><strong>Warning: do not use 0.2.0 on a store written by 0.2.1.</strong> Graphersal 0.2.0 reads a store that
+holds a compression rule with the codec <code>dedup</code> (new in 0.2.1) as <strong>damaged</strong> from the commit
+that defined the rule on: it opens it in maintenance mode, reports the commits from there on as
+lost, and <code>graphersal store repair</code> run from 0.2.0 would really drop them, although nothing on
+disk is damaged. Do not open such a store with 0.2.0 and never run <code>graphersal store repair</code>
+from 0.2.0 on it. Upgrade to 0.2.1; 0.2.0 is not recommended. From 0.2.1 on, what a newer
+version writes is never read as damage (see "Changed" below).</p>
+</blockquote>
+<p>A patch release of the 0.2 line. It changes no format: stores, snapshots and journals of 0.2.0 are
+read and written exactly as before. Its additions are additive API (a new <code>GraphStorage</code> method
+with a default, new <code>#[non_exhaustive]</code> types).</p>
+<h2 id="added"><a class="header" href="#added">Added</a></h2>
+<ul>
+<li><strong>Saved queries that write</strong>
+(<a href="https://github.com/graphersal/graphersal/issues/11">#11</a>;
+<a href="../users_guide/saved_queries.html#queries-that-read-and-queries-that-write">Queries that read and queries that write</a>):
+a saved query may now change data. Its <strong>effects</strong> (which elements of which labels it may
+create, update or delete) are inferred from its body when it is saved, never declared; a call
+asks the permission check for the whole effect set first and runs as one unit, so a failing
+call changes nothing. Schema, catalog and file writes, and writes the inference cannot see
+(behind <code>Fn</code>, <code>call</code>, <code>eval</code>, <code>import</code> or a computed query name), are refused when the query is
+saved. <code>g.queries()</code> lists <code>writes</code> and <code>effects</code>; the playground marks queries R/O or R/W and
+previews a writing call before it runs; the MCP server lists the effects, hides writing queries
+in its read-only mode, and the AI Chat runs one only after the user confirmed it. A writing query
+is stored in the dialect <code>graphersal-rhai/2</code>; read-only queries stay <code>graphersal-rhai/1</code>, so
+0.2.0 still runs them and lists a writing one as not runnable
+(<a href="../users_guide/saved_queries.html#unavailable-queries-and-older-versions">Unavailable queries and older versions</a>).</li>
+<li><strong>Estimate a compression rule before defining it</strong>
+(<a href="https://github.com/graphersal/graphersal/issues/12">#12</a>;
+<a href="../users_guide/compressed_properties.html#estimating-the-gain">Estimating the gain</a>):
+<code>g.estimate_compression(#{label, path, element?, codec?, min_bytes?, dictionary?})</code> measures the
+candidate rules (<code>lz4</code> without and with a dictionary at <code>min_bytes</code> 64 to 1024, plus the rule that
+covers the path today) on the current values and reports per candidate the values it would
+compress, plain, stored and dictionary bytes, the net saving, the ratio and the measured
+compression and read (decompression) speed, plus the values found at the path, how many are
+strings, a size histogram to choose <code>min_bytes</code>, the best candidate and warnings for a label
+that does not exist, a path without values and values that are not strings. The graph is not
+changed (no commit, no catalog change). The trial dictionary is built by the rule's own code, so
+the estimate of a candidate is what the rule holds after it is defined on the same data; above
+100,000 strings or 16 MiB of text a deterministic sample is measured and extrapolated
+(<code>sampled: true</code>). It asks for <code>Read</code> on the label's data, so read-only policies, the MCP
+read-only mode and saved queries may estimate. Rust
+<code>GraphTraversalSource::estimate_compression(&amp;CompressionEstimateRequest)</code> (<code>graphersal::catalog</code>;
+storages implement <code>GraphStorage::estimate_compression</code>, default <code>Unsupported</code>), Python
+<code>Graph.estimate_compression(label, path, ...)</code>, the playground's <strong>Estimate</strong> button in the
+compression rule form (a table of the candidates with saving bars, the best highlighted, <strong>Use</strong>
+fills the form), the dev server's <code>POST /api/compression/estimate</code> and the MCP tool
+<code>estimate_compression</code>. The help of an out-of-range <code>min_bytes</code> names it.</li>
+<li><strong>A <code>dedup</code> codec for repeated values</strong>
+(<a href="https://github.com/graphersal/graphersal/issues/13">#13</a>;
+<a href="../users_guide/compressed_properties.html#deduplicating-repeated-values">Deduplicating repeated values</a>):
+<code>g.define_compression(#{name, label, path, codec: "dedup"})</code> stores every distinct value at the
+rule's path once, in a table of the rule, and every element keeps only a reference. For long
+values repeated across many elements (file paths, URLs, addresses, category texts); strings of at
+most 24 bytes are stored inline and never shared (the default <code>min_bytes</code> of a dedup rule is 25),
+and <code>dictionary: true</code> with <code>dedup</code> is refused with a help that names the fix. Reads stay plain
+and cost nothing extra, query results never change, change sets, exports and files hold plain
+values (no format change: a load shares the values again). <code>g.compressions()</code> reports the shared
+values (<code>compressed_values</code>), <code>distinct_values</code>, plain and stored bytes (each distinct text once
+plus 32 bytes); <code>g.memory_usage()</code> adds <code>deduped_values</code>, <code>deduped_plain_bytes</code> and
+<code>dedup_table_bytes</code> (each shared text once, part of <code>property_bytes</code>). The estimate measures
+dedup with <code>codec: "dedup"</code> or <code>codec: ["lz4", "dedup"]</code> (exact, never sampled; per candidate
+<code>distinct_values</code>; the warning <code>high_cardinality</code> when the values are mostly distinct) and
+includes a dedup rule that covers the path today. Rust <code>Codec::Dedup</code>,
+<code>CompressionCandidate::dedup</code>/<code>matching_codecs</code>, Python <code>define_compression(..., codec="dedup")</code>
+and <code>estimate_compression(..., codec=[...])</code>, the playground's codec choice and dedup rows in the
+estimate table, the MCP tools <code>define_compression</code>/<code>estimate_compression</code>. A 0.2.0 reader cannot
+decode a dedup rule (it reports the definition as damage, see the warning at the top): drop dedup
+rules before opening a store with 0.2.0.</li>
+</ul>
+<h2 id="changed"><a class="header" href="#changed">Changed</a></h2>
+<ul>
+<li><strong>What a newer version writes is never damage</strong>
+(<a href="../persistence/format.html#16-extensibility">format spec 16 rule 9</a>): content behind a valid
+checksum that this version cannot interpret is kept or refused, never reported as damage and
+never offered for a repair that would drop it.
+<ul>
+<li>A compression rule whose <code>codec</code> or <code>element</code> this version does not know, or whose <code>path</code> it
+cannot parse, is kept and written back byte for byte through every store path (journal,
+checkpoint, fork, backup, ZIP, repair), not applied (its values stay plain), and listed with
+<code>served: false</code> and a <code>reason</code> by <code>g.compressions()</code>, Python, the session, MCP's
+<code>list_compressions</code> and the playground (a <em>not applied</em> badge); <code>g.recompress</code> refuses it
+with the reason. New: <code>CompressionDefinition::unserved_reason</code>, <code>codec_name</code>,
+<code>element_name</code>.</li>
+<li>A property index of an unknown <code>element</code> kind is handled like one of an unknown <code>type</code>: kept,
+not served, listed with the reason, refused when created
+(<code>PropertyIndexDefinition::element_name</code>).</li>
+<li>A saved query whose stored parameters this version cannot read (a schema keyword of a newer
+version) is kept, listed with the reason and refused when called
+(<code>QueryDefinition::unsupported_reason</code>).</li>
+<li>A definition of a known kind whose payload fields this version cannot read is kept opaque,
+byte for byte, like a definition of an unknown kind.</li>
+<li>A graph schema this version cannot parse (in a snapshot or a WAL record) opens the store
+read-only with the reason (the data without the schema); a checkpoint, fork or repair of it
+is refused, a backup copies it as it is.</li>
+<li>An unknown interrupted operation (<code>INTENT</code>), an unknown <code>GRAPH</code> state value and a
+well-formed backup archive entry this version does not know are refused as unsupported.</li>
+<li>A block compressed with zstd, read by a build without the <code>persist-zstd</code> feature, is
+reported as unsupported (format spec 2.1), no longer as damage.</li>
+<li>New error <code>PersistError::UnsupportedContent</code> (<em>written by a newer Graphersal, not damage</em>);
+<code>graphersal store verify</code> lists such content as a <code>note:</code>, not as damage.</li>
+</ul>
+</li>
+</ul>
+<h2 id="fixed"><a class="header" href="#fixed">Fixed</a></h2>
+<ul>
+<li><strong>A traversal where a step takes values is refused</strong>
+(<a href="https://github.com/graphersal/graphersal/issues/9">#9</a>): an anonymous traversal given to an
+argument that takes ids, labels, property keys or values (<code>has_value(__.is("marko"))</code>,
+<code>has_label(__..)</code>, <code>out(__..)</code>, <code>values(__..)</code>, ...) was silently turned into a string and
+matched nothing. It is now an error whose help names the step that runs a traversal there.
+New: <code>has(T.id, traversal)</code> and <code>has(T.label, traversal)</code>, as in TinkerPop.</li>
+<li><strong><code>g.memory_usage()</code> counts the hash index of every map.</strong> It counted a property map, a nested
+object, a value map and the id and label indexes by their entries only and missed the hash
+table beside them, so <code>property_bytes</code> and <code>index_bytes</code> were 10-20 % low. They now match the
+bytes the allocator measures (the <code>large</code> sample graph: 74.2 MiB before, 92.0 MiB now). Nothing
+grew: the figure was wrong, not the memory.</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../release_notes/release_notes_0.2.2.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../release_notes/release_notes_0.2.0.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../release_notes/release_notes_0.2.2.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../release_notes/release_notes_0.2.0.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Property Elements - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/users_guide/property_elements.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="property-elements"><a class="header" href="#property-elements">Property Elements</a></h1>
+<p>This page lists where Graphersal's property elements differ from Apache TinkerPop 3.8.2.
+Everything not listed follows <code>Dedup.feature</code> and <code>AsString.feature</code>.</p>
+<p><code>properties()</code> yields property elements; <code>properties(jpath(..))</code> yields a path property element, see
+<a href="jpath_keys.html#propertiesjpath">Path Keys (jpath)</a>.</p>
+<p><code>properties()</code> yields property elements. A property element is not its value: it has an identity,
+<code>key()</code>/<code>value()</code> and a text form. <code>values()</code>, <code>id()</code>, <code>label()</code> and <code>labels()</code> yield plain
+values. <code>dedup()</code>, <code>as_string()</code> and set side effects (<code>withSideEffect("a", Set.of())</code>) tell the
+two apart:</p>
+<pre><code class="language-rhai graph=modern">g.V().properties("name").dedup()          // by identity: three "josh" vertices stay three
+g.V().values("name").dedup()              // by value: one "josh"
+g.V().properties("name").asString()       // "vp[name-&gt;marko]"
+g.E().properties("weight").asString()     // "p[weight-&gt;0.5]"
+g.V().asString()                          // "v[1]"
+g.E().asString()                          // "e[0][1-knows-&gt;2]"
+</code></pre>
+<h2 id="labels-and-ids-of-property-elements"><a class="header" href="#labels-and-ids-of-property-elements">Labels and ids of property elements</a></h2>
+<p>The label of a vertex property is its key, as in TinkerPop, where a vertex property is an element:</p>
+<pre><code class="language-rhai">g.V().properties().label()                // "name", "age", ...
+g.V().properties().hasLabel("name")       // the name properties
+g.V().properties().hasLabel(())           // empty: a null label matches nothing
+g.V().properties().id()                   // error: property elements have no id
+g.V("1").properties("name").element().id()  // "1": the owning vertex
+</code></pre>
+<p>Only elements from <code>properties()</code> have a label. A plain value (<code>values("name")</code>, or the output of
+<code>id()</code>/<code>label()</code>) and an edge property are not elements, and <code>label()</code>/<code>hasLabel()</code> fail on them with a
+cast error. Other label readers (<code>has(T.label, ..)</code> and the token predicates) do not take property
+elements and are unchanged.</p>
+<h2 id="by-tokens-over-property-elements"><a class="header" href="#by-tokens-over-property-elements">by() tokens over property elements</a></h2>
+<p><code>by(T.label)</code> over <code>properties()</code> is the key, like <code>label()</code>, so it works in <code>order()</code>, <code>group()</code>,
+<code>dedup()</code>, <code>project()</code> and the other <code>by()</code> steps:</p>
+<pre><code class="language-rhai graph=modern">g.V().properties().order().by(T.label)               // sorted by key: age, lang, name
+g.V().properties().group().by(T.label).by(__.count())
+</code></pre>
+<p><code>by(T.id)</code> over property elements is an error with the same help as <code>id()</code> (there are no property ids).
+<code>by(T.label)</code> or <code>by(T.id)</code> over a value that is not a vertex, edge or vertex property (<code>values("name")</code>)
+is an error too, as in TinkerPop (<code>TokenTraversal</code> throws <code>IllegalStateException</code>, read from the 3.7.2
+bytecode; the 3.8.2 feature files agree): it is never a silently dropped traverser. A missing property
+key, or a child traversal that yields nothing, still drops the traverser (TinkerPop 3.6+).</p>
+<p><code>by(T.key)</code> and <code>by(T.value)</code> read a property element's key and value, as in TinkerPop 3.8:</p>
+<pre><code class="language-rhai graph=modern">g.V().properties().order().by(T.key, Order.desc).key()   // name, name, ..., lang, lang, age, ...
+g.V().properties("name").dedup().by(T.value).count()       // distinct names
+</code></pre>
+<p>Both also read a map entry (<code>unfold()</code> of a map: its key and its value) and a <code>properties(jpath(..))</code>
+value (its path and its leaf). Any other value is a cast error, as in TinkerPop: a vertex, a number,
+and also a <code>values(..)</code> result, which is the plain value, not a property element. To order or
+deduplicate plain values, use <code>by()</code> with no argument:</p>
+<pre><code class="language-rhai graph=modern">g.V().values("age").order().by(T.value)    // cast error: expected a property element or a map entry
+g.V().values("age").order().by()           // 27, 29, 32, 35
+</code></pre>
+<h2 id="has-on-property-elements"><a class="header" href="#has-on-property-elements">has() on property elements</a></h2>
+<p><code>has(key)</code>, <code>has(key, value)</code>, <code>has(key, P)</code> and <code>hasNot(key)</code> on a property element address the
+property's <strong>own value</strong>: the key inside an object-valued property, never another property of the
+owning element. Graphersal has no meta-properties, so this is where <code>has()</code> looks instead:</p>
+<pre><code class="language-rhai">// vertex: a = 100, meta = {a: 1, b: "x"}
+g.V().properties("meta").has("a", P.eq(1))      // matches: meta.a is 1
+g.V().properties("meta").has("a", P.eq(100))    // empty: the top-level `a` is not read
+g.V().properties("meta").has("a")               // meta has a key `a`
+g.E().properties("info").has("w", P.gt(1))      // the same for edge properties
+</code></pre>
+<p>A missing nested key filters the traverser out; a property whose value is not an object is a cast
+error (<code>expected type [object], got type 'string'</code>). For a deeper path use a jpath key on the
+element, <code>has(jpath("meta.a"), P.eq(1))</code>, see <a href="jpath_keys.html">Path Keys (jpath)</a>.</p>
+<h2 id="valuemap-tokens"><a class="header" href="#valuemap-tokens">valueMap tokens</a></h2>
+<p><code>valueMap(true, keys..)</code> starts each map with the element's <code>T.id</code> and <code>T.label</code> entries, which are
+plain values, not lists (written <code>"id"</code> and <code>"label"</code> outside the engine; a property named <code>id</code> or
+<code>label</code> is an entry of its own, see <a href="id_and_label_keys.html">Properties Named id or label</a>). <code>by()</code> modulates only the property lists, never the tokens. A leading <code>false</code> is the
+plain <code>valueMap(keys..)</code>. A <code>null</code> key (<code>()</code> in Rhai) matches no property and is dropped.</p>
+<pre><code class="language-rhai graph=modern">g.V("1").valueMap(true, "name")           // {id: "1", label: "person", name: ["marko"]}
+g.V("1").valueMap(true).by(__.unfold())   // {id: "1", label: "person", age: 29, name: "marko"}
+g.V("1").valueMap("name", ())             // {name: ["marko"]}
+</code></pre>
+<p>In Rust: <code>value_map_with_tokens(args)</code>.</p>
+<h2 id="deviations"><a class="header" href="#deviations">Deviations</a></h2>
+<ul>
+<li><strong>A vertex property's identity is the vertex and the key.</strong> A graph stores one value per key, so
+that pair is the property id. TinkerPop gives every property instance its own id; there is no
+multi-property (<code>Cardinality.list</code>/<code>set</code>) here.</li>
+<li><strong><code>dedup()</code> of an edge property compares key and value</strong>, as TinkerPop's <code>Property.equals</code> does:
+the same weight on two edges is one result.</li>
+<li><strong>A set side effect keeps an edge property by identity</strong> (its edge and key). TinkerPop compares
+edge properties by key and value, so <code>withSideEffect("a", Set.of()).E().properties()</code> keeps the
+same weight of two edges twice here and once there. <code>values()</code> is by value in both.</li>
+<li><strong><code>has(key, ..)</code> on a property element reads the key inside the property's object value.</strong>
+TinkerPop tests the property's meta-properties there (and an edge property has none). Graphersal
+has no meta-properties, so <code>properties("meta").has("a", P.eq(1))</code> addresses <code>meta.a</code>, never the
+owning element's top-level <code>a</code>; a non-object value is a cast error.</li>
+<li><strong><code>key()</code> and <code>value()</code> also accept a plain value that came from <code>values(key)</code>.</strong> TinkerPop
+rejects them there, because <code>values()</code> yields no property. Graphersal keeps the lazy handle that
+<code>values(key)</code> produces for speed and lets these two steps read it.</li>
+<li><strong>Number text follows the string cast, not Java's <code>toString</code>.</strong> The value inside <code>vp[..]</code>/<code>p[..]</code>
+is <code>as_string()</code>'s text of the stored value: <code>29</code> for an integer, and a float with no fractional
+part prints without <code>.0</code> (TinkerPop: <code>p[weight-&gt;1.0]</code>).</li>
+<li><strong><code>as_string()</code> of a map or a list is not Java's <code>Map.toString</code>.</strong> <code>valueMap().asString()</code> does
+not give <code>{name=[marko]}</code>; a map or list is a cast error. <code>as_string(local)</code> over a list converts
+each element with the rules above.</li>
+<li><strong>A property whose value is missing or null renders <code>null</code> inside the brackets</strong> (<code>vp[name-&gt;null]</code>); TinkerPop never
+holds such a property.</li>
+<li><strong>Property elements have no id.</strong> Graphersal has no property ids, so <code>properties().id()</code> is an error whose
+help names <code>key()</code> and <code>element().id()</code>; TinkerPop returns an opaque property id. No synthetic id is
+invented: it could never equal TinkerPop's and could not be fed back into <code>V()</code> or <code>hasId()</code>.
+<code>Orderability::g_V_properties_order_id</code> stays failing for this reason (it is a deliberate incompatibility).</li>
+<li><strong><code>order()</code> of property elements sorts by value only.</strong> TinkerPop orders <code>Property</code> elements by their own
+total order (key, then value, with cross-type rules) and by property id; here <code>properties().order()</code> compares
+the values, so <code>Orderability::g_E_properties_order_value</code>, its <code>by(desc)</code> twin and the two
+<code>path().order().by(..)</code> scenarios differ. Those scenarios, and <code>g_V_properties_order_id</code>, are
+<a href="../for_developers/tinkerpop_compliance.html#deliberate-incompatibilities">deliberate incompatibilities</a>.</li>
+<li><strong><code>label()</code> and <code>hasLabel()</code> work for vertex-property elements only.</strong> Edge properties are plain
+properties in TinkerPop and stay errors, as do value handles from <code>values()</code>.</li>
+<li><strong><code>valueMap(null)</code> alone means all keys.</strong> In Java the single-null varargs call is ambiguous; here a null
+key is dropped wherever it stands, so a lone null leaves no key and selects every property.</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../users_guide/multi_label_vertices.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../users_guide/id_and_label_keys.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../users_guide/multi_label_vertices.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../users_guide/id_and_label_keys.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

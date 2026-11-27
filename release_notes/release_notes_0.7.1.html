@@ -1,0 +1,295 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Release Notes 0.7.1 - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/release_notes/release_notes_0.7.1.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="release-071"><a class="header" href="#release-071">Release 0.7.1</a></h1>
+<p>A patch release of the 0.7 line. Running a large query again and again no longer grows the
+process on macOS (<a href="https://github.com/graphersal/graphersal/issues/36">#36</a>), and large
+expansions run 5 to 35 % faster. GQL calls the allocator less per row. The dev server gets a run
+administration that lists and stops every client's queries
+(<a href="https://github.com/graphersal/graphersal/issues/32">#32</a>), and a store conversion can leave
+out the blobs it cannot find.</p>
+<p>It changes no format; stores, snapshots and journals of 0.7.0 are read and written exactly as
+before. The API changes of <code>graphersal</code> and of the EXPERIMENTAL crate <code>graphersal-serve</code> are
+additive (<code>cargo semver-checks</code> reports no break of <code>graphersal</code> against 0.7.0).</p>
+<h2 id="upgrading-from-070"><a class="header" href="#upgrading-from-070">Upgrading from 0.7.0</a></h2>
+<p>A drop-in replacement: no format change, no upgrade step. The run administration stays off
+unless the dev server is started with <code>--admin-runs</code>.</p>
+<h2 id="fixed"><a class="header" href="#fixed">Fixed</a></h2>
+<ul>
+<li>
+<p><strong>Repeated executions keep memory flat on macOS</strong>
+(<a href="https://github.com/graphersal/graphersal/issues/36">#36</a>). A query whose intermediate
+results grew beyond about 8 MB kept that memory after every execution. A two-hop over 400k
+edges added about 288 MB per run: 2.4 GB of resident memory after 8 runs. It now stays at
+about 440 MB however often it runs. The engine did not leak: the macOS allocator never reuses
+a large block that <code>realloc</code> grew in place once it is freed. The engine's step buffers
+(expansions, <code>repeat()</code>, filter and write outputs, the path arena and the undo log) now grow
+by moving to a new block sized from a projection of the inputs so far, so the peak of a single
+large expansion is also slightly lower. Buffers below 128 KiB grow as before. Other platforms
+are unaffected.</p>
+<p>The fix matters most where one process runs many queries: the REPL, the dev server, MCP agents
+and host applications. Maximum resident memory after 1 and after 8 runs:</p>
+<div class="table-wrapper"><table><thead><tr><th>Query</th><th>0.7.0</th><th>0.7.1</th></tr></thead><tbody>
+<tr><td>two-hop over 400k edges</td><td>386 -&gt; 2399 MB</td><td>441 -&gt; 438 MB</td></tr>
+<tr><td>GQL variable-length match <code>*1..3</code></td><td>683 -&gt; 1676 MB</td><td>712 -&gt; 712 MB</td></tr>
+<tr><td>GQL <code>SET</code> over 250k rows</td><td>172 -&gt; 495 MB</td><td>162 -&gt; 164 MB</td></tr>
+<tr><td>GQL two-hop with <code>ORDER BY ... LIMIT 3</code></td><td>194 -&gt; 314 MB</td><td>169 -&gt; 169 MB</td></tr>
+</tbody></table>
+</div></li>
+</ul>
+<h2 id="performance"><a class="header" href="#performance">Performance</a></h2>
+<ul>
+<li><strong>Large expansions are faster.</strong> A large step buffer no longer faults in fresh pages on every
+execution, so the benchmark cases that expand many traversers on the <code>large</code> graph run 5 to
+35 % faster than in 0.7.0: <code>repeat(out()).times(3).count()</code> 23 %, <code>out().out().count()</code>
+21 %, <code>out().out().simple_path()</code> 16 %, <code>as()</code>/<code>select()</code> over two hops 12 %, <code>both_v()</code> 9 %,
+<code>tree()</code> 5 %. A benchmark process of such a case peaks at about 100 MB instead of 0.5 to
+1.6 GB. The two-hop benchmarks, which exceeded 5 GB in 0.7.0, run at 420 MB. Across all 145
+benchmark cases the geometric mean is 2.5 % faster.</li>
+<li><strong>GQL allocates less per row.</strong> <code>ORDER BY</code> no longer allocates per row for its sort keys
+(<code>ORDER BY ... LIMIT 10</code> over 10k rows: about 20 000 -&gt; 10 000 allocator calls). Function
+calls (<code>toString</code>, <code>substring</code>, <code>left</code>, <code>right</code>, <code>toUpper</code>, <code>toLower</code>, <code>replace</code>, ...) no
+longer allocate for their arguments, and short string results stay inline (<code>substring</code> and
+<code>toString</code> over 10k rows: 70 000 and 80 000 -&gt; 40 000 calls). A GQL query's steps now
+allocate per row as the equivalent Gremlin <code>project()</code> query does.</li>
+</ul>
+<h2 id="added"><a class="header" href="#added">Added</a></h2>
+<ul>
+<li><strong>Run administration for the dev server</strong> (EXPERIMENTAL, off by default;
+<a href="https://github.com/graphersal/graphersal/issues/32">#32</a>).
+<code>graphersal --server --admin-runs [--admin-runs-token &lt;SECRET&gt;]</code> lets the operator see every
+query that waits or runs, from every client (browser pages, MCP agents, the AI Chat), and stop
+any of them. <code>GET /api/admin/runs</code> lists each run's id, client, kind, state (queued or
+running), start time, duration and the first 200 characters of its text.
+<code>POST /api/admin/runs/cancel</code> <code>{"id": n}</code> cancels one, whatever its client, and rolls back
+its changes. With a token, every admin request must send <code>X-Graphersal-Admin-Token</code>. Without
+the flag both endpoints answer 404. While it is on, <code>GET /api/info</code> answers
+<code>adminRuns: {tokenRequired}</code> and the playground shows a <strong>Runs</strong> button with a live list and
+a Kill button per run. The MCP endpoint offers no tool for it. Both flags are also keys of the
+arguments file, and the start banner names the setting
+(<a href="../persistence/dev_server.html#run-administration">Run administration</a>).</li>
+<li><strong><code>graphersal-serve</code> (EXPERIMENTAL, additive).</strong> A host turns the run administration on per
+graph with <code>ContextBuilder::admin_runs(token)</code> (<code>Context::admin_runs_enabled</code>). A graph
+served under a mount path lists and stops only its own runs. A host's own view across its
+graphs uses <code>Runs::list</code> and <code>Runs::cancel_run</code>, with the new <code>RunEntry</code> and <code>RunState</code> and
+the new <code>RunKind::name</code> and <code>RunInfo::mount</code>.</li>
+<li><strong>A store conversion can leave out the blobs it cannot find.</strong>
+<code>ConvertOptions::with_skip_missing_blobs()</code> makes <code>Store::convert_with</code> complete when a blob
+the store references (an embedding model's) is missing from the source store and from the fill
+source: the copy is made without it, never with a placeholder, and the new field
+<code>ConvertReport::blobs_missing</code> names each one. The copy is a store whose blob was lost, which
+is not damage: its model is listed as missing, an open is refused while the schema needs the
+model, and <code>Store::restore_blobs_from</code> fills the blob later. Everything else is still verified;
+the default stays strict. See <a href="../persistence/store_blobs.html#damage">Blobs</a>.</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../release_notes/release_notes_0.8.0.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../release_notes/release_notes_0.7.0.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../release_notes/release_notes_0.8.0.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../release_notes/release_notes_0.7.0.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>

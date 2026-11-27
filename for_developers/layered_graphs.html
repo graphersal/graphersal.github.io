@@ -1,0 +1,582 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Layered Graphs - The Graphersal Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../playground-links.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Graphersal Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/graphersal/graphersal/edit/main/book/src/for_developers/layered_graphs.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="layered-graphs"><a class="header" href="#layered-graphs">Layered Graphs</a></h1>
+<p>A <strong>layered graph</strong> (<code>graphersal::storage::LayeredGraph</code>) is a frozen base graph that any number
+of layers share, plus a layer of its own: the elements the layer adds, and the base elements it
+changes or removes. From outside a layer is an ordinary storage (<code>GraphStorage</code>). The typed
+traversal API, the Rhai DSL, GQL, saved queries and the session all run on it the same way they
+run on a <code>TraversalGraph</code>. The base never changes: each layer stores only its own difference.</p>
+<blockquote>
+<p><strong>EXPERIMENTAL in 0.9.x</strong>, like the <code>GraphStorage</code> trait. A layer can be saved as a layer
+snapshot or kept in a layer Store; a damaged layer Store is not repaired, and a few catalog
+kinds are not supported on a layer yet (see <a href="#limitations">Limitations</a>).</p>
+</blockquote>
+<p>What a layer is for and how queries see it (<code>layer()</code>, <code>has_layer()</code>, <code>g.layer_diff()</code>, the
+CLI's <code>--layer</code> and <code>--layer-store</code>, the <code>store</code> commands' <code>--base</code>, Python) is on the user page <a href="../users_guide/layered_graphs.html">Layers</a>. This
+page describes the storage.</p>
+<h2 id="when-to-use-it"><a class="header" href="#when-to-use-it">When to use it</a></h2>
+<ul>
+<li><strong>Many writers over one large graph.</strong> Give every user, session or agent its own layer over
+one shared product graph. Each layer costs about what it changes, not a copy of the graph.</li>
+<li><strong>What-if edits.</strong> Try changes on a layer and throw the layer away, or keep it beside the
+untouched base.</li>
+<li><strong>Tests and experiments.</strong> Start every test case from the same loaded graph without loading
+it again or copying it.</li>
+</ul>
+<p>If one graph has a single writer, a plain <code>TraversalGraph</code> is simpler and a little faster.</p>
+<h2 id="example"><a class="header" href="#example">Example</a></h2>
+<pre><code class="language-rust">use std::sync::Arc;
+use graphersal::prelude::*;
+use graphersal::storage::{Graph, LayeredGraph};
+
+// The base: built once, then frozen behind an `Arc` that every layer shares.
+let base = Arc::new(TraversalGraph::tinkerpop_modern());
+
+// A layer reads exactly like its base until it is written to.
+let layer = LayeredGraph::over(Arc::clone(&amp;base)).unwrap();
+let graph = Graph::new(layer); // shared form: a lock around the layer, as for any storage
+
+GraphTraversalSource::new(&amp;mut *graph.write())
+    .add_v("person")
+    .property("name", "ada")
+    .iterate()
+    .unwrap();
+GraphTraversalSource::new(&amp;mut *graph.write())
+    .v(None)
+    .has("name", "marko")
+    .property("age", 30)
+    .iterate()
+    .unwrap();
+
+let read = graph.read();
+let g = GraphTraversalSource::new(&amp;*read);
+assert_eq!(g.v(None).count().next().unwrap(), Some(7_i64.into()));
+// The base is unchanged; a second layer over it sees none of these writes.
+assert_eq!(TraversalGraph::vertex_count(&amp;base), 6);
+let other = LayeredGraph::over(Arc::clone(&amp;base)).unwrap();
+assert_eq!(GraphTraversalSource::new(&amp;other).v(None).count().next().unwrap(), Some(6_i64.into()));
+
+// Memory: the total is the layer's own; the shared base is reported beside it.
+let stats = read.memory_usage().unwrap().unwrap();
+assert_eq!(stats.shared_bytes, base.memory_usage().unwrap().unwrap().total_bytes());
+assert!(stats.total_bytes() &lt; stats.shared_bytes);</code></pre>
+<p><code>LayeredGraph::default()</code> is a layer over an empty base.</p>
+<h2 id="the-base-and-its-models"><a class="header" href="#the-base-and-its-models">The base and its models</a></h2>
+<p><code>LayeredGraph::over(Arc&lt;TraversalGraph&gt;)</code> takes the bare base graph. The embedding models of
+the base's database are not part of the storage: a Store, a recovered view or a <code>.gsnap</code> read
+attaches their registry to the <code>Graph&lt;TraversalGraph&gt;</code> wrapper, and <code>Graph::into_inner</code> leaves
+it behind. <code>graphersal::storage::LayerBase</code> (EXPERIMENTAL) is the frozen base together with
+that registry, a display name and the base's identity:</p>
+<ul>
+<li><code>LayerBase::from_graph(Graph&lt;TraversalGraph&gt;)</code> takes the storage and its registry (a
+poisoned graph is refused); <code>LayerBase::new(Arc&lt;TraversalGraph&gt;)</code> takes a graph without
+models.</li>
+<li>A clone is one <code>Arc</code>: every layer made from it shares one base graph and one registry. The
+registry's commit hook sits on the frozen base, which never commits, so the shared registry
+never changes under the layers.</li>
+<li><code>new_layer()</code> returns a <code>Graph&lt;LayeredGraph&gt;</code> with the registry attached: vector rules on
+catalog models, <code>embed()</code>, text <code>nearest</code> and <code>g.embedders()</code> on the layer use the base's
+models. <code>LayeredGraph::over_base(&amp;base)</code> is the bare storage, without models.</li>
+<li>The layer only uses the models: model definitions in the layer's catalog stay refused.</li>
+<li><code>base_ref()</code> is the base's identity, a <code>BaseRef</code> read from the frozen graph
+(<code>BaseRef::of</code>): its lineage id, last commit sequence number and that commit's time (always
+<code>Some</code> in this version). <code>LayeredGraph::base_ref()</code> answers the same for a bare layer. A
+layer snapshot records it and is loaded only over a base of the same identity (below).</li>
+<li><code>LayerBase::from_store_read_only(dir, target)</code> (feature <code>persist</code>) opens a Store read-only
+at <code>target</code> (no lock, no file changed) and keeps the models of that position;
+<code>LayerBase::from_snapshot_file(path, &amp;options)</code> (feature <code>persist</code>, native only) reads a
+<code>.gsnap</code> and returns the load report beside the base. Both name the base after its location
+(the path, a <code>MemDir</code>'s name).</li>
+<li>The identity is stable across loads: every read-only open of the same commit and a <code>.gsnap</code>
+export of that commit's snapshot have equal <code>BaseRef</code>s (the snapshot records the lineage id,
+commit sequence number and commit time; the WAL replay restores the last two). A commit to
+the base store makes a new identity. <code>.gsnap</code> exports copy the store's newest <em>snapshot</em>, so
+commits still only in the WAL are not in the export: checkpoint first to export the latest
+commit. Samples and GraphSON/GraphML files get a new lineage id at every load, so they are
+never the same base twice.</li>
+<li><code>BaseRef</code> is <code>Copy + Hash + Eq</code>: a host serving many layers pools its bases in a
+<code>HashMap&lt;BaseRef, LayerBase&gt;</code> (or <code>Weak</code> handles) and drops a second load of a pooled commit.
+The <code>LayerBase</code> rustdoc has a pool example; the pool's lifetime and eviction stay the host's.
+<a href="serving_layers.html">Serving Layers</a> shows a whole server: pool, catalog of names and
+aliases, and MCP sessions pinned to a version.</li>
+</ul>
+<pre><code class="language-rust">use std::sync::Arc;
+use graphersal::prelude::*;
+use graphersal::storage::{LayerBase, LayeredGraph};
+
+let base = LayerBase::new(Arc::new(TraversalGraph::tinkerpop_modern())).with_name("modern");
+assert!(!base.serves_models());
+let shared = base.new_layer().unwrap(); // a Graph&lt;LayeredGraph&gt;
+let bare = LayeredGraph::over_base(&amp;base).unwrap();
+assert!(Arc::ptr_eq(bare.base(), base.graph()));
+assert_eq!(shared.read().vertex_count().unwrap(), 6);</code></pre>
+<h2 id="how-it-works"><a class="header" href="#how-it-works">How it works</a></h2>
+<ul>
+<li>
+<p><strong>Handles</strong> (<code>LayeredVertex</code>, <code>LayeredEdge</code>) are 8 bytes. One bit of the slot number tells a
+base element from an element the layer added. A base element's handle is the base's own
+handle, so reading it needs no lookup.</p>
+</li>
+<li>
+<p><strong>Dirty bits:</strong> the layer keeps one bit for every base vertex slot and every base edge slot.
+A clear bit means "untouched: read the base". An untouched element costs one bit test and
+never a hash lookup.</p>
+</li>
+<li>
+<p><strong>The delta</strong> holds:</p>
+<ul>
+<li>the added vertices and edges, in a slot store of its own with its own id and label indexes;</li>
+<li>a hidden <em>stub</em> for each base vertex that gets new incident edges, which also carries the
+copied-up state of a modified base vertex;</li>
+<li>the copied-up state of each modified base edge;</li>
+<li><em>tombstones</em> (bitsets) for removed base elements.</li>
+</ul>
+<p>The first write that actually changes a base element copies it up. A write of an identical
+value copies nothing. An element written back to its base state reads the base again.</p>
+</li>
+<li>
+<p><strong>Ids</strong> are unique across the base and the layer. Auto ids continue the base's sequences. A
+removed base element's id is free again in the layer.</p>
+</li>
+<li>
+<p><strong>Units:</strong> the layer keeps its own undo log. A traversal that fails leaves nothing behind,
+nested units are savepoints, and the layer captures changes: commit hooks see the same
+<code>ChangeSet</code> a <code>TraversalGraph</code> with the same data reports, and dry runs work.</p>
+</li>
+<li>
+<p><strong>Schema and catalog:</strong> the layer copies the base's schema and catalog when it is created.
+From then on it reads and writes only its copies: <code>set_schema</code> checks the layer's own data,
+with the errors of a <code>TraversalGraph</code>.</p>
+</li>
+<li>
+<p><strong>Reset</strong> (<code>LayeredGraph::reset_layer</code>, <code>Graph&lt;LayeredGraph&gt;::reset_layer</code>): one unit that
+writes the inverse of the delta through the layer's own write paths: added edges and
+vertices dropped, modified base edges dropped and restored, modified base vertices written
+back (labels, then properties) until their image is identical to the base, removed base
+elements restored, then the catalog and the schema put back to the base's. When base
+elements are put back, the unit first sets "no schema" and removes the unique index
+definitions, so its change set passes the write rules at every step when a journal replays
+it or a replica applies it. A create with the id and the exact state of a removed base
+element restores that element (the change set's <code>AddVertex</code>/<code>AddEdge</code> replay to the same
+state). After its own commit, and after a replayed change set that leaves the layer without
+changes, the layer replaces its empty bookkeeping with a fresh delta (keeping the delta's
+slot generations, so no stale handle aliases a later element) and clear dirty bits. User
+guide: <a href="../users_guide/layered_graphs.html#discarding-a-layers-changes">Discarding a layer's changes</a>.</p>
+</li>
+</ul>
+<h2 id="capabilities"><a class="header" href="#capabilities">Capabilities</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Capability</th><th>Layer</th></tr></thead><tbody>
+<tr><td><code>writable</code></td><td>yes</td></tr>
+<tr><td><code>atomic</code> (units, rollback, savepoints)</td><td>yes</td></tr>
+<tr><td><code>change_capture</code> (commit hooks, dry runs)</td><td>yes</td></tr>
+<tr><td><code>property_indexes</code> (creating indexes)</td><td>yes: the layer defines, drops and redefines indexes in its own catalog (see below)</td></tr>
+<tr><td><code>layered</code></td><td>yes (a <code>TraversalGraph</code> and other storages: no)</td></tr>
+<tr><td><code>exact_property_index_lookups</code></td><td>as the base. The base's indexes answer only while the layer has not touched that element kind; after that the engine scans</td></tr>
+<tr><td><code>durability</code></td><td>no</td></tr>
+<tr><td><code>isolation</code>, <code>concurrent_writers</code></td><td>as <code>TraversalGraph</code>: none; <code>Graph&lt;LayeredGraph&gt;</code> serializes writers</td></tr>
+</tbody></table>
+</div>
+<p>The engine runs the same TinkerPop and openCypher TCK scenarios on a layer as on a
+<code>TraversalGraph</code>, with the same results. The DSL test suite compares every documented
+example and the curated scripts on both. The <code>GraphStorage</code> conformance suite passes on a layer.</p>
+<h2 id="memory"><a class="header" href="#memory">Memory</a></h2>
+<p><code>memory_usage()</code> on a layer (in the DSL, <code>g.memory_usage()</code>) reports the layer's <strong>own</strong>
+footprint as <code>total_bytes</code>: the delta, its indexes and maps, and the dirty bits (1/8 byte per
+base slot, the only part that grows with the base). The base's footprint is reported separately
+as <code>shared_bytes</code> and is not part of the total. Otherwise every layer would "weigh" the whole
+base. The memory of several layers over one base is the sum of their totals plus
+<code>shared_bytes</code> once.</p>
+<p>Measured (estimates, as every <code>memory_usage</code> figure is):</p>
+<div class="table-wrapper"><table><thead><tr><th>Layer</th><th><code>total_bytes</code></th><th><code>shared_bytes</code></th></tr></thead><tbody>
+<tr><td>over the modern graph, untouched</td><td>32</td><td>4 010</td></tr>
+<tr><td>over 50 000 vertices + 50 000 edges, untouched</td><td>12 528</td><td>17 980 778</td></tr>
+<tr><td>the same after 1 % writes (250 added vertices, 250 added edges between base vertices, 250 base vertices modified, 250 base edges dropped)</td><td>206 982</td><td>17 980 778</td></tr>
+</tbody></table>
+</div>
+<p><code>shrink_to_fit()</code> releases the delta's spare capacity. It never touches the base.</p>
+<p>The process memory ceiling (<code>memory.limit</code>, see
+<a href="../users_guide/resource_limits.html">Resource Limits</a>) checks a layer's unit at its commit the
+way it checks a <code>TraversalGraph</code>'s, measured on the layer's own footprint: a unit that grows
+the layer over the ceiling is rolled back. Without a tracking allocator the estimate leaves out
+the shared base, just as it leaves out the other graphs of the process. With the tracking
+allocator the live heap counts everything.</p>
+<p><code>memory_report()</code> on a layer has a structure section (<code>GraphStorage::memory_structure</code>, built
+by <code>Delta::structure</code>): the totals of <code>memory_usage()</code>, the delta's slots (added elements and
+stubs), its id and label indexes and shape table, and <code>base_stubs</code>, <code>removed_base_vertices</code> and
+<code>removed_base_edges</code> (<code>StructureMemory::with_base_changes</code>). <code>MemoryReport::shared_bytes</code> is
+<code>totals.shared_bytes</code>, and the process components add the base as <code>graph</code> with the detail
+<code>shared base</code>. The rows depend on the scope:</p>
+<ul>
+<li><code>MemoryReportScope::All</code> (the default) walks every visible element, base elements included,
+so a report on a layer equals one on the materialized graph row for row. Only <code>structure</code>
+and <code>shared_bytes</code> tell that it is a layer.</li>
+<li><code>MemoryReportScope::Delta</code> (<code>MemoryReportRequest::with_scope</code>, DSL <code>#{scope: "delta"}</code>) skips
+the elements whose <code>vertex_layer</code>/<code>edge_layer</code> is <code>Base</code>. That check is one bit test each, so
+the walk is O(visible elements) in bit tests plus O(delta) in property reads. With an element
+cap (<code>max_elements</code>), a first pass counts the layer's own elements to compute the sampling
+step. The rows of a delta report add up to the layer's <code>memory_usage().property_bytes</code>
+exactly, as a full report of a <code>TraversalGraph</code> does (tested on a 1 % layer). The scope
+applies only when <code>capabilities().layered</code> is set. Every other storage owns all it shows, so
+there <code>Delta</code> reports the whole graph.</li>
+</ul>
+<p>The <code>indexes</code> rows come from <code>property_indexes()</code>, whose <code>bytes</code> are the layer-owned parts
+(masked, delta, and an owned base part): <code>0</code> for a shared index the layer did not touch.</p>
+<h2 id="limitations"><a class="header" href="#limitations">Limitations</a></h2>
+<ul>
+<li>
+<p><strong>Layer snapshots and layer Stores.</strong> A layer implements <code>PersistentStorage</code> (load
+sink, replay of journaled change sets, <code>clear</code>, the journal slot, its own lineage id and
+auto-id sequences). <code>persist::write_snapshot</code> (or <code>write_graph_snapshot</code> of a
+<code>Graph&lt;LayeredGraph&gt;</code>) writes a <strong>layer snapshot</strong>: only the elements the layer added, as
+ordinary segments, plus a layer file (format spec 7.5, segment kind 128) with the base's
+identity and the layer's changes to the base (<code>BasePatch</code> entries by base element id:
+removed vertices and edges, images of changed ones, base definitions it removed). Its size
+follows the delta: a layer touching about 1 % of a 20,000-vertex base wrote under 3 % of the
+base's snapshot. <code>persist::read_layer_snapshot(reader, options, &amp;base)</code> (or
+<code>read_snapshot_into</code> an empty <code>LayeredGraph::over(base)</code>) reads it back over the base:
+the patch first, then the added elements. The kinds must agree (<code>read_snapshot</code> refuses a
+layer snapshot, a layer refuses a whole-graph snapshot: <code>PersistError::SnapshotKindMismatch</code>)
+and so must the base (<code>PersistError::LayerBaseMismatch</code> names both bases: rebuild the layer
+or load it over its own base). The base's own snapshot or Store keeps its identity, so a
+base saved and loaded again carries its layers. A layer snapshot's header, manifest and
+layer file are of file format version 5 (plain snapshots stay at 4), so Graphersal 0.6.x
+and older refuse it as written by a newer version.</p>
+<p>A <strong>layer Store</strong> keeps one layer durable and recoverable on every backend (directory,
+single file, memory): <code>Store::&lt;LayeredGraph&gt;::create_layer(dir, &amp;base, options)</code> (or
+<code>create_layer_with</code> for a layer built in memory) and <code>Store::open_layer(dir, &amp;base, options)</code>. Its snapshots are layer snapshots, its WAL holds the layer's commits; an open
+loads the newest layer snapshot over the base and replays the WAL, as for any store. The
+store records only the base's identity (<code>BaseRef</code>), not where the base lives: the base may be
+a Store opened read-only, a <code>.gsnap</code> or a graph in memory, as long as it is the same graph at
+the same commit. Another base is refused with <code>PersistError::LayerBaseMismatch</code> naming both;
+<code>Store::open</code> of a layer store is refused with <code>StoreFailure::LayerStore</code> (it needs its
+base), <code>open_layer</code> of a plain store with <code>PersistError::SnapshotKindMismatch</code>; all of them
+before the lock and before any file changes, never damage. <code>Store::info</code>/<code>inspect</code> name the
+base (<code>StoreInfo::layer_base</code>; <code>graphersal store info</code> prints it). A checkpoint encodes the
+loaded layer (a merge checkpoint works on whole graphs), so its snapshot stays the size of
+the delta. The embedding models are the base's: the store keeps none, and its graph serves
+the <code>LayerBase</code>'s registry.</p>
+<p>The base a layer store was built over is a <strong>creation parameter</strong>
+(<a href="../persistence/creation_parameters.html">Creation Parameters</a>): every copy carries it. The
+copies and checks of the files work as for a plain store and need no base: backups (full,
+incremental, ZIP, from memory), <code>restore_backup</code>/<code>restore_zip</code>, <code>export_packed</code> (a layer
+<code>.gsnap</code>, read with <code>read_layer_snapshot</code> over the base), <code>verify_dir</code> (every checksum, the
+layer files decoded, the snapshots not loaded; a note says so) and <code>damage_report_dir</code>. What
+loads the layer takes the base: <code>verify</code> of the open store and <code>Store::verify_layer_dir</code>,
+<code>Store::open_layer_read_only</code> and <code>read_only_at</code> of the open store (views over the base,
+serving its models), <code>Store::open_layer_backup</code>, <code>Store::checkpoint_layer_dir</code> (always an
+encoded layer snapshot, never a merge); another base is <code>LayerBaseMismatch</code>, a plain store
+<code>SnapshotKindMismatch</code>, and their plain forms (<code>open_read_only</code>, <code>open_backup</code>,
+<code>checkpoint_dir</code>) refuse a layer store with <code>StoreFailure::LayerStore</code>. A restored backup is a
+layer store over the same base: it opens with <code>open_layer</code> over that base only. A backup of
+a layer store holds no base, so it is <strong>useless without it</strong>: <code>BackupReport::layer_base</code>
+names the base and <code>BackupReport::warnings</code> says so (the CLI prints it). The portable form
+is the <strong>materialized export</strong>: <code>Store::export_materialized(writer, models)</code> (or
+<code>WriteOptions::with_materialize(true)</code> with any snapshot writer) writes the whole graph the
+layer shows as a plain snapshot of file format version 4, which <code>read_snapshot</code>, a plain
+Store and older releases read without the base; its size follows the whole graph. A layer
+store's catalog names the base's models; their blobs are the base's, so verification notes
+them instead of reporting them missing, a layer <code>.gsnap</code> carries none, and a materialized
+export carries them from the base's registry.</p>
+<p>Forks, rollbacks and the attic work on a layer store and keep it a layer over the same
+base: <code>fork</code> and <code>attic_fork</code> of the open store and their closed forms
+<code>Store::fork_layer_dir</code>/<code>Store::attic_fork_layer_dir</code> (with the base; the plain <code>fork_dir</code>/
+<code>attic_fork_dir</code> refuse a layer store) load the layer over its base and write a new layer
+store over it (a new lineage, the creation parameters carried; blobs of the base are not
+listed as "not carried"); <code>rollback_to</code> (to a commit, a time or a mark), <code>attic_restore</code> and
+<code>attic_can_restore</code> reload the layer over its base in place and never rebuild the base's
+model registry, which the base owns (the layer store keeps no model). <code>Store::convert</code>
+copies a layer store byte for byte onto another backend (a new store id, verified without
+the base); <code>Store::upgrade_in_place</code> leaves it as it is and <code>Store::upgrade</code> refuses it as
+current (<code>AlreadyCurrent</code>): a layer store exists only in the current store format.</p>
+<p>Refused for layer stores (<code>StoreFailure::LayerStore</code>, nothing written): the <strong>repair</strong>
+(<code>repair_to</code>, <code>repair_dir</code>): a salvage rebuilds a whole graph from damaged files (chunk
+donors, placeholders for lost elements, divergence against before images, all over a
+<code>TraversalGraph</code>), and a layer store's files hold only the layer's changes to a base the
+salvage does not read; a damaged layer store refuses the open with the damage (no
+maintenance mode): restore a backup of it, or rebuild the layer. The <strong>closed-store catalog
+commits</strong> (<code>import_model_dir</code>, <code>set_default_model_dir</code>, <code>remove_model_dir</code>): they change
+embedding models, which a layer store does not keep and a layer refuses to define. And
+creating a layer store from a <code>.gsnap</code>.</p>
+</li>
+<li>
+<p><strong>The base is a <code>TraversalGraph</code></strong> with fewer than 2^31 vertex slots and fewer than 2^31
+edge slots. Nobody can change it while layers share it: it sits behind the <code>Arc</code>.</p>
+</li>
+<li>
+<p><strong>Refused</strong>, with <code>GraphError::Unsupported</code> ("... not supported on a layered graph yet"):
+compression rule and embedding model definitions in the layer's catalog, and compression
+estimates over element kinds the layer changed.</p>
+</li>
+<li>
+<p><strong>Vector rules</strong> run on the layer's own units with <code>TraversalGraph</code>'s rule pass (the same
+code, generic over the <code>RuleLog</code> trait, <code>graph/vector_rules.rs</code>): the layer compiles the
+rules of its own schema (when it is created, at every schema write and its undo), refuses
+a direct write of a rule's <code>to</code> inside a live unit through the shared write rules (the same
+<code>GraphError::DerivedProperty</code> at the same point), runs the pass at the outermost commit
+before the memory check and in the discard of a dry run, and keeps <code>apply_change_set</code> exempt.
+The derived vectors, errors, rollbacks, journal records and change sets equal a
+<code>TraversalGraph</code>'s with the layer's data. A base with rules costs nothing at creation; a
+vector recomputed to the value a base element holds stores nothing (the equal-value skip),
+so only an element whose sources changed is copied up, except by the first fill of a rule
+the layer adds or changes on a base label, which copies every element of the label it
+writes. <code>PlannedFill::base_copies</code> counts them (exact in <code>validate_schema</code>, the label's
+untouched base elements in <code>diff_schema</code>), from the new capability
+<code>StorageCapabilities::layered</code> and the element origins. Models: the pass finds a catalog
+model in the registry the <code>Graph</code> guard attaches to the thread, so a
+<code>Graph&lt;LayeredGraph&gt;</code> made by <code>LayerBase::new_layer()</code> embeds with the base's models (see
+<a href="#the-base-and-its-models">The base and its models</a>). A bare layer (<code>LayeredGraph::over</code>,
+or <code>Graph::new</code> of one) serves only <code>hash-ngram/1</code>: a rule on a catalog model of the base
+passes the schema check (the catalog is copied) and its pass fails with
+<code>GraphError::VectorRuleFailed</code> ("not served here"), rolling the unit back, as on a
+<code>Graph&lt;TraversalGraph&gt;</code> without the model.</p>
+<p>A base with plain or unique indexes or compression rules is fine: the layer reads it. The
+layer stores its own values uncompressed. <code>compression_stats</code> reports the base's figures.
+The base's unique indexes are enforced over base + delta: every write <code>TraversalGraph</code>
+checks (creates, property and path writes, a label added, an edge relabeled) is checked at
+the same point of its write rule, against the base elements the layer neither dropped nor
+copied up plus the layer's own elements, with the same <code>GraphError::UniqueViolation</code> (index,
+value, the other element's id). A unique index the base keeps disabled is not enforced and
+<code>unique_index_duplicates</code> answers the base's report until the layer drops or redefines it.</p>
+</li>
+<li>
+<p><strong>Indexes the layer defines.</strong> The layer's catalog takes property index definitions as a
+<code>TraversalGraph</code>'s does (same validation, the other index kind's definition of the name
+replaced, the same conflict errors), each define and drop recorded in the layer's undo log
+and change set. A definition equal to the base's (an inherited index, or one dropped and
+defined again) reads the base's index in place. Any other builds a base part of its own
+over <strong>every</strong> base element of its label (a full scan, its bytes in the layer's
+<code>property_index_bytes</code>, never in <code>shared_bytes</code>), so an index on a large base label costs
+that label's index once per layer. A unique define is checked over the layer's data (the
+base elements the layer neither dropped nor copied up plus its own): repeated values keep
+it disabled with the layer's own report, and the front ends refuse it with the same
+<code>DefinitionError::UniqueIndexDuplicates</code> as on a <code>TraversalGraph</code>. Dropping an index (also
+one of the base) removes it for the layer: lookups, plans and unique checks stop using it,
+the base keeps its own. A rollback rebuilds the overlay from the catalog and data as they
+were.</p>
+</li>
+<li>
+<p><strong>Order.</strong> Unordered traversals list the same elements as a <code>TraversalGraph</code> holding the
+same data, and in the same order for every write except these:</p>
+<ul>
+<li>after a drop followed by a create, a <code>TraversalGraph</code> reuses the freed slot and the layer
+appends;</li>
+<li>after a drop or a label removal, a label lookup lists the base bucket minus the removed
+element, where a <code>TraversalGraph</code> moves the bucket's last member into the gap;</li>
+<li>an edge relabeled to a label that also has added edges is listed before those edges.</li>
+</ul>
+<p>Order is not part of the TinkerPop contract for unordered traversals; use <code>order()</code> when it
+matters.</p>
+</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../for_developers/storage_conformance.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../for_developers/serving_layers.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../for_developers/storage_conformance.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../for_developers/serving_layers.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../dsl-highlight.js"></script>
+        <script src="../playground-links.js"></script>
+
+
+    </div>
+    </body>
+</html>
